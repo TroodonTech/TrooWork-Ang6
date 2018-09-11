@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\login",
+    "\\src\\app\\manager-dash-board"
+  ],
+  "SelectedNode": "\\src\\app\\inventory.service.ts",
+  "PreviewInSolutionExplorer": false
+}
