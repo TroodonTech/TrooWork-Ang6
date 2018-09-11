@@ -10,7 +10,7 @@ import { CreatebuildingComponent } from './createbuilding/createbuilding.compone
 import { BuildingEditComponent } from './building-edit/building-edit.component';
 import { WelcomepageComponent } from './welcomepage/welcomepage.component';
 import { CreateEmployeeComponent } from './control-and-view/people/create-employee/create-employee.component';
-import { JobTitleViewComponent } from './control-and-view/people/job-title-view/job-title-view.component';
+// import { JobTitleViewComponent } from './control-and-view/people/job-title-view/job-title-view.component';
 
 const routes: Routes = [
   { path: '',
@@ -40,10 +40,7 @@ const routes: Routes = [
     path: 'addEmployee',
     component: CreateEmployeeComponent
   },
-  {
-    path: 'JobTitleView',
-    component: JobTitleViewComponent
-  }
+  
 ];
 
 
