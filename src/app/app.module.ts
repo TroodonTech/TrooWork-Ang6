@@ -18,6 +18,9 @@ import { BuildingEditComponent } from './building-edit/building-edit.component';
 import { WelcomepageComponent } from './welcomepage/welcomepage.component';
 
 import { CreateEmployeeComponent } from './control-and-view/people/create-employee/create-employee.component';
+import { FloorViewComponent } from './floor-view/floor-view.component';
+import { FloorCreateComponent } from './floor-create/floor-create.component';
+import { FloorEditComponent } from './floor-edit/floor-edit.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { CreateEmployeeComponent } from './control-and-view/people/create-employ
     CreatebuildingComponent,
     BuildingEditComponent,
     WelcomepageComponent,
-    CreateEmployeeComponent
+    CreateEmployeeComponent,
+     FloorViewComponent,
+    FloorCreateComponent,
+    FloorEditComponent
   ],
   imports: [
     BrowserModule,

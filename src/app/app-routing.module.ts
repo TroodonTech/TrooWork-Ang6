@@ -10,6 +10,9 @@ import { CreatebuildingComponent } from './createbuilding/createbuilding.compone
 import { BuildingEditComponent } from './building-edit/building-edit.component';
 import { WelcomepageComponent } from './welcomepage/welcomepage.component';
 import { CreateEmployeeComponent } from './control-and-view/people/create-employee/create-employee.component';
+import { FloorViewComponent } from './floor-view/floor-view.component';
+import { FloorCreateComponent } from './floor-create/floor-create.component';
+import { FloorEditComponent } from './floor-edit/floor-edit.component';
 // import { JobTitleViewComponent } from './control-and-view/people/job-title-view/job-title-view.component';
 
 const routes: Routes = [
@@ -40,6 +43,18 @@ const routes: Routes = [
     path: 'addEmployee',
     component: CreateEmployeeComponent
   },
+  {
+    path: 'Floorview',
+    component: FloorViewComponent
+  },
+  {
+    path:'Createfloor',
+    component: FloorCreateComponent
+  },
+  {
+    path:'Flooredit/:Floor_Key',
+    component: FloorEditComponent
+  }
  
 ];
 

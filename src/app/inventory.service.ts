@@ -40,4 +40,23 @@ export class InventoryService {
       
       
   }
+   getFloors() {
+    return this
+      .http
+      .get('http://localhost:3000/api/getAllfacility_floor?pagenumber='+1+'&itemsPerPage='+25+'&employeekey='+2861+'&OrganizationID='+21);
+  }
+ 
+  createFloors(FacilityKey,FloorName,FloorDescription) {
+    debugger;
+    return this
+      .http
+      .get('http://localhost:3000/api/addnewfloor?FacilityKey='+FacilityKey+'&FloorDescription='+FloorDescription+'&FloorName='+FloorName+'&OrganizationID='+21+'&employeekey='+2861)   
+      .subscribe(res => console.log('Done'));
+    }
+
+      getallBuildingList(){
+        return this
+        .http
+        .get('http://localhost:3000/api/allfacility?empkey='+2861+'&OrganizationID='+21);
+      }
 }
