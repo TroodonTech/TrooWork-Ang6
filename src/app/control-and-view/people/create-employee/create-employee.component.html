@@ -18,10 +18,30 @@
       </div>
     </div>
     <div class="col-md-6">
-      <div class="form-group">
+      <div class="form-group ">
         <label>User Role Type</label><br>
-        <select name="userroletype" style="width: 77%; background-color: #d4f4ff;">
-          <option value="">--Select--</option>
+        <select name="userroletype" style="width: 77%; background-color: #d4f4ff;" class="form-control" [(ngModel)]="hi">
+          <option value="" placeholder>--Select--</option>
+          <option value="">SUPER ADMIN</option>
+          <option value="">ADMIN</option>
+          <option value="">Manager</option>
+          <option value="">Supervisor</option>
+          <option value="">Employee</option>
+          <option value="">SUPER ADMIN</option>
+          <option value="">ADMIN</option>
+          <option value="">Manager</option>
+          <option value="">Supervisor</option>
+          <option value="">Employee</option>
+          <option value="">SUPER ADMIN</option>
+          <option value="">ADMIN</option>
+          <option value="">Manager</option>
+          <option value="">Supervisor</option>
+          <option value="">Employee</option>
+          <option value="">SUPER ADMIN</option>
+          <option value="">ADMIN</option>
+          <option value="">Manager</option>
+          <option value="">Supervisor</option>
+          <option value="">Employee</option>
           <option value="">SUPER ADMIN</option>
           <option value="">ADMIN</option>
           <option value="">Manager</option>
@@ -157,7 +177,7 @@
       </div>
       <div class="form-check form-check-inline">
         <label class="form-check-label" for="materialInline1">Is SuperVisor</label>
-       <input type="checkbox" [(ngModel)]="theCheckbox"  data-md-icheck (change)="toggleVisibility($event)"/>
+        <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" />
       </div>
       <!-- </form> -->
     </div>
@@ -174,11 +194,11 @@
       <div class="form-group" *ngIf="marked">
         <label>SuperVisor</label><br>
         <!-- <div > -->
-          <select name="userroletype" style="width: 80%; background-color: #d4f4ff;">
-            <option value="">--Select--</option>
-            <option value="">Emp1</option>
-            <option value="">Emp2</option>
-          </select>
+        <select name="userroletype" style="width: 80%; background-color: #d4f4ff;">
+          <option value="">--Select--</option>
+          <option value="">Emp1</option>
+          <option value="">Emp2</option>
+        </select>
         <!-- </div> -->
       </div>
 

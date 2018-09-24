@@ -1,0 +1,42 @@
+<app-manager-dash-board></app-manager-dash-board>
+<br><br>
+<div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
+  <br><br>
+  <div style="text-align:center">
+    <h3 style="color: #174a5e;"><strong>RESET PASSWORD</strong></h3>
+  </div>
+
+  <br>
+  <div class="col-md-12">
+    <div class="row col-md-12">
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="username">User Name: </label></h5>
+      <div class="md-form col-md-3" style="text-align:left">
+        <input *ngIf="build" type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+           id="username" [(ngModel)]="build[0].UserId">
+      </div>
+      <div class="col col-md-5"></div>
+    </div>
+    <div class="row col-md-12">
+      <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="Password">Password: </label></h5>
+      <div class="md-form col-md-3" style="text-align:left">
+        <input *ngIf="build" type="password" disabled="disabled" style="background-color: #D4F4FF !important;width: 30rem" class="form-control"
+           id="Password" [(ngModel)]="build[0].Password">
+      </div>
+      <div class="col col-md-5"></div>
+    </div>
+    <div class="row col-md-12">
+      <div class="col col-md-4"></div>
+      <div style="text-align:right" class="col-md-3">
+        <a style="color:white !important" routerLink="/manageLoginCredentials" class="btn btn-success" routerLinkActive="active"
+          (click)="resetUserPassword(build[0].UserId,'troowork',build[0].UserLoginId)"><b>Reset & Send Email</b>
+        </a></div>
+      <div style="text-align:left" class="col-md-3">
+        <a routerLink="/manageLoginCredentials" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go
+            Back
+          </b>
+        </a></div>
+      <div class="col col-md-2"></div>
+    </div>
+  </div>
+  <br><br>
+</div>

@@ -1,0 +1,110 @@
+<div class="row">
+    <!--<div class="firstclass"></div>-->
+
+
+    <div class="col-md-4 top_margin">
+
+        <h5 class="trooworkintro"><p >
+                TrooWork is a program that has been created to greatly 
+                aid Housekeeping and Environmental Services leaders to
+                maximize the productivity of their workforce. TrooWork 
+                is a Cloud based web application that provides real time 
+                data through barcode scanning, photo uploads, customizable
+                supervisory inspection modules, location monitoring of
+                staff members via GPS, and many other helpful tools.
+                The program has been developed with the end user in mind
+                by considering technologically challenged staff members.
+
+            </p></h5>
+
+        <b>
+            <h5 class="trooworkimportance"><b>• Simple to operate user interface with front line staff as the number one priority</b>
+                <br><b>• Advanced filter operations utilizing multiple criteria for viewing data</b>
+                <br><b>• Easy to search daily work order progress reports</b>
+                <br><b>• Ensuring work is completed by actually “putting” the employee in the work area through barcode placement</b>
+                <br><b>• Locate employees geographically via GPS tracking</b>
+                <br><b>• Tracking and scheduling of employee events, trainings, and meetings</b>
+                <br><b>• On the fly inspections through customizable templates with real time reports generated and sent to staff members via email</b>
+                <br><b>• Multiple application interfaces for manager, supervisor, and staff members</b>           
+            </h5>
+        </b>
+
+        <h5 class="trooworkintro"><p>TrooWork has been designed for use with Apple devices 
+                such as iPhone, iPad, and iPods. The application is
+                compatible for all above listed devices running iOS 8.0 and above. 
+                The program has been created with the end user in mind, 
+                attempting to be as simple, efficient, and straight forward
+                as possible.</p></h5>
+
+    </div>   
+    <!--                   <div>
+                             
+                        </div>-->
+    <div  class=" col-md-4 top_margin" >
+        <img src="assets/img/TrooWork-sticker-str.png" class="trooworklogo"/> 
+        <form [formGroup]="loginForm">
+            <!--<p class="h5 text-center mb-4">TrooWork</p>-->
+
+            <div class="md-form">
+                <i class="fa fa-user-circle prefix grey-text"></i>
+                <input type="text" formControlName="userName" id="defaultForm-email" class="form-control" mdbInputDirective #userName>
+                <label for="defaultForm-email">User Name</label>
+            </div>
+            <div class=" mt-5 ">
+                <div class="md-form">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" formControlName="passWord" id="defaultForm-pass" class="form-control" mdbInputDirective #passWord>
+                    <label for="defaultForm-pass">Password</label>
+                </div>
+            </div>
+            <div class=" mt-5 md-form">
+                <i class="fa fa-university prefix grey-text"></i>
+                <input type="text" formControlName="tenantID" id="defaultForm-TenantID" class="form-control" mdbInputDirective #tenantID>
+                <label for="defaultForm-TenantID">Tenant ID</label>
+            </div>   
+
+            <div class="text-center">
+                <a routerLink="/welcomePage"><input type="submit" mdbBtn color="default"(click)="loginFn(userName.value,passWord.value,tenantID.value)" sclass="waves-light" mdbWavesEffect value="Login"></a>
+            </div>
+        </form>
+    </div>    
+
+    <!--                            <br>-->
+
+
+
+
+
+    <!--                  <div>
+                            <div class="col-sm-9 col-md-9 col-lg-9 col-xs-9" >   
+    
+                            <div class="rowplus" ui-sref="product"><i class="glyphicon glyphicon-briefcase"></i>  Product</a>
+                                 <a ui-sref="support" class="btn btn-link-1 btn-link-1-google-plus" ><i class="glyphicon glyphicon-phone-alt"></i>  Support</a>
+                                 <a ui-sref="privacypolicy" class="btn btn-link-1 btn-link-1-google-plus" ><i class="glyphicon glyphicon-lock"></i>  Privacy Policy</a>
+                                 <a class="btn btn-link-1 btn-link-1-google-plus" ui-sref="aboutus"><i class="glyphicon glyphicon-info-sign"></i>  About Us</a>
+                            </div>
+                            </div>
+    -->           
+
+
+
+
+
+
+
+
+
+
+    <div class=" col-md-4 top_margin" >
+        <div>
+            <iframe width="420" height="215" src="https://www.youtube.com/embed/WMAkP2z1Tng" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div>
+            <img src="assets/img/landingimage-3.png" class="landingimage"/>
+        </div>
+    </div>  
+
+
+
+
+</div>

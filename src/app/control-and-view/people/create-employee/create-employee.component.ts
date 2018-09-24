@@ -6,17 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-employee.component.scss']
 })
 export class CreateEmployeeComponent implements OnInit {
-
   marked = true;
   constructor() { }
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   toggleVisibility(e) {
-    if(e.target.checked){
-      this.marked =false;
-    }else{
-      this.marked =true;
+    if (e.target.checked) {
+      this.marked = false;
+    } else {
+      this.marked = true;
     }
     // this.marked = e.target.checked;
   }

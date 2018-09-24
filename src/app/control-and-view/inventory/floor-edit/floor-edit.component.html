@@ -1,0 +1,54 @@
+<app-manager-dash-board></app-manager-dash-board>
+<br><br>
+<div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
+<br><br>
+<div style="text-align:center">
+  <h3 style="color: #174a5e;"><strong>UPDATE FLOOR</strong></h3>
+</div>
+<br>
+<div class="col-md-12">
+    <div class="row col-md-12">
+  <h5 style="margin-top: 2rem;text-align:right" class="col-md-4"><label for="building">Building</label></h5>
+ 
+    <div class="md-form col-md-3" style="text-align:left">
+  
+      <select style="background-color: #D4F4FF !important;width: 30rem" class="form-control"  [(ngModel)]="flooroptions[0].FacilityKey">
+        <option >--Select--</option>
+        
+        <option *ngFor="let f of buildingList" [value]="f.FacilityKey">
+            {{f.FacilityText}}
+        </option>
+    </select>
+    </div>
+    <div class="col col-md-5"></div>
+  </div>
+  <div class="row col-md-12">
+    <h5 style="text-align:right" class="col-md-4"><label for="floorname">Floor Name</label></h5>
+ 
+    <div class="md-form col-md-3" style="text-align:left">
+
+      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" class="form-control" [(ngModel)]="flooroptions[0].FloorName">
+    </div>
+    <div class="col col-md-5"></div>
+  </div>
+  <div class="row col-md-12">
+    <h5 style="text-align:right" class="col-md-4"><label for="floorname">Floor Description</label></h5>
+ 
+    <div class="md-form col-md-3" style="text-align:left">
+
+      <input type="text" style="background-color: #D4F4FF !important;width: 30rem" class="form-control" [(ngModel)]="flooroptions[0].FloorDescription">
+    </div>
+    <div class="col col-md-5"></div>
+  </div>
+  <div class="row col-md-12">
+      <div class="col col-md-3"></div>
+      <div style="text-align:right" class="col-md-3"><a style="color:white !important" routerLink="/Floorview" class="btn btn-success" routerLinkActive="active" (click)="updateFloor(flooroptions[0].FacilityKey,
+        flooroptions[0].FloorKey,flooroptions[0].FloorName,flooroptions[0].FloorDescription)"> <b>UPDATE</b>  
+        </a></div>
+        <div style="text-align:left" class="col-md-3">
+          <a routerLink="/Floorview" class="btn btn-success" style="color:white !important" routerLinkActive="active"><b>Go Back</b></a></div>
+          <div class="col col-md-3"></div>
+  </div>
+</div>
+<br><br>
+</div>
