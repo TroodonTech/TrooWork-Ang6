@@ -1,0 +1,19 @@
+
+<div style="background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;">
+    <div class="col-md-6">
+    <div>
+<h5 style="text-align:right" class="col-md-4"><label> Rating </label></h5>
+<a style="text-align:right" class="col-md-4" *ngFor="let item of starList; let i=index " (click)="setStar(i)">  
+  <i *ngIf="item" class="fa fa-star-o"></i>    
+  <i *ngIf="!item" class="fa fa-star"></i>     
+ </a> 
+ <!-- Rating :- {{rating}} stars   -->
+<br>  <br>  
+<h5 style="text-align:right" class="col-md-4"><label>Comments</label></h5>
+<textarea class="form-control rounded-0" rows="3" [(ngModel)]="comments"></textarea>
+</div>
+</div>
+<div style="text-align:center">
+    <button type="button" style="text-align:center" class="btn btn-success" (click)="SubmitReview()"><b>SUBMIT</b></button>
+  </div>
+</div>

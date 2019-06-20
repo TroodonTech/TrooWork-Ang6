@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ConectionSettings } from './ConnectionSetting';
 
 @Injectable({
   providedIn: 'root'
@@ -7,20 +8,76 @@ import { HttpClient } from '@angular/common/http';
 export class LoginService {
 
   constructor(private http: HttpClient) { }
-     login(userName,passWord,tenantID) {
-    const uri = 'http://localhost:3000/authenticate';
+
+  login(userName, passWord, tenantID) {
+    const uri = ConectionSettings.AbsUrl+'/authenticate';
     const obj = {
-     uname: userName,
+      uname: userName,
       pwd: passWord,
-      tid:tenantID
+      tid: tenantID
     };
-//    debugger;
-   return this.http.post(uri, obj)
-        .subscribe(res => console.log('Done'));
+    return this.http.post(uri, obj);
   }
-  getmessage() {
-             return this
-                    .http
-                    .get(`http://localhost:3000/api/welcomeUpdateMessage?empKey=`+2861+'&OrganizationID='+21);
-    	}
+
+  getmessage(empkey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url+'/welcomeUpdateMessage?empKey=' + empkey + '&OrganizationID=' + orgID);
+  }
+
+  getUserProfileDetails(empKey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url+'/empDetails?SearchKey=' + empKey + '&OrganizationID=' + orgID);
+  }
+  getUserPasswordDetails(empKey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url+'/getLoginDetailsByID?employeekey=' + empKey + '&OrganizationID=' + orgID);
+  }
+
+  setPassword(userName, newPassword, Employeekey, UserLoginId, organizationID) {
+    const uri = ConectionSettings.Url+'/resetPassword';
+    const obj = {
+      username: userName,
+      password: newPassword,
+      employeekey: Employeekey,
+      updatedBy: Employeekey,
+      userloginid: UserLoginId,
+      OrganizationID: organizationID
+    };
+    return this.http.post(uri, obj);
+  }
+
+  getUsermanagerDetails(empKey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url+'/getManagerDetailsByID?employeekey=' + empKey + '&OrganizationID=' + orgID);
+  }
+
+  getUpdateList(empkey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url+'/welcomeUpdateMessage?empKey=' + empkey + '&OrganizationID=' + orgID);
+  }
+
+  getEmpNameForWelcomeMessage(empkey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url+'/welcomeMessage?empKey=' + empkey + '&OrganizationID=' + orgID);
+  }
+  getMaintenanceUpdateMsg(empkey, orgID){
+    return this
+      .http
+      .get(ConectionSettings.Url+'/MaintnancUpdateMsg?empKey=' + empkey + '&OrganizationID=' + orgID);
+  }
+  getimage(employeeid, organisid,imgid) {
+    const uri = ConectionSettings.Url+'/getprofileimgapi';
+    const obj = {
+      empid: employeeid,
+      orgid: organisid,
+      imgid:imgid
+    };
+    return this.http.post(uri, obj);
+  }
 }

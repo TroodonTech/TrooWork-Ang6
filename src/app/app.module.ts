@@ -8,61 +8,40 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AppRoutingModule } from './/app-routing.module';
+import { NgMarqueeModule } from 'ng-marquee';
 
-import { LoginComponent } from './control-and-view/dashboard/login/login.component';
-import { WelcomepageComponent } from './control-and-view/dashboard/welcomepage/welcomepage.component';
-import { ManagerDashBoardComponent } from './control-and-view/dashboard/manager-dash-board/manager-dash-board.component';
+import { CalendarModule } from 'primeng/calendar';
+import { Time } from '@angular/common';
+import { IgxDatePickerModule } from 'igniteui-angular';
 
-import { BuildingViewComponent } from './control-and-view/inventory/building-view/building-view.component';
-import { CreatebuildingComponent } from './control-and-view/inventory/createbuilding/createbuilding.component';
-import { BuildingEditComponent } from './control-and-view/inventory/building-edit/building-edit.component';
-
-import { CreateEmployeeComponent } from './control-and-view/people/create-employee/create-employee.component';
-
-import { FloorViewComponent } from './control-and-view/inventory/floor-view/floor-view.component';
-import { FloorCreateComponent } from './control-and-view/inventory/floor-create/floor-create.component';
-import { FloorEditComponent } from './control-and-view/inventory/floor-edit/floor-edit.component';
-
-import { ManageLoginCredentialsComponent } from './control-and-view/people/manage-login-credentials/manage-login-credentials.component';
-import { ResetPassWordComponent } from './control-and-view/people/reset-pass-word/reset-pass-word.component';
-
-import { ZoneViewComponent } from './control-and-view/inventory/zone-view/zone-view.component';
-import { ZoneEditComponent } from './control-and-view/inventory/zone-edit/zone-edit.component';
-import { ZoneCreateComponent } from './control-and-view/inventory/zone-create/zone-create.component';
-
-import { CreatebuildingService } from './service/createbuilding.service';
+import { GooglePieChartService } from './extra-files/piechart-file/Services/google-pie-chart.service';
+// import { PieChartComponent } from './extra-files/piechart-file/Dashboard/Charts/piechart.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
+import { NgDatepickerModule} from 'ng2-datepicker';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    WelcomepageComponent,
-    BuildingViewComponent,
-    ManagerDashBoardComponent,
-    CreatebuildingComponent,
-    BuildingEditComponent,
-    CreateEmployeeComponent,
-    FloorViewComponent,
-    FloorCreateComponent,
-    FloorEditComponent,
-    ManageLoginCredentialsComponent,
-    ResetPassWordComponent,
-    ZoneViewComponent,
-    ZoneEditComponent,
-    ZoneCreateComponent
+    
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MDBBootstrapModule.forRoot(),
-    FormsModule,
-    ReactiveFormsModule,
+    // FormsModule,
+    // ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgMarqueeModule,
+    // CalendarModule,
+    // IgxDatePickerModule,NgDatepickerModule,
+    // NgMultiSelectDropDownModule.forRoot()
   ],
-  providers: [CreatebuildingComponent, CreatebuildingService],
+  providers: [ GooglePieChartService],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {
+  time: Time; //for timepicker
+}
