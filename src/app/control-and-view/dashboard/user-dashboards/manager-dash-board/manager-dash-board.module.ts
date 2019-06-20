@@ -532,7 +532,12 @@ const routes: Routes = [
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/scheduling/editshift/editshift.module#EditshiftModule',
 
-      }
+      },
+      {
+        path: 'Scheduler',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/people/schedulerNew/scheduler.module#SchedulerModule',
+      },
     ]
   }
 ];

@@ -15366,7 +15366,100 @@ app.get(securedpath + '/inspectionPhotoUpload', function (req, res) {
     });
 });
 
+//********Scheduler************API BY varun starts
 
+app.get(securedpath + '/employeesForScheduler', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+  
+    var empkey = url.parse(req.url, true).query['empkey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+  
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @empkey=?;set @OrganizationID=?; call usp_employeesForScheduler(@empkey,@OrganizationID)', [ empkey, OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.options('/SchedulerEventCreate', supportCrossOriginScript);
+app.post(securedpath + '/SchedulerEventCreate',supportCrossOriginScript, function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var resourceEmployee = req.body.resourceEmployee;
+    var start = req.body.start;
+    var ScheduleNameKey = req.body.ScheduleNameKey;
+    var MetaEmp = req.body.MetaEmp;
+    var OrganizationID = req.body.OrganizationID;
+
+    pool.getConnection(function (err, connection) {
+
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @resourceEmployee=?; set @start=?; set @ScheduleNameKey=?; set @MetaEmp=?; set@OrganizationID=?; call usp_SchedulerEventCreate(@resourceEmployee,@start,@ScheduleNameKey,@MetaEmp,@OrganizationID)', [resourceEmployee, start,ScheduleNameKey,MetaEmp,OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("deleteScheduledRoomslistbyscheduleroomid " + JSON.stringify(rows[5]));
+                    res.end(JSON.stringify(rows[5]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+//********Scheduler************API BY varun ends
+
+//********Scheduler************API by Rodney starts
+
+app.get(securedpath + '/employeeCalendarDetailsForScheduler', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var dateRange = url.parse(req.url, true).query['dateRange'];
+    var startDate = url.parse(req.url, true).query['startDate'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @startDate=?;set @dateRange=?;set @OrganizationID=?; call usp_getEmpDetailsFromEmpCalendar(@startDate,@dateRange,@OrganizationID)', [startDate, dateRange, OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[3]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+
+//********Scheduler************API by Rodney ends
 
 /*************END MIGRATE CODE**********************************************************/
 //handle generic exceptions
