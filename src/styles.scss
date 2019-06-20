@@ -8727,7 +8727,10 @@
   }
   
   .visible {
+    
     visibility: visible !important;
+    transform: translateY(0px) !important;
+    display: block !important;
   }
   
   .invisible {
