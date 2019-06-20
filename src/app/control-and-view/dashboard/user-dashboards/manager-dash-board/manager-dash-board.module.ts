@@ -538,6 +538,11 @@ const routes: Routes = [
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/people/schedulerNew/scheduler.module#SchedulerModule',
       },
+      {
+        path: 'ViewSchedulerForEmployee',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/people/view-employee-scheduler/view-employee-scheduler.module#ViewEmployeeSchedulerModule',
+      },
     ]
   }
 ];
