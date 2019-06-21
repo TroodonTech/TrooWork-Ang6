@@ -13,6 +13,8 @@ import { ViewEmployeesofEventComponent } from './view-employeesof-event/view-emp
 import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 import { EditEmployeedetailsComponent } from './edit-employeedetails/edit-employeedetails.component';
 import { SettingusernameandpswrdaftremplcreatebymanComponent } from './settingusernameandpswrdaftremplcreatebyman/settingusernameandpswrdaftremplcreatebyman.component';
+import { SchedulerComponent } from './schedulerNew/scheduler.component';
+import { ViewEmployeeSchedulerComponent } from './view-employee-scheduler/view-employee-scheduler.component';
 
 
 @NgModule({
@@ -28,6 +30,12 @@ import { SettingusernameandpswrdaftremplcreatebymanComponent } from './settingus
     MeetingTrainingViewComponent, 
     EventEditComponent, 
     EventViewComponent, 
-    ViewEmployeesofEventComponent, ViewEmployeeComponent, EditEmployeedetailsComponent, SettingusernameandpswrdaftremplcreatebymanComponent]
+    ViewEmployeesofEventComponent, 
+    ViewEmployeeComponent, 
+    EditEmployeedetailsComponent, 
+    SettingusernameandpswrdaftremplcreatebymanComponent,
+    SchedulerComponent,
+    ViewEmployeeSchedulerComponent
+  ]
 })
 export class PeopleModule { }

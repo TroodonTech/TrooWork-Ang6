@@ -298,12 +298,14 @@ export class SchedulingService {
   // @Author:Rodney starts
 
   empCalendarDetails(dateRange, startDate, OrgID) {
-
     return this
       .http
       .get(ConectionSettings.Url + '/employeeCalendarDetailsForScheduler?dateRange=' + dateRange + '&startDate=' + startDate + '&OrganizationID=' + OrgID);
-
   }
-
+  empCalendarDetailsForViewOnly(dateRange, startDate, OrgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/employeeCalendarDetailsForSchedulerOnlyForView?dateRange=' + dateRange + '&startDate=' + startDate + '&OrganizationID=' + OrgID);
+  }
   // @Author:Rodney ends
 }

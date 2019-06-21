@@ -29,6 +29,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
           <label>View Range*</label>
            <select [(ngModel)]="Range" (change)='ViewType();empCalendarActivities();' class="form-control col-sm-9 col-md-9 col-lg-9" [value]="value" style="background-color: #d4f4ff;">
               <option value="">--Select--</option>
+              <option value="Daily">Daily</option>
               <option value="Week">Week</option>
               <option value="Month">Month</option>
           </select>
@@ -210,7 +211,7 @@ export class SchedulerComponent implements AfterViewInit {
       this.MovingFromDate = this.convert_DT(args.e.data.start);
       console.log(" date :" + this.MovingToDate);
     },
-    onEventResize : args => {
+    onEventResize: args => {
       args.cell.disabled = true;
     }
 
@@ -272,6 +273,22 @@ export class SchedulerComponent implements AfterViewInit {
   ViewType() {
 
     if (this.Range == 'Month') {
+      this.config.timeHeaders = [
+        {
+          "groupBy": "Month"
+        },
+        {
+          "groupBy": "Day",
+          "format": "dddd"
+        },
+
+        {
+          "groupBy": "Day",
+          "format": "d"
+        }
+      ];
+      this.config.scale = "Day";
+      this.config.cellDuration = 120;
       this.config.days = DayPilot.Date.today().daysInMonth();
       if (this.date) {
         this.config.startDate = this.date;
@@ -279,20 +296,61 @@ export class SchedulerComponent implements AfterViewInit {
       else {
         this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
       }
-    } else {
+    } else if (this.Range == 'Week') {
+      this.config.timeHeaders = [
+        {
+          "groupBy": "Month"
+        },
+        {
+          "groupBy": "Day",
+          "format": "d"
+        }
+      ];
+      this.config.scale = "Day";
+      this.config.cellDuration = 120;
       this.config.days = 7;
-      var d = this.date;
-      var day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6 : 2);
-      var k = new Date(d.setDate(diff));
-      this.config.startDate = this.convert_DT(k);
+      // var d = this.date;
+
+      // var weekdate = d.setDate(this.date + 7);
+      // var day = d.getDay();
+      // var diff = d.getDate() - day + (day == 0 ? -6 : 2);
+      // var k = new Date(d.setDate(diff));
+      this.config.startDate = this.convert_DT(this.date);
     }
+    // ...
+    else if (this.Range == 'Daily') {
+      this.config.timeHeaders = [
+        {
+          "groupBy": "Day",
+          "format": "dddd, d MMMM yyyy"
+        },
+        {
+          "groupBy": "Hour"
+        },
+        {
+          "groupBy": "Cell",
+          "format": "mm"
+        }
+      ];
+      this.config.scale = "CellDuration";
+      this.config.cellDuration = 30;
+      this.config.days = 1;
+      if (this.date) {
+        this.config.startDate = this.date;
+      }
+      else {
+        this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
+      }
+
+    }
+
+    // ...
   }
   selecteddate() {
     if (this.Range == 'Week') {
       var d = this.date;
-      var day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6 : 2);
+      var day = d.getDay();
+      var diff = d.getDate() - day + (day == 0 ? -6 : 2);
       var k = new Date(d.setDate(diff));
       this.config.startDate = this.convert_DT(k);
     }
@@ -307,12 +365,13 @@ export class SchedulerComponent implements AfterViewInit {
   }
 
   empCalendarActivities() {
+
     this.SchedulingService
       .empCalendarDetails(this.Range, this.convert_DT(this.date), this.OrganizationID)
       .subscribe((data: any[]) => {
         this.events = data;
       });
-   }
-  
+  }
+
 }
 
