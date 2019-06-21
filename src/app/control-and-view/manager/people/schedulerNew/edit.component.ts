@@ -138,13 +138,17 @@ export class EditComponent implements OnInit{
       end: ev.end().toString(this.dateFormat),
       name: ev.text(),
       resource: ev.resource(),
-      // ScheduleNameKey:ev.data.ScheduleNameKey,
-      // ScheduleName:ev.data.ScheduleName
+     
     });
+    // var currDate=new Date();
     this.AssignIDForDelete=ev.data.Assignment_CalenderID
     this.BatchScheduleNameKeyEdit=ev.data.ScheduleNameKey;
     this.ScheduleNameEdit=ev.data.ScheduleName;
     this.DateEdit=this.convert_DT(ev.data.start);
+    // if(this.DateEdit < this.convert_DT(currDate)){
+    //   alert("Please check date !");
+    //   return;
+    // }
     if(ev.data.moveDisabled!=1){ 
     this.modal.show();
     }
@@ -153,13 +157,17 @@ export class EditComponent implements OnInit{
   }
 
   submitEdit() {
-  
+    // var currDate=new Date();
     // let data = this.form.getRawValue();
  var date=this.convert_DT(this.DateEdit)
  if(!(this.BatchScheduleNameKeyEdit)){
   alert("Please provide Assignment Name !");
   return;
 }
+// if(this.DateEdit < this.convert_DT(currDate)){
+//   alert("Please check date !");
+//   return;
+// }
     // modify the original object from [events] which is stored in event.data
     this.event.data.start =date
     this.event.data.end =date

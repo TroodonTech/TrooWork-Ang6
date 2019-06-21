@@ -128,8 +128,7 @@ export class CreateComponent implements OnInit{
   };
 
   show(args: any) {
-    // this.start=args.start.toString(this.dateFormat);
-    // this.end=args.end.toString(this.dateFormat);
+    
     this.resource=args.resource;
     this.BatchScheduleNameKey='';
     this.Date=args.start;
@@ -138,11 +137,16 @@ export class CreateComponent implements OnInit{
 
   submit() {
   
+  // var currDate=new Date();
     // let data = this.form.getRawValue();
     if(!(this.BatchScheduleNameKey)){
       alert("Please provide Assignment Name !");
       return;
     }
+    // if(this.convert_DT(this.Date.value) < this.convert_DT(currDate)){
+    //   alert("Please check date !");
+    //   return;
+    // }
 
      let params : CreateEventParams = {
        
@@ -155,15 +159,7 @@ export class CreateComponent implements OnInit{
       backColor: "White",
       moveDisabled:false
     };
-    // let params : CreateEventParams = {
-      
-    //   resource: "R1",
-    //   start: "2018-08-03",
-    //   end: "2018-08-15",
-    //   text: "MH100 - Corridors",
-    //   ScheduleName: "MH100 - Corridors",
-    //   ScheduleNameKey:"183"
-    // }
+  
     let  obj = {
       resourceEmployee: this.resource,
       start:this.convert_DT(this.Date) ,

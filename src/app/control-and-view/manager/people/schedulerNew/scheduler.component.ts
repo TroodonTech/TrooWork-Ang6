@@ -195,7 +195,9 @@ export class SchedulerComponent implements AfterViewInit {
        
         this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
           this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID,this.employeekey, this.OrganizationID).subscribe(data => {
+            this.empCalendarActivities();
             alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
+
           });
         });
       } else {
