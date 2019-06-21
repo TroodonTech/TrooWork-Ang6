@@ -288,6 +288,11 @@ export class SchedulingService {
     const url = ConectionSettings.Url + "/SchedulerEventUpdate";
     return this.http.post(url, obj);
   }
+  SchedulerEventDelete(Assignment_CalenderID,empkey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/SchedulerEventDelete?Assignment_CalenderID='+Assignment_CalenderID+'&empkey=' + empkey + '&OrganizationID=' + orgID);
+  }
   //varun code ends
 
   // @Author:Rodney starts

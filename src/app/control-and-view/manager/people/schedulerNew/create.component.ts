@@ -4,6 +4,7 @@ import {Validators, FormBuilder, FormGroup, FormControl} from "@angular/forms";
 import {DataService, CreateEventParams} from "./data.service";
 import { SchedulingService } from '../../../../service/scheduling.service';
 import { DatepickerOptions } from 'ng2-datepicker';
+import { ActivatedRoute, Router  } from "@angular/router";
 
 @Component({
   selector: 'create-dialog',
@@ -65,7 +66,7 @@ export class CreateComponent implements OnInit{
   scheduleNameList;
   params;
   Date;
-  constructor(private fb: FormBuilder, private ds: DataService,private SchedulingService:SchedulingService) {
+  constructor(private fb: FormBuilder, private ds: DataService,private SchedulingService:SchedulingService,private router: Router) {
     this.form = this.fb.group({
       name: ["", Validators.required],
       start: ["", this.dateTimeValidator(this.dateFormat)],
@@ -73,7 +74,21 @@ export class CreateComponent implements OnInit{
       resource: ["", Validators.required]
     });
 
-    this.ds.getResources().subscribe(result => this.resources = result);
+    // this.ds.getResources().subscribe(result => this.resources = result);
+
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){// code for Refresh
+      return false;
+   }
+
+   this.router.events.subscribe((evt) => {
+   
+         // trick the Router into believing it's last link wasn't previously loaded
+         this.router.navigated = false;
+         // if you need to scroll back to top, here is the right place
+         window.scrollTo(0, 0);
+      
+  });
+
   }
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -158,6 +173,7 @@ export class CreateComponent implements OnInit{
     };
     this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
       alert("Event has been Created !");
+      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
     });
     this.ds.createEvent(params).subscribe(result => {
  

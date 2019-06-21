@@ -5,6 +5,7 @@ import {Validators, FormBuilder, FormGroup, FormControl} from "@angular/forms";
 import {DataService, CreateEventParams, EventData, UpdateEventParams} from "./data.service";
 import { SchedulingService } from '../../../../service/scheduling.service';
 import { DatepickerOptions } from 'ng2-datepicker';
+import { ActivatedRoute, Router  } from "@angular/router";
 
 @Component({
   selector: 'edit-dialog',
@@ -30,7 +31,8 @@ import { DatepickerOptions } from 'ng2-datepicker';
           </div>
       </div>
       <button (click)='submitEdit()'>Submit</button>
-      <button (click)='cancel()'>close</button>
+      <button (click)='cancel()'>close</button>      
+      <button (click)='delete()'>Delete</button>
   </div>
 </daypilot-modal>
   `,
@@ -84,7 +86,8 @@ export class EditComponent implements OnInit{
   BatchScheduleNameKeyEdit;
   BatchScheduleNameKey;
   DateEdit;
-  constructor(private fb: FormBuilder, private ds: DataService,private SchedulingService:SchedulingService) {
+  AssignIDForDelete;
+  constructor(private fb: FormBuilder, private ds: DataService,private SchedulingService:SchedulingService,private router: Router) {
     this.form = this.fb.group({
       name: ["", Validators.required],
       start: ["", this.dateTimeValidator(this.dateFormat)],
@@ -93,6 +96,19 @@ export class EditComponent implements OnInit{
     });
 
     this.ds.getResources().subscribe(result => this.resources = result);
+
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){// code for Refresh
+      return false;
+   }
+
+   this.router.events.subscribe((evt) => {
+   
+         // trick the Router into believing it's last link wasn't previously loaded
+         this.router.navigated = false;
+         // if you need to scroll back to top, here is the right place
+        //  window.scrollTo(0, 0);
+      
+  });
   }
   options: DatepickerOptions = {
     minYear: 1970,
@@ -115,7 +131,7 @@ export class EditComponent implements OnInit{
     return [date.getFullYear(), mnth, day].join("-");
   };
   show(ev: DayPilot.Event) {
- debugger;
+    return new Promise((resolve) => {
     this.event = ev;
     this.form.setValue({
       start: ev.start().toString(this.dateFormat),
@@ -125,16 +141,19 @@ export class EditComponent implements OnInit{
       // ScheduleNameKey:ev.data.ScheduleNameKey,
       // ScheduleName:ev.data.ScheduleName
     });
+    this.AssignIDForDelete=ev.data.Assignment_CalenderID
     this.BatchScheduleNameKeyEdit=ev.data.ScheduleNameKey;
     this.ScheduleNameEdit=ev.data.ScheduleName;
     this.DateEdit=this.convert_DT(ev.data.start);
     if(ev.data.moveDisabled!=1){ 
     this.modal.show();
     }
+    resolve(); 
+    });
   }
 
   submitEdit() {
-    debugger;
+  
     // let data = this.form.getRawValue();
  var date=this.convert_DT(this.DateEdit)
  if(!(this.BatchScheduleNameKeyEdit)){
@@ -154,10 +173,12 @@ export class EditComponent implements OnInit{
       start:this.convert_DT(this.event.data.start) ,
       ScheduleNameKey:this.BatchScheduleNameKeyEdit,
       MetaEmp:this.employeekey,
-      OrganizationID: this.OrganizationID
+      OrganizationID: this.OrganizationID,
+      Assignment_CalenderID:this.event.data.Assignment_CalenderID
     };
-    this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
+    this.SchedulingService.SchedulerEventUpdate(obj).subscribe(data => {
       alert("Event has been Updated !");
+      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
     });
     this.ds.updateEvent(this.event).subscribe(result => {
       this.modal.hide(result);
@@ -179,6 +200,15 @@ export class EditComponent implements OnInit{
     };
   }
 
+  delete(){
+    var confirmBox = confirm("Do you want to Delete ?");
+      if (confirmBox == true) {
+        this.SchedulingService.SchedulerEventDelete(this.AssignIDForDelete,this.employeekey, this.OrganizationID).subscribe(data => {
+          alert("Sucessfully Deleted !");
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+        });
+      }
+  }
   ngOnInit() {
 
     //token starts....

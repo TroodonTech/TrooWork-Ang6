@@ -15426,6 +15426,64 @@ app.post(securedpath + '/SchedulerEventCreate',supportCrossOriginScript, functio
     });
 });
 
+app.options('/SchedulerEventUpdate', supportCrossOriginScript);
+app.post(securedpath + '/SchedulerEventUpdate',supportCrossOriginScript, function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var resourceEmployee = req.body.resourceEmployee;
+    var start = req.body.start;
+    var ScheduleNameKey = req.body.ScheduleNameKey;
+    var MetaEmp = req.body.MetaEmp;
+    var OrganizationID = req.body.OrganizationID;
+    var Assignment_CalenderID = req.body.Assignment_CalenderID;
+    pool.getConnection(function (err, connection) {
+
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @resourceEmployee=?; set @start=?; set @ScheduleNameKey=?; set @MetaEmp=?; set@OrganizationID=?; set@Assignment_CalenderID=?; call usp_SchedulerEventUpdate(@resourceEmployee,@start,@ScheduleNameKey,@MetaEmp,@OrganizationID,@Assignment_CalenderID)', [resourceEmployee, start,ScheduleNameKey,MetaEmp,OrganizationID,Assignment_CalenderID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("SchedulerEventUpdate " + JSON.stringify(rows[6]));
+                    res.end(JSON.stringify(rows[6]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/SchedulerEventDelete', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var Assignment_CalenderID = url.parse(req.url, true).query['Assignment_CalenderID'];
+    var empkey = url.parse(req.url, true).query['empkey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+  
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @Assignment_CalenderID=?; set @empkey=?;set @OrganizationID=?; call usp_SchedulerEventDelete(@Assignment_CalenderID,@empkey,@OrganizationID)', [Assignment_CalenderID, empkey, OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[3]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //********Scheduler************API BY varun ends
 
 //********Scheduler************API by Rodney starts

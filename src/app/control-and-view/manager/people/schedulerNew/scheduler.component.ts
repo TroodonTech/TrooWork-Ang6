@@ -1,5 +1,6 @@
 import { Component, ViewChild, AfterViewInit, ChangeDetectorRef, OnInit } from "@angular/core";
-import { DayPilot, DayPilotSchedulerComponent, } from "daypilot-pro-angular";
+import { DayPilot, DayPilotSchedulerComponent,DayPilotModalComponent } from "daypilot-pro-angular";
+import {  } from "daypilot-pro-angular";
 import { DataService } from "./data.service";
 import { CreateComponent } from "./create.component";
 import { EditComponent } from "./edit.component";
@@ -57,7 +58,7 @@ export class SchedulerComponent implements AfterViewInit {
   constructor(private ds: DataService, private cdr: ChangeDetectorRef, private SchedulingService: SchedulingService) {
     this.Range = 'Month';
   }
-
+  @ViewChild("modal") modal : DayPilotModalComponent;
   @ViewChild("scheduler") scheduler: DayPilotSchedulerComponent;
   @ViewChild("create") create: CreateComponent;
   @ViewChild("edit") edit: EditComponent;
@@ -146,14 +147,20 @@ export class SchedulerComponent implements AfterViewInit {
     bubble: new DayPilot.Bubble({
       animation: "fast"
     }),
-    timeRangeSelectedHandling: "Enabled",
+    timeRangeSelectedHandling: 'Hold',
     contextMenu: new DayPilot.Menu({
       items: [
         { text: "Edit", onClick: args => this.edit.show(args.source) },
       ]
     }),
     onEventClicked: args => {
-      this.edit.show(args.e);
+      this.edit.show(args.e).then(data1 => {
+
+        this.empCalendarActivities();
+      });
+    },
+    onTimeRangeSelect:args=> {
+ 
     },
     onTimeRangeSelected: args => {
       this.create.show(args);
@@ -174,11 +181,22 @@ export class SchedulerComponent implements AfterViewInit {
         }
       }
 
-
+      let  obj = {
+        resourceEmployee: this.MovingToEmpKey,
+        start:this.MovingToDate ,
+        ScheduleNameKey: args.e.data.ScheduleNameKey,
+        MetaEmp:this.employeekey,
+        OrganizationID: this.OrganizationID
+      };
+      
       var confirmBox = confirm("Do you want to Move" + " ?");
       if (confirmBox == true) {
-        alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
-
+       
+        this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
+          this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID,this.employeekey, this.OrganizationID).subscribe(data => {
+            alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
+          });
+        });
       } else {
         args.preventDefault();
       }
@@ -295,6 +313,6 @@ export class SchedulerComponent implements AfterViewInit {
         this.events = data;
       });
    }
-
+  
 }
 
