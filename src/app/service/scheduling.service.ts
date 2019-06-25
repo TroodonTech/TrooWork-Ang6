@@ -224,16 +224,17 @@ export class SchedulingService {
       .get(ConectionSettings.Url + '/allWorkOrderTypeWithOutQuickNew?empkey=' + emp_key + '&OrganizationID=' + org_id);
   }
   //Pooja's code starts
-  createEmpShiftwithColourCode(Description, Abbrevation, publishas, newTime1, paidhours, newTime2, color, OrganizationID, employeekey) {
+  // createEmpShiftwithColourCode(Description, Abbrevation, publishas, newTime1, paidhours, newTime2, color, OrganizationID, employeekey) {
+  createEmpShiftwithColourCode(Description, OrganizationID, employeekey) {
     const url = ConectionSettings.Url + "/saveEmployeeShift";
     const obj = {
       desc: Description,
-      abbr: Abbrevation,
-      publishas: publishas,
-      time1: newTime1,
-      paidhours: paidhours,
-      time2: newTime2,
-      color: color,
+      // abbr: Abbrevation,
+      // publishas: publishas,
+      // time1: newTime1,
+      // paidhours: paidhours,
+      // time2: newTime2,
+      // color: color,
       orgid: OrganizationID,
       empkey: employeekey
     }
@@ -256,17 +257,19 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/getShiftsforEditing?shiftkey=' + shiftk$ + '&OrgID=' + OrganizationID);
   }
-  updateShiftDetails(shiftk$, Description, Abbrevation, PublishAs, newTime, PaidHours, newTime1, Colour, OrganizationID, employeekey) {
+  updateShiftDetails(shiftk, Description,
+    // Abbrevation, PublishAs, newTime, PaidHours, newTime1, Colour,
+    OrganizationID, employeekey) {
     const url = ConectionSettings.Url + "/updateEmployeeShiftDetails";
     const obj = {
-      shiftkey: shiftk$,
+      shiftkey: shiftk,
       desc: Description,
-      abbr: Abbrevation,
-      publishas: PublishAs,
-      time1: newTime,
-      paidhours: PaidHours,
-      time2: newTime1,
-      color: Colour,
+      // abbr: Abbrevation,
+      // publishas: PublishAs,
+      // time1: newTime,
+      // paidhours: PaidHours,
+      // time2: newTime1,
+      // color: Colour,
       orgid: OrganizationID,
       empkey: employeekey
     }
@@ -288,10 +291,10 @@ export class SchedulingService {
     const url = ConectionSettings.Url + "/SchedulerEventUpdate";
     return this.http.post(url, obj);
   }
-  SchedulerEventDelete(Assignment_CalenderID,empkey, orgID) {
+  SchedulerEventDelete(Assignment_CalenderID, empkey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/SchedulerEventDelete?Assignment_CalenderID='+Assignment_CalenderID+'&empkey=' + empkey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/SchedulerEventDelete?Assignment_CalenderID=' + Assignment_CalenderID + '&empkey=' + empkey + '&OrganizationID=' + orgID);
   }
   //varun code ends
 
@@ -302,10 +305,15 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/employeeCalendarDetailsForScheduler?dateRange=' + dateRange + '&startDate=' + startDate + '&OrganizationID=' + OrgID);
   }
-  empCalendarDetailsForViewOnly(dateRange, startDate, OrgID) {
+  empCalendarDetailsForViewOnly(empkey, dateRange, startDate, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/employeeCalendarDetailsForSchedulerOnlyForView?dateRange=' + dateRange + '&startDate=' + startDate + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/employeeCalendarDetailsForSchedulerOnlyForView?dateRange=' + dateRange + '&startDate=' + startDate + '&empKey=' + empkey + '&OrganizationID=' + OrgID);
+  }
+  employeesViewOnlyForScheduler(empkey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/employeesViewOnlyForScheduler?empkey=' + empkey + '&OrganizationID=' + orgID);
   }
   // @Author:Rodney ends
 }

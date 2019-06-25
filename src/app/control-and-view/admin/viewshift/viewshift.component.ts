@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { SchedulingService } from '../../../../service/scheduling.service';
+import { Component, OnInit, HostListener, Input, ElementRef } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { SchedulingService } from '../../../service/scheduling.service';
 @Component({
   selector: 'app-viewshift',
   templateUrl: './viewshift.component.html',
@@ -15,7 +16,7 @@ export class ViewshiftComponent implements OnInit {
 
   shiftdetails;
   delete_shiftKey;
-
+  grpID;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -37,7 +38,7 @@ export class ViewshiftComponent implements OnInit {
 
   ngOnInit() {
     //token starts....
-    
+
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -49,19 +50,38 @@ export class ViewshiftComponent implements OnInit {
 
     //token ends
 
-    this.scheduleServ.getShifts(this.employeekey,this.OrganizationID).subscribe((data: any[]) => {
-      this.shiftdetails =data;
+    this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+      this.shiftdetails = data;
     });
   }
   deleteShiftPass(Idemployeeshift) {
     this.delete_shiftKey = Idemployeeshift;
   }
-  deleteShift(){
-    this.scheduleServ.removeEmployeeShift(this.delete_shiftKey,this.employeekey,this.OrganizationID).subscribe((data: any[]) => {
+  deleteShift() {
+    this.scheduleServ.removeEmployeeShift(this.delete_shiftKey, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
       alert("Shift deleted successfully");
-      this.scheduleServ.getShifts(this.employeekey,this.OrganizationID).subscribe((data: any[]) => {
-        this.shiftdetails =data;
+      this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+        this.shiftdetails = data;
       });
     });
+  }
+
+  changeDisable(indexVal) {
+    this.grpID = indexVal;
+  }
+
+
+  cancelGrpName() {
+    this.grpID = -1;
+
+    this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+      this.shiftdetails = data;
+    });
+  }
+
+  updateGrpName(grpName,grpnameid){
+    this.scheduleServ.updateShiftDetails(grpnameid,grpName,this.OrganizationID,this.employeekey).subscribe((data: any[]) => {
+      alert("Group Name updated Successfully")
+     });
   }
 }

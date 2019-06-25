@@ -45,6 +45,11 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
         loadChildren: '../../user-password-changes/employee-change-password/employee-change-password.module#EmployeeChangePasswordModule',
 
       },
+      {
+        path: 'ViewSchedulerForEmployee',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../manager/people/view-employee-scheduler/view-employee-scheduler.module#ViewEmployeeSchedulerModule',
+      },
      ]
   }
 ];

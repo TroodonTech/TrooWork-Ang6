@@ -1,0 +1,66 @@
+<div
+  style="padding-left: 9rem;padding-right: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;overflow: hidden">
+  <div class="row col-md-12 ">
+    <h4 style="margin-left: 40%;">CREATE EMPLOYEE GROUP NAME</h4>
+  </div><br>
+  <div class="row bg-info col-md-12" style="padding-top: 3rem;padding-bottom: 2rem">
+    <br>
+    <!-- <div class="col-md-5" style="text-align: center"> -->
+    <div class="form-group col" style="margin-left: 30%;">
+      <label>Group Name</label>
+      <!-- <input type="text" name="desc" class="form-control col-sm-9 col-md-9 col-lg-9" maxlength="20"
+          placeholder="Description" [(ngModel)]="Description"> -->
+    </div>
+    <!-- </div>
+    <div class="col-md-7"> -->
+    <div class="form-group col" style="margin-left: -50%;">
+      <!-- <label class="form-control col-sm-3 col-md-3 col-lg-3 ">Group Name</label> -->
+      <input type="text" name="desc" maxlength="20" class="form-control" placeholder="Description" style="width: 70%;"
+        [(ngModel)]="Description">
+    </div>
+    <!-- </div> -->
+    <!-- <div class="col-md-6 ">
+      <div class="form-group">
+        <label>Abbreviation</label>
+        <input type="text" name="abb" class="form-control col-sm-9 col-md-9 col-lg-9" maxlength="15"
+          placeholder="Abbrevation" [(ngModel)]="Abbrevation">
+      </div>
+    </div> -->
+    <!-- <div class="col-md-6 ">
+      <div class="form-group">
+        <label>Publish as</label>
+        <input type="text" name="publish" class="form-control col-sm-9 col-md-9 col-lg-9" maxlength="15"
+          [(ngModel)]="publishas">
+      </div>
+    </div> -->
+    <!-- <div class="col-md-6 ">
+      <div class="form-group">
+        <label>Start Time</label>&nbsp;
+        <p-calendar [inputStyle]="{'width':'155%'}" [(ngModel)]="time1" [timeOnly]="true" hourFormat="12"></p-calendar>
+      </div>
+    </div> -->
+    <!-- <div class="col-md-6 ">
+      <div class="form-group">
+        <label>Paid hours</label>
+        <input type="text" name="paidhrs" class="form-control col-sm-9 col-md-9 col-lg-9" maxlength="15"
+          [(ngModel)]="paidhours">
+      </div>
+    </div> -->
+    <!-- <div class="col-md-6 ">
+      <div class="form-group">
+        <label>End Time</label>&nbsp;
+        <p-calendar [inputStyle]="{'width':'155%'}" [(ngModel)]="time2" [timeOnly]="true" hourFormat="12"></p-calendar>
+      </div>
+    </div> -->
+    <!-- <div class="col-md-6 ">
+      <div class="form-group">
+        <label>Colour</label>&nbsp;
+        <input [(colorPicker)]="color" [style.background]="color" class="form-control col-sm-9 col-md-9 col-lg-9" /> -->
+    <!-- (colorPickerChange)="colourchange()"  -->
+    <!-- </div>
+    </div> -->
+    <div class="row col-md-12" style="margin-left: 45%">
+      <button type="button" style="text-align:center" class="btn btn-success"
+        (click)="createShift()"><b>SAVE</b></button></div>
+  </div>
+</div>

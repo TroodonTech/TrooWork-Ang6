@@ -1,23 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ManagerDashBoardModule } from '../../../dashboard/user-dashboards/manager-dash-board/manager-dash-board.module';
 import { Routes, RouterModule } from '@angular/router';
 import { ViewshiftComponent } from './viewshift.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const routes: Routes = [
   {
     path: '',
     component: ViewshiftComponent
   }
-  
+
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    ManagerDashBoardModule,
     RouterModule.forChild(routes),
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    HttpClientModule,
+    FormsModule, ReactiveFormsModule,
+    RouterModule.forChild(routes)
   ],
   declarations: [ViewshiftComponent]
 })

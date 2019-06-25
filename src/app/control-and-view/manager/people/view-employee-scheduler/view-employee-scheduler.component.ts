@@ -1,39 +1,46 @@
-import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from "@angular/core";
-import { DayPilot, DayPilotSchedulerComponent } from "daypilot-pro-angular";
+import { Component, ViewChild, AfterViewInit, ChangeDetectorRef, OnInit } from "@angular/core";
+import { DayPilot, DayPilotSchedulerComponent, DayPilotModalComponent } from "daypilot-pro-angular";
+import { } from "daypilot-pro-angular";
 import { DataService } from "./data.service";
 import { SchedulingService } from '../../../../service/scheduling.service';
+import { ModalDirective } from 'angular-bootstrap-md';
+import { DatepickerOptions } from 'ng2-datepicker';
 
 @Component({
   selector: 'view-employee-scheduler-component',
   template: `
-  <div style="text-align:center;margin-top:2%;margin-bottom:2%">
-    <h4 style="color: #174a5e;">EMPLOYEE SCHEDULER</h4>
-  </div>
-  <div class="row bg-info col-md-12" style="padding-top: 1rem;padding-bottom: 2rem;margin-bottom:2%">
-  <div class=" col-md-6" style="margin-top: 3rem">
-      <label>Date*</label>
-      <ng-datepicker [options]="options" position="top-right" [(ngModel)]="date" (ngModelChange)="selecteddate();empCalendarActivities();"></ng-datepicker><br><br>
-      
-  </div>
-  <div class=" col-md-6" style="margin-top: 3rem">
-      <label>View Range*</label>
-      <select  [(ngModel)]="Range" (change)='ViewType();empCalendarActivities();' class="form-control col-sm-9 col-md-9 col-lg-9" [value]="value"
-          style="background-color: #d4f4ff;">
-          <option value="">--Select--</option>
-          <option value="Daily">Daily</option>
-          <option value="Week">Week</option>
-          <option value="Month">Month</option>
-          
-        </select>
-      
-  </div>
+  <div style="padding-left: 9rem;padding-right: 9rem;margin-top: 3%;margin-bottom: 3%;">
+    <div class="row col-md-12 ">
+      <h4 style="margin-left: 42%;margin-bottom:4%">EMPLOYEE SCHEDULER</h4>
+    </div>
   
-</div>
-
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem" class="row bg-info col-md-12">
+      <div class="col-md-6">
+        <h3 style="text-align: right"></h3>
+        <div class="form-group" style="width: 85%;">
+          <label>Date*</label>
+           <ng-datepicker [options]="options" position="top-right" [(ngModel)]="date" (ngModelChange)="selecteddate();empCalendarActivities();"></ng-datepicker>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h3 style="text-align: right"></h3>
+        <div class="form-group" style="width: 85%;">
+          <label>View Range*</label>
+           <select [(ngModel)]="Range" (change)='ViewType();empCalendarActivities();' class="form-control col-sm-9 col-md-9 col-lg-9" [value]="value" style="background-color: #d4f4ff;">
+              <option value="">--Select--</option>
+              <option value="Daily">Daily</option>
+              <option value="Week">Week</option>
+              <option value="Month">Month</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+    
   <daypilot-scheduler [config]="config" [events]="events" #scheduler></daypilot-scheduler>
 `,
   styles: [`
-   p, body, td { font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 10pt; }
+  p, body, td { font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 10pt; }
             body { padding: 0px; margin: 0px; background-color: #ffffff; }
             a { color: #1155a3; }
             .space { margin: 10px 0px 10px 0px; }		
@@ -46,7 +53,9 @@ import { SchedulingService } from '../../../../service/scheduling.service';
 })
 export class ViewEmployeeSchedulerComponent implements AfterViewInit {
 
+  @ViewChild("modal") modal: DayPilotModalComponent;
   @ViewChild("scheduler") scheduler: DayPilotSchedulerComponent;
+  @ViewChild('basicModal') basicModal: ModalDirective;
 
   events: any[] = [];
   date;
@@ -58,6 +67,12 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
   OrganizationID: Number;
   name;
   AllEmployeeList;
+  MovingFromEmpKey;
+  MovingToEmpKey;
+  MovingToDate;
+  MovingFromDate;
+  FromEmp; ToEmp;
+
   convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(- 2),
@@ -80,6 +95,23 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     }
     return window.atob(output);
   }
+
+  options: DatepickerOptions = {
+    minYear: 1970,
+    maxYear: 2030,
+    displayFormat: 'MM/DD/YYYY',
+    barTitleFormat: 'MMMM YYYY',
+    dayNamesFormat: 'dd',
+    firstCalendarDay: 0, // 0 - Sunday, 1 - Monday
+    barTitleIfEmpty: 'Click to select a date',
+    placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
+    addClass: '', // Optional, value to pass on to [ngClass] on the input field
+    addStyle: { 'font-size': '18px', 'width': '75%', 'border': '1px solid #ced4da', 'border-radius': '0.25rem' }, // Optional, value to pass to [ngStyle] on the input field
+    fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
+    useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
+  };
+
+
   config: any = {
     timeHeaders: [
       {
@@ -105,17 +137,83 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     treeEnabled: true,
     treePreventParentUsage: true,
     EventMovingStartEndEnabled: true,
-    eventMoveHandling: "CallBack",
-    timeRangeSelectedHandling: "Enabled",
-    
-    onEventMoved(args) {
-      var dp = this;
-      dp.message("Moved: " + args.e.text());
+    bubble: new DayPilot.Bubble({
+      animation: "fast"
+    }),
+    timeRangeSelectedHandling: 'Hold',
+    // contextMenu: new DayPilot.Menu({
+    //   items: [
+        //  { text: "Edit", onClick: args => this.edit.show(args.source) },
+    //   ]
+    // }),
+    // onEventClicked: args => {
+    //   this.edit.show(args.e).then(data1 => {
+
+    //     this.empCalendarActivities();
+    //   });
+    // },
+    // onTimeRangeSelect: args => {
+
+    // },
+    // onTimeRangeSelected: args => {
+    //   this.create.show(args);
+    // },
+    onEventMoved: args => {
+
+
+    },
+    onEventMove: args => {
+      console.log("moving MovingFromEmpKey**" + this.MovingFromEmpKey + " " + this.MovingFromDate);
+      console.log("moving MovingToEmpKey**" + this.MovingToEmpKey + " " + this.MovingToDate);
+      for (var i = 0; i < this.AllEmployeeList.length; i++) {
+        if (this.AllEmployeeList[i].id == this.MovingFromEmpKey) {
+          this.FromEmp = this.AllEmployeeList[i].name;
+        }
+        if (this.AllEmployeeList[i].id == this.MovingToEmpKey) {
+          this.ToEmp = this.AllEmployeeList[i].name;
+        }
+      }
+
+      let obj = {
+        resourceEmployee: this.MovingToEmpKey,
+        start: this.MovingToDate,
+        ScheduleNameKey: args.e.data.ScheduleNameKey,
+        MetaEmp: this.employeekey,
+        OrganizationID: this.OrganizationID
+      };
+
+      var confirmBox = confirm("Do you want to Move" + " ?");
+      if (confirmBox == true) {
+
+        this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
+          this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
+            this.empCalendarActivities();
+            alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
+
+          });
+        });
+      } else {
+        args.preventDefault();
+      }
+    },
+    onEventMoving: args => {
+
+      this.MovingFromEmpKey = args.e.data.resource;
+      this.MovingToEmpKey = args.resource;
+
+      this.MovingToDate = this.convert_DT(args.end.value);
+      this.MovingFromDate = this.convert_DT(args.e.data.start);
+      console.log(" date :" + this.MovingToDate);
+    },
+    onEventResize: args => {
+      args.cell.disabled = true;
     }
+
   };
 
-  constructor(private ds: DataService, private cdr: ChangeDetectorRef, private SchedulingService: SchedulingService) { }
-
+  constructor(private ds: DataService, private cdr: ChangeDetectorRef, private SchedulingService: SchedulingService) {
+    this.Range = 'Month';
+  }
   ngAfterViewInit(): void {
 
     //token starts....
@@ -128,11 +226,6 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    this.Range = 'Month';
-    // this.ds.getResources().subscribe(result =>{  
-    //   debugger;
-    //    this.config.resources = result});
-    // console.log("start ... "+this.convert_DT());
     var from = this.scheduler.control.visibleStart();
     var to = this.scheduler.control.visibleEnd();
     this.ds.getEvents(from, to).subscribe(result => {
@@ -140,18 +233,16 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     });
 
     this.SchedulingService
-      .employeesForScheduler(this.employeekey, this.OrganizationID)
+      .employeesViewOnlyForScheduler(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
-        // debugger;
-        // this.AllEmployeeList = data;
-        this.config.resources = [{ name: 'Shift-01', id: 'GA', "expanded": true, children: data, color: 'red' },
+
+        this.AllEmployeeList = data;
+        this.config.resources = [{ name: 'Shift-01', id: 'GA', "expanded": true, children: data },
         { name: 'Shift-02', id: 'GA', "expanded": true, children: data }
         ]
-
-
       });
-    this.date = DayPilot.Date.today().firstDayOfMonth();
 
+    this.date = DayPilot.Date.today().firstDayOfMonth();
     this.empCalendarActivities();
   }
 
@@ -171,6 +262,23 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
   ViewType() {
 
     if (this.Range == 'Month') {
+      this.config.timeHeaders = [
+        {
+          "groupBy": "Month"
+        },
+        {
+          "groupBy": "Day",
+          "format": "dddd"
+        },
+
+        {
+          "groupBy": "Day",
+          "format": "d"
+        }
+      ];
+      this.config.scale = "Day";
+      this.config.cellDuration = 120;
+      this.config.cellWidth= 150;
       this.config.days = DayPilot.Date.today().daysInMonth();
       if (this.date) {
         this.config.startDate = this.date;
@@ -179,12 +287,20 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
         this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
       }
     } else if (this.Range == 'Week') {
+      this.config.timeHeaders = [
+        {
+          "groupBy": "Month"
+        },
+        {
+          "groupBy": "Day",
+          "format": "d"
+        }
+      ];
+      this.config.scale = "Day";
+      this.config.cellDuration = 120;
+      this.config.cellWidth= 200;
       this.config.days = 7;
-      var d = this.date;
-      var day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6 : 2);
-      var k = new Date(d.setDate(diff));
-      this.config.startDate = this.convert_DT(k);
+      this.config.startDate = this.convert_DT(this.date);
     }
     else if (this.Range == 'Daily') {
       this.config.timeHeaders = [
@@ -202,6 +318,7 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
       ];
       this.config.scale = "CellDuration";
       this.config.cellDuration = 30;
+      this.config.cellWidth= 150;
       this.config.days = 1;
       if (this.date) {
         this.config.startDate = this.date;
@@ -215,8 +332,8 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
   selecteddate() {
     if (this.Range == 'Week') {
       var d = this.date;
-      var day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6 : 2);
+      var day = d.getDay();
+      var diff = d.getDate() - day + (day == 0 ? -6 : 2);
       var k = new Date(d.setDate(diff));
       this.config.startDate = this.convert_DT(k);
     }
@@ -232,7 +349,7 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
 
   empCalendarActivities() {
     this.SchedulingService
-      .empCalendarDetailsForViewOnly(this.Range, this.convert_DT(this.date), this.OrganizationID)
+      .empCalendarDetailsForViewOnly(this.employeekey, this.Range, this.convert_DT(this.date), this.OrganizationID)
       .subscribe((data: any[]) => {
         this.events = data;
       });

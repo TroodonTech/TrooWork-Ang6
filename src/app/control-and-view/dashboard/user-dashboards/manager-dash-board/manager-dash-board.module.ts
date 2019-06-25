@@ -515,24 +515,24 @@ const routes: Routes = [
         loadChildren: '../../../manager/reports/barchart-report/barchart-report.module#BarchartReportModule',
 
       },
-      {
-        path: 'createshift',
-        outlet: 'ManagerOut',
-        loadChildren: '../../../manager/scheduling/createshift/createshift.module#CreateshiftModule',
+      // {
+      //   path: 'createshift',
+      //   outlet: 'ManagerOut',
+      //   loadChildren: '../../../manager/scheduling/createshift/createshift.module#CreateshiftModule',
 
-      },
-      {
-        path: 'ViewShift',
-        outlet: 'ManagerOut',
-        loadChildren: '../../../manager/scheduling/viewshift/viewshift.module#ViewshiftModule',
+      // },
+      // {
+      //   path: 'ViewShift',
+      //   outlet: 'ManagerOut',
+      //   loadChildren: '../../../manager/scheduling/viewshift/viewshift.module#ViewshiftModule',
 
-      },
-      {
-        path: 'ViewShift/EditShift/:Idemployeeshift',
-        outlet: 'ManagerOut',
-        loadChildren: '../../../manager/scheduling/editshift/editshift.module#EditshiftModule',
+      // },
+      // {
+      //   path: 'ViewShift/EditShift/:Idemployeeshift',
+      //   outlet: 'ManagerOut',
+      //   loadChildren: '../../../manager/scheduling/editshift/editshift.module#EditshiftModule',
 
-      },
+      // },
       {
         path: 'Scheduler',
         outlet: 'ManagerOut',

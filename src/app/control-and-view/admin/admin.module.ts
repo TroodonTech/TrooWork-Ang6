@@ -13,10 +13,29 @@ import { SetLoginCredentialsForUserComponent } from './set-login-credentials-for
 import { ViewEmployeeAdminComponent } from './view-employee-admin/view-employee-admin.component';
 import { EditEmployeeDetailsAdminComponent } from './edit-employee-details-admin/edit-employee-details-admin.component';
 
+import { CreateshiftComponent } from './createshift/createshift.component';
+import { ViewshiftComponent } from './viewshift/viewshift.component';
+import { EditshiftComponent } from './editshift/editshift.component';
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [JobTitleViewAdminComponent, JobTitleAddAdminComponent, JobTitleEditAdminComponent, CreateDepartmentComponent, EditDepartmentComponent, ViewDepartmentComponent, ManageLoginsComponent, ResetPasswordsComponent, AddEmployeeComponent, SetLoginCredentialsForUserComponent, ViewEmployeeAdminComponent, EditEmployeeDetailsAdminComponent]
+  declarations: [
+    JobTitleViewAdminComponent,
+    JobTitleAddAdminComponent,
+    JobTitleEditAdminComponent,
+    CreateDepartmentComponent,
+    EditDepartmentComponent,
+    ViewDepartmentComponent,
+    ManageLoginsComponent,
+    ResetPasswordsComponent,
+    AddEmployeeComponent,
+    SetLoginCredentialsForUserComponent,
+    ViewEmployeeAdminComponent,
+    EditEmployeeDetailsAdminComponent,
+    CreateshiftComponent,
+    ViewshiftComponent,
+    EditshiftComponent
+  ]
 })
 export class AdminModule { }

@@ -17,7 +17,8 @@
       <div style="margin-left: 45%;">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <img class="imagesize nav-link" src="assets/icons/homepage.png" [routerLink]="[{outlets:{EmployeeOut:['Emp_welcomePage']}}]">
+            <img class="imagesize nav-link" src="assets/icons/homepage.png"
+              [routerLink]="[{outlets:{EmployeeOut:['Emp_welcomePage']}}]">
           </li>
           <li class="nav-item dropdown">
             <img class="imagesize nav-link" src="assets/icons/work order.png">
@@ -29,13 +30,17 @@
             <img class="imagesize nav-link" data-toggle="dropdown" src="assets/icons/PEOPLE--3.png">
             <div class="dropdown-content" style="margin-left:1rem;">
               <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['Viewmeetingortrainingevent']}}]"><b>View
-                  Meeting/Training/Event</b></a></div>
+                  Meeting/Training/Event</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['ViewSchedulerForEmployee']}}]"><b>View
+                  Scheduler-Employee</b></a>
+            </div>
           </li>
 
           <li class="nav-item dropdown">
             <img class="imagesize nav-link" src="assets/icons/profile-2.png">
             <div class="dropdown-content" style="margin-left:1rem;">
-              <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['employeeMyProfile']}}]"><b>My Profile</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{EmployeeOut:['employeeMyProfile']}}]"><b>My
+                  Profile</b></a>
               <a class="dropdown-item" routerLink=""><b>Log Out</b></a>
             </div>
           </li>
@@ -44,7 +49,7 @@
     </links>
   </mdb-navbar>
   <!-- <div style="height:100%;background-color: #EBFAFF;"> -->
-    <router-outlet name="EmployeeOut"></router-outlet>
-    <!-- varun - child paths are loaded in  EmployeeOut outlet for lazy loading-->
+  <router-outlet name="EmployeeOut"></router-outlet>
+  <!-- varun - child paths are loaded in  EmployeeOut outlet for lazy loading-->
   <!-- </div> -->
 </div>

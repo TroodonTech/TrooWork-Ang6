@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminDashboardComponent} from './admin-dashboard.component';
-import { AdminChangePasswordModule } from '../../user-password-changes/admin-change-password/admin-change-password.module';
+import { AdminDashboardComponent } from './admin-dashboard.component';
+// import { CreateshiftModule } from '../../../admin/createshift/createshift.module';
+// import { EditshiftModule } from '../../../admin/editshift/editshift.module';
+// import { ViewshiftModule } from '../../../admin/viewshift/viewshift.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 const routes: Routes = [
   {
@@ -105,6 +107,25 @@ const routes: Routes = [
         loadChildren: '../../user-password-changes/admin-change-password/admin-change-password.module#AdminChangePasswordModule',
 
       },
+
+      {
+        path: 'createshift',
+        outlet: 'AdminOut',
+        loadChildren: '../../../admin/createshift/createshift.module#CreateshiftModule',
+
+      },
+      {
+        path: 'ViewShift',
+        outlet: 'AdminOut',
+        loadChildren: '../../../admin/viewshift/viewshift.module#ViewshiftModule',
+
+      },
+      {
+        path: 'ViewShift/EditShift/:Idemployeeshift',
+        outlet: 'AdminOut',
+        loadChildren: '../../../admin/editshift/editshift.module#EditshiftModule',
+
+      }
     ]
   }
 ];

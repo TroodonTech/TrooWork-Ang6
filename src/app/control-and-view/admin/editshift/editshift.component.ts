@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SchedulingService } from '../../../../service/scheduling.service';
+import { SchedulingService } from '../../../service/scheduling.service';
 import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'app-editshift',
@@ -74,16 +74,16 @@ export class EditshiftComponent implements OnInit {
     });
   }
   editShift(){
-  var q = this.StartTime.getHours();
-  var q1 = this.StartTime.getMinutes();
-  var newTime = q + ":" + q1;
+  // var q = this.StartTime.getHours();
+  // var q1 = this.StartTime.getMinutes();
+  // var newTime = q + ":" + q1;
 
-  var q2 = this.EndTime.getHours();
-  var q3 = this.EndTime.getMinutes();
-  var newTime1 = q2 + ":" + q3;
+  // var q2 = this.EndTime.getHours();
+  // var q3 = this.EndTime.getMinutes();
+  // var newTime1 = q2 + ":" + q3;
 
-  this.scheduleServ.updateShiftDetails(this.shiftk$,this.edit.Description,this.edit.Abbrevation,this.edit.PublishAs,newTime,this.edit.PaidHours,newTime1,this.edit.Colour,this.OrganizationID,this.employeekey).subscribe((data: any[]) => {
-    alert("Updated Successfully")
-   });
+  // this.scheduleServ.updateShiftDetails(this.shiftk$,this.edit.Description,this.edit.Abbrevation,this.edit.PublishAs,newTime,this.edit.PaidHours,newTime1,this.edit.Colour,this.OrganizationID,this.employeekey).subscribe((data: any[]) => {
+  //   alert("Updated Successfully")
+  //  });
   }
 }

@@ -16,24 +16,31 @@
       <div style="margin-left: 45%;">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <img class="imagesize nav-link" src="assets/icons/homepage.png" [routerLink]="[{outlets:{AdminOut:['welcomePage']}}]">
+            <img class="imagesize nav-link" src="assets/icons/homepage.png"
+              [routerLink]="[{outlets:{AdminOut:['welcomePage']}}]">
           </li>
 
           <li class="nav-item dropdown">
             <img class="imagesize nav-link" data-toggle="dropdown" src="assets/icons/PEOPLE--3.png">
             <div class="dropdown-content" style="margin-left:1rem;">
-              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['addEmployeeAdmin']}}]"><b>Create Employee</b></a>
-              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['viewEmployeeAdmin']}}]"><b>View Employee</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['addEmployeeAdmin']}}]"><b>Create
+                  Employee</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['viewEmployeeAdmin']}}]"><b>View
+                  Employee</b></a>
               <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['manageLoginCreds']}}]"><b>Manage Login
                   Credentials</b></a>
-              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['JobTitleViewAdmin']}}]"><b>Create JobTitle</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['JobTitleViewAdmin']}}]"><b>Create
+                  JobTitle</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['createshift']}}]"><b>Create Shift</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['ViewShift']}}]"><b>View Shift</b></a>
             </div>
           </li>
 
           <li class="nav-item dropdown">
             <img class="imagesize nav-link" data-toggle="dropdown" src="assets/icons/INVENTORY--3.png">
             <div class="dropdown-content" style="margin-left:1rem;">
-              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['ViewDepartment']}}]"><b>Create Department</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{AdminOut:['ViewDepartment']}}]"><b>Create
+                  Department</b></a>
             </div>
           </li>
           <li class="nav-item dropdown">
