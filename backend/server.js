@@ -15484,6 +15484,34 @@ app.get(securedpath + '/SchedulerEventDelete', function (req, res) {
         connection.release();
     });
 });
+
+app.get(securedpath + '/scheduleEventCheckForCreate', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var checkDate = url.parse(req.url, true).query['checkDate'];
+    var empKey = url.parse(req.url, true).query['empKey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @checkDate=?;set @empKey=?;set @OrganizationID=?; call usp_scheduleEventCheckForCreate(@checkDate,@empKey,@OrganizationID)', [checkDate, empKey, OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[3]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //********Scheduler************API BY varun ends
 
 //********Scheduler************API by Rodney starts
@@ -15542,6 +15570,7 @@ app.get(securedpath + '/employeeCalendarDetailsForSchedulerOnlyForView', functio
         connection.release();
     });
 });
+
 
 
 //********Scheduler************API by Rodney ends
