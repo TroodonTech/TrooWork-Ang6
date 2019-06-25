@@ -296,6 +296,11 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/SchedulerEventDelete?Assignment_CalenderID=' + Assignment_CalenderID + '&empkey=' + empkey + '&OrganizationID=' + orgID);
   }
+  scheduleEventCheckForCreate(checkDate,empKey,OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/scheduleEventCheckForCreate?checkDate='+checkDate+'&empKey=' + empKey + '&OrganizationID=' + OrganizationID);
+  }
   //varun code ends
 
   // @Author:Rodney starts

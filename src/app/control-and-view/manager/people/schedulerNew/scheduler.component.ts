@@ -1,6 +1,6 @@
 import { Component, ViewChild, AfterViewInit, ChangeDetectorRef, OnInit } from "@angular/core";
-import { DayPilot, DayPilotSchedulerComponent,DayPilotModalComponent } from "daypilot-pro-angular";
-import {  } from "daypilot-pro-angular";
+import { DayPilot, DayPilotSchedulerComponent, DayPilotModalComponent } from "daypilot-pro-angular";
+import { } from "daypilot-pro-angular";
 import { DataService } from "./data.service";
 import { CreateComponent } from "./create.component";
 import { EditComponent } from "./edit.component";
@@ -29,7 +29,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
           <label>View Range*</label>
            <select [(ngModel)]="Range" (change)='ViewType();empCalendarActivities();' class="form-control col-sm-9 col-md-9 col-lg-9" [value]="value" style="background-color: #d4f4ff;">
               <option value="">--Select--</option>
-              <option value="Daily">Daily</option>
+              <!-- <option value="Daily">Daily</option>-->
               <option value="Week">Week</option>
               <option value="Month">Month</option>
           </select>
@@ -59,7 +59,7 @@ export class SchedulerComponent implements AfterViewInit {
   constructor(private ds: DataService, private cdr: ChangeDetectorRef, private SchedulingService: SchedulingService) {
     this.Range = 'Month';
   }
-  @ViewChild("modal") modal : DayPilotModalComponent;
+  @ViewChild("modal") modal: DayPilotModalComponent;
   @ViewChild("scheduler") scheduler: DayPilotSchedulerComponent;
   @ViewChild("create") create: CreateComponent;
   @ViewChild("edit") edit: EditComponent;
@@ -151,20 +151,37 @@ export class SchedulerComponent implements AfterViewInit {
     timeRangeSelectedHandling: 'Hold',
     contextMenu: new DayPilot.Menu({
       items: [
-        { text: "Edit", onClick: args => this.edit.show(args.source) },
+        // { text: "Edit", onClick: args => this.edit.show(args.source) },
+        { text: "Create", onClick: args => this.create.show(args.source.data) }
       ]
     }),
     onEventClicked: args => {
       this.edit.show(args.e).then(data1 => {
 
-        this.empCalendarActivities();
+        // this.empCalendarActivities();
       });
     },
-    onTimeRangeSelect:args=> {
- 
+    onTimeRangeSelect: args => {
+
     },
     onTimeRangeSelected: args => {
-      this.create.show(args);
+      var checkDate = this.convert_DT(args.start.value)
+      var empKey = args.resource;
+      this.SchedulingService
+      .scheduleEventCheckForCreate(checkDate,empKey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        
+        if(data[0].count==0){
+          this.create.show(args);
+        }
+        else{
+          var confirmBox = confirm("Employee not working. Do you want to Create Schedule ?");
+          if (confirmBox == true) {
+            this.create.show(args);
+          }
+        }
+       
+      });
     },
     onEventMoved: args => {
 
@@ -182,19 +199,19 @@ export class SchedulerComponent implements AfterViewInit {
         }
       }
 
-      let  obj = {
+      let obj = {
         resourceEmployee: this.MovingToEmpKey,
-        start:this.MovingToDate ,
+        start: this.MovingToDate,
         ScheduleNameKey: args.e.data.ScheduleNameKey,
-        MetaEmp:this.employeekey,
+        MetaEmp: this.employeekey,
         OrganizationID: this.OrganizationID
       };
-      
+
       var confirmBox = confirm("Do you want to Move" + " ?");
       if (confirmBox == true) {
-       
+
         this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
-          this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID,this.employeekey, this.OrganizationID).subscribe(data => {
+          this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
             this.empCalendarActivities();
             alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
 
