@@ -21,6 +21,8 @@ export class CreateBatchWorkComponent implements OnInit {
   scheduleName;
   scheduleDescription;
   employee_Key;
+  StartTime;
+  EndTime;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -37,7 +39,12 @@ export class CreateBatchWorkComponent implements OnInit {
     }
     return window.atob(output);
   }
-
+  convert_DT(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(- 2),
+      day = ("0" + date.getDate()).slice(- 2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
   constructor(private scheduleService: SchedulingService, private router: Router, private _location: Location) { }
 
   setEmployeeForbatchSchedule(key) {
@@ -45,6 +52,7 @@ export class CreateBatchWorkComponent implements OnInit {
   }
 
   createScheduleName() {
+    debugger;
     if (this.scheduleName && !this.scheduleName.trim()) {
       alert("Please provide a Assignment Name");
       return;
@@ -61,7 +69,20 @@ export class CreateBatchWorkComponent implements OnInit {
     else if (!this.empKey) {
       alert("Employee Name is not provided !");
     }
+    else if (!this.StartTime) {
+      alert("Start Time is not provided !");
+    }
+    else if (!this.EndTime) {
+      alert("End Time is not provided !");
+    }
     else {
+      var q = this.EndTime.getHours();
+      var q1 = this.EndTime.getMinutes();
+      var endTime = q + ":" + q1;
+
+      var q2 = this.StartTime.getHours();
+      var q3 = this.StartTime.getMinutes();
+      var startTime = q2 + ":" + q3;
       this.scheduleService
         .checkScheduleName(this.scheduleName, this.employeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
@@ -69,7 +90,7 @@ export class CreateBatchWorkComponent implements OnInit {
             alert("Assignment Name already present");
           }
           else if (data[0].count == 0) {
-            this.scheduleService.addScheduleName(this.scheduleName, this.empKey, this.scheduleDescription, this.employeekey, this.OrganizationID)
+            this.scheduleService.addScheduleName(this.scheduleName, this.empKey, this.scheduleDescription,startTime,endTime, this.employeekey, this.OrganizationID)
               .subscribe(res => {
                 alert("Assignment Name created successfully.");
                 this._location.back()
