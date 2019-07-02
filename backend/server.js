@@ -171,8 +171,7 @@ app.post('/authenticate', supportCrossOriginScript, function (req, res) {
                     employeekey_return = employees[3][0]["EmployeeKey"];
                     isSupervisor = employees[3][0]["IsSupervisor"];
                     organizationID = employees[3][0]["OrganizationID"];
-
-
+                    isemployeecalendar = employees[3][0]["IsEmployeeCalendar"];// Author Prakash for employee Calender
 
                     profile = {
                         user: user_return,
@@ -182,7 +181,8 @@ app.post('/authenticate', supportCrossOriginScript, function (req, res) {
                         //            password: pass_return,
                         IsSupervisor: isSupervisor,
                         Organization: organization,
-                        OrganizationID: organizationID
+                        OrganizationID: organizationID,
+                        isemployeecalendar: isemployeecalendar// Author Prakash for employee Calender
                     };
                 }
                 // We are sending the profile inside the token
@@ -2159,10 +2159,9 @@ app.get(securedpath + '/getEmployeeStatus', function (req, res) {
     });
 });
 
+//Author: Prakash Code Starts for Employee Calendar Starts Here
 app.options('/update_employee_info', supportCrossOriginScript);
 app.post(securedpath + '/update_employee_info', supportCrossOriginScript, function (req, response) {
-
-
 
     var employeekey = req.body.EmployeeKey;
     var metaupdatedby = req.body.managerKey;
@@ -2199,6 +2198,54 @@ app.post(securedpath + '/update_employee_info', supportCrossOriginScript, functi
     var UserRoleTypeKey = req.body.UserRoleTypeKey;
     var EmployeeStatusKey1 = req.body.EmployeeStatusKey1;
     var Remark = req.body.Remark;
+
+    var start_sun_hour = req.body.start_sun_hour;
+    var start_sun_min = req.body.start_sun_min;
+    var start_sun_format = req.body.start_sun_format;
+    var start_mon_hour = req.body.start_mon_hour;
+    var start_mon_min = req.body.start_mon_min;
+    var start_mon_format = req.body.start_mon_format;
+    var start_tue_hour = req.body.start_tue_hour;
+    var start_tue_min = req.body.start_tue_min;
+    var start_tue_format = req.body.start_tue_format;
+    var start_wed_hour = req.body.start_wed_hour;
+    var start_wed_min = req.body.start_wed_min;
+    var start_wed_format = req.body.start_wed_format;
+    var start_thu_hour = req.body.start_thu_hour;
+    var start_thu_min = req.body.start_thu_min;
+    var start_thu_format = req.body.start_thu_format;
+    var start_fri_hour = req.body.start_fri_hour;
+    var start_fri_min = req.body.start_fri_min;
+    var start_fri_format = req.body.start_fri_format;
+    var start_sat_hour = req.body.start_sat_hour;
+    var start_sat_min = req.body.start_sat_min;
+    var start_sat_format = req.body.start_sat_format;
+    var end_sun_hour = req.body.end_sun_hour;
+    var end_sun_min = req.body.end_sun_min;
+    var end_sun_format = req.body.end_sun_format;
+    var end_mon_hour = req.body.end_mon_hour;
+    var end_mon_min = req.body.end_mon_min;
+    var end_mon_format = req.body.end_mon_format;
+    var end_tue_hour = req.body.end_tue_hour;
+    var end_tue_min = req.body.end_tue_min;
+    var end_tue_format = req.body.end_tue_format;
+    var end_wed_hour = req.body.end_wed_hour;
+    var end_wed_min = req.body.end_wed_min;
+    var end_wed_format = req.body.end_wed_format;
+    var end_thu_hour = req.body.end_thu_hour;
+    var end_thu_min = req.body.end_thu_min;
+    var end_thu_format = req.body.end_thu_format;
+    var end_fri_hour = req.body.end_fri_hour;
+    var end_fri_min = req.body.end_fri_min;
+    var end_fri_format = req.body.end_fri_format;
+    var end_sat_hour = req.body.end_sat_hour;
+    var end_sat_min = req.body.end_sat_min;
+    var end_sat_format = req.body.end_sat_format;
+
+    var idscheduler_exception = req.body.idscheduler_exception;
+
+    var idmaster_exception_weekend = req.body.idmaster_exception_weekend;
+
     console.log("-----------------isSupervisor----------------" + isSupervisor + "  " + firstname + "  " + employeenumber + "birthdate" + birthdate + "hiredate" + hiredate);
     pool.getConnection(function (err, connection) {
         if (err) {
@@ -2207,19 +2254,21 @@ app.post(securedpath + '/update_employee_info', supportCrossOriginScript, functi
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @employeekey=?;set @employeenumber=?;set @firstname=?;set @middlename=?;set @lastname=?;set @jobtitlekey=?;set @managerkey=?;set @addressline1=?;set @addressline2=?;set @city=?;set @state=?;set @zipcode=?;set @country=?;set @primaryphone=?;set @alternatephone=?;set @birthdate=?;set @hiredate=?;set @lastevaluationdate=?;set @nextevaluationdate=?;set @issupervisor=?;set @SupervisorKey=?;set @isrelieved=?;set @ishkii=?;set @isactive=?;set @departmentkey=?;set @metaupdatedby=?; set @email=?; set @OrganizationID=?;set @gender=?;set @shirtSize=?;set @pantSize=?; set @UserRoleTypeKey=?;set @EmployeeStatusKey1=?;set @Remark=?; call usp_employeesUpd(@employeekey,@employeenumber,@firstname,@middlename,@lastname,@jobtitlekey,@managerkey,@addressline1,@addressline2,@city,@state,@zipcode,@country,@primaryphone,@alternatephone,@birthdate,@hiredate,@lastevaluationdate,@nextevaluationdate,@issupervisor,@SupervisorKey,@isrelieved,@ishkii,@isactive,@departmentkey,@metaupdatedby,@email,@OrganizationID,@gender,@shirtSize,@pantSize,@UserRoleTypeKey,@EmployeeStatusKey1,@Remark)', [employeekey, employeenumber, firstname, middlename, lastname, jobtitlekey, managerkey, addressline1, addressline2, city, state, zipcode, country, primaryphone, alternatephone, birthdate, hiredate, lastevaluationdate, nextevaluationdate, isSupervisor, SupervisorKey, isrelieved, ishkii, isactive, departmentkey, metaupdatedby, email, OrganizationID, gender, shirtSize, pantSize, UserRoleTypeKey, EmployeeStatusKey1, Remark], function (err, rows) {
+            connection.query('set @employeekey=?;set @employeenumber=?;set @firstname=?;set @middlename=?;set @lastname=?;set @jobtitlekey=?;set @managerkey=?;set @addressline1=?;set @addressline2=?;set @city=?;set @state=?;set @zipcode=?;set @country=?;set @primaryphone=?;set @alternatephone=?;set @birthdate=?;set @hiredate=?;set @lastevaluationdate=?;set @nextevaluationdate=?;set @issupervisor=?;set @SupervisorKey=?;set @isrelieved=?;set @ishkii=?;set @isactive=?;set @departmentkey=?;set @metaupdatedby=?; set @email=?; set @OrganizationID=?;set @gender=?;set @shirtSize=?;set @pantSize=?; set @UserRoleTypeKey=?;set @EmployeeStatusKey1=?;set @Remark=?; set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;set @idmaster_exception_weekend=?;call usp_employeesUpd(@employeekey,@employeenumber,@firstname,@middlename,@lastname,@jobtitlekey,@managerkey,@addressline1,@addressline2,@city,@state,@zipcode,@country,@primaryphone,@alternatephone,@birthdate,@hiredate,@lastevaluationdate,@nextevaluationdate,@issupervisor,@SupervisorKey,@isrelieved,@ishkii,@isactive,@departmentkey,@metaupdatedby,@email,@OrganizationID,@gender,@shirtSize,@pantSize,@UserRoleTypeKey,@EmployeeStatusKey1,@Remark,@start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception, @idmaster_exception_weekend)', [employeekey, employeenumber, firstname, middlename, lastname, jobtitlekey, managerkey, addressline1, addressline2, city, state, zipcode, country, primaryphone, alternatephone, birthdate, hiredate, lastevaluationdate, nextevaluationdate, isSupervisor, SupervisorKey, isrelieved, ishkii, isactive, departmentkey, metaupdatedby, email, OrganizationID, gender, shirtSize, pantSize, UserRoleTypeKey, EmployeeStatusKey1, Remark, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
 
-                    response.end(JSON.stringify(rows[34]));
+                    response.end(JSON.stringify(rows[78]));
                 }
             });
         }
         connection.release();
     });
 });
+
+//Author: Prakash Code Starts for Employee Calendar Ends Here
 app.options('/defaultEvent_shift', supportCrossOriginScript);
 app.post(securedpath + '/defaultEvent_shift', supportCrossOriginScript, function (req, res) {
     var actiontypeKey = url.parse(req.url, true).query['actionKey'];
@@ -11288,6 +11337,7 @@ app.get(securedpath + '/checkforForms', function (req, res) {
     });
 });
 
+//Author: Prakash Code Starts for Employee Calendar Starts Here
 //add employee
 app.options(securedpath + '/addemp', supportCrossOriginScript);
 app.post(securedpath + '/addemp', supportCrossOriginScript, function (req, res) {
@@ -11323,6 +11373,104 @@ app.post(securedpath + '/addemp', supportCrossOriginScript, function (req, res) 
     var gender = req.body.gender;
     var shirtSize = req.body.shirtSize;
     var pantSize = req.body.pantSize;
+
+
+    var start_sun_hour = req.body.start_sun_hour;
+    var start_sun_min = req.body.start_sun_min;
+    var start_sun_format = req.body.start_sun_format;
+    var start_mon_hour = req.body.start_mon_hour;
+    var start_mon_min = req.body.start_mon_min;
+    var start_mon_format = req.body.start_mon_format;
+    var start_tue_hour = req.body.start_tue_hour;
+    var start_tue_min = req.body.start_tue_min;
+    var start_tue_format = req.body.start_tue_format;
+    var start_wed_hour = req.body.start_wed_hour;
+    var start_wed_min = req.body.start_wed_min;
+    var start_wed_format = req.body.start_wed_format;
+    var start_thu_hour = req.body.start_thu_hour;
+    var start_thu_min = req.body.start_thu_min;
+    var start_thu_format = req.body.start_thu_format;
+    var start_fri_hour = req.body.start_fri_hour;
+    var start_fri_min = req.body.start_fri_min;
+    var start_fri_format = req.body.start_fri_format;
+    var start_sat_hour = req.body.start_sat_hour;
+    var start_sat_min = req.body.start_sat_min;
+    var start_sat_format = req.body.start_sat_format;
+    var end_sun_hour = req.body.end_sun_hour;
+    var end_sun_min = req.body.end_sun_min;
+    var end_sun_format = req.body.end_sun_format;
+    var end_mon_hour = req.body.end_mon_hour;
+    var end_mon_min = req.body.end_mon_min;
+    var end_mon_format = req.body.end_mon_format;
+    var end_tue_hour = req.body.end_tue_hour;
+    var end_tue_min = req.body.end_tue_min;
+    var end_tue_format = req.body.end_tue_format;
+    var end_wed_hour = req.body.end_wed_hour;
+    var end_wed_min = req.body.end_wed_min;
+    var end_wed_format = req.body.end_wed_format;
+    var end_thu_hour = req.body.end_thu_hour;
+    var end_thu_min = req.body.end_thu_min;
+    var end_thu_format = req.body.end_thu_format;
+    var end_fri_hour = req.body.end_fri_hour;
+    var end_fri_min = req.body.end_fri_min;
+    var end_fri_format = req.body.end_fri_format;
+    var end_sat_hour = req.body.end_sat_hour;
+    var end_sat_min = req.body.end_sat_min;
+    var end_sat_format = req.body.end_sat_format;
+
+    var idscheduler_exception = req.body.idscheduler_exception;
+
+    var idmaster_exception_weekend = req.body.idmaster_exception_weekend;
+
+
+    // console.log("exceptionid: " + idscheduler_exception);
+    // console.log("weekendid: " + idmaster_exception_weekend);
+
+    // console.log("hour: "+start_sun_hour);
+    // console.log("min: "+start_sun_min);
+    // console.log("format: "+start_sun_format);
+    // console.log("hour: "+start_mon_hour);
+    // console.log("min: "+start_mon_min);
+    // console.log("format: "+start_mon_format);
+    // console.log(start_tue_hour);
+    // console.log(start_tue_min);
+    // console.log(start_tue_format);
+    // console.log(start_wed_hour);
+    // console.log(start_wed_min);
+    // console.log(start_wed_format);
+    // console.log(start_thu_hour);
+    // console.log(start_thu_min);
+    // console.log(start_thu_format);
+    // console.log(start_fri_hour);
+    // console.log(start_fri_min);
+    // console.log(start_fri_format);
+    // console.log(start_sat_hour);
+    // console.log(start_sat_min);
+    // console.log(start_sat_format);
+    // console.log(end_sun_hour);
+    // console.log(end_sun_min);
+    // console.log(end_sun_format);
+    // console.log(end_mon_hour);
+    // console.log(end_mon_min);
+    // console.log(end_mon_format);
+    // console.log(end_tue_hour);
+    // console.log(end_tue_min);
+    // console.log(end_tue_format);
+    // console.log(end_wed_hour);
+    // console.log(end_wed_min);
+    // console.log(end_wed_format);
+    // console.log(end_thu_hour);
+    // console.log(end_thu_min);
+    // console.log(end_thu_format);
+    // console.log(end_fri_hour);
+    // console.log(end_fri_min);
+    // console.log(end_fri_format);
+    // console.log(end_sat_hour);
+    // console.log(end_sat_min);
+    // console.log(end_sat_format);
+
+
+
     console.log("---------------------" + metaupdatedby + " " + employeenumber + " " + OrganizationID + " " + gender + " " + shirtSize + " " + pantSize + " " + supervisorKey)
     pool.getConnection(function (err, connection) {
         if (err) {
@@ -11331,19 +11479,20 @@ app.post(securedpath + '/addemp', supportCrossOriginScript, function (req, res) 
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @employeekey=?;set @employeenumber=?;set @firstname=?;set @middlename=?;set @lastname=?;set @jobtitlekey=?;set @managerkey=?;set @addressline1=?;set @addressline2=?;set @city=?;set @state=?;set @zipcode=?;set @country=?;set @primaryphone=?;set @alternatephone=?;set @birthdate=?;set @hiredate=?;set @lastevaluationdate=?;set @nextevaluationdate=?;set @issupervisor=?;set @supervisorKey=?;set @isrelieved=?;set @ishkii=?;set @isactive=?;set @departmentkey=?;set @metaupdatedby=?; set @email=?; set @OrganizationID=?;set @gender=?;set @shirtSize=?;set @pantSize=?; call usp_employeesAdd(@employeekey,@employeenumber,@firstname,@middlename,@lastname,@jobtitlekey,@managerkey,@addressline1,@addressline2,@city,@state,@zipcode,@country,@primaryphone,@alternatephone,@birthdate,@hiredate,@lastevaluationdate,@nextevaluationdate,@issupervisor,@supervisorKey,@isrelieved,@ishkii,@isactive,@departmentkey,@metaupdatedby,@email,@OrganizationID,@gender,@shirtSize,@pantSize)', [employeekey, employeenumber, firstname, middlename, lastname, jobtitlekey, managerkey, addressline1, addressline2, city, state, zipcode, country, primaryphone, alternatephone, birthdate, hiredate, lastevaluationdate, nextevaluationdate, issupervisor, supervisorKey, isrelieved, ishkii, isactive, departmentkey, metaupdatedby, email, OrganizationID, gender, shirtSize, pantSize], function (err, rows) {
+            connection.query('set @employeekey=?;set @employeenumber=?;set @firstname=?;set @middlename=?;set @lastname=?;set @jobtitlekey=?;set @managerkey=?;set @addressline1=?;set @addressline2=?;set @city=?;set @state=?;set @zipcode=?;set @country=?;set @primaryphone=?;set @alternatephone=?;set @birthdate=?;set @hiredate=?;set @lastevaluationdate=?;set @nextevaluationdate=?;set @issupervisor=?;set @supervisorKey=?;set @isrelieved=?;set @ishkii=?;set @isactive=?;set @departmentkey=?;set @metaupdatedby=?; set @email=?; set @OrganizationID=?;set @gender=?;set @shirtSize=?;set @pantSize=?;set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;set @idmaster_exception_weekend=?;call usp_employeesAdd(@employeekey,@employeenumber,@firstname,@middlename,@lastname,@jobtitlekey,@managerkey,@addressline1,@addressline2,@city,@state,@zipcode,@country,@primaryphone,@alternatephone,@birthdate,@hiredate,@lastevaluationdate,@nextevaluationdate,@issupervisor,@supervisorKey,@isrelieved,@ishkii,@isactive,@departmentkey,@metaupdatedby,@email,@OrganizationID,@gender,@shirtSize,@pantSize,@start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception, @idmaster_exception_weekend)', [employeekey, employeenumber, firstname, middlename, lastname, jobtitlekey, managerkey, addressline1, addressline2, city, state, zipcode, country, primaryphone, alternatephone, birthdate, hiredate, lastevaluationdate, nextevaluationdate, issupervisor, supervisorKey, isrelieved, ishkii, isactive, departmentkey, metaupdatedby, email, OrganizationID, gender, shirtSize, pantSize, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
 
-                    res.end(JSON.stringify(rows[31][0]));
+                    res.end(JSON.stringify(rows[75][0]));
                 }
             });
         }
         connection.release();
     });
 });
+//Author: Prakash Code Starts for Employee Calendar Ends Here
 
 app.get(securedpath + '/getManagerDetailsByID', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -15611,7 +15760,106 @@ app.get(securedpath + '/employeesViewOnlyForScheduler', function (req, res) {
 
 
 //********Scheduler************API by Rodney ends
+//Author: Prakash Code Starts for Employee Calendar Starts Here
+//For Employee Scheduling Exceptions
+app.get(securedpath + '/getallschedulingexception', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
 
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set @OrganizationID=?;call usp_getAllschedulerexception(@OrganizationID)", [OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[1]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/getallexceptionweekend', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("call usp_getAllExceptionWeekend()", [], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[0]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/getallmasterhour', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("call usp_getAllmasterhour()", [], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[0]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/getallmasterminute', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("call usp_getAllmasterminute()", [], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[0]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+//Author: Prakash Code Starts for Employee Calendar Ends Here
 /*************END MIGRATE CODE**********************************************************/
 //handle generic exceptions
 //catch all other resource routes that are not defined above
