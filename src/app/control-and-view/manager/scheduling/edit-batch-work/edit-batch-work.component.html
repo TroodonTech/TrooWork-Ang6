@@ -29,6 +29,21 @@
         </option>
       </select>
     </div>
+    <div class="row col-md-12" style="margin-top: 2%">
+      <h5 style="text-align:right" class="col-md-4"><label for="scheduling">Start Time*: </label></h5>
+      <div style="width: 14%">
+        <p-calendar [inputStyle]="{'width':'300%'}" [(ngModel)]="BatchScheduleTime"
+          [timeOnly]="true" hourFormat="12"></p-calendar>
+      </div>
+    </div>
+    <div class="row col-md-12" style="margin-top: 2%">
+      <h5 style="text-align:right" class="col-md-4"><label for="scheduling">End Time*: </label></h5>
+
+      <div style="width: 14%">
+        <p-calendar [inputStyle]="{'width':'300%'}" [(ngModel)]="BatchScheduleEndTime"
+          [timeOnly]="true" hourFormat="12"></p-calendar>
+      </div>
+    </div>
     <br>
     <div class="text-center col-md-12">
       <label>Apply Changes For All Workorders</label>&nbsp;

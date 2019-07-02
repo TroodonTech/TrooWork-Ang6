@@ -29,6 +29,25 @@
         </option>
       </select>
     </div>
+    <div class="row col-md-12" style="margin-top: 2%">
+      <h5 style="text-align:right;" class="col-md-4"><label for="scheduling">Start Time*: </label></h5>
+      <!-- <div class=" col-md-4 "> -->
+      <!--removing this class for adjusting the time picker width-->
+      <div style="width: 14%">
+        <p-calendar [inputStyle]="{'width':'300%'}" [(ngModel)]="StartTime"
+          [timeOnly]="true" hourFormat="12"></p-calendar>
+      </div>
+    </div>
+    <div class="row col-md-12" style="margin-top: 2%">
+      <h5 style="text-align:right;" class="col-md-4"><label for="scheduling">End Time*: </label></h5>
+      <!-- <div class=" col-md-4 "> -->
+      <!--removing this class for adjusting the time picker width-->
+      <div style="width: 14%">
+        <p-calendar [inputStyle]="{'width':'300%'}" [(ngModel)]="EndTime"
+          [timeOnly]="true" hourFormat="12"></p-calendar>
+      </div>
+    </div>
+    
     <br>
     <div class="row col-md-12" style="margin-left: 32%;">
       <a style="color:white !important" (click)="createScheduleName()" class="btn btn-success"><b>Create Assignment

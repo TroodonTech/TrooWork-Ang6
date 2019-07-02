@@ -24,7 +24,8 @@ export class EditBatchWorkComponent implements OnInit {
   schName: String;
   BatchScheduleNameKey;
   loading: boolean;
-
+  BatchScheduleTime;
+  BatchScheduleEndTime;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -63,7 +64,23 @@ export class EditBatchWorkComponent implements OnInit {
       alert("Assignment Description is not provided !");
     } else if (!this.empKey) {
       alert("Employee Name is not provided !");
-    } else {
+    }
+    else if (!this.BatchScheduleTime) {
+      alert("Start Time is not provided !");
+    }
+    else if (!this.BatchScheduleEndTime) {
+      alert("End Time is not provided !");
+    } 
+    else {
+
+      var q = this.BatchScheduleEndTime.getHours();
+      var q1 = this.BatchScheduleEndTime.getMinutes();
+      var endTime = q + ":" + q1;
+
+      var q2 = this.BatchScheduleTime.getHours();
+      var q3 = this.BatchScheduleTime.getMinutes();
+      var startTime = q2 + ":" + q3;
+
       if (this.scheduleDetails.checkBoxValue == true) {
         var scheduleDT = this.convert_DT(new Date());
         this.scheduleService
@@ -75,7 +92,7 @@ export class EditBatchWorkComponent implements OnInit {
           .checkForNewScheduleName(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName)
           .subscribe((data: any[]) => {
             if (data[0].count == 0) {
-              this.scheduleService.updateScheduleNameDetails(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription)
+              this.scheduleService.updateScheduleNameDetails(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription,startTime,endTime)
                 .subscribe(res => {
                   alert("Assignment Name updated Successfully");
                   this._location.back();
@@ -85,7 +102,7 @@ export class EditBatchWorkComponent implements OnInit {
             }
           });
       } else {
-        this.scheduleService.updateScheduleNameDetails(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription)
+        this.scheduleService.updateScheduleNameDetails(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription,startTime,endTime)
           .subscribe(res => {
             alert("Assignment Name updated Successfully");
             this._location.back();
@@ -120,6 +137,15 @@ export class EditBatchWorkComponent implements OnInit {
         this.empKey = data[0].EmployeeKey;
         this.schName = data[0].BatchSchduleName;
         this.scheduleDetails.checkBoxValue = false;
+        var cur_time = new Date(Date.now());
+        var timeValue1 = this.scheduleDetails.BatchScheduleTime;
+        var test1 = timeValue1.split(":");
+        var start = new Date(cur_time.getFullYear(), cur_time.getMonth(), cur_time.getDate(), test1[0], test1[1], 0);
+        this.BatchScheduleTime = start;
+        var timeValue2 = this.scheduleDetails.BatchScheduleEndTime;
+        var test2 = timeValue2.split(":");
+        this.BatchScheduleEndTime = new Date(cur_time.getFullYear(), cur_time.getMonth(), cur_time.getDate(), test2[0], test2[1], 0);
+        
       });
 
   }

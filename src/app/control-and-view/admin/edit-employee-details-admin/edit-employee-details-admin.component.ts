@@ -106,7 +106,7 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     }
   }
 
-  editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey) {
+  editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend) {
     if (!EmployeeNumber || !EmployeeNumber.trim()) {
       alert("Employee Number is not provided !");
       return;
@@ -135,8 +135,7 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       alert("Primary Phone is not provided !");
       return;
     }
-    if((EmployeeStatusKey!=1) && !(this.remark))
-    {
+    if ((EmployeeStatusKey != 1) && !(this.remark)) {
       alert("Remarks are not provided !");
       return;
     }
@@ -174,16 +173,14 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       alert("Hire Date must be greater than birth date !");
       return;
     }
-    if(this.editempdtails.UserRoleTypeKey==3)
-{
-  this.managerKey = this.employeekey;
-}
-else
-{
-  this.managerKey = -1;
-}
+    if (this.editempdtails.UserRoleTypeKey == 3) {
+      this.managerKey = this.employeekey;
+    }
+    else {
+      this.managerKey = -1;
+    }
 
-    this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.managerKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey,this.remark)
+    this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.managerKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey, this.remark, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend)
       .subscribe((data: Array<any>) => {
         alert("Employee Updated !");
         this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['viewEmployeeAdmin'] } }]);
@@ -232,10 +229,9 @@ else
       this.HireDate = new Date(this.editempdtails.HireDate);
       this.managerKey = this.editempdtails.ManagerKey;
 
-      if(this.editempdtails.EmployeeStatusKey!=1 && this.editempdtails.EmployeeStatusKey!="")
-      {
-        this.statusFlag=true;
-        this.remark=this.editempdtails.Remark;
+      if (this.editempdtails.EmployeeStatusKey != 1 && this.editempdtails.EmployeeStatusKey != "") {
+        this.statusFlag = true;
+        this.remark = this.editempdtails.Remark;
       }
     });
 
@@ -280,15 +276,12 @@ else
     }
   }
 
-  statusChanged(statusKey)
-  {
-    if(statusKey!=1 && statusKey!="")
-    {
-      this.statusFlag=true;
+  statusChanged(statusKey) {
+    if (statusKey != 1 && statusKey != "") {
+      this.statusFlag = true;
     }
-    else
-    {
-      this.statusFlag=false;
+    else {
+      this.statusFlag = false;
     }
 
   }

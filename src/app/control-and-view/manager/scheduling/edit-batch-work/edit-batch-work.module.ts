@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { CalendarModule } from 'primeng/calendar';
 
 
 import { EditBatchWorkComponent } from './edit-batch-work.component';
@@ -25,7 +25,7 @@ const routes: Routes = [
     MDBBootstrapModule,
     ManagerDashBoardModule,
     FormsModule, ReactiveFormsModule,
-   
+    CalendarModule,
     RouterModule.forChild(routes)
   ],
   declarations: [EditBatchWorkComponent]

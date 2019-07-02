@@ -84,13 +84,15 @@ export class SchedulingService {
       .get(ConectionSettings.Url + '/checkForNewScheduleName?bkey=' + scheduleName + '&employeekey=' + empkey + '&OrganizationID=' + orgID);
   }
 
-  addScheduleName(scheduleName, empKey, scheduleDescription, EMPloyeeKey, OrgID) {
+  addScheduleName(scheduleName, empKey, scheduleDescription,startTime,endTime, EMPloyeeKey, OrgID) {
 
     const url = ConectionSettings.Url + "/addnewbatchName";
     const obj = {
       BatchSchduleName: scheduleName,
       ScheduleDescription: scheduleDescription,
       EmployeeKey: empKey,
+      startTime:startTime,
+      endTime:endTime,
       employeekey: EMPloyeeKey,
       OrganizationID: OrgID
     }
@@ -149,7 +151,7 @@ export class SchedulingService {
       .get(ConectionSettings.Url + '/checkForNewScheduleName?bkey=' + BatchSchduleName + '&employeekey=' + EmpKey + '&OrganizationID=' + orgID);
   }
 
-  updateScheduleNameDetails(employeeKey, OrgID, BatchscheduleName, empKey, scheduleNameKey, ScheduleDescription) {
+  updateScheduleNameDetails(employeeKey, OrgID, BatchscheduleName, empKey, scheduleNameKey, ScheduleDescription,startTime,endTime) {
 
     const url = ConectionSettings.Url + "/updateScheduleName";
     const obj = {
@@ -158,7 +160,9 @@ export class SchedulingService {
       EmployeeKey: empKey,
       bskey: scheduleNameKey,
       employeekey: employeeKey,
-      OrganizationID: OrgID
+      OrganizationID: OrgID,
+      startTime:startTime
+      ,endTime:endTime
     }
     return this.http.post(url, obj);
   }

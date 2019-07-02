@@ -23,6 +23,8 @@
         <th> Assignment Name </th>
         <th> Assignment Description</th>
         <th> Employee </th>
+        <th> Start Time </th>
+        <th> End Time </th>
         <th> Edit </th>
       </thead>
       <tbody>
@@ -39,6 +41,8 @@
             </select>
             <a style="color: red" *ngIf='!(k===editEmp)' (click)="changeDisable(k,z.EmployeeKey);" ><b>Click here to change employee</b></a>
           </td>
+          <td>{{z.BatchScheduleTime}}</td>
+          <td>{{z.BatchScheduleEndTime}}</td>
           <td>
             <div style="text-align:center">
               <a *ngIf='!(k===editEmp)' [routerLink]="['EditBatchWork',z.BatchScheduleNameKey]"

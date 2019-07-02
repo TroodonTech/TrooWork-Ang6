@@ -278,35 +278,66 @@ export class PeopleServiceService {
       .http
       .get(ConectionSettings.Url + '/department?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  createEmployeebyManager(EmployeeNumber, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, SupervisorKey, DepartmentKey, empKey, OrgID, managerkey) {
-    const url = ConectionSettings.Url + "/addemp";
-    const obj = {
-      employeenumber: EmployeeNumber,
-      managerkey: managerkey,
-      firstname: FirstName,
-      lastname: LastName,
-      middlename: MiddleName,
-      birthDate: BD,
-      gender: Gender,
-      addressline1: AddressLine1,
-      city: City,
-      addressline2: AddressLine2,
-      state: State,
-      country: Country,
-      primaryphone: PrimaryPhone,
-      zipcode: ZipCode,
-      alternatephone: AlternatePhone,
-      email: EmailID,
-      hireDate: HD,
-      isSupervisor: theCheckbox,
-      jobTitleKey: JobTitleKey,
-      supervisorKey: SupervisorKey,
-      departmentKey: DepartmentKey,
-      metaupdatedBy: empKey,
-      OrganizationID: OrgID
-    };
-    return this.http.post(url, obj);
-  }
+  // createEmployeebyManager(EmployeeNumber, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, SupervisorKey, DepartmentKey, empKey, OrgID, managerkey) {
+  //   const url = ConectionSettings.Url + "/addemp";
+  //   const obj = {
+  //     employeenumber: EmployeeNumber,
+  //     managerkey: managerkey,
+  //     firstname: FirstName,
+  //     lastname: LastName,
+  //     middlename: MiddleName,
+  //     birthDate: BD,
+  //     gender: Gender,
+  //     addressline1: AddressLine1,
+  //     city: City,
+  //     addressline2: AddressLine2,
+  //     state: State,
+  //     country: Country,
+  //     primaryphone: PrimaryPhone,
+  //     zipcode: ZipCode,
+  //     alternatephone: AlternatePhone,
+  //     email: EmailID,
+  //     hireDate: HD,
+  //     isSupervisor: theCheckbox,
+  //     jobTitleKey: JobTitleKey,
+  //     supervisorKey: SupervisorKey,
+  //     departmentKey: DepartmentKey,
+  //     metaupdatedBy: empKey,
+  //     OrganizationID: OrgID
+  //   };
+  //   return this.http.post(url, obj);
+  // }
+  //Commented by Prakash
+  // createEmployeebyManager(EmployeeNumber, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, SupervisorKey, DepartmentKey, empKey, OrgID,managerkey) {
+  //   const url = ConectionSettings.Url+"/addemp";
+  //   const obj = {
+  //     employeenumber: EmployeeNumber,
+  //     managerkey: managerkey,
+  //     firstname: FirstName,
+  //     lastname: LastName,
+  //     middlename: MiddleName,
+  //     birthDate: BD,
+  //     gender: Gender,
+  //     addressline1: AddressLine1,
+  //     city: City,
+  //     addressline2: AddressLine2,
+  //     state: State,
+  //     country: Country,
+  //     primaryphone: PrimaryPhone,
+  //     zipcode: ZipCode,
+  //     alternatephone: AlternatePhone,
+  //     email: EmailID,
+  //     hireDate: HD,
+  //     isSupervisor: theCheckbox,
+  //     jobTitleKey: JobTitleKey,
+  //     supervisorKey: SupervisorKey,
+  //     departmentKey: DepartmentKey,
+  //     metaupdatedBy: empKey,
+  //     OrganizationID: OrgID
+  //   };
+  //   return this.http.post(url, obj);
+  // }
+  //Commented by Prakash
   getAllEmployeeDetails(pagenumber, itemsPerPage, empkey, org) {
     return this
       .http
@@ -324,40 +355,76 @@ export class PeopleServiceService {
   }
 
 
-  UpdateEmployeeDetailsbyManager(mankey, empk, orgid, EmployeeNumber, userRoleTypeKey, FirstName, LastName, MiddleName, BirthDate, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HireDate, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey, remark) {
-    const url = ConectionSettings.Url + "/update_employee_info";
-    const obj = {
-      EmployeeKey: empk,
-      managerKey: mankey,
-      EmployeeNumber: EmployeeNumber,
-      FirstName: FirstName,
-      LastName: LastName,
-      MiddleName: MiddleName,
-      JobTitleKey: JobTitleKey,
-      AddressLine1: AddressLine1,
-      AddressLine2: AddressLine2,
-      City: City,
-      State: State,
-      ZipCode: ZipCode,
-      Country: Country,
-      PrimaryPhone: PrimaryPhone,
-      AlternatePhone: AlternatePhone,
-      birthDate: BirthDate,
-      hireDate: HireDate,
-      IsSupervisor: IsSupervisor,
-      SupervisorKey: SupervisorKey,
-      DepartmentKey: DepartmentKey,
-      EmailID: EmailID,
-      OrganizationID: orgid,
-      Gender: Gender,
-      UserRoleTypeKey: userRoleTypeKey,
-      EmployeeStatusKey1: EmployeeStatusKey,
-      Remark: remark
-    };
-    return this.http.post(url, obj);
+  // UpdateEmployeeDetailsbyManager(mankey, empk, orgid, EmployeeNumber, userRoleTypeKey, FirstName, LastName, MiddleName, BirthDate, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HireDate, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey, remark) {
+  //   const url = ConectionSettings.Url + "/update_employee_info";
+  //   const obj = {
+  //     EmployeeKey: empk,
+  //     managerKey: mankey,
+  //     EmployeeNumber: EmployeeNumber,
+  //     FirstName: FirstName,
+  //     LastName: LastName,
+  //     MiddleName: MiddleName,
+  //     JobTitleKey: JobTitleKey,
+  //     AddressLine1: AddressLine1,
+  //     AddressLine2: AddressLine2,
+  //     City: City,
+  //     State: State,
+  //     ZipCode: ZipCode,
+  //     Country: Country,
+  //     PrimaryPhone: PrimaryPhone,
+  //     AlternatePhone: AlternatePhone,
+  //     birthDate: BirthDate,
+  //     hireDate: HireDate,
+  //     IsSupervisor: IsSupervisor,
+  //     SupervisorKey: SupervisorKey,
+  //     DepartmentKey: DepartmentKey,
+  //     EmailID: EmailID,
+  //     OrganizationID: orgid,
+  //     Gender: Gender,
+  //     UserRoleTypeKey: userRoleTypeKey,
+  //     EmployeeStatusKey1: EmployeeStatusKey,
+  //     Remark: remark
+  //   };
+  //   return this.http.post(url, obj);
 
 
-  }
+  // }
+  // Commented By Prakash
+  // UpdateEmployeeDetailsbyManager(mankey, empk, orgid, EmployeeNumber, userRoleTypeKey, FirstName, LastName, MiddleName, BirthDate, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HireDate, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey,remark) {
+  //   const url = ConectionSettings.Url+"/update_employee_info";
+  //   const obj = {
+  //     EmployeeKey: empk,
+  //     managerKey: mankey,
+  //     EmployeeNumber: EmployeeNumber,
+  //     FirstName: FirstName,
+  //     LastName: LastName,
+  //     MiddleName: MiddleName,
+  //     JobTitleKey: JobTitleKey,
+  //     AddressLine1: AddressLine1,
+  //     AddressLine2: AddressLine2,
+  //     City: City,
+  //     State: State,
+  //     ZipCode: ZipCode,
+  //     Country: Country,
+  //     PrimaryPhone: PrimaryPhone,
+  //     AlternatePhone: AlternatePhone,
+  //     birthDate: BirthDate,
+  //     hireDate: HireDate,
+  //     IsSupervisor: IsSupervisor,
+  //     SupervisorKey: SupervisorKey,
+  //     DepartmentKey: DepartmentKey,
+  //     EmailID: EmailID,
+  //     OrganizationID: orgid,
+  //     Gender: Gender,
+  //     UserRoleTypeKey: userRoleTypeKey,
+  //     EmployeeStatusKey1: EmployeeStatusKey,
+  //     Remark:remark
+  //   };
+  //   return this.http.post(url, obj);
+
+
+  // }
+  // Commented By Prakash
   getEmployeeStatusListforDropdown(empKey, OrgID) {
     return this
       .http
@@ -861,4 +928,118 @@ export class PeopleServiceService {
 
 
   // *** PTO & Trade ends...
+  //Author: Prakash Code Starts for Employee Calendar Starts Here
+  getallschedulingexception(OrgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getallschedulingexception?OrganizationID=' + OrgID);
+
+  }
+  getallexceptionweekend() {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getallexceptionweekend');
+
+  }
+  getallmasterhour() {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getallmasterhour');
+
+  }
+  getallmasterminute() {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getallmasterminute');
+
+  }
+  UpdateEmployeeDetailsbyManager(mankey, empk, orgid, EmployeeNumber, userRoleTypeKey, FirstName, LastName, MiddleName, BirthDate, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HireDate, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey, remark, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend) {
+    const url = ConectionSettings.Url + "/update_employee_info";
+    const obj = {
+      EmployeeKey: empk,
+      managerKey: mankey,
+      EmployeeNumber: EmployeeNumber,
+      FirstName: FirstName,
+      LastName: LastName,
+      MiddleName: MiddleName,
+      JobTitleKey: JobTitleKey,
+      AddressLine1: AddressLine1,
+      AddressLine2: AddressLine2,
+      City: City,
+      State: State,
+      ZipCode: ZipCode,
+      Country: Country,
+      PrimaryPhone: PrimaryPhone,
+      AlternatePhone: AlternatePhone,
+      birthDate: BirthDate,
+      hireDate: HireDate,
+      IsSupervisor: IsSupervisor,
+      SupervisorKey: SupervisorKey,
+      DepartmentKey: DepartmentKey,
+      EmailID: EmailID,
+      OrganizationID: orgid,
+      Gender: Gender,
+      UserRoleTypeKey: userRoleTypeKey,
+      EmployeeStatusKey1: EmployeeStatusKey,
+      Remark: remark,
+
+      start_sun_hour: start_sun_hour,
+      start_sun_min: start_sun_min,
+      start_sun_format: start_sun_format,
+      start_mon_hour: start_mon_hour,
+      start_mon_min: start_mon_min,
+      start_mon_format: start_mon_format,
+      start_tue_hour: start_tue_hour,
+      start_tue_min: start_tue_min,
+      start_tue_format: start_tue_format,
+      start_wed_hour: start_wed_hour,
+      start_wed_min: start_wed_min,
+      start_wed_format: start_wed_format,
+      start_thu_hour: start_thu_hour,
+      start_thu_min: start_thu_min,
+      start_thu_format: start_thu_format,
+      start_fri_hour: start_fri_hour,
+      start_fri_min: start_fri_min,
+      start_fri_format: start_fri_format,
+      start_sat_hour: start_sat_hour,
+      start_sat_min: start_sat_min,
+      start_sat_format: start_sat_format,
+      end_sun_hour: end_sun_hour,
+      end_sun_min: end_sun_min,
+      end_sun_format: end_sun_format,
+      end_mon_hour: end_mon_hour,
+      end_mon_min: end_mon_min,
+      end_mon_format: end_mon_format,
+      end_tue_hour: end_tue_hour,
+      end_tue_min: end_tue_min,
+      end_tue_format: end_tue_format,
+      end_wed_hour: end_wed_hour,
+      end_wed_min: end_wed_min,
+      end_wed_format: end_wed_format,
+      end_thu_hour: end_thu_hour,
+      end_thu_min: end_thu_min,
+      end_thu_format: end_thu_format,
+      end_fri_hour: end_fri_hour,
+      end_fri_min: end_fri_min,
+      end_fri_format: end_fri_format,
+      end_sat_hour: end_sat_hour,
+      end_sat_min: end_sat_min,
+      end_sat_format: end_sat_format,
+
+      idscheduler_exception: idscheduler_exception,
+
+      idmaster_exception_weekend: idmaster_exception_weekend
+    };
+    return this.http.post(url, obj);
+  }
+
+  createEmployeebyManager(empschobj) {
+    const url = ConectionSettings.Url + "/addemp";
+
+    return this.http.post(url, empschobj);
+  }
+
+
+  //Author: Prakash Code Starts for Employee Calendar Ends Here
+
 }
