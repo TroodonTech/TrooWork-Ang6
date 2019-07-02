@@ -54,7 +54,12 @@
                   Login
                   Credentials</b></a>
               <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['Scheduler']}}]"><b>Scheduler</b></a>
-              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewSchedulerForEmployee']}}]"><b>View Scheduler-Employee</b></a>
+              <!-- <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewSchedulerForEmployee']}}]"><b>View Scheduler-Employee</b></a> -->
+
+              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['RequestsFromEmployees']}}]"><b>View
+                  Employee PTO Requests</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['TradeRequestsFromEmployees']}}]"><b>View
+                  Employee Trade Requests</b></a>
             </div>
           </li>
           <li class="nav-item dropdown" style="margin-left: -1rem;">

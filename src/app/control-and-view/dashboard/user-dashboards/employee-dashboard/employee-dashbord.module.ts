@@ -50,6 +50,46 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
         outlet: 'EmployeeOut',
         loadChildren: '../../../manager/people/view-employee-scheduler/view-employee-scheduler.module#ViewEmployeeSchedulerModule',
       },
+      {
+        path: 'PtoRequest',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/pto-request/pto-request.module#PtoRequestModule',
+      },
+      {
+        path: 'ViewPtoRequest',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/pto-request-view/pto-request-view.module#PtoRequestViewModule',
+      },
+      {
+        path: 'ViewPtoRequest/PTORequestDetails/:requestID',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/pto-request-details/pto-request-details.module#PtoRequestDetailsModule',
+      },
+      {
+        path: 'ViewPtoRequest/PTORequestEdit/:requestID',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/pto-request-edit/pto-request-edit.module#PtoRequestEditModule',
+      },
+      {
+        path: 'TradeRequest',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/trade-request/trade-request.module#TradeRequestModule',
+      },
+      {
+        path: 'ViewTradeRequest',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/trade-request-view/trade-request-view.module#TradeRequestViewModule',
+      },
+      {
+        path: 'ViewTradeRequest/TradeRequestEdit/:requestID',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/trade-request-edit/trade-request-edit.module#TradeRequestEditModule',
+      },
+      {
+        path: 'ViewTradeRequest/TradeRequestDetails/:requestID',
+        outlet: 'EmployeeOut',
+        loadChildren: '../../../employee/trade-request-details/trade-request-details.module#TradeRequestDetailsModule',
+      },
      ]
   }
 ];

@@ -12,19 +12,19 @@ export class PeopleServiceService {
   getLoginCredentialList(pageNo, itemsPerPage, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getLoginDetailsForAllUsers?pageno=' + pageNo + '&itemsperpage=' + itemsPerPage + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getLoginDetailsForAllUsers?pageno=' + pageNo + '&itemsperpage=' + itemsPerPage + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
   getLoginDetailsByEmpKey(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getLoginDetailsByID?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getLoginDetailsByID?employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
   resetUserPassword(username, password, empKey, userLoginId, updatedUser, OrgID) {
-    const url = ConectionSettings.Url+"/resetPassword";
+    const url = ConectionSettings.Url + "/resetPassword";
     const obj = {
       username: username,
       password: password,
@@ -40,7 +40,7 @@ export class PeopleServiceService {
   getUserEmail(username, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getUserEmail?username=' + username + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getUserEmail?username=' + username + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
@@ -48,27 +48,27 @@ export class PeopleServiceService {
   getJobTitleList(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/selectJobtitle?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/selectJobtitle?empkey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
   getallEmployeesList(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/allemployees?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/allemployees?empkey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
   gettodaysMeeting(page, count, today, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/gettodaysMeeting?ondate=' + today + '&employeekey=' + empKey + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/gettodaysMeeting?ondate=' + today + '&employeekey=' + empKey + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + OrgID);
 
   }
 
-  viewMtngTrainingbyFilter(fromDate, toDate, JobList, EmpList, empKey, OrgID,DepartmentKey,EventType) {
+  viewMtngTrainingbyFilter(fromDate, toDate, JobList, EmpList, empKey, OrgID, DepartmentKey, EventType) {
 
-    const url = ConectionSettings.Url+"/viewMeettingTrainingByAllFilter";
+    const url = ConectionSettings.Url + "/viewMeettingTrainingByAllFilter";
     const obj = {
       empKey: empKey,
       search_DT: fromDate,
@@ -76,8 +76,8 @@ export class PeopleServiceService {
       employees: EmpList,
       jobs: JobList,
       OrganizationID: OrgID,
-      DeptKey:DepartmentKey,
-      Evntype:EventType
+      DeptKey: DepartmentKey,
+      Evntype: EventType
     };
     return this.http.post(url, obj);
   }
@@ -85,7 +85,7 @@ export class PeopleServiceService {
 
   SearchmeetingTraining(fromDate, toDate, JobList, EmpList, SearchValue, empKey, OrgID) {
 
-    const url = ConectionSettings.Url+"/searchMeetingEventView";
+    const url = ConectionSettings.Url + "/searchMeetingEventView";
     const obj = {
       empKey: empKey,
       search_DT: fromDate,
@@ -101,21 +101,21 @@ export class PeopleServiceService {
   viewEmployeesOfEvent(eventKey, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/viewEmployeesOfEvent?EventKey=' + eventKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/viewEmployeesOfEvent?EventKey=' + eventKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
   markAttendance(empKey, eventKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/submitMarkAsAttendedTraining?EventKey=' + eventKey + '&attendedEmployees=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/submitMarkAsAttendedTraining?EventKey=' + eventKey + '&attendedEmployees=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
 
   removeAttendance(empKey, eventKey, OrgID) {
 
-    const url = ConectionSettings.Url+"/unAttendedTrainingChangeStatus?EventKey=" + eventKey + "&employeekey=" + empKey + "&OrganizationID=" + OrgID;
+    const url = ConectionSettings.Url + "/unAttendedTrainingChangeStatus?EventKey=" + eventKey + "&employeekey=" + empKey + "&OrganizationID=" + OrgID;
     const obj = {};
     return this.http.post(url, obj);
   }
@@ -124,7 +124,7 @@ export class PeopleServiceService {
   DeleteMeetingTraining(eventKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/deleteMeetingViewEmployeeDetails?EventKey=' + eventKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/deleteMeetingViewEmployeeDetails?EventKey=' + eventKey + '&OrganizationID=' + OrgID);
 
   }
 
@@ -132,39 +132,39 @@ export class PeopleServiceService {
   getSupervisorList(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
   getallEventList(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/meetingTraining?empKey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/meetingTraining?empKey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
   getSupervisorEmployeesList(supervisorKey, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/empGetBySupervisor?SupervisorKey=' + supervisorKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/empGetBySupervisor?SupervisorKey=' + supervisorKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
   getJobtitleEmployeesList(jobTleKey, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/empKey_byJobtitle?jobTitle=' + jobTleKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/empKey_byJobtitle?jobTitle=' + jobTleKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
   getSupervisorJobtitleEmployeesList(jobTleKey, superVsrKey, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/empGetBySupervisorjobTitle?SupervisorKey=' + superVsrKey + '&JobTitleKey=' + jobTleKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/empGetBySupervisorjobTitle?SupervisorKey=' + superVsrKey + '&JobTitleKey=' + jobTleKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
   addMeetingTraining(EventType, eventHost, Venue, time1, time2, Notes, EmployeeKeyString, date1, empKey, OrgID) {
 
-    const url = ConectionSettings.Url+"/addMeetingTraining";
+    const url = ConectionSettings.Url + "/addMeetingTraining";
     const obj = {
       actionKey: EventType,
       eventhost: eventHost,
@@ -184,20 +184,20 @@ export class PeopleServiceService {
   getMeetingTrainingDetails(eventKey, actionKey, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getEditViewTrainingMeetingDetails?EventKey=' + eventKey + '&ActionKey=' + actionKey + '&EmployeeKey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getEditViewTrainingMeetingDetails?EventKey=' + eventKey + '&ActionKey=' + actionKey + '&EmployeeKey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
   getallEmpsSelected(eventKey, actionKey, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getselectedEmployeeByEventKey?EventKey=' + eventKey + '&ActionKey=' + actionKey + '&EmployeeKey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getselectedEmployeeByEventKey?EventKey=' + eventKey + '&ActionKey=' + actionKey + '&EmployeeKey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
   updateMeetingTraining(EventType, eventHost, Venue, time1, time2, Notes, EmployeeKeyString, date1, EventKey, empKey, OrgID) {
 
-    const url = ConectionSettings.Url+"/updateEditMeetingDetails";
+    const url = ConectionSettings.Url + "/updateEditMeetingDetails";
     const obj = {
       actionKey: EventType,
       eventhost: eventHost,
@@ -219,11 +219,11 @@ export class PeopleServiceService {
   getEventTypeList(page, itemsPerPage, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getAllDefaultEvents?pageno=' + page + '&itemsPerPage=' + itemsPerPage + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllDefaultEvents?pageno=' + page + '&itemsPerPage=' + itemsPerPage + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   DeleteEventType(actionKey, actionTypeKey, OrgID) {
-    const url = ConectionSettings.Url+"/deleteDefaultEventDetails?ActionKey=" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&OrganizationID=" + OrgID;
+    const url = ConectionSettings.Url + "/deleteDefaultEventDetails?ActionKey=" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&OrganizationID=" + OrgID;
     const obj = {};
     return this.http.post(url, obj);
 
@@ -232,57 +232,54 @@ export class PeopleServiceService {
   getEventTypeDetails(actionKey, actionTypeKey, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getDefaultEventDetailsForEdit?actionKey=' + actionKey + '&actiontypeKey=' + actionTypeKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getDefaultEventDetailsForEdit?actionKey=' + actionKey + '&actiontypeKey=' + actionTypeKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   UpdateEventType(type, name, desc, actionKey, actionTypeKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/submitDefaultEventDetails?ActionType=" + type + "&Action=" + name + "&Description=" + desc + "&ActionKey=" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&employeekey=" + empKey + "&OrganizationID=" + OrgID;
+    const url = ConectionSettings.Url + "/submitDefaultEventDetails?ActionType=" + type + "&Action=" + name + "&Description=" + desc + "&ActionKey=" + actionKey + "&ActionTypeKey=" + actionTypeKey + "&employeekey=" + empKey + "&OrganizationID=" + OrgID;
     const obj = {};
     return this.http.post(url, obj);
 
   }
   // ****@Pooja's Code Starts here****
-  CheckNewJobtitle(JobTitle,employeekey,OrganizationID)
-  {
+  CheckNewJobtitle(JobTitle, employeekey, OrganizationID) {
     return this
-    .http
-    .get(ConectionSettings.Url+'/checkForNewJobTittle?JobTitle='+ JobTitle+'&employeekey='+employeekey+'&OrganizationID='+OrganizationID);
+      .http
+      .get(ConectionSettings.Url + '/checkForNewJobTittle?JobTitle=' + JobTitle + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
-  getManagerForEmployeeForSuperAdmin(OrgID)
-  {
+  getManagerForEmployeeForSuperAdmin(OrgID) {
     return this
-    .http
-    .get(ConectionSettings.Url+'/getManagerForEmployeeForSuperAdmin?OrganizationID='+ OrgID);
+      .http
+      .get(ConectionSettings.Url + '/getManagerForEmployeeForSuperAdmin?OrganizationID=' + OrgID);
   }
   getUserRoleType(OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getAllUserRoleType_Admin?OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllUserRoleType_Admin?OrganizationID=' + OrgID);
   }
   getJobTitle(OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/JobtitleForSuperAdmin?OrganizationID='+OrgID);
+      .get(ConectionSettings.Url + '/JobtitleForSuperAdmin?OrganizationID=' + OrgID);
   }
-  getJobTitleforadmindd(employeekey,OrganizationID)
-  {
+  getJobTitleforadmindd(employeekey, OrganizationID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/selectJobtitle?empkey='+employeekey+'&OrganizationID='+OrganizationID);
+      .get(ConectionSettings.Url + '/selectJobtitle?empkey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
-  
+
   getSuperVisor(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getDepartment(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/department?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/department?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  createEmployeebyManager(EmployeeNumber, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, SupervisorKey, DepartmentKey, empKey, OrgID,managerkey) {
-    const url = ConectionSettings.Url+"/addemp";
+  createEmployeebyManager(EmployeeNumber, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, SupervisorKey, DepartmentKey, empKey, OrgID, managerkey) {
+    const url = ConectionSettings.Url + "/addemp";
     const obj = {
       employeenumber: EmployeeNumber,
       managerkey: managerkey,
@@ -313,22 +310,22 @@ export class PeopleServiceService {
   getAllEmployeeDetails(pagenumber, itemsPerPage, empkey, org) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getAllEmployees?pagenumber=' + pagenumber + '&itemsPerPage=' + itemsPerPage + '&empkey=' + empkey + '&OrganizationID=' + org);
+      .get(ConectionSettings.Url + '/getAllEmployees?pagenumber=' + pagenumber + '&itemsPerPage=' + itemsPerPage + '&empkey=' + empkey + '&OrganizationID=' + org);
   }
   getAllEmployeeDetailswithjobtitledropdown(seljobtitlevalue, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchEmpByJobTitle?jobtitleString=' + seljobtitlevalue + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/searchEmpByJobTitle?jobtitleString=' + seljobtitlevalue + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   searchResultOfEmployeedetailsTable(SearchValue, pageno, itemsPerPage, employeekey, OrganizationID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchEmployeeOnTable?searchEmployee=' + SearchValue + '&pageno=' + pageno + '&itemsPerPage=' + itemsPerPage + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
+      .get(ConectionSettings.Url + '/searchEmployeeOnTable?searchEmployee=' + SearchValue + '&pageno=' + pageno + '&itemsPerPage=' + itemsPerPage + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
 
 
-  UpdateEmployeeDetailsbyManager(mankey, empk, orgid, EmployeeNumber, userRoleTypeKey, FirstName, LastName, MiddleName, BirthDate, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HireDate, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey,remark) {
-    const url = ConectionSettings.Url+"/update_employee_info";
+  UpdateEmployeeDetailsbyManager(mankey, empk, orgid, EmployeeNumber, userRoleTypeKey, FirstName, LastName, MiddleName, BirthDate, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HireDate, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey, remark) {
+    const url = ConectionSettings.Url + "/update_employee_info";
     const obj = {
       EmployeeKey: empk,
       managerKey: mankey,
@@ -355,7 +352,7 @@ export class PeopleServiceService {
       Gender: Gender,
       UserRoleTypeKey: userRoleTypeKey,
       EmployeeStatusKey1: EmployeeStatusKey,
-      Remark:remark
+      Remark: remark
     };
     return this.http.post(url, obj);
 
@@ -364,39 +361,38 @@ export class PeopleServiceService {
   getEmployeeStatusListforDropdown(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getEmployeeStatus?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getEmployeeStatus?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getJobTitleListforDropdown(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/selectJobtitle?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/selectJobtitle?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getDeptListforDropdown(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/department?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/department?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getSupervisorListforDropdown(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   EditEmployeeDetailsbyManager(empk, orgid) {
     return this
       .http
-      .get(ConectionSettings.Url+'/empDetails?SearchKey=' + empk + '&OrganizationID=' + orgid);
+      .get(ConectionSettings.Url + '/empDetails?SearchKey=' + empk + '&OrganizationID=' + orgid);
   }
-  selectEmpWithJobTSprvsrAndDept(employeekey,OrganizationID,JobTitle,Supervisor,DepartmentKey)
-  {
-    const uri = ConectionSettings.Url+'/empSelectWithFilterInMeetCreate';
+  selectEmpWithJobTSprvsrAndDept(employeekey, OrganizationID, JobTitle, Supervisor, DepartmentKey) {
+    const uri = ConectionSettings.Url + '/empSelectWithFilterInMeetCreate';
     const obj = {
       emKey: employeekey,
       OrgID: OrganizationID,
       JobT: JobTitle,
       Sup: Supervisor,
-      DeptKey:DepartmentKey
-    }; 
+      DeptKey: DepartmentKey
+    };
     return this.http.post(uri, obj);
   }
   // ****@Pooja's Code Ends here****
@@ -404,39 +400,38 @@ export class PeopleServiceService {
   getJobtitleView(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/addNewJobTitle?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/addNewJobTitle?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   searchJobtitle(SearchJobTitle, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchjobTitle?OrganizationID=' + OrgID + '&searchJobTitle=' + SearchJobTitle);
+      .get(ConectionSettings.Url + '/searchjobTitle?OrganizationID=' + OrgID + '&searchJobTitle=' + SearchJobTitle);
   }
   addJobtitle(jobtitleName, jobTitleDescription, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/addJobTitleNew";
+    const url = ConectionSettings.Url + "/addJobTitleNew";
     const obj = {
       JobTitle: jobtitleName,
       JobTitleDescription: jobTitleDescription,
       empkey: empKey,
       OrganizationID: OrgID
     };
-    
+
     return this.http.post(url, obj);
 
   }
-  checkfor_jobtitle(JobtitleName,employeekey,OrganizationID)
-  {
+  checkfor_jobtitle(JobtitleName, employeekey, OrganizationID) {
     return this
-    .http
-    .get(ConectionSettings.Url+'/checkForNewJobTittle?JobTitle='+JobtitleName+'&employeekey='+employeekey+'&OrganizationID='+OrganizationID);
-}
+      .http
+      .get(ConectionSettings.Url + '/checkForNewJobTittle?JobTitle=' + JobtitleName + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
+  }
   getEditJobtitleDetails(JobTitleKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/editviewJobTitle?JobTitleKey=' + JobTitleKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/editviewJobTitle?JobTitleKey=' + JobTitleKey + '&OrganizationID=' + OrgID);
   }
   // ****@Pooja's Code Starts here****
   createEmployeebySuperAdmin(OrgID, ManagerKey, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, theCheckbox, JobTitleKey, DepartmentKey, empKey) {
-    const url = ConectionSettings.Url+"/addemp";
+    const url = ConectionSettings.Url + "/addemp";
     const obj = {
       employeenumber: EmployeeNumber,
       managerkey: ManagerKey,
@@ -467,15 +462,15 @@ export class PeopleServiceService {
   getOrganization(OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getAllOrganization?OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllOrganization?OrganizationID=' + OrgID);
   }
   getUserRoleTypesa(OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getAllUserRoleType_SuperAdmin?OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllUserRoleType_SuperAdmin?OrganizationID=' + OrgID);
   }
   getAllEmployeeDetailswithjobtitledropdownsa(orgid, empkey, jobtikey, mankey, page, count) {
-    const url = ConectionSettings.Url+"/employeeByAllFilter";
+    const url = ConectionSettings.Url + "/employeeByAllFilter";
     const obj = {
       JobTitleKey: jobtikey,
       ManagerKey: mankey,
@@ -490,10 +485,10 @@ export class PeopleServiceService {
   getvaluesForManagerDropdowninSA(empkey, orgid) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getManagerForEmployee?employeekey=' + empkey + '&OrganizationID=' + orgid);
+      .get(ConectionSettings.Url + '/getManagerForEmployee?employeekey=' + empkey + '&OrganizationID=' + orgid);
   }
   DeleteEmployeeDetailsbyManager(delete_EmpKey, orgID, updatedby) {
-    const url = ConectionSettings.Url+"/removeEmployee";
+    const url = ConectionSettings.Url + "/removeEmployee";
     const obj = {
       empKey: delete_EmpKey,
       updatedBy: updatedby,
@@ -505,30 +500,30 @@ export class PeopleServiceService {
   getOrganizationDDforSuprAdmin(orgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getAllOrganization?OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/getAllOrganization?OrganizationID=' + orgID);
   }
   EditEmployeeDetailsbySuperadmin(empk, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/empDetails?SearchKey=' + empk + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/empDetails?SearchKey=' + empk + '&OrganizationID=' + orgID);
   }
   getDepartmentforddinSuperadmin(emplokey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/department?empkey=' + emplokey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/department?empkey=' + emplokey + '&OrganizationID=' + orgID);
   }
   getEmployeeStatusListforDropdowninSuperadmin(emplokey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getEmployeeStatus?employeekey=' + emplokey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/getEmployeeStatus?employeekey=' + emplokey + '&OrganizationID=' + orgID);
   }
   getjobTitleforDropdowninSuperadmin(orgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/JobtitleForSuperAdmin?OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/JobtitleForSuperAdmin?OrganizationID=' + orgID);
   }
-  UpdateEmployeeDetailsbySa(managerKey, empk, orgID, UserRoleTypeKey, EmployeeNumber, FirstName, LastName, MiddleName, birthdt, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, JobTitleKey, DepartmentKey, Gender,remark) {
-    const url = ConectionSettings.Url+"/update_employee_info";
+  UpdateEmployeeDetailsbySa(managerKey, empk, orgID, UserRoleTypeKey, EmployeeNumber, FirstName, LastName, MiddleName, birthdt, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, JobTitleKey, DepartmentKey, Gender, remark) {
+    const url = ConectionSettings.Url + "/update_employee_info";
     const obj = {
       EmployeeKey: empk,
       managerKey: managerKey,
@@ -554,12 +549,12 @@ export class PeopleServiceService {
       UserRoleTypeKey: UserRoleTypeKey,
       EmployeeStatusKey1: EmployeeStatusKey,
       Gender: Gender,
-      Remark:remark
+      Remark: remark
     };
     return this.http.post(url, obj);
   }
   DeleteEmployeeDetailsbySuperadmin(delete_EmpKey, orgID, Updatdby) {
-    const url = ConectionSettings.Url+"/removeEmployee";
+    const url = ConectionSettings.Url + "/removeEmployee";
     const obj = {
       empKey: delete_EmpKey,
       updatedBy: Updatdby,
@@ -568,38 +563,36 @@ export class PeopleServiceService {
     return this
       .http.post(url, obj);
   }
-  getMeetingTrainingViewforemployees(curr_date,toServeremployeekey,OrganizationID)
-  {
+  getMeetingTrainingViewforemployees(curr_date, toServeremployeekey, OrganizationID) {
     return this
-    .http
-    .get(ConectionSettings.Url+'/viewEmployeeMeetingTraining?meetingDate='+curr_date+'&employeekey='+toServeremployeekey+'&OrganizationID='+OrganizationID);
+      .http
+      .get(ConectionSettings.Url + '/viewEmployeeMeetingTraining?meetingDate=' + curr_date + '&employeekey=' + toServeremployeekey + '&OrganizationID=' + OrganizationID);
   }
   getMeetingTrainingViewforemployee(page, count, curr_date, empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/gettodaysMeeting?ondate=' + curr_date + '&employeekey=' + empKey + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/gettodaysMeeting?ondate=' + curr_date + '&employeekey=' + empKey + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + orgID);
   }
 
   SearchMeetingviewforemployee(SearchValue, empKey, orgID, curr_date) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchEmpMeetingORTraining?OrganizationID=' + orgID + '&searchActionType=' + SearchValue + '&toServeremployeekey=' + empKey + '&today_DT=' + curr_date);
+      .get(ConectionSettings.Url + '/searchEmpMeetingORTraining?OrganizationID=' + orgID + '&searchActionType=' + SearchValue + '&toServeremployeekey=' + empKey + '&today_DT=' + curr_date);
   }
   getuserNamePasswordforsaveandSendemail(page, count, empKey, orgid) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getLoginDetailsForAllUsers?pageno=' + page + '&itemsperpage=' + count + '&employeekey=' + empKey + '&OrganizationID=' + orgid);
+      .get(ConectionSettings.Url + '/getLoginDetailsForAllUsers?pageno=' + page + '&itemsperpage=' + count + '&employeekey=' + empKey + '&OrganizationID=' + orgid);
   }
-  CheckForEmployeenumber(EmployeeNumber,employeekey,OrganizationID)
-  {
+  CheckForEmployeenumber(EmployeeNumber, employeekey, OrganizationID) {
     return this
-    .http
-    .get(ConectionSettings.Url+'/checkforEmployeeNumber?Employeenumber='+EmployeeNumber+'&employeekey='+employeekey+'&OrganizationID='+OrganizationID);
+      .http
+      .get(ConectionSettings.Url + '/checkforEmployeeNumber?Employeenumber=' + EmployeeNumber + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
   // ****@Pooja's Code Ends here****
   updateEditJobtitle(JobTitle_Key, jobtitleName, jobTitleDescription, empKey, OrgID) {
 
-    const url = ConectionSettings.Url+"/updateSelectedJobTitle";
+    const url = ConectionSettings.Url + "/updateSelectedJobTitle";
     const obj = {
       JobTitleKey: JobTitle_Key,
       JobTitle: jobtitleName,
@@ -610,7 +603,7 @@ export class PeopleServiceService {
     return this.http.post(url, obj);
   }
   deleteJobTitle(deleteJobtitleKey, OrgID) {
-    const url = ConectionSettings.Url+"/deleteJobTitleSelected";
+    const url = ConectionSettings.Url + "/deleteJobTitleSelected";
     const obj = {
       JobTitleKey: deleteJobtitleKey,
       OrganizationID: OrgID
@@ -621,19 +614,19 @@ export class PeopleServiceService {
   searchLoginCredsList(key, empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchEmployeeList?searchEmployee=' + key + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/searchEmployeeList?searchEmployee=' + key + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
 
   getmanagersForEmp(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getManagerForEmployee?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/getManagerForEmployee?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
 
   createEmployeebyAdmin(EmployeeNumber, ManagerKey, FirstName, LastName, MiddleName, BD, Gender,
     AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, issupervisor,
     JobTitleKey, DepartmentKey, employeekey, OrganizationID) {
-    const url = ConectionSettings.Url+"/addemp";
+    const url = ConectionSettings.Url + "/addemp";
     const obj = {
       employeenumber: EmployeeNumber,
       managerkey: ManagerKey,
@@ -664,17 +657,17 @@ export class PeopleServiceService {
   checkEmpNumber(empNumber, empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/checkforEmployeeNumber?Employeenumber=' + empNumber + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/checkforEmployeeNumber?Employeenumber=' + empNumber + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
 
   checkUserName(userName, empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/checkUsername?username=' + userName + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/checkUsername?username=' + userName + '&employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
 
   setLoginCreds(userName, passWord, empKey, employeekey, uRoleTypeKey, OrgID) {
-    const url = ConectionSettings.Url+"/setUsernamePassword";
+    const url = ConectionSettings.Url + "/setUsernamePassword";
     const obj = {
       username: userName,
       password: passWord,
@@ -686,8 +679,8 @@ export class PeopleServiceService {
     return this.http.post(url, obj);
   }
 
-  getEmployeeByFilters(page,count,jobtKey, managerKey, empKey, orgID) {
-    const url = ConectionSettings.Url+"/employeeByAllFilter";
+  getEmployeeByFilters(page, count, jobtKey, managerKey, empKey, orgID) {
+    const url = ConectionSettings.Url + "/employeeByAllFilter";
     const obj = {
       JobTitleKey: jobtKey,
       ManagerKey: managerKey,
@@ -701,15 +694,15 @@ export class PeopleServiceService {
   JobtitleForSuperAdmin(OrganizationID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/JobtitleForSuperAdmin?OrganizationID=' + OrganizationID);
+      .get(ConectionSettings.Url + '/JobtitleForSuperAdmin?OrganizationID=' + OrganizationID);
 
   }
   addMeetinTraingByNewEvent(obj) {
-    const url = ConectionSettings.Url+"/addMeetinTraingByNewEvent";
+    const url = ConectionSettings.Url + "/addMeetinTraingByNewEvent";
     return this.http.post(url, obj);
   }
-  getempdettblwithslctdJbtitleNempStatus(JobTitleKey,EmployeeStatusKey,employeekey,OrganizationID){
-    const url = ConectionSettings.Url+"/employeeByJbtitleNempStatusFilter";
+  getempdettblwithslctdJbtitleNempStatus(JobTitleKey, EmployeeStatusKey, employeekey, OrganizationID) {
+    const url = ConectionSettings.Url + "/employeeByJbtitleNempStatusFilter";
     const obj = {
       JbTitlKy: JobTitleKey,
       empstskey: EmployeeStatusKey,
@@ -718,4 +711,154 @@ export class PeopleServiceService {
     };
     return this.http.post(url, obj);
   }
+
+
+  // *** PTO & Trade ends...
+
+  submitRequest(curr_date, toServeremployeekey, OrganizationID, startdate, enddate, comments, reason) {
+    const url = ConectionSettings.Url + "/savePTORequest";
+    const obj = {
+      currentdate: curr_date,
+      employeekey: toServeremployeekey,
+      OrganizationID: OrganizationID,
+      startdate: startdate,
+      enddate: enddate,
+      comments: comments,
+      ptoreason: reason
+    };
+    return this.http.post(url, obj);
+  }
+  getRequestdetails(employeekey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getRequestDetails?OrganizationID=' + orgID + '&employeekey=' + employeekey);
+  }
+  getRequestInfoforEmployee(ptorequestID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getRequestDetailsforEmployee?ptorequestDetails=' + ptorequestID);
+  }
+  setEditedRequest(curr_date, ptorequestID$, StartDate, EndDate, Comments, reason,empKey) {
+    const url = ConectionSettings.Url + "/setEditedRequest";
+    const obj = {
+      currdate: curr_date,
+      ptorequestID: ptorequestID$,
+      StartDate: StartDate,
+      EndDate: EndDate,
+      Comments: Comments,
+      Reason: reason,
+      EmpKey: empKey
+    };
+    return this.http.post(url, obj);
+  }
+  deletePTORequest(deleteRequestKey) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/deletePTORequest?deleteRequestKey=' + deleteRequestKey);
+  }
+  getRequestdetailsforManager(orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getRequestdetailsforManager?OrganizationID=' + orgID);
+  }
+  getRequestdetailsbyID(ptorequestDetails$) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getRequestDetailsbyID?ptorequestDetailskey=' + ptorequestDetails$);
+  }
+  getassignmentdetailsbyID(ptorequestDetails) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getassignmentdetailsbyID?ptorequestDetailskey=' + ptorequestDetails);
+  }
+  saveRequestAction(ptorequestDetails$, employeekey, statuscurrentdate, approvedstartdate, ApprovedEndDate, StatusKey, statuscomments) {
+    const url = ConectionSettings.Url + "/savePTORequestAction";
+    const obj = {
+      ptorequestDetails: ptorequestDetails$,
+      employeekey: employeekey,
+      statuscurrentdate: statuscurrentdate,
+      approvedstartdate: approvedstartdate,
+      ApprovedEndDate: ApprovedEndDate,
+      StatusKey: StatusKey,
+      statuscomments: statuscomments
+    };
+    return this.http.post(url, obj);
+  }
+  getAllEmployeeNames(OrganizationID, toServeremployeekey) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getAllEmployeeNames?OrganizationID=' + OrganizationID + '&employeekey=' + toServeremployeekey);
+  }
+  submitTradeRequest(curr_date, toServeremployeekey, OrganizationID, EmployeeKey, startdate, enddate, comments) {
+    const url = ConectionSettings.Url + "/saveTradeRequest";
+    const obj = {
+      currentdate: curr_date,
+      toServeremployeekey: toServeremployeekey,
+      OrganizationID: OrganizationID,
+      EmployeeKey: EmployeeKey,
+      startdate: startdate,
+      enddate: enddate,
+      comments: comments
+    };
+    return this.http.post(url, obj);
+  }
+
+  getTradeRequestdetails(orgID, employeekey) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getTradeRequestDetails?OrganizationID=' + orgID + '&employeekey=' + employeekey);
+  }
+  deleteTradeRequest(deleteRequestKey) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/deleteTradeRequest?deleteRequestKey=' + deleteRequestKey);
+  }
+  getTradeRequestInfoforEmployee(traderequestDetails, OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getTradeRequestInfoforEmployee?traderequestDetails=' + traderequestDetails + '&OrganizationID=' + OrganizationID);
+  }
+  setEditedTradeRequest(curr_date, traderequestID, OtherEmployee, StartDate, EndDate, Comments) {
+    const url = ConectionSettings.Url + "/setEditedTradeRequest";
+    const obj = {
+      currdate: curr_date,
+      traderequestID: traderequestID,
+      OtherEmployee: OtherEmployee,
+      StartDate: StartDate,
+      EndDate: EndDate,
+      Comments: Comments
+    };
+    return this.http.post(url, obj);
+  }
+  getTradeRequestdetailsforManager(orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getTradeRequestdetailsforManager?OrganizationID=' + orgID);
+  }
+  getTradeRequestdetailsbyID(traderequestID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getTradeRequestdetailsbyID?tradeRequestID=' + traderequestID)
+  }
+  getAssignmentTradebyID(traderequestID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getAssignmentTradebyID?traderequestID=' + traderequestID)
+  }
+  saveTradeRequestAction(tradeRequestID, employeekey, statuscurrentdate, approvedstartdate, ApprovedEndDate, StatusKey, statuscomments) {
+    const url = ConectionSettings.Url + "/saveTradeRequestAction";
+    const obj = {
+      tradeRequestID: tradeRequestID,
+      employeekey: employeekey,
+      statuscurrentdate: statuscurrentdate,
+      approvedstartdate: approvedstartdate,
+      ApprovedEndDate: ApprovedEndDate,
+      StatusKey: StatusKey,
+      statuscomments: statuscomments
+    };
+    return this.http.post(url, obj);
+  }
+
+
+  // *** PTO & Trade ends...
 }

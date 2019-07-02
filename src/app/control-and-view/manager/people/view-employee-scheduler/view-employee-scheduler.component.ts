@@ -28,7 +28,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
           <label>View Range*</label>
            <select [(ngModel)]="Range" (change)='ViewType();empCalendarActivities();' class="form-control col-sm-9 col-md-9 col-lg-9" [value]="value" style="background-color: #d4f4ff;">
               <option value="">--Select--</option>
-              <option value="Daily">Daily</option>
+              <!-- <option value="Daily">Daily</option> -->
               <option value="Week">Week</option>
               <option value="Month">Month</option>
           </select>
@@ -302,32 +302,32 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
       this.config.days = 7;
       this.config.startDate = this.convert_DT(this.date);
     }
-    else if (this.Range == 'Daily') {
-      this.config.timeHeaders = [
-        {
-          "groupBy": "Day",
-          "format": "dddd, d MMMM yyyy"
-        },
-        {
-          "groupBy": "Hour"
-        },
-        {
-          "groupBy": "Cell",
-          "format": "mm"
-        }
-      ];
-      this.config.scale = "CellDuration";
-      this.config.cellDuration = 30;
-      this.config.cellWidth= 150;
-      this.config.days = 1;
-      if (this.date) {
-        this.config.startDate = this.date;
-      }
-      else {
-        this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
-      }
+    // else if (this.Range == 'Daily') {
+    //   this.config.timeHeaders = [
+    //     {
+    //       "groupBy": "Day",
+    //       "format": "dddd, d MMMM yyyy"
+    //     },
+    //     {
+    //       "groupBy": "Hour"
+    //     },
+    //     {
+    //       "groupBy": "Cell",
+    //       "format": "mm"
+    //     }
+    //   ];
+    //   this.config.scale = "CellDuration";
+    //   this.config.cellDuration = 30;
+    //   this.config.cellWidth= 150;
+    //   this.config.days = 1;
+    //   if (this.date) {
+    //     this.config.startDate = this.date;
+    //   }
+    //   else {
+    //     this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
+    //   }
 
-    }
+    // }
   }
   selecteddate() {
     if (this.Range == 'Week') {
