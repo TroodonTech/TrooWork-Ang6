@@ -361,7 +361,7 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
       this.schedularcount++;
-      alert('Value Missing in Sunday');
+      alert('Values Missing in Sunday');
       return;
     }
 
@@ -373,6 +373,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      alert('Values Missing in Monday');
+      return;
     }
 
     if (this.start_tue_hour == '-1' && this.start_tue_min == '-1' && this.end_tue_hour == '-1' && this.end_tue_min == '-1') {
@@ -383,6 +385,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      alert('Values Missing in Tuesday');
+      return;
     }
 
     if (this.start_wed_hour == '-1' && this.start_wed_min == '-1' && this.end_wed_hour == '-1' && this.end_wed_min == '-1') {
@@ -393,6 +397,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      alert('Values Missing in Wednesday');
+      return;
     }
 
     if (this.start_thu_hour == '-1' && this.start_thu_min == '-1' && this.end_thu_hour == '-1' && this.end_thu_min == '-1') {
@@ -403,6 +409,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      alert('Values Missing in Thursday');
+      return;
     }
 
     if (this.start_fri_hour == '-1' && this.start_fri_min == '-1' && this.end_fri_hour == '-1' && this.end_fri_min == '-1') {
@@ -413,6 +421,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      alert('Values Missing in Friday');
+      return;
     }
 
     if (this.start_sat_hour == '-1' && this.start_sat_min == '-1' && this.end_sat_hour == '-1' && this.end_sat_min == '-1') {
@@ -422,6 +432,8 @@ export class CreateEmployeeComponent implements OnInit {
       this.schedularcount = this.schedularcount;
     } else {
       this.schedularcount++;
+      alert('Values Missing in Saturday');
+      return;
     }
 
     if (this.schedularcount == 0) {
