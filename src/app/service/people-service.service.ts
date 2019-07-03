@@ -1038,7 +1038,12 @@ export class PeopleServiceService {
 
     return this.http.post(url, empschobj);
   }
+  getallemployeegrouping(OrgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getallemployeegrouping?OrganizationID=' + OrgID);
 
+  }
 
   //Author: Prakash Code Starts for Employee Calendar Ends Here
 
