@@ -82,6 +82,7 @@ export class CreateBatchWorkComponent implements OnInit {
 
       var q2 = this.StartTime.getHours();
       var q3 = this.StartTime.getMinutes();
+      var today_DT = this.convert_DT(new Date());    
       var startTime = q2 + ":" + q3;
       this.scheduleService
         .checkScheduleName(this.scheduleName, this.employeekey, this.OrganizationID)
@@ -90,7 +91,7 @@ export class CreateBatchWorkComponent implements OnInit {
             alert("Assignment Name already present");
           }
           else if (data[0].count == 0) {
-            this.scheduleService.addScheduleName(this.scheduleName, this.empKey, this.scheduleDescription,startTime,endTime, this.employeekey, this.OrganizationID)
+            this.scheduleService.addScheduleName(this.scheduleName, this.empKey, this.scheduleDescription,startTime,endTime,today_DT, this.employeekey, this.OrganizationID)
               .subscribe(res => {
                 alert("Assignment Name created successfully.");
                 this._location.back()
