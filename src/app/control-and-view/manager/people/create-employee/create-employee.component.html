@@ -187,6 +187,21 @@
         </div>
       </div>
     </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Employee Group</label><br>
+        <select name="idemployeegrouping" [(ngModel)]="idemployeegrouping" [value]="value"
+          style="background-color: #d4f4ff;width: 75% !important" class="form-control">
+          <option value="" placeholder>--Select--</option>
+          <option *ngFor="let s of employeegrouping" [value]="s.Idemployeegrouping">
+            {{s.Description}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+
   </div>
   <br>
 
