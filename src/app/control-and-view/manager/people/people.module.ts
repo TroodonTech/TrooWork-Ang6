@@ -16,26 +16,35 @@ import { SettingusernameandpswrdaftremplcreatebymanComponent } from './settingus
 import { SchedulerComponent } from './schedulerNew/scheduler.component';
 import { ViewEmployeeSchedulerComponent } from './view-employee-scheduler/view-employee-scheduler.component';
 
-
+import { PtoRequestActionComponent } from './pto-request-action/pto-request-action.component';
+import { PtoRequestsfromEmployeesComponent } from './pto-requestsfrom-employees/pto-requestsfrom-employees.component';
+import { TradeRequestActionComponent } from './trade-request-action/trade-request-action.component';
+import { TradeRequestsfromEmployeesComponent } from './trade-requestsfrom-employees/trade-requestsfrom-employees.component';
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [CreateEmployeeComponent, 
-    JobTitleViewComponent, 
-    ManageLoginCredentialsComponent, 
-    ResetPassWordComponent, 
-    MeetingTrainingCreateComponent, 
-    MeetingTrainingEditComponent, 
-    MeetingTrainingViewComponent, 
-    EventEditComponent, 
-    EventViewComponent, 
-    ViewEmployeesofEventComponent, 
-    ViewEmployeeComponent, 
-    EditEmployeedetailsComponent, 
+  declarations: [
+    CreateEmployeeComponent,
+    JobTitleViewComponent,
+    ManageLoginCredentialsComponent,
+    ResetPassWordComponent,
+    MeetingTrainingCreateComponent,
+    MeetingTrainingEditComponent,
+    MeetingTrainingViewComponent,
+    EventEditComponent,
+    EventViewComponent,
+    ViewEmployeesofEventComponent,
+    ViewEmployeeComponent,
+    EditEmployeedetailsComponent,
     SettingusernameandpswrdaftremplcreatebymanComponent,
     SchedulerComponent,
-    ViewEmployeeSchedulerComponent
+    ViewEmployeeSchedulerComponent,
+
+    PtoRequestActionComponent,
+    PtoRequestsfromEmployeesComponent,
+    TradeRequestActionComponent,
+    TradeRequestsfromEmployeesComponent
   ]
 })
 export class PeopleModule { }

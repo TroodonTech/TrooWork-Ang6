@@ -20,7 +20,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
         <h3 style="text-align: right"></h3>
         <div class="form-group" style="width: 85%;">
           <label>Date*</label>
-           <ng-datepicker [options]="options" position="top-right" [(ngModel)]="date1" (ngModelChange)="selecteddate();empCalendarActivities();"></ng-datepicker>
+           <ng-datepicker [options]="options" position="top-right" [(ngModel)]="date" (ngModelChange)="selecteddate();empCalendarActivities();"></ng-datepicker>
         </div>
       </div>
       <div class="col-md-6">
@@ -67,7 +67,6 @@ export class SchedulerComponent implements AfterViewInit {
 
   events: any[] = [];
   date;
-  date1;
   Range;
   role: String;
   //other variables
@@ -273,8 +272,6 @@ export class SchedulerComponent implements AfterViewInit {
       });
 
     this.date = DayPilot.Date.today().firstDayOfMonth();
-    this.date1 = this.date.value;
-    this.date1 = this.convert_DT(this.date1);
 
     this.empCalendarActivities();
   }
@@ -311,6 +308,7 @@ export class SchedulerComponent implements AfterViewInit {
       ];
       this.config.scale = "Day";
       this.config.cellDuration = 120;
+      this.config.cellWidth= 150;
       this.config.days = DayPilot.Date.today().daysInMonth();
       if (this.date) {
         this.config.startDate = this.date;
@@ -330,6 +328,7 @@ export class SchedulerComponent implements AfterViewInit {
       ];
       this.config.scale = "Day";
       this.config.cellDuration = 120;
+      this.config.cellWidth= 200;
       this.config.days = 7;
       // var d = this.date;
 
@@ -340,31 +339,31 @@ export class SchedulerComponent implements AfterViewInit {
       this.config.startDate = this.convert_DT(this.date);
     }
     // ...
-    else if (this.Range == 'Daily') {
-      this.config.timeHeaders = [
-        {
-          "groupBy": "Day",
-          "format": "dddd, d MMMM yyyy"
-        },
-        {
-          "groupBy": "Hour"
-        },
-        {
-          "groupBy": "Cell",
-          "format": "mm"
-        }
-      ];
-      this.config.scale = "CellDuration";
-      this.config.cellDuration = 30;
-      this.config.days = 1;
-      if (this.date) {
-        this.config.startDate = this.date;
-      }
-      else {
-        this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
-      }
+    // else if (this.Range == 'Daily') {
+    //   this.config.timeHeaders = [
+    //     {
+    //       "groupBy": "Day",
+    //       "format": "dddd, d MMMM yyyy"
+    //     },
+    //     {
+    //       "groupBy": "Hour"
+    //     },
+    //     {
+    //       "groupBy": "Cell",
+    //       "format": "mm"
+    //     }
+    //   ];
+    //   this.config.scale = "CellDuration";
+    //   this.config.cellDuration = 30;
+    //   this.config.days = 1;
+    //   if (this.date) {
+    //     this.config.startDate = this.date;
+    //   }
+    //   else {
+    //     this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
+    //   }
 
-    }
+    // }
 
     // ...
   }

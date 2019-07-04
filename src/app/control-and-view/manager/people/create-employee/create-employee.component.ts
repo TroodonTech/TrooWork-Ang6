@@ -119,6 +119,9 @@ export class CreateEmployeeComponent implements OnInit {
   masterhour: People[];
   masterminute: People[];
 
+  employeegrouping: People[];
+  idemployeegrouping;
+
   //Author: Prakash Code Starts for Employee Calendar Ends Here
 
 
@@ -193,7 +196,7 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   createEmployee() {
-
+    this.schedularcount = 0;
     var managerkey;
     // managerkey = this.employeekey;
     if (!(this.EmployeeNumber) || !this.EmployeeNumber.trim()) {
@@ -271,7 +274,7 @@ export class CreateEmployeeComponent implements OnInit {
       this.idmaster_exception_weekend = null;
     }
 
-    
+
     const empschobj = {
       start_sun_hour: this.start_sun_hour,
       start_sun_min: this.start_sun_min,
@@ -319,7 +322,7 @@ export class CreateEmployeeComponent implements OnInit {
       idscheduler_exception: this.idscheduler_exception,
 
       idmaster_exception_weekend: this.idmaster_exception_weekend,
-
+      idemployeegrouping: this.idemployeegrouping,
 
       //Author: Prakash Code Starts for Employee Calendar Ends Here
 
@@ -358,6 +361,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      alert('Values Missing in Sunday');
+      return;
     }
 
     if (this.start_mon_hour == '-1' && this.start_mon_min == '-1' && this.end_mon_hour == '-1' && this.end_mon_min == '-1') {
@@ -368,6 +373,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      alert('Values Missing in Monday');
+      return;
     }
 
     if (this.start_tue_hour == '-1' && this.start_tue_min == '-1' && this.end_tue_hour == '-1' && this.end_tue_min == '-1') {
@@ -378,6 +385,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      alert('Values Missing in Tuesday');
+      return;
     }
 
     if (this.start_wed_hour == '-1' && this.start_wed_min == '-1' && this.end_wed_hour == '-1' && this.end_wed_min == '-1') {
@@ -388,6 +397,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      alert('Values Missing in Wednesday');
+      return;
     }
 
     if (this.start_thu_hour == '-1' && this.start_thu_min == '-1' && this.end_thu_hour == '-1' && this.end_thu_min == '-1') {
@@ -398,6 +409,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      alert('Values Missing in Thursday');
+      return;
     }
 
     if (this.start_fri_hour == '-1' && this.start_fri_min == '-1' && this.end_fri_hour == '-1' && this.end_fri_min == '-1') {
@@ -408,6 +421,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      alert('Values Missing in Friday');
+      return;
     }
 
     if (this.start_sat_hour == '-1' && this.start_sat_min == '-1' && this.end_sat_hour == '-1' && this.end_sat_min == '-1') {
@@ -417,6 +432,8 @@ export class CreateEmployeeComponent implements OnInit {
       this.schedularcount = this.schedularcount;
     } else {
       this.schedularcount++;
+      alert('Values Missing in Saturday');
+      return;
     }
 
     if (this.schedularcount == 0) {
@@ -521,6 +538,7 @@ export class CreateEmployeeComponent implements OnInit {
     this.end_sat_min = '-1';
     this.end_sat_format = 'AM';
     this.idscheduler_exception = '';
+    this.idemployeegrouping = '';
 
     this.idmaster_exception_weekend = '';
 
@@ -580,6 +598,11 @@ export class CreateEmployeeComponent implements OnInit {
       .getallmasterminute()
       .subscribe((data: People[]) => {
         this.masterminute = data;
+      });
+    this.PeopleServiceService
+      .getallemployeegrouping(this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.employeegrouping = data;
       });
     //Author: Prakash Code Starts for Employee Calendar Ends Here
   }

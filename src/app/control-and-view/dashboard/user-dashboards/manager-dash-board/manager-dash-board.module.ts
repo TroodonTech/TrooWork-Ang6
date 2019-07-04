@@ -543,6 +543,27 @@ const routes: Routes = [
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/people/view-employee-scheduler/view-employee-scheduler.module#ViewEmployeeSchedulerModule',
       },
+
+      {
+        path: 'RequestsFromEmployees',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/people/pto-requestsfrom-employees/ptorequestsfromemployees.module#PtorequestsfromemployeesModule',
+      },
+      {
+        path: 'RequestsFromEmployees/PTORequestAction/:requestID',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/people/pto-request-action/pto-request-action.module#PtoRequestActionModule',
+      },
+      {
+        path: 'TradeRequestsFromEmployees',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/people/trade-requestsfrom-employees/trade-requestfrom-employees.module#TradeRequestfromEmployeesModule',
+      },
+      {
+        path: 'TradeRequestsFromEmployees/TradeRequestAction/:requestID',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/people/trade-request-action/trade-request-action.module#TradeRequestActionModule',
+      }
     ]
   }
 ];
