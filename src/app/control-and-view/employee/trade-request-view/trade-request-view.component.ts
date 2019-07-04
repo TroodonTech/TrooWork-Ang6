@@ -35,20 +35,22 @@ export class TradeRequestViewComponent implements OnInit {
   }
 
   constructor(private PeopleServiceService: PeopleServiceService) { }
+
   deletePass(key) {
     this.deleteRequestKey = key;
   }
+
   deleteRequest() {
-    this.PeopleServiceService.deleteTradeRequest(this.deleteRequestKey)
+    this.PeopleServiceService.deleteTradeRequest(this.deleteRequestKey, this.toServeremployeekey)
       .subscribe((data) => {
-      alert('Trade Request Deleted Successfully');
-        this.PeopleServiceService.getTradeRequestdetails(this.OrganizationID,this.toServeremployeekey).subscribe((data) => {
+        alert('Trade Request Deleted Successfully');
+        this.PeopleServiceService.getTradeRequestdetails(this.OrganizationID, this.toServeremployeekey).subscribe((data) => {
           this.requestdetails = data;
+        });
       });
-    });
   }
   ngOnInit() {
-    
+
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -58,7 +60,7 @@ export class TradeRequestViewComponent implements OnInit {
     this.toServeremployeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    this.PeopleServiceService.getTradeRequestdetails(this.OrganizationID,this.toServeremployeekey).subscribe((data) => {
+    this.PeopleServiceService.getTradeRequestdetails(this.OrganizationID, this.toServeremployeekey).subscribe((data) => {
       this.requestdetails = data;
     });
   }
