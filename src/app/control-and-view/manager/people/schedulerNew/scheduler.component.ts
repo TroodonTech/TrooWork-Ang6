@@ -20,7 +20,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
         <h3 style="text-align: right"></h3>
         <div class="form-group" style="width: 85%;">
           <label>Date*</label>
-           <ng-datepicker [options]="options" position="top-right" [(ngModel)]="date1" (ngModelChange)="selecteddate();empCalendarActivities();"></ng-datepicker>
+           <ng-datepicker [options]="options" position="top-right" [(ngModel)]="date" (ngModelChange)="selecteddate();empCalendarActivities();"></ng-datepicker>
         </div>
       </div>
       <div class="col-md-6">
@@ -67,7 +67,6 @@ export class SchedulerComponent implements AfterViewInit {
 
   events: any[] = [];
   date;
-  date1;
   Range;
   role: String;
   //other variables
@@ -273,8 +272,6 @@ export class SchedulerComponent implements AfterViewInit {
       });
 
     this.date = DayPilot.Date.today().firstDayOfMonth();
-    this.date1 = this.date.value;
-    this.date1 = this.convert_DT(this.date1);
 
     this.empCalendarActivities();
   }

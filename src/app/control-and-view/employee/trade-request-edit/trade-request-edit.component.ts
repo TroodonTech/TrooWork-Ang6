@@ -17,7 +17,7 @@ export class TradeRequestEditComponent implements OnInit {
   traderequestdetails;
   editflag;
   traderequestID$;
-  curr_date;
+  // curr_date;
   OtherEmployeedetails;
   EmployeeDetails;
 
@@ -61,63 +61,76 @@ export class TradeRequestEditComponent implements OnInit {
     }
     return window.atob(output);
   }
-  constructor(public PeopleServiceService:PeopleServiceService, private router:Router , private route:ActivatedRoute) 
-  { this.route.params.subscribe(params => this.traderequestID$ = params.requestID); }
+  constructor(public PeopleServiceService: PeopleServiceService, private router: Router, private route: ActivatedRoute) { this.route.params.subscribe(params => this.traderequestID$ = params.requestID); }
 
-  submitEditedRequest(){
+  submitEditedRequest() {
 
-    var comments=this.traderequestdetails.Comments.trim();
-    if(!(this.convert_DT(this.traderequestdetails.StartDate))){
+    if (!(this.traderequestdetails.StartDate)) {
       alert('Start Date is not provided !');
       return;
     }
-    if(!(this.convert_DT(this.traderequestdetails.EndDate))){
+    if (!(this.traderequestdetails.EndDate)) {
       alert('End Date is not provided !');
       return;
     }
-    if(!(comments)){
+
+    if (!(this.traderequestdetails.Comments)) {
       alert('Comments are not provided !');
       return;
+    } else {
+      var comments = this.traderequestdetails.Comments.trim();
+      if (!(comments)) {
+        alert('Comments are not provided !');
+        return;
+      }
     }
-    if(!(this.traderequestdetails.OtherEmployee)){
+
+    if (!(this.traderequestdetails.OtherEmployee)) {
       alert('Employee is not provided !');
       return;
     }
-    if(!(this.convert_DT((this.curr_date))<(this.convert_DT(this.convert_DT(this.traderequestdetails.StartDate))))){
-      alert('Please Provide Correct Start Date !');
-      return;
-    }
-    if(!(((this.curr_date)&&(this.convert_DT(this.convert_DT(this.traderequestdetails.StartDate))))<(this.traderequestdetails.EndDate))){
-      alert('Please Provide Correct End Date !');
-      return;
-    }
+
     var curr_date = this.convert_DT(new Date());
-    this.PeopleServiceService.setEditedTradeRequest(curr_date,this.traderequestID$,this.traderequestdetails.OtherEmployee,this.convert_DT(this.traderequestdetails.StartDate),this.convert_DT(this.traderequestdetails.EndDate),comments).subscribe((data) => {
-      this.traderequestdetails = data;
-      alert('Trade Request Updated Successfully');
-      this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewTradeRequest'] } }]);
+    debugger;
+    if (this.convert_DT(curr_date) > this.convert_DT(this.traderequestdetails.StartDate)) {
+      alert("Start Date can't be less than Today...!");
+      return;
+    }
+    if (this.convert_DT(this.traderequestdetails.EndDate) < this.convert_DT(this.traderequestdetails.StartDate)) {
+      alert("End Date can't be less than start date...!");
+      return;
+    }
+
+    
+    var comments = this.traderequestdetails.Comments.trim();
+
+    this.PeopleServiceService.setEditedTradeRequest(curr_date, this.traderequestID$, this.traderequestdetails.OtherEmployee,
+      this.convert_DT(this.traderequestdetails.StartDate), this.convert_DT(this.traderequestdetails.EndDate), comments).subscribe((data) => {
+        this.traderequestdetails = data;
+        alert('Trade Request Updated Successfully');
+        this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewTradeRequest'] } }]);
       });
   }
   ngOnInit() {
 
-  var token = localStorage.getItem('token');
-  var encodedProfile = token.split('.')[1];
-  var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-  this.role = profile.role;
-  this.IsSupervisor = profile.IsSupervisor;
-  this.name = profile.username;
-  this.toServeremployeekey = profile.employeekey;
-  this.OrganizationID = profile.OrganizationID;
-  this.curr_date = this.convert_DT(new Date());
-  this.editflag=false;
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.toServeremployeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+    // this.curr_date = this.convert_DT(new Date());
+    this.editflag = false;
 
-  this.PeopleServiceService.getAllEmployeeNames(this.OrganizationID,this.toServeremployeekey)
-  .subscribe((data) => {
-  this.EmployeeDetails = data;
-  });
-  this.PeopleServiceService.getTradeRequestInfoforEmployee(this.traderequestID$,this.OrganizationID).subscribe((data) => {
-    debugger;
-    this.traderequestdetails = data[0];
+    this.PeopleServiceService.getAllEmployeeNames(this.OrganizationID, this.toServeremployeekey)
+      .subscribe((data) => {
+        this.EmployeeDetails = data;
+      });
+    this.PeopleServiceService.getTradeRequestInfoforEmployee(this.traderequestID$, this.OrganizationID).subscribe((data) => {
+
+      this.traderequestdetails = data[0];
     });
   }
 }

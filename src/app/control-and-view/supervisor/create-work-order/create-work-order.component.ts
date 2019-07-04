@@ -108,7 +108,6 @@ export class CreateWorkOrderComponent implements OnInit {
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
-
   }
 
   // adding properties and methods that will be used by the igxDatePicker
@@ -213,7 +212,6 @@ export class CreateWorkOrderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.EmployeeOption = data;
       });
-
   }
   //function called on checkbox value change
   toggleVisibility_Equipment(e) {
@@ -375,7 +373,7 @@ export class CreateWorkOrderComponent implements OnInit {
     else {
       this.RoomTypeKey = "";
       this.RoomKey = "";
-      this.getZoneRoomTypeRoom(this.FloorKey,this.FacilityKey);
+      this.getZoneRoomTypeRoom(this.FloorKey, this.FacilityKey);
     }
   }
   getRoom(roomtype, zone, facility, floor) {//get room based on zone,facility,floor,roomtype
@@ -417,7 +415,7 @@ export class CreateWorkOrderComponent implements OnInit {
     }
   }
   createWorkorder1() {
-    ;
+    // ;
     if (!this.WorkorderTypeKey) {
       alert("Please select work-order type!");
     } else if (this.newType == true && !(this.newworkordertypetext)) {
@@ -458,8 +456,6 @@ export class CreateWorkOrderComponent implements OnInit {
           }
           this.withoutequip_wo();
         }
-
-
       }
       else if (this.weeklyrecurring == true) {
         if (!(this.weektable_one) && !(this.weektable_two) && !(this.weektable_three) && !(this.weektable_four) && !(this.weektable_five) && !(this.weektable_six) && !(this.weektable_seven)) {
@@ -488,14 +484,12 @@ export class CreateWorkOrderComponent implements OnInit {
             alert("Provide entries for monthly recurring !");
             return;
           }
-
         }
         if (this.monthlyreccradio2 == true) {
           if (!(this.day2) || !(this.pos2) || !(this.month2)) {
             alert("Provide entries for monthly recurring !");
             return;
           }
-
         }
         if (!this.Time_monthly) {
           alert("Please provide time!");
@@ -510,7 +504,6 @@ export class CreateWorkOrderComponent implements OnInit {
           this.withoutequip_wo();
         }
       }
-
     }
     else {
       var roomlistObj = [];
@@ -551,11 +544,16 @@ export class CreateWorkOrderComponent implements OnInit {
       if (this.RoomKey) {
         roomsString = this.RoomKey;
       } else {
-        if (roomlistObj) {
-          for (var j = 0; j < roomlistObj.length; j++) {
-            roomList.push(roomlistObj[j].RoomKey);
+        var k = confirm("100s of workorders will be created because an individual room has not been selected. Do you want to continue ?");
+        if (k) {
+          if (roomlistObj) {
+            for (var j = 0; j < roomlistObj.length; j++) {
+              roomList.push(roomlistObj[j].RoomKey);
+            }
+            roomsString = roomList.join(',');
+          } else {
+            return;
           }
-          roomsString = roomList.join(',');
         } else {
           return;
         }
@@ -619,7 +617,6 @@ export class CreateWorkOrderComponent implements OnInit {
         this.zone = this.ZoneKey;
       } else {
         this.zone = null;
-
       }
       if (this.PriorityKey) {
         this.priority = this.PriorityKey;
@@ -778,12 +775,12 @@ export class CreateWorkOrderComponent implements OnInit {
           }
         }
       }
-      if( this.keepActive ==true){
-        this.keep_active=1;
+      if (this.keepActive == true) {
+        this.keep_active = 1;
       }
-      else{
-          this.keep_active=0;
-       }
+      else {
+        this.keep_active = 0;
+      }
       if (this.newType == true) {
         if (this.newworkordertypetext) {
           this.WorkOrderServiceService
@@ -822,7 +819,7 @@ export class CreateWorkOrderComponent implements OnInit {
                       repeatinterval: this.rep_interval,
                       occursonday: this.occurs_on,
                       occurstype: this.occurs_type,
-                      keepActive:this.keep_active
+                      keepActive: this.keep_active
                     };
                     this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
                       alert("Work-order created successfully");
@@ -830,10 +827,8 @@ export class CreateWorkOrderComponent implements OnInit {
                     });
                   });
               }
-
             });
         }
-
       }
       else {//creating workorder for already existing workordertype
         this.workorderCreation = {
@@ -859,7 +854,7 @@ export class CreateWorkOrderComponent implements OnInit {
           repeatinterval: this.rep_interval,
           occursonday: this.occurs_on,
           occurstype: this.occurs_type,
-          keepActive:this.keep_active
+          keepActive: this.keep_active
         };
         this.WorkOrderServiceService.addWorkOrderWithOutEqup(this.workorderCreation).subscribe(res => {
           alert("Work-order created successfully");
@@ -870,7 +865,7 @@ export class CreateWorkOrderComponent implements OnInit {
   }
   //workorder with equipment
   createWorkorder2() {
-    ;
+    // ;
     if (!this.WorkorderTypeKey) {
       alert("Please select work-order type!");
     } else if (this.newType == true && !(this.newworkordertypetext)) {
@@ -944,14 +939,12 @@ export class CreateWorkOrderComponent implements OnInit {
             alert("Provide entries for monthly recurring !");
             return;
           }
-
         }
         if (this.monthlyreccradio2 == true) {
           if (!(this.day2) || !(this.pos2) || !(this.month2)) {
             alert("Provide entries for monthly recurring !");
             return;
           }
-
         }
         if (!this.Time_monthly) {
           alert("Please provide time!");
@@ -966,10 +959,8 @@ export class CreateWorkOrderComponent implements OnInit {
           this.withequip_wo();
         }
       }
-
     }
     else {
-
 
       var roomlistObj = [];
       var roomtypelistObj = [];
@@ -999,7 +990,6 @@ export class CreateWorkOrderComponent implements OnInit {
         this.wot = this.WorkorderTypeKey;
       } else {
         this.wot = null;
-
       }
       if (this.workorderNotes) {
         this.notes = this.workorderNotes;
@@ -1067,11 +1057,16 @@ export class CreateWorkOrderComponent implements OnInit {
       if (this.EquipmentKey) {
         this.eqp_key = this.EquipmentKey;
       } else {
-        if (EquListObj) {
-          for (var j = 0; j < EquListObj.length; j++) {
-            equList.push(EquListObj[j].EquipmentKey);
+        var k = confirm("100s of workorders will be created because an individual equipment has not been selected. Do you want to continue ?");
+        if (k) {
+          if (EquListObj) {
+            for (var j = 0; j < EquListObj.length; j++) {
+              equList.push(EquListObj[j].EquipmentKey);
+            }
+            this.eqp_key = equList.join(',');
           }
-          this.eqp_key = equList.join(',');
+        } else {
+          return;
         }
       }
       if (this.EmployeeKey) {
@@ -1083,7 +1078,6 @@ export class CreateWorkOrderComponent implements OnInit {
         this.zone = this.ZoneKey;
       } else {
         this.zone = null;
-
       }
       if (this.PriorityKey) {
         this.priority = this.PriorityKey;
@@ -1150,7 +1144,6 @@ export class CreateWorkOrderComponent implements OnInit {
           }
           else {
             this.startDT = this.convert_DT(this.WorkorderStartDate);
-
           }
         } else {
           this.startDT = this.convert_DT(new Date());
@@ -1231,11 +1224,11 @@ export class CreateWorkOrderComponent implements OnInit {
           }
         }
       }
-      if( this.keepActive ==true){
-        this.keep_active=1;
+      if (this.keepActive == true) {
+        this.keep_active = 1;
       }
-       else{
-        this.keep_active=0;
+      else {
+        this.keep_active = 0;
       }
       if (this.newType == true) {
         if (this.newworkordertypetext) {
@@ -1285,7 +1278,6 @@ export class CreateWorkOrderComponent implements OnInit {
               }
             });
         }
-
       }
       else {
         this.workorderCreation = {
@@ -1322,7 +1314,7 @@ export class CreateWorkOrderComponent implements OnInit {
   }
   //function to create wo with equipment
   withequip_wo() {
-    ;
+    // ;
     var roomlistObj = [];
     var roomtypelistObj = [];
     var zonelistObj = [];
@@ -1351,7 +1343,6 @@ export class CreateWorkOrderComponent implements OnInit {
       this.wot = this.WorkorderTypeKey;
     } else {
       this.wot = null;
-
     }
     if (this.workorderNotes) {
       this.notes = this.workorderNotes;
@@ -1419,11 +1410,16 @@ export class CreateWorkOrderComponent implements OnInit {
     if (this.EquipmentKey) {
       this.eqp_key = this.EquipmentKey;
     } else {
-      if (EquListObj) {
-        for (var j = 0; j < EquListObj.length; j++) {
-          equList.push(EquListObj[j].EquipmentKey);
+      var k = confirm("100s of workorders will be created because an individual equipment has not been selected. Do you want to continue ?");
+      if (k) {
+        if (EquListObj) {
+          for (var j = 0; j < EquListObj.length; j++) {
+            equList.push(EquListObj[j].EquipmentKey);
+          }
+          this.eqp_key = equList.join(',');
         }
-        this.eqp_key = equList.join(',');
+      } else {
+        return;
       }
     }
     if (this.EmployeeKey) {
@@ -1582,11 +1578,11 @@ export class CreateWorkOrderComponent implements OnInit {
         }
       }
     }
-    if( this.keepActive ==true){
-      this.keep_active=1;
+    if (this.keepActive == true) {
+      this.keep_active = 1;
     }
-    else{
-       this.keep_active=0;
+    else {
+      this.keep_active = 0;
     }
     if (this.newType == true) {
       if (this.newworkordertypetext) {
@@ -1631,14 +1627,11 @@ export class CreateWorkOrderComponent implements OnInit {
                   this.WorkOrderServiceService.addWorkOrderEqup(this.workorderCreation).subscribe(res => {
                     alert("Work-order created successfully");
                     this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['viewWorkOrderSupervisor'] } }]);
-
                   });
-
                 });
             }
           });
       }
-
     }
     else {
       this.workorderCreation = {
@@ -1711,7 +1704,7 @@ export class CreateWorkOrderComponent implements OnInit {
     this.newworkordertypetext = null;
   }
   withoutequip_wo() {
-    ;
+    // ;
     var roomlistObj = [];
     var roomtypelistObj = [];
     var zonelistObj = [];
@@ -1742,7 +1735,6 @@ export class CreateWorkOrderComponent implements OnInit {
       this.notes = null;
     }
     if (this.FacilityKey) {
-
     }
     if (this.FloorKey) {
     }
@@ -1750,11 +1742,16 @@ export class CreateWorkOrderComponent implements OnInit {
     if (this.RoomKey) {
       roomsString = this.RoomKey;
     } else {
-      if (roomlistObj) {
-        for (var j = 0; j < roomlistObj.length; j++) {
-          roomList.push(roomlistObj[j].RoomKey);
+      var k = confirm("100s of workorders will be created because an individual room has not been selected. Do you want to continue ?");
+      if (k) {
+        if (roomlistObj) {
+          for (var j = 0; j < roomlistObj.length; j++) {
+            roomList.push(roomlistObj[j].RoomKey);
+          }
+          roomsString = roomList.join(',');
+        } else {
+          return;
         }
-        roomsString = roomList.join(',');
       } else {
         return;
       }
@@ -1818,7 +1815,6 @@ export class CreateWorkOrderComponent implements OnInit {
       this.zone = this.ZoneKey;
     } else {
       this.zone = null;
-
     }
     if (this.PriorityKey) {
       this.priority = this.PriorityKey;
@@ -1976,11 +1972,11 @@ export class CreateWorkOrderComponent implements OnInit {
         }
       }
     }
-    if( this.keepActive ==true){
-      this.keep_active=1;
+    if (this.keepActive == true) {
+      this.keep_active = 1;
     }
-    else{
-       this.keep_active=0;
+    else {
+      this.keep_active = 0;
     }
     if (this.newType == true) {
       if (this.newworkordertypetext) {

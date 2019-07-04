@@ -3798,6 +3798,7 @@ app.post(securedpath + '/addnewbatchName', supportCrossOriginScript, function (r
     var empkey = req.body.EmployeeKey;
     var startTime = req.body.startTime;
     var endTime = req.body.endTime;
+    var Date = req.body.Date;
     var managerKey = req.body.employeekey;
     var OrganizationID = req.body.OrganizationID;
 
@@ -3808,12 +3809,12 @@ app.post(securedpath + '/addnewbatchName', supportCrossOriginScript, function (r
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @bname=?;set @bdesp=?;set @empkey=?;set @startTime=?; set@endTime=?; set @managerKey=?; set @OrganizationID=?;call usp_addnewbatchName(@bname,@bdesp,@empkey,@startTime,@endTime,@managerKey,@OrganizationID)', [bname, bdesp, empkey,startTime,endTime, managerKey, OrganizationID], function (err, rows) {
+            connection.query('set @bname=?;set @bdesp=?;set @empkey=?;set @startTime=?; set@endTime=?; set@Date=?; set @managerKey=?; set @OrganizationID=?;call usp_addnewbatchName(@bname,@bdesp,@empkey,@startTime,@endTime,@Date,@managerKey,@OrganizationID)', [bname, bdesp, empkey,startTime,endTime,Date, managerKey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 } else {
 
-                    res.end(JSON.stringify(rows[7]));
+                    res.end(JSON.stringify(rows[8]));
                 }
             });
         }
@@ -3935,7 +3936,7 @@ app.post(securedpath + '/updateScheduleName', supportCrossOriginScript, function
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @bname=?; set @bdesp=?; set @empkey=?; set @bkey=?; set @managerkey=?;set @OrganizationID=?; set@startTime=?; set@endTime=?; call usp_updateScheduleName(@bname,@bdesp,@empkey,@bkey,@managerkey,@OrganizationID,@startTime,@endTime)', [bname, bdesp, empkey, bkey, managerkey, OrganizationID,startTime,endTime], function (err, rows) {
+            connection.query('set @bname=?; set @bdesp=?; set @empkey=?; set @bkey=?; set @managerkey=?;set @OrganizationID=?; set@startTime=?; set@endTime=?; call usp_updateScheduleName(@bname,@bdesp,@empkey,@bkey,@managerkey,@OrganizationID,@startTime,@endTime)', [bname, bdesp, empkey, bkey, managerkey, OrganizationID, startTime, endTime], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -16104,6 +16105,7 @@ app.get(securedpath + '/getTradeRequestDetails', function (req, res) {
 app.get(securedpath + '/deleteTradeRequest', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     var deleteRequestKey = url.parse(req.url, true).query['deleteRequestKey'];
+    var employeeKey = url.parse(req.url, true).query['empKey'];
     pool.getConnection(function (err, connection) {
         if (err) {
 
@@ -16111,14 +16113,14 @@ app.get(securedpath + '/deleteTradeRequest', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @deleteRequestKey=?;call usp_deleteTradeRequest(@deleteRequestKey)', [deleteRequestKey], function (err, rows) {
+            connection.query('set @deleteRequestKey=?; set @employeeKey=?; call usp_deleteTradeRequest(@deleteRequestKey,@employeeKey)', [deleteRequestKey, employeeKey], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
 
 
-                    res.end(JSON.stringify(rows[1]));
+                    res.end(JSON.stringify(rows[2]));
 
 
                 }

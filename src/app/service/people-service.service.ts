@@ -924,10 +924,10 @@ export class PeopleServiceService {
       .http
       .get(ConectionSettings.Url + '/getTradeRequestDetails?OrganizationID=' + orgID + '&employeekey=' + employeekey);
   }
-  deleteTradeRequest(deleteRequestKey) {
+  deleteTradeRequest(deleteRequestKey, empKey) {
     return this
       .http
-      .get(ConectionSettings.Url + '/deleteTradeRequest?deleteRequestKey=' + deleteRequestKey);
+      .get(ConectionSettings.Url + '/deleteTradeRequest?deleteRequestKey=' + deleteRequestKey + '&employeeKey=' + empKey);
   }
   getTradeRequestInfoforEmployee(traderequestDetails, OrganizationID) {
     return this

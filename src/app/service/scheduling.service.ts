@@ -84,7 +84,7 @@ export class SchedulingService {
       .get(ConectionSettings.Url + '/checkForNewScheduleName?bkey=' + scheduleName + '&employeekey=' + empkey + '&OrganizationID=' + orgID);
   }
 
-  addScheduleName(scheduleName, empKey, scheduleDescription,startTime,endTime, EMPloyeeKey, OrgID) {
+  addScheduleName(scheduleName, empKey, scheduleDescription,startTime,endTime,Date, EMPloyeeKey, OrgID) {
 
     const url = ConectionSettings.Url + "/addnewbatchName";
     const obj = {
@@ -93,6 +93,7 @@ export class SchedulingService {
       EmployeeKey: empKey,
       startTime:startTime,
       endTime:endTime,
+      Date:Date,
       employeekey: EMPloyeeKey,
       OrganizationID: OrgID
     }
