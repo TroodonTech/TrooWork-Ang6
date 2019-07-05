@@ -113,6 +113,8 @@ export class PtoRequestActionComponent implements OnInit {
     }
 
     if (this.requestdetailsbyID.Status === "Approved") {
+
+      debugger;
       if (!(this.requestdetailsbyID.ApprovedStartDate)) {
         alert('Approved Start Date is not provided !');
         return;
@@ -123,12 +125,17 @@ export class PtoRequestActionComponent implements OnInit {
         return;
       }
 
-      if (this.statuscurrentdate < this.convert_DT(this.requestdetailsbyID.ApprovedStartDate)) {
-        alert("Approved start date can't be less than Today!");
+      // if (this.convert_DT(this.requestdetailsbyID.ApprovedStartDate) < this.statuscurrentdate) {
+      //   alert("Approved start date can't be less than Today!");
+      //   return;
+      // }
+
+      if ((this.convert_DT(this.requestdetailsbyID.ApprovedStartDate) < this.convert_DT(this.requestdetailsbyID.StartDate)) || (this.convert_DT(this.requestdetailsbyID.ApprovedStartDate) > this.convert_DT(this.requestdetailsbyID.EndDate))) {
+        alert("Approved start date must be between requested dates!");
         return;
       }
-      if (this.convert_DT(this.requestdetailsbyID.ApprovedEndDate) < this.convert_DT(this.requestdetailsbyID.ApprovedStartDate)) {
-        alert("Approved end date can't be less than Approved start date!");
+      if ((this.convert_DT(this.requestdetailsbyID.ApprovedEndDate) < this.convert_DT(this.requestdetailsbyID.StartDate)) || (this.convert_DT(this.requestdetailsbyID.ApprovedEndDate) > this.convert_DT(this.requestdetailsbyID.EndDate))) {
+        alert("Approved end date must be between requested dates!");
         return;
       }
     }
@@ -152,7 +159,7 @@ export class PtoRequestActionComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.details = data[0];
         alert("Request updated Successfully");
-        
+
         this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['RequestsFromEmployees'] } }]);
       });
   }

@@ -101,7 +101,7 @@ export class TradeRequestEditComponent implements OnInit {
       return;
     }
 
-    
+
     var comments = this.traderequestdetails.Comments.trim();
 
     this.PeopleServiceService.setEditedTradeRequest(curr_date, this.traderequestID$, this.traderequestdetails.OtherEmployee,
@@ -132,5 +132,9 @@ export class TradeRequestEditComponent implements OnInit {
 
       this.traderequestdetails = data[0];
     });
+  }
+
+  goBack() {
+    this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewTradeRequest'] } }]);
   }
 }

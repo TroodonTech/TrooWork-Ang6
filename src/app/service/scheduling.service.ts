@@ -84,16 +84,16 @@ export class SchedulingService {
       .get(ConectionSettings.Url + '/checkForNewScheduleName?bkey=' + scheduleName + '&employeekey=' + empkey + '&OrganizationID=' + orgID);
   }
 
-  addScheduleName(scheduleName, empKey, scheduleDescription,startTime,endTime,Date, EMPloyeeKey, OrgID) {
+  addScheduleName(scheduleName, empKey, scheduleDescription, startTime, endTime, Date, EMPloyeeKey, OrgID) {
 
     const url = ConectionSettings.Url + "/addnewbatchName";
     const obj = {
       BatchSchduleName: scheduleName,
       ScheduleDescription: scheduleDescription,
       EmployeeKey: empKey,
-      startTime:startTime,
-      endTime:endTime,
-      Date:Date,
+      startTime: startTime,
+      endTime: endTime,
+      Date: Date,
       employeekey: EMPloyeeKey,
       OrganizationID: OrgID
     }
@@ -152,7 +152,7 @@ export class SchedulingService {
       .get(ConectionSettings.Url + '/checkForNewScheduleName?bkey=' + BatchSchduleName + '&employeekey=' + EmpKey + '&OrganizationID=' + orgID);
   }
 
-  updateScheduleNameDetails(employeeKey, OrgID, BatchscheduleName, empKey, scheduleNameKey, ScheduleDescription,startTime,endTime) {
+  updateScheduleNameDetails(employeeKey, OrgID, BatchscheduleName, empKey, scheduleNameKey, ScheduleDescription, startTime, endTime) {
 
     const url = ConectionSettings.Url + "/updateScheduleName";
     const obj = {
@@ -162,8 +162,8 @@ export class SchedulingService {
       bskey: scheduleNameKey,
       employeekey: employeeKey,
       OrganizationID: OrgID,
-      startTime:startTime
-      ,endTime:endTime
+      startTime: startTime
+      , endTime: endTime
     }
     return this.http.post(url, obj);
   }
@@ -301,10 +301,10 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/SchedulerEventDelete?Assignment_CalenderID=' + Assignment_CalenderID + '&empkey=' + empkey + '&OrganizationID=' + orgID);
   }
-  scheduleEventCheckForCreate(checkDate,empKey,OrganizationID) {
+  scheduleEventCheckForCreate(checkDate, empKey, OrganizationID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/scheduleEventCheckForCreate?checkDate='+checkDate+'&empKey=' + empKey + '&OrganizationID=' + OrganizationID);
+      .get(ConectionSettings.Url + '/scheduleEventCheckForCreate?checkDate=' + checkDate + '&empKey=' + empKey + '&OrganizationID=' + OrganizationID);
   }
   //varun code ends
 
@@ -324,6 +324,12 @@ export class SchedulingService {
     return this
       .http
       .get(ConectionSettings.Url + '/employeesViewOnlyForScheduler?empkey=' + empkey + '&OrganizationID=' + orgID);
+  }
+
+  checkForEmpGrpDuplicate(groupName, orgID) {
+    return this.
+      http.
+      get(ConectionSettings.Url + '/checkForEmpGrpDuplicate?groupname=' + groupName + '&OrganizationID=' + orgID);
   }
   // @Author:Rodney ends
 }
