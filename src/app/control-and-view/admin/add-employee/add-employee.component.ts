@@ -47,6 +47,83 @@ export class AddEmployeeComponent implements OnInit {
   IsSupervisor;
   OrganizationID;
 
+  //Author: Prakash Code Starts for Employee Calendar Starts Here
+  start_sun_hour: String;
+  start_sun_min: String;
+  start_sun_format: String;
+
+  start_mon_hour: String;
+  start_mon_min: String;
+  start_mon_format: String;
+
+  start_tue_hour: String;
+  start_tue_min: String;
+  start_tue_format: String;
+
+  start_wed_hour: String;
+  start_wed_min: String;
+  start_wed_format: String;
+
+  start_thu_hour: String;
+  start_thu_min: String;
+  start_thu_format: String;
+
+  start_fri_hour: String;
+  start_fri_min: String;
+  start_fri_format: String;
+
+  start_sat_hour: String;
+  start_sat_min: String;
+  start_sat_format: String;
+
+  end_sun_hour: String;
+  end_sun_min: String;
+  end_sun_format: String;
+
+  end_mon_hour: String;
+  end_mon_min: String;
+  end_mon_format: String;
+
+  end_tue_hour: String;
+  end_tue_min: String;
+  end_tue_format: String;
+
+  end_wed_hour: String;
+  end_wed_min: String;
+  end_wed_format: String;
+
+  end_thu_hour: String;
+  end_thu_min: String;
+  end_thu_format: String;
+
+  end_fri_hour: String;
+  end_fri_min: String;
+  end_fri_format: String;
+
+  end_sat_hour: String;
+  end_sat_min: String;
+  end_sat_format: String;
+
+  schedulerexception: People[];
+  exceptionweekend: People[];
+
+  sch_exception: People[];
+  idscheduler_exception;
+
+  sch_exception_weekend: People[];
+  idmaster_exception_weekend;
+
+  isemployeecalendar;
+
+  schedularcount = 0;
+
+  masterhour: People[];
+  masterminute: People[];
+
+  employeegrouping: People[];
+  idemployeegrouping;
+
+  //Author: Prakash Code Starts for Employee Calendar Ends Here
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -120,7 +197,7 @@ export class AddEmployeeComponent implements OnInit {
   createEmployee() {
 
     var manKey;
-    
+
     if (!(this.EmployeeNumber) || !this.EmployeeNumber.trim()) {
       alert("Employee Number is not provided !");
       return;
@@ -136,15 +213,13 @@ export class AddEmployeeComponent implements OnInit {
     else {
       manKey = -1;
     }
-    if(this.UserRoleTypeKey==3 && this.ManagerKey)
-{
-  manKey = this.ManagerKey;
-}
-else
-{
-  manKey = -1;
-}
-    if (!(this.FirstName )|| !this.FirstName.trim()) {
+    if (this.UserRoleTypeKey == 3 && this.ManagerKey) {
+      manKey = this.ManagerKey;
+    }
+    else {
+      manKey = -1;
+    }
+    if (!(this.FirstName) || !this.FirstName.trim()) {
       alert("First Name is not provided !");
       return;
     }
@@ -195,28 +270,125 @@ else
       return;
     }
 
-    this.PeopleServiceService.checkEmpNumber(this.EmployeeNumber, this.employeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        if (data[0].count > 0) {
-          alert("Employee Number already exists");
-        }
-        else {
+    //Author: Prakash Code Starts for Employee Calendar Starts Here
 
-          var str = "";
-          str = this.FirstName + '' + this.LastName;
-          this.PeopleServiceService.createEmployeebyAdmin(this.EmployeeNumber, manKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender,
-            this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox,
-            this.JobTitleKey, this.DepartmentKey, this.employeekey, this.OrganizationID)
-            .subscribe((data22: any[]) => {
-              this.temp_res = data22;
-              alert("Employee Created !");
-              var empKey = this.temp_res.EmployeeKey;
+    if (!this.idscheduler_exception) {
+      this.idscheduler_exception = null;
+      this.idmaster_exception_weekend = null;
+    }
 
-              this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['setUserLoginAdmin', empKey, str, this.UserRoleTypeKey] } }]);
-            });
-        }
-      });
+    if (this.start_sun_hour == '-1' && this.start_sun_min == '-1' && this.end_sun_hour == '-1' && this.end_sun_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.start_sun_hour != '-1' && this.start_sun_min != '-1' && this.end_sun_hour != '-1' && this.end_sun_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else {
+      this.schedularcount++;
+      alert('Values Missing in Sunday');
+      return;
+    }
 
+    if (this.start_mon_hour == '-1' && this.start_mon_min == '-1' && this.end_mon_hour == '-1' && this.end_mon_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.start_mon_hour != '-1' && this.start_mon_min != '-1' && this.end_mon_hour != '-1' && this.end_mon_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else {
+      this.schedularcount++;
+      alert('Values Missing in Monday');
+      return;
+    }
+
+    if (this.start_tue_hour == '-1' && this.start_tue_min == '-1' && this.end_tue_hour == '-1' && this.end_tue_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.start_tue_hour != '-1' && this.start_tue_min != '-1' && this.end_tue_hour != '-1' && this.end_tue_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else {
+      this.schedularcount++;
+      alert('Values Missing in Tuesday');
+      return;
+    }
+
+    if (this.start_wed_hour == '-1' && this.start_wed_min == '-1' && this.end_wed_hour == '-1' && this.end_wed_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.start_wed_hour != '-1' && this.start_wed_min != '-1' && this.end_wed_hour != '-1' && this.end_wed_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else {
+      this.schedularcount++;
+      alert('Values Missing in Wednesday');
+      return;
+    }
+
+    if (this.start_thu_hour == '-1' && this.start_thu_min == '-1' && this.end_thu_hour == '-1' && this.end_thu_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.start_thu_hour != '-1' && this.start_thu_min != '-1' && this.end_thu_hour != '-1' && this.end_thu_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else {
+      this.schedularcount++;
+      alert('Values Missing in Thursday');
+      return;
+    }
+
+    if (this.start_fri_hour == '-1' && this.start_fri_min == '-1' && this.end_fri_hour == '-1' && this.end_fri_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.start_fri_hour != '-1' && this.start_fri_min != '-1' && this.end_fri_hour != '-1' && this.end_fri_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else {
+      this.schedularcount++;
+      alert('Values Missing in Friday');
+      return;
+    }
+
+    if (this.start_sat_hour == '-1' && this.start_sat_min == '-1' && this.end_sat_hour == '-1' && this.end_sat_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.start_sat_hour != '-1' && this.start_sat_min != '-1' && this.end_sat_hour != '-1' && this.end_sat_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    } else {
+      this.schedularcount++;
+      alert('Values Missing in Saturday');
+      return;
+    }
+
+    if (this.schedularcount == 0) {
+      this.PeopleServiceService.checkEmpNumber(this.EmployeeNumber, this.employeekey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          if (data[0].count > 0) {
+            alert("Employee Number already exists");
+          }
+          else {
+
+            var str = "";
+            str = this.FirstName + '' + this.LastName;
+            this.PeopleServiceService.createEmployeebyAdmin(this.EmployeeNumber, manKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender,
+              this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox,
+              this.JobTitleKey, this.DepartmentKey, this.employeekey, this.OrganizationID, this.start_sun_hour, this.start_sun_min, this.start_sun_format, this.start_mon_hour, this.start_mon_min, this.start_mon_format, this.start_tue_hour, this.start_tue_min, this.start_tue_format, this.start_wed_hour, this.start_wed_min, this.start_wed_format, this.start_thu_hour, this.start_thu_min, this.start_thu_format, this.start_fri_hour, this.start_fri_min, this.start_fri_format, this.start_sat_hour, this.start_sat_min, this.start_sat_format, this.end_sun_hour, this.end_sun_min, this.end_sun_format, this.end_mon_hour, this.end_mon_min, this.end_mon_format, this.end_tue_hour, this.end_tue_min, this.end_tue_format, this.end_wed_hour, this.end_wed_min, this.end_wed_format, this.end_thu_hour, this.end_thu_min, this.end_thu_format, this.end_fri_hour, this.end_fri_min, this.end_fri_format, this.end_sat_hour, this.end_sat_min, this.end_sat_format, this.idscheduler_exception, this.idmaster_exception_weekend, this.idemployeegrouping)
+              .subscribe((data22: any[]) => {
+                this.temp_res = data22;
+                alert("Employee Created !");
+                var empKey = this.temp_res.EmployeeKey;
+
+                this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['setUserLoginAdmin', empKey, str, this.UserRoleTypeKey] } }]);
+              });
+          }
+        });
+    }
+    else {
+      alert('Weekly Schedule!');
+      return;
+    }
+
+    //Author: Prakash Code Starts for Employee Calendar Ends Here
   }
   ngOnInit() {
 
@@ -228,6 +400,70 @@ else
     this.UserRoleTypeKey = '';
     this.ManagerKey = '';
 
+    //Author: Prakash Code Starts for Employee Calendar Starts Here
+
+    this.start_sun_hour = '-1';
+    this.start_sun_min = '-1';
+    this.start_sun_format = 'AM';
+
+    this.start_mon_hour = '-1';
+    this.start_mon_min = '-1';
+    this.start_mon_format = 'AM';
+
+    this.start_tue_hour = '-1';
+    this.start_tue_min = '-1';
+    this.start_tue_format = 'AM';
+
+    this.start_wed_hour = '-1';
+    this.start_wed_min = '-1';
+    this.start_wed_format = 'AM';
+
+    this.start_thu_hour = '-1';
+    this.start_thu_min = '-1';
+    this.start_thu_format = 'AM';
+
+    this.start_fri_hour = '-1';
+    this.start_fri_min = '-1';
+    this.start_fri_format = 'AM';
+
+    this.start_sat_hour = '-1';
+    this.start_sat_min = '-1';
+    this.start_sat_format = 'AM';
+
+    this.end_sun_hour = '-1';
+    this.end_sun_min = '-1';
+    this.end_sun_format = 'AM';
+
+    this.end_mon_hour = '-1';
+    this.end_mon_min = '-1';
+    this.end_mon_format = 'AM';
+
+    this.end_tue_hour = '-1';
+    this.end_tue_min = '-1';
+    this.end_tue_format = 'AM';
+
+    this.end_wed_hour = '-1';
+    this.end_wed_min = '-1';
+    this.end_wed_format = 'AM';
+
+    this.end_thu_hour = '-1';
+    this.end_thu_min = '-1';
+    this.end_thu_format = 'AM';
+
+    this.end_fri_hour = '-1';
+    this.end_fri_min = '-1';
+    this.end_fri_format = 'AM';
+
+    this.end_sat_hour = '-1';
+    this.end_sat_min = '-1';
+    this.end_sat_format = 'AM';
+    this.idscheduler_exception = '';
+    this.idemployeegrouping = '';
+
+    this.idmaster_exception_weekend = '';
+
+    //Author: Prakash Code Starts for Employee Calendar Starts Here
+
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -236,6 +472,8 @@ else
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
+
+    this.isemployeecalendar = profile.isemployeecalendar;//Author: Prakash for Checking Whether the organization uses Calendar or not
 
     this.PeopleServiceService
       .getUserRoleType(this.OrganizationID)
@@ -264,6 +502,35 @@ else
       .subscribe((data: People[]) => {
         this.department = data;
       });
+
+    //Author: Prakash Code Starts for Employee Calendar Starts Here
+
+    this.PeopleServiceService
+      .getallschedulingexception(this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.schedulerexception = data;
+      });
+    this.PeopleServiceService
+      .getallexceptionweekend()
+      .subscribe((data: People[]) => {
+        this.exceptionweekend = data;
+      });
+    this.PeopleServiceService
+      .getallmasterhour()
+      .subscribe((data: People[]) => {
+        this.masterhour = data;
+      });
+    this.PeopleServiceService
+      .getallmasterminute()
+      .subscribe((data: People[]) => {
+        this.masterminute = data;
+      });
+    this.PeopleServiceService
+      .getallemployeegrouping(this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.employeegrouping = data;
+      });
+    //Author: Prakash Code Starts for Employee Calendar Ends Here
   }
   numberValid(event: any) {
     const pattern = /[0-9\+\-\ ]/;

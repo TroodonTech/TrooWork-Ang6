@@ -283,10 +283,10 @@ export class SchedulingService {
   //Pooja's code ends
 
   //varun code starts
-  employeesForScheduler(empkey, orgID) {
+  employeesForScheduler(groupID,empkey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/employeesForScheduler?empkey=' + empkey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/employeesForScheduler?groupID='+groupID+'&empkey=' + empkey + '&OrganizationID=' + orgID);
   }
   SchedulerEventCreate(obj) {
     const url = ConectionSettings.Url + "/SchedulerEventCreate";
@@ -305,6 +305,11 @@ export class SchedulingService {
     return this
       .http
       .get(ConectionSettings.Url + '/scheduleEventCheckForCreate?checkDate=' + checkDate + '&empKey=' + empKey + '&OrganizationID=' + OrganizationID);
+  }
+  SchedulerEmployeeGroups(empKey,OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/SchedulerEmployeeGroups?empKey=' + empKey + '&OrganizationID=' + OrganizationID);
   }
   //varun code ends
 

@@ -260,17 +260,19 @@ export class SchedulerComponent implements AfterViewInit {
     this.ds.getEvents(from, to).subscribe(result => {
       this.events = result;
     });
+    this.config.resources=[];
+    this.SchedulingService.SchedulerEmployeeGroups(this.employeekey, this.OrganizationID)
+      .subscribe((group: any[]) => {  
+        for(var i=0;i<group.length;i++){
 
-    this.SchedulingService
-      .employeesForScheduler(this.employeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
+        this.SchedulingService.employeesForScheduler(group[i].Idemployeegrouping,this.employeekey, this.OrganizationID)
+          .subscribe((data: any[]) => {
 
-        this.AllEmployeeList = data;
-        this.config.resources = [{ name: 'Shift-01', id: 'GA', "expanded": true, children: data },
-        { name: 'Shift-02', id: 'GA', "expanded": true, children: data }
-        ]
-      });
-
+                this.config.resources.push({ name: data[0].Description, id: data[0].Idemployeegrouping, "expanded": true, children: data });
+                     
+        });
+      }
+    });
     this.date = DayPilot.Date.today().firstDayOfMonth();
 
     this.empCalendarActivities();
