@@ -122,6 +122,8 @@ export class CreateEmployeeComponent implements OnInit {
   employeegrouping: People[];
   idemployeegrouping;
 
+  exceptionstartdate;
+
   //Author: Prakash Code Starts for Employee Calendar Ends Here
 
 
@@ -269,11 +271,21 @@ export class CreateEmployeeComponent implements OnInit {
 
     //Author: Prakash Code Starts for Employee Calendar Starts Here
 
+    var ExSD;
+
     if (!this.idscheduler_exception) {
       this.idscheduler_exception = null;
       this.idmaster_exception_weekend = null;
     }
+    else {
+      if (!(this.exceptionstartdate)) {
+        ExSD = '1990-01-01';
+      }
+      else {
+        ExSD = this.convert_DT(this.exceptionstartdate);
+      }
 
+    }
 
     const empschobj = {
       start_sun_hour: this.start_sun_hour,
@@ -323,6 +335,7 @@ export class CreateEmployeeComponent implements OnInit {
 
       idmaster_exception_weekend: this.idmaster_exception_weekend,
       idemployeegrouping: this.idemployeegrouping,
+      exceptionsdate: ExSD,
 
       //Author: Prakash Code Starts for Employee Calendar Ends Here
 
