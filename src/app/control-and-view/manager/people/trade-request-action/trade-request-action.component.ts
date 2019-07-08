@@ -21,11 +21,12 @@ export class TradeRequestActionComponent implements OnInit {
   traderequestDetails$;
   statuscurrentdate;
   assignmentdetails;
+  assignmentdetails1;
   StatusKey;
   statuscomments;
   requestdetails;
   editflag;
-  Status:String;
+  Status: String;
   details;
 
   options: DatepickerOptions = {
@@ -98,78 +99,90 @@ export class TradeRequestActionComponent implements OnInit {
   goBack() {
     this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['TradeRequestsFromEmployees'] } }]);
   }
-  constructor(private PeopleServiceService: PeopleServiceService,private route: ActivatedRoute, private router:Router) { 
+  constructor(private PeopleServiceService: PeopleServiceService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => this.traderequestDetails$ = params.requestID);
   }
 
-  saveTradeRequestAction(){
+  saveTradeRequestAction() {
     debugger;
-    if((this.traderequestdetailsbyID.StatusComment)){
-  var comments=this.traderequestdetailsbyID.StatusComment.trim();
+    if (!(this.traderequestdetailsbyID.Status)) {
+      alert('Status is not provided !');
+      return;
     }
-  if((this.traderequestdetailsbyID.Status)!="Rejected"){
 
-    if(!(this.traderequestdetailsbyID.ApprovedStartDate)){
-      alert('Approved Start Date is not provided !');
-      return;
-    }
-    if(!(this.traderequestdetailsbyID.ApprovedEndDate)){
-      alert('Approved End Date is not provided !');
-      return;
-    }
-  }
-  if(!(this.traderequestdetailsbyID.Status)){
-    alert('Status is not provided !');
-    return;
-  }
-  if(!(comments)){
-    alert('Comments are not provided !');
-    return;
-  }
+    if ((this.traderequestdetailsbyID.Status) == "Approved") {
 
-  if((this.traderequestdetailsbyID.Status)!="Rejected"){
+      if (!(this.traderequestdetailsbyID.ApprovedStartDate)) {
+        alert('Approved Start Date is not provided !');
+        return;
+      }
 
-    if(!((this.statuscurrentdate)<(this.convert_DT(this.traderequestdetailsbyID.ApprovedStartDate)))){
-      alert('Please Provide Correct Start Date !');
+      if (!(this.traderequestdetailsbyID.ApprovedEndDate)) {
+        alert('Approved End Date is not provided !');
+        return;
+      }
+
+
+      if ((this.convert_DT(this.traderequestdetailsbyID.ApprovedStartDate) < this.convert_DT(this.traderequestdetailsbyID.StartDate)) || (this.convert_DT(this.traderequestdetailsbyID.ApprovedStartDate) > this.convert_DT(this.traderequestdetailsbyID.EndDate))) {
+        alert("Approved start date must be between requested dates!");
+        return;
+      }
+      if ((this.convert_DT(this.traderequestdetailsbyID.ApprovedEndDate) < this.convert_DT(this.traderequestdetailsbyID.StartDate)) || (this.convert_DT(this.traderequestdetailsbyID.ApprovedEndDate) > this.convert_DT(this.traderequestdetailsbyID.EndDate))) {
+        alert("Approved end date must be between requested dates!");
+        return;
+      }
+    }
+
+    if ((this.traderequestdetailsbyID.StatusComment)) {
+      var comments = this.traderequestdetailsbyID.StatusComment.trim();
+    }
+
+    if (!(comments)) {
+      alert('Comments are not provided !');
       return;
     }
-    if(!(((this.statuscurrentdate)&&(this.convert_DT(this.traderequestdetailsbyID.ApprovedStartDate)))<(this.convert_DT(this.traderequestdetailsbyID.ApprovedEndDate)))){
-      alert('Please Provide Correct End Date !');
-      return;
-    } 
-  }
-    this.PeopleServiceService.saveTradeRequestAction(this.traderequestDetails$,this.employeekey,
-      this.statuscurrentdate,this.convert_DT(this.traderequestdetailsbyID.ApprovedStartDate),this.convert_DT(this.traderequestdetailsbyID.ApprovedEndDate),
-      this.traderequestdetailsbyID.Status,comments)
+
+    this.PeopleServiceService.saveTradeRequestAction(this.traderequestDetails$, this.employeekey,
+      this.statuscurrentdate, this.convert_DT(this.traderequestdetailsbyID.ApprovedStartDate), this.convert_DT(this.traderequestdetailsbyID.ApprovedEndDate),
+      this.traderequestdetailsbyID.Status, comments)
       .subscribe((data: any[]) => {
-      this.details = data[0];
-    alert("Request updated Successfully");
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['TradeRequestsFromEmployees'] } }]);
-    });
+        this.details = data[0];
+        alert("Request updated Successfully");
+        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['TradeRequestsFromEmployees'] } }]);
+      });
   }
 
   ngOnInit() {
 
-  var token = localStorage.getItem('token');
-  var encodedProfile = token.split('.')[1];
-  var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-  this.role = profile.role;
-  this.IsSupervisor = profile.IsSupervisor;
-  this.name = profile.username;
-  this.employeekey = profile.employeekey;
-  this.OrganizationID = profile.OrganizationID;
-  this.statuscurrentdate = this.convert_DT(new Date());
-  this.editflag=false;
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+    this.statuscurrentdate = this.convert_DT(new Date());
+    this.editflag = false;
 
-  this.PeopleServiceService.getTradeRequestdetailsbyID(this.traderequestDetails$)
-    .subscribe((data) => {
-    this.traderequestdetailsbyID = data[0];
-    this.traderequestdetailsbyID.Status='';
-    });
-  this.PeopleServiceService.getAssignmentTradebyID(this.traderequestDetails$)
-    .subscribe((data) => {
-      debugger;
-    this.assignmentdetails = data;
-    });
+    this.PeopleServiceService.getTradeRequestdetailsbyID(this.traderequestDetails$)
+      .subscribe((data) => {
+        this.traderequestdetailsbyID = data[0];
+        this.traderequestdetailsbyID.Status = '';
+      });
+
+    this.PeopleServiceService.getAssignmentTradebyID(this.traderequestDetails$)
+      .subscribe((data: any) => {
+        if (data.length > 0) {
+          this.assignmentdetails1 = data;
+          var hi = "";
+          for (var i = 0; i < this.assignmentdetails1.length; i++) {
+            hi = hi + (i + 1) + ". " + this.assignmentdetails1[i].BatchSchduleName + "\n";
+          }
+          this.assignmentdetails = hi;
+        } else if (data.length == 0) {
+          this.assignmentdetails = "No Assignments found";
+        }
+      });
   }
 }

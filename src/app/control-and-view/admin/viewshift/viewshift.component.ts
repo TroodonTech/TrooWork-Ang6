@@ -13,7 +13,7 @@ export class ViewshiftComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  grpName1;
   shiftdetails;
   delete_shiftKey;
   grpID;
@@ -51,7 +51,9 @@ export class ViewshiftComponent implements OnInit {
     //token ends
 
     this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+      //  debugger;
       this.shiftdetails = data;
+
     });
   }
   deleteShiftPass(Idemployeeshift) {
@@ -59,7 +61,7 @@ export class ViewshiftComponent implements OnInit {
   }
   deleteShift() {
     this.scheduleServ.removeEmployeeShift(this.delete_shiftKey, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-      alert("Shift deleted successfully");
+      alert("Group Name deleted successfully");
       this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
         this.shiftdetails = data;
       });
@@ -68,6 +70,7 @@ export class ViewshiftComponent implements OnInit {
 
   changeDisable(indexVal) {
     this.grpID = indexVal;
+    this.grpName1 = this.shiftdetails[indexVal].Description;
   }
 
 
@@ -79,9 +82,28 @@ export class ViewshiftComponent implements OnInit {
     });
   }
 
-  updateGrpName(grpName,grpnameid){
-    this.scheduleServ.updateShiftDetails(grpnameid,grpName,this.OrganizationID,this.employeekey).subscribe((data: any[]) => {
-      alert("Group Name updated Successfully")
-     });
+  updateGrpName(grpName, grpnameid) {
+    debugger;
+    if (this.grpName1 == grpName) {
+      this.grpID = -1;
+      this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+        this.shiftdetails = data;
+      });
+    } else {
+      this.scheduleServ.checkForEmpGrpDuplicate(grpName, this.OrganizationID).subscribe((data: any[]) => {
+        if (data.length == 0) {
+          this.scheduleServ.updateShiftDetails(grpnameid, grpName, this.OrganizationID, this.employeekey).subscribe((data: any[]) => {
+            alert("Group Name updated Successfully");
+            this.grpID = -1;
+            this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+              this.shiftdetails = data;
+            });
+          });
+        } else {
+          alert("Group Name already exists");
+          return;
+        }
+      });
+    }
   }
 }

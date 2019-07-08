@@ -68,12 +68,12 @@
         <!-- <ul *ngFor="let x of assignmentdetails" style="margin-left:1.5rem; margin-top: 1.5rem;">
           <li>{{x.BatchSchduleName}}</li>
         </ul> -->
-        <textarea class="form-control " maxlength="200" [disabled]=!editflag [(ngModel)]="assignmentdetails" rows="5"
+        <textarea class="form-control " maxlength="200" readonly=!editflag [(ngModel)]="assignmentdetails" rows="5"
           style="resize: none;width: 168% !important;margin-left: -1rem;"></textarea>
       </div>
       <div *ngIf="assignmentdetails?.length == 0" class="form-group col-md-6">
         <label>Assignment List</label>
-        <textarea class="form-control " maxlength="200" [disabled]=!editflag [(ngModel)]="assignmentdetails" rows="5"
+        <textarea class="form-control " maxlength="200" readonly=!editflag [(ngModel)]="assignmentdetails" rows="5"
           style="resize: none;width: 75% !important"></textarea>
       </div>
     </div>
@@ -136,7 +136,7 @@
       <!-- <li>{{x.BatchSchduleName}}</li> -->
       <!-- {{assignmentdetails}} -->
       <!-- </ul> -->
-      <textarea class="form-control " maxlength="200" [disabled]=!editflag [(ngModel)]="assignmentdetails" rows="5"
+      <textarea class="form-control " maxlength="200" readonly=!editflag [(ngModel)]="assignmentdetails" rows="5"
         style="resize: none;width: 75% !important"></textarea>
       <!-- <textarea [(ngModel)]="assignmentdetails"></textarea> -->
 
@@ -144,7 +144,7 @@
     <div *ngIf="assignmentdetails?.length == 0 && requestdetailsbyID.RequestStatus=='Pending'"
       class="form-group col-md-6">
       <label>Assignment List</label>
-      <textarea class="form-control " maxlength="200" [disabled]=!editflag [(ngModel)]="assignmentdetails" rows="5"
+      <textarea class="form-control " maxlength="200" readonly=!editflag [(ngModel)]="assignmentdetails" rows="5"
         style="resize: none;width: 75% !important"></textarea>
     </div>
     <div class="row bg-info col-md-12">

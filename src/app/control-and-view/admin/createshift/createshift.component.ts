@@ -48,12 +48,17 @@ export class CreateshiftComponent implements OnInit {
     // var t = this.time2.getHours();
     // var t1 = this.time2.getMinutes();
     // var newTime2 = t + ":" + t1;
-
-    this.scheduleServ.createEmpShiftwithColourCode(this.Description, this.OrganizationID, this.employeekey).subscribe((data: any[]) => { 
-      alert("Employee Group Name created successfully");
-      this.Description="";
+    this.scheduleServ.checkForEmpGrpDuplicate(this.Description, this.OrganizationID).subscribe((data: any[]) => {
+      if (data.length == 0) {
+        this.scheduleServ.createEmpShiftwithColourCode(this.Description, this.OrganizationID, this.employeekey).subscribe((data: any[]) => {
+          alert("Employee Group Name created successfully");
+          this.Description = "";
+        });
+      } else {
+        alert("Group Name already exists");
+        return;
+      }
     });
-
     // this.scheduleServ.createEmpShiftwithColourCode(this.Description, this.Abbrevation, this.publishas, newTime1,
     //   this.paidhours, newTime2, this.color, this.OrganizationID, this.employeekey).subscribe((data: any[]) => { });
   }
