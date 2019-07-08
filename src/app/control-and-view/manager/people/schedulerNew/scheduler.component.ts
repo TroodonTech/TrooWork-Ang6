@@ -146,7 +146,8 @@ export class SchedulerComponent implements AfterViewInit {
     treePreventParentUsage: true,
     EventMovingStartEndEnabled: true,
     bubble: new DayPilot.Bubble({
-      animation: "fast"
+      animation: "fast",
+      animated : false
     }),
     timeRangeSelectedHandling: 'Hold',
     contextMenu: new DayPilot.Menu({
@@ -188,16 +189,16 @@ export class SchedulerComponent implements AfterViewInit {
 
     },
     onEventMove: args => {
-      console.log("moving MovingFromEmpKey**" + this.MovingFromEmpKey + " " + this.MovingFromDate);
-      console.log("moving MovingToEmpKey**" + this.MovingToEmpKey + " " + this.MovingToDate);
-      for (var i = 0; i < this.AllEmployeeList.length; i++) {
-        if (this.AllEmployeeList[i].id == this.MovingFromEmpKey) {
-          this.FromEmp = this.AllEmployeeList[i].name;
-        }
-        if (this.AllEmployeeList[i].id == this.MovingToEmpKey) {
-          this.ToEmp = this.AllEmployeeList[i].name;
-        }
-      }
+      // console.log("moving MovingFromEmpKey**" + this.MovingFromEmpKey + " " + this.MovingFromDate);
+      // console.log("moving MovingToEmpKey**" + this.MovingToEmpKey + " " + this.MovingToDate);
+      // for (var i = 0; i < this.AllEmployeeList.length; i++) {
+      //   if (this.AllEmployeeList[i].id == this.MovingFromEmpKey) {
+      //     this.FromEmp = this.AllEmployeeList[i].name;
+      //   }
+      //   if (this.AllEmployeeList[i].id == this.MovingToEmpKey) {
+      //     this.ToEmp = this.AllEmployeeList[i].name;
+      //   }
+      // }
 
       let obj = {
         resourceEmployee: this.MovingToEmpKey,
@@ -213,7 +214,7 @@ export class SchedulerComponent implements AfterViewInit {
         this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
           this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
             this.empCalendarActivities();
-            alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
+            // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
 
           });
         });

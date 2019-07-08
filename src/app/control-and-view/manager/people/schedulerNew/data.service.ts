@@ -70,7 +70,8 @@ export class DataService {
       ScheduleNameKey:data.ScheduleNameKey,
       ScheduleName:data.ScheduleName,
       backColor: "White",
-      moveDisabled: false
+      moveDisabled: false,
+      bubbleHtml:data.text
     };
 
     return new Observable(observer => {
@@ -104,7 +105,7 @@ export interface CreateEventParams {
   ScheduleName:string;
   backColor:string;
   moveDisabled:boolean;
-
+  bubbleHtml:string;
 }
 
 export interface UpdateEventParams {
@@ -117,7 +118,7 @@ export interface UpdateEventParams {
   ScheduleName:string;
   backColor:string;
   moveDisabled:boolean;
-
+  bubbleHtml:string;
 }
 
 export interface EventData {
@@ -130,5 +131,5 @@ export interface EventData {
   ScheduleName:string;
   backColor:string;
   moveDisabled:boolean;
-
+  bubbleHtml:string;
 }
