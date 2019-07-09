@@ -10,7 +10,7 @@
       <div class="form-group ">
         <label>Employee Number*</label>
         <input type="text" name="EmployeeNumber" class="form-control col-sm-9 col-md-9 col-lg-9" maxlength="15"
-          placeholder="Employee Number" readonly [(ngModel)]="editempdtails.EmployeeNumber" style="width: 73%">
+          placeholder="Employee Number" readonly [(ngModel)]="empNum" style="width: 73%">
       </div>
     </div>
     <div class="col-md-6">
@@ -21,13 +21,13 @@
         <label>First Name*</label>
         <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9"
           (keypress)="charValidation($event)" maxlength="19" placeholder="First Name"
-          [(ngModel)]="editempdtails.FirstName" readonly>
+          [(ngModel)]="fname" readonly>
       </div>
       <div class="form-group">
         <label>Last Name*</label>
         <input type="text" name="LastName" class="form-control  col-sm-9 col-md-9 col-lg-9"
           (keypress)="charValidation($event)" maxlength="19" placeholder="Last Name"
-          [(ngModel)]="editempdtails.LastName" readonly>
+          [(ngModel)]="lname" readonly>
       </div>
     </div>
     <div class="col-md-6">
@@ -35,7 +35,7 @@
         <label>Middle Name</label>
         <input type="text" name="MiddleName" class="form-control  col-sm-9 col-md-9 col-lg-9"
           (keypress)="charValidation($event)" maxlength="19" placeholder="Middle Name"
-          [(ngModel)]="editempdtails.MiddleName" readonly>
+          [(ngModel)]="mname" readonly>
       </div>
       <div class="form-group">
         <label>Birth Date</label>
@@ -46,14 +46,15 @@
     <div class="col-md-6">
       <div class="form-group" style="margin-left:-1rem;">
         <label>Gender</label><br>
-        <input type="text" [(ngModel)]="editempdtails.Gender" readonly class="form-control  col-sm-9 col-md-9 col-lg-9"/>
+        <input type="text" [(ngModel)]="egender" readonly class="form-control  col-sm-9 col-md-9 col-lg-9"/>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label>Employee Group</label><br>
         <select name="idemployeegrouping" [(ngModel)]="idemployeegrouping"
-          style="background-color: #d4f4ff;width: 75% !important" class=" form-control">
+          style="background-color: #d4f4ff;width: 75% !important" 
+          class=" form-control" (change)='getweeklyschedulebyonchange($event.target.value)'>
           <option value="" placeholder>--Select--</option>
           <option *ngFor="let s of employeegrouping" [value]="s.Idemployeegrouping">
             {{s.Description}}

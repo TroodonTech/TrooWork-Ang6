@@ -36,6 +36,11 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
   statusFlag;
   remark;
 
+  fname;
+  lname;
+  mname;
+  enumber;
+  egender;
   //Author: Prakash Code Starts for Employee Calendar Starts Here
 
   schedularcount = 0;
@@ -375,12 +380,12 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
     this.PeopleServiceService.EditEmployeeDetailsbyManager(this.empk$, this.OrganizationID).subscribe((data: Array<any>) => {
       this.editempdtails = data[0];
       this.BirthDate = this.editempdtails.BirthDate;
-      this.HireDate = this.editempdtails.HireDate;
       this.empNum = this.editempdtails.EmployeeNumber;
-      if (this.editempdtails.EmployeeStatusKey != 1 && this.editempdtails.EmployeeStatusKey != "") {
-        this.statusFlag = true;
-        this.remark = this.editempdtails.Remark;
-      }
+      this.fname = this.editempdtails.FirstName;
+      this.lname = this.editempdtails.LastName;
+      this.mname = this.editempdtails.MiddleName;
+      this.egender = this.editempdtails.Gender;
+      
 
       //Author: Prakash Code Starts for Employee Calendar Starts Here
 
@@ -521,6 +526,80 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
       this.statusFlag = false;
     }
 
+  }
+
+  getweeklyschedulebyonchange(employeegroupid) {
+
+    this.PeopleServiceService.getweeklyschedulebyEmployeeGroupid(employeegroupid).subscribe((data: Array<any>) => {
+      this.editempdtails = data[0];
+      // this.BirthDate = this.editempdtails.BirthDate;
+      // this.HireDate = this.editempdtails.HireDate;
+      // this.empNum = this.editempdtails.EmployeeNumber;
+      // if (this.editempdtails.EmployeeStatusKey != 1 && this.editempdtails.EmployeeStatusKey != "") {
+      //   this.statusFlag = true;
+      //   this.remark = this.editempdtails.Remark;
+      // }
+
+      //Author: Prakash Code Starts for Employee Calendar Starts Here
+
+      this.idemployeegrouping = this.editempdtails.EmployeeGroupID;
+
+      if (!(this.editempdtails.Idscheduler_exception)) {
+        this.idscheduler_exception = '';
+        this.idmaster_exception_weekend = '';
+      }
+      else {
+        this.idscheduler_exception = this.editempdtails.Idscheduler_exception;
+        this.idmaster_exception_weekend = '';
+        // this.idmaster_exception_weekend = this.editempdtails.Idmaster_exception_weekend;
+      }
+
+      if (!(this.editempdtails.start_sun_hour)) { this.editempdtails.start_sun_hour = '-1'; }
+      if (!(this.editempdtails.start_sun_min)) { this.editempdtails.start_sun_min = '-1'; }
+      if (!(this.editempdtails.start_sun_format)) { this.editempdtails.start_sun_format = 'AM'; }
+      if (!(this.editempdtails.start_mon_hour)) { this.editempdtails.start_mon_hour = '-1'; }
+      if (!(this.editempdtails.start_mon_min)) { this.editempdtails.start_mon_min = '-1'; }
+      if (!(this.editempdtails.start_mon_format)) { this.editempdtails.start_mon_format = 'AM'; }
+      if (!(this.editempdtails.start_tue_hour)) { this.editempdtails.start_tue_hour = '-1'; }
+      if (!(this.editempdtails.start_tue_min)) { this.editempdtails.start_tue_min = '-1'; }
+      if (!(this.editempdtails.start_tue_format)) { this.editempdtails.start_tue_format = 'AM'; }
+      if (!(this.editempdtails.start_wed_hour)) { this.editempdtails.start_wed_hour = '-1'; }
+      if (!(this.editempdtails.start_wed_min)) { this.editempdtails.start_wed_min = '-1'; }
+      if (!(this.editempdtails.start_wed_format)) { this.editempdtails.start_wed_format = 'AM'; }
+      if (!(this.editempdtails.start_thu_hour)) { this.editempdtails.start_thu_hour = '-1'; }
+      if (!(this.editempdtails.start_thu_min)) { this.editempdtails.start_thu_min = '-1'; }
+      if (!(this.editempdtails.start_thu_format)) { this.editempdtails.start_thu_format = 'AM'; }
+      if (!(this.editempdtails.start_fri_hour)) { this.editempdtails.start_fri_hour = '-1'; }
+      if (!(this.editempdtails.start_fri_min)) { this.editempdtails.start_fri_min = '-1'; }
+      if (!(this.editempdtails.start_fri_format)) { this.editempdtails.start_fri_format = 'AM'; }
+      if (!(this.editempdtails.start_sat_hour)) { this.editempdtails.start_sat_hour = '-1'; }
+      if (!(this.editempdtails.start_sat_min)) { this.editempdtails.start_sat_min = '-1'; }
+      if (!(this.editempdtails.start_sat_format)) { this.editempdtails.start_sat_format = 'AM'; }
+      if (!(this.editempdtails.end_sun_hour)) { this.editempdtails.end_sun_hour = '-1'; }
+      if (!(this.editempdtails.end_sun_min)) { this.editempdtails.end_sun_min = '-1'; }
+      if (!(this.editempdtails.end_sun_format)) { this.editempdtails.end_sun_format = 'AM'; }
+      if (!(this.editempdtails.end_mon_hour)) { this.editempdtails.end_mon_hour = '-1'; }
+      if (!(this.editempdtails.end_mon_min)) { this.editempdtails.end_mon_min = '-1'; }
+      if (!(this.editempdtails.end_mon_format)) { this.editempdtails.end_mon_format = 'AM'; }
+      if (!(this.editempdtails.end_tue_hour)) { this.editempdtails.end_tue_hour = '-1'; }
+      if (!(this.editempdtails.end_tue_min)) { this.editempdtails.end_tue_min = '-1'; }
+      if (!(this.editempdtails.end_tue_format)) { this.editempdtails.end_tue_format = 'AM'; }
+      if (!(this.editempdtails.end_wed_hour)) { this.editempdtails.end_wed_hour = '-1'; }
+      if (!(this.editempdtails.end_wed_min)) { this.editempdtails.end_wed_min = '-1'; }
+      if (!(this.editempdtails.end_wed_format)) { this.editempdtails.end_wed_format = 'AM'; }
+      if (!(this.editempdtails.end_thu_hour)) { this.editempdtails.end_thu_hour = '-1'; }
+      if (!(this.editempdtails.end_thu_min)) { this.editempdtails.end_thu_min = '-1'; }
+      if (!(this.editempdtails.end_thu_format)) { this.editempdtails.end_thu_format = 'AM'; }
+      if (!(this.editempdtails.end_fri_hour)) { this.editempdtails.end_fri_hour = '-1'; }
+      if (!(this.editempdtails.end_fri_min)) { this.editempdtails.end_fri_min = '-1'; }
+      if (!(this.editempdtails.end_fri_format)) { this.editempdtails.end_fri_format = 'AM'; }
+      if (!(this.editempdtails.end_sat_hour)) { this.editempdtails.end_sat_hour = '-1'; }
+      if (!(this.editempdtails.end_sat_min)) { this.editempdtails.end_sat_min = '-1'; }
+      if (!(this.editempdtails.end_sat_format)) { this.editempdtails.end_sat_format = 'AM'; }
+
+      //Author: Prakash Code Starts for Employee Calendar Ends Here
+
+    });
   }
 
 }

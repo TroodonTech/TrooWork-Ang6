@@ -16487,6 +16487,31 @@ app.get(securedpath + '/getallemployeegrouping', function (req, res) {
         connection.release();
     });
 });
+
+app.get(securedpath + '/getweeklyschedulebyEmployeeGroupid', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var empgroupid = url.parse(req.url, true).query['SearchKey'];
+    
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set @empgroupid=?; call usp_getWeeklySchedulebyEmployeeGroupid(@empgroupid)", [empgroupid], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[1]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //Author: Prakash Code Starts for Employee Calendar Ends Here
 /*************END MIGRATE CODE**********************************************************/
 //handle generic exceptions
