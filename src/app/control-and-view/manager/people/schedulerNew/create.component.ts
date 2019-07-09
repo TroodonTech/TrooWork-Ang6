@@ -157,7 +157,8 @@ export class CreateComponent implements OnInit{
       ScheduleNameKey:this.BatchScheduleNameKey,
       ScheduleName:this.ScheduleName,
       backColor: "White",
-      moveDisabled:false
+      moveDisabled:false,
+      bubbleHtml:this.ScheduleName
     };
   
     let  obj = {
