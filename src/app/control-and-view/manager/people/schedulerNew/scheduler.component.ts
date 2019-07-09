@@ -208,8 +208,7 @@ export class SchedulerComponent implements AfterViewInit {
         OrganizationID: this.OrganizationID
       };
 
-      var confirmBox = confirm("Do you want to Move" + " ?");
-      if (confirmBox == true) {
+  
 
         this.SchedulingService.SchedulerTimeRangeCheck(args.e.data.ScheduleNameKey,this.convert_DT(this.MovingToDate),this.MovingToEmpKey,this.OrganizationID).subscribe(data => {
           if(data[0].count>0){
@@ -244,9 +243,7 @@ export class SchedulerComponent implements AfterViewInit {
          });
 
         
-      } else {
-        args.preventDefault();
-      }
+      
     },
     onEventMoving: args => {
 
