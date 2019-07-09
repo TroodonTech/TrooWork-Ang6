@@ -1095,6 +1095,12 @@ export class PeopleServiceService {
 
   }
 
+  getweeklyschedulebyEmployeeGroupid(employeegroupid) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getweeklyschedulebyEmployeeGroupid?SearchKey=' + employeegroupid);
+  }
+
   //Author: Prakash Code Starts for Employee Calendar Ends Here
 
 }

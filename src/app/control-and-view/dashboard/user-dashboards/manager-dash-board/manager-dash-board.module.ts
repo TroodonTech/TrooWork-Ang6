@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { InventoryReportModule } from '../../../manager/reports/inventory-report/inventory-report.module';
+import { ViewEmployeeWeeklyScheduleDetailModule } from '../../../manager/people/view-employee-weekly-schedule-detail/view-employee-weekly-schedule-detail.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -563,6 +563,16 @@ const routes: Routes = [
         path: 'TradeRequestsFromEmployees/TradeRequestAction/:requestID',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/people/trade-request-action/trade-request-action.module#TradeRequestActionModule',
+      },
+      {
+        path: 'ScheduleEmployee',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/people/view-employee-weekly-schedule/view-employee-weekly-schedule.module#ViewEmployeeWeeklyScheduleModule',
+      },
+      {
+        path: 'ScheduleEmployee/ScheduleEmployeeDetail/:EmployeeKey',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/people/view-employee-weekly-schedule-detail/view-employee-weekly-schedule-detail.module#ViewEmployeeWeeklyScheduleDetailModule',
       }
     ]
   }
