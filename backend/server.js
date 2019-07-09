@@ -15736,6 +15736,35 @@ app.get(securedpath + '/SchedulerEmployeeGroups', function (req, res) {
         connection.release();
     });
 });
+app.get(securedpath + '/SchedulerTimeRangeCheck', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var ScheduleNameKey = url.parse(req.url, true).query['ScheduleNameKey'];
+    var Date = url.parse(req.url, true).query['Date'];
+    var empKey = url.parse(req.url, true).query['empKey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @ScheduleNameKey=?; set@Date=?; set @empKey=?; set@OrganizationID=?; call usp_SchedulerTimeRangeCheck(@ScheduleNameKey,@Date,@empKey,@OrganizationID)', [ScheduleNameKey,Date,empKey,OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+
+                    res.end(JSON.stringify(rows[4]));
+
+
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //********Scheduler************API BY varun ends
 
 //********Scheduler************API by Rodney starts

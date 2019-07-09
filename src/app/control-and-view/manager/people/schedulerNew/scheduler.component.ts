@@ -211,13 +211,39 @@ export class SchedulerComponent implements AfterViewInit {
       var confirmBox = confirm("Do you want to Move" + " ?");
       if (confirmBox == true) {
 
-        this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
-          this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
-            this.empCalendarActivities();
-            // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
+        this.SchedulingService.SchedulerTimeRangeCheck(args.e.data.ScheduleNameKey,this.convert_DT(this.MovingToDate),this.MovingToEmpKey,this.OrganizationID).subscribe(data => {
+          if(data[0].count>0){
+            this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
+              this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
+                this.empCalendarActivities();
+                // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
+    
+              });
+            });
+     
+          }
+          else{
+           var confirmBox = confirm("Employee not working in this time range. Do you want to Update Schedule ?");
+           if (confirmBox == true) {
+            this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
+              this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
+                this.empCalendarActivities();
+                // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
+    
+              });
+            });
+           }
+           else{
+            args.preventDefault();           
+              this.empCalendarActivities();
+              // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);    
+           }
+           
+         }
+            
+         });
 
-          });
-        });
+        
       } else {
         args.preventDefault();
       }

@@ -1,10 +1,10 @@
-import {Component, ViewChild, Output, EventEmitter,OnInit} from '@angular/core';
-import {DayPilot, DayPilotModalComponent,} from "daypilot-pro-angular";
-import {Validators, FormBuilder, FormGroup, FormControl} from "@angular/forms";
-import {DataService, CreateEventParams} from "./data.service";
+import { Component, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
+import { DayPilot, DayPilotModalComponent, } from "daypilot-pro-angular";
+import { Validators, FormBuilder, FormGroup, FormControl } from "@angular/forms";
+import { DataService, CreateEventParams } from "./data.service";
 import { SchedulingService } from '../../../../service/scheduling.service';
 import { DatepickerOptions } from 'ng2-datepicker';
-import { ActivatedRoute, Router  } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'create-dialog',
@@ -45,19 +45,19 @@ import { ActivatedRoute, Router  } from "@angular/router";
   }
   `]
 })
-export class CreateComponent implements OnInit{
-  @ViewChild("modal") modal : DayPilotModalComponent;
+export class CreateComponent implements OnInit {
+  @ViewChild("modal") modal: DayPilotModalComponent;
   @Output() close = new EventEmitter();
-//schedule variales
+  //schedule variales
   form: FormGroup;
   dateFormat = "MM/dd/yyyy h:mm tt";
-  name="new Event"
+  name = "new Event"
   resources: any[];
   start;
   end;
   resource;
   role: String;
-//other variables
+  //other variables
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
@@ -66,7 +66,7 @@ export class CreateComponent implements OnInit{
   scheduleNameList;
   params;
   Date;
-  constructor(private fb: FormBuilder, private ds: DataService,private SchedulingService:SchedulingService,private router: Router) {
+  constructor(private fb: FormBuilder, private ds: DataService, private SchedulingService: SchedulingService, private router: Router) {
     this.form = this.fb.group({
       name: ["", Validators.required],
       start: ["", this.dateTimeValidator(this.dateFormat)],
@@ -76,18 +76,18 @@ export class CreateComponent implements OnInit{
 
     // this.ds.getResources().subscribe(result => this.resources = result);
 
-    this.router.routeReuseStrategy.shouldReuseRoute = function(){// code for Refresh
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {// code for Refresh
       return false;
-   }
+    }
 
-   this.router.events.subscribe((evt) => {
-   
-         // trick the Router into believing it's last link wasn't previously loaded
-         this.router.navigated = false;
-         // if you need to scroll back to top, here is the right place
-         window.scrollTo(0, 0);
-      
-  });
+    this.router.events.subscribe((evt) => {
+
+      // trick the Router into believing it's last link wasn't previously loaded
+      this.router.navigated = false;
+      // if you need to scroll back to top, here is the right place
+      window.scrollTo(0, 0);
+
+    });
 
   }
   url_base64_decode(str) {
@@ -128,18 +128,18 @@ export class CreateComponent implements OnInit{
   };
 
   show(args: any) {
-    
-    this.resource=args.resource;
-    this.BatchScheduleNameKey='';
-    this.Date=args.start;
+
+    this.resource = args.resource;
+    this.BatchScheduleNameKey = '';
+    this.Date = args.start;
     this.modal.show();
   }
 
   submit() {
-  
-  // var currDate=new Date();
+
+    // var currDate=new Date();
     // let data = this.form.getRawValue();
-    if(!(this.BatchScheduleNameKey)){
+    if (!(this.BatchScheduleNameKey)) {
       alert("Please provide Assignment Name !");
       return;
     }
@@ -148,34 +148,49 @@ export class CreateComponent implements OnInit{
     //   return;
     // }
 
-     let params : CreateEventParams = {
-       
+    let params: CreateEventParams = {
+
       resource: this.resource,
-      start:this.convert_DT(this.Date) ,
+      start: this.convert_DT(this.Date),
       end: this.convert_DT(this.Date),
       text: this.ScheduleName,
-      ScheduleNameKey:this.BatchScheduleNameKey,
-      ScheduleName:this.ScheduleName,
+      ScheduleNameKey: this.BatchScheduleNameKey,
+      ScheduleName: this.ScheduleName,
       backColor: "White",
-      moveDisabled:false,
-      bubbleHtml:this.ScheduleName
+      moveDisabled: false,
+      bubbleHtml: this.ScheduleName
     };
-  
-    let  obj = {
+
+    let obj = {
       resourceEmployee: this.resource,
-      start:this.convert_DT(this.Date) ,
-      ScheduleNameKey:this.BatchScheduleNameKey,
-      MetaEmp:this.employeekey,
+      start: this.convert_DT(this.Date),
+      ScheduleNameKey: this.BatchScheduleNameKey,
+      MetaEmp: this.employeekey,
       OrganizationID: this.OrganizationID
     };
-    this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
-      alert("Event has been Created !");
-      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+   
+    this.SchedulingService.SchedulerTimeRangeCheck(this.BatchScheduleNameKey,this.convert_DT(this.Date),this.resource,this.OrganizationID).subscribe(data => {
+     if(data[0].count>0){
+      this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
+        alert("Event has been Created !");
+
+        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+      });
+
+     }
+     else{
+      var confirmBox = confirm("Employee not working in this time range. Do you want to Create Schedule ?");
+      if (confirmBox == true) {
+        this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
+          alert("Event has been Created !");
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+        });
+      }
+      
+    }
+       
     });
-    this.ds.createEvent(params).subscribe(result => {
- 
-      this.modal.hide(result);
-    });
+    
   }
 
   cancel() {
@@ -183,42 +198,42 @@ export class CreateComponent implements OnInit{
   }
 
   closed(args) {
-   
+
     this.close.emit(args);
   }
 
   dateTimeValidator(format: string) {
-    return function(c:FormControl) {
+    return function (c: FormControl) {
       let valid = !!DayPilot.Date.parse(c.value, format);
-      return valid ? null : {badDateTimeFormat: true};
+      return valid ? null : { badDateTimeFormat: true };
     };
   }
-  setScheduleName(){
-    for(var i=0;i<this.scheduleNameList.length;i++){
-   
-           if(parseInt(this.BatchScheduleNameKey)===this.scheduleNameList[i].BatchScheduleNameKey){
-            
-              this.ScheduleName=this.scheduleNameList[i].ScheduleName;
-           }
-     }
+  setScheduleName() {
+    for (var i = 0; i < this.scheduleNameList.length; i++) {
+
+      if (parseInt(this.BatchScheduleNameKey) === this.scheduleNameList[i].BatchScheduleNameKey) {
+
+        this.ScheduleName = this.scheduleNameList[i].ScheduleName;
+      }
+    }
 
   }
   ngOnInit() {
 
- //token starts....
- var token = localStorage.getItem('token');
- var encodedProfile = token.split('.')[1];
- var profile = JSON.parse(this.url_base64_decode(encodedProfile));
- this.role = profile.role;
- this.IsSupervisor = profile.IsSupervisor;
- this.name = profile.username;
- this.employeekey = profile.employeekey;
- this.OrganizationID = profile.OrganizationID;
+    //token starts....
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.employeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
 
     this.SchedulingService
-    .getAllSchedulingNames(this.employeekey, this.OrganizationID)
-    .subscribe((data: any[]) => {
-      this.scheduleNameList = data;
-    });
+      .getAllSchedulingNames(this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.scheduleNameList = data;
+      });
   }
 }

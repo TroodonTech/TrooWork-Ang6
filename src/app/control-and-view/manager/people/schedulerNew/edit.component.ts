@@ -1,11 +1,11 @@
-import {Component, ViewChild, Output, EventEmitter,OnInit} from '@angular/core';
-import {DayPilot, DayPilotModalComponent} from "daypilot-pro-angular";
+import { Component, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
+import { DayPilot, DayPilotModalComponent } from "daypilot-pro-angular";
 import Modal = DayPilot.Angular.Modal;
-import {Validators, FormBuilder, FormGroup, FormControl} from "@angular/forms";
-import {DataService, CreateEventParams, EventData, UpdateEventParams} from "./data.service";
+import { Validators, FormBuilder, FormGroup, FormControl } from "@angular/forms";
+import { DataService, CreateEventParams, EventData, UpdateEventParams } from "./data.service";
 import { SchedulingService } from '../../../../service/scheduling.service';
 import { DatepickerOptions } from 'ng2-datepicker';
-import { ActivatedRoute, Router  } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'edit-dialog',
@@ -47,8 +47,8 @@ import { ActivatedRoute, Router  } from "@angular/router";
   }
   `]
 })
-export class EditComponent implements OnInit{
-  @ViewChild("modal") modal : DayPilotModalComponent;
+export class EditComponent implements OnInit {
+  @ViewChild("modal") modal: DayPilotModalComponent;
   @Output() close = new EventEmitter();
 
   url_base64_decode(str) {
@@ -75,7 +75,7 @@ export class EditComponent implements OnInit{
 
   event: DayPilot.Event;
 
-//local variable
+  //local variable
   ScheduleNameEdit;
   scheduleNameList;
   name;
@@ -87,7 +87,8 @@ export class EditComponent implements OnInit{
   BatchScheduleNameKey;
   DateEdit;
   AssignIDForDelete;
-  constructor(private fb: FormBuilder, private ds: DataService,private SchedulingService:SchedulingService,private router: Router) {
+  scheduleOldKey;
+  constructor(private fb: FormBuilder, private ds: DataService, private SchedulingService: SchedulingService, private router: Router) {
     this.form = this.fb.group({
       name: ["", Validators.required],
       start: ["", this.dateTimeValidator(this.dateFormat)],
@@ -97,18 +98,18 @@ export class EditComponent implements OnInit{
 
     this.ds.getResources().subscribe(result => this.resources = result);
 
-    this.router.routeReuseStrategy.shouldReuseRoute = function(){// code for Refresh
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {// code for Refresh
       return false;
-   }
+    }
 
-   this.router.events.subscribe((evt) => {
-   
-         // trick the Router into believing it's last link wasn't previously loaded
-         this.router.navigated = false;
-         // if you need to scroll back to top, here is the right place
-        //  window.scrollTo(0, 0);
-      
-  });
+    this.router.events.subscribe((evt) => {
+
+      // trick the Router into believing it's last link wasn't previously loaded
+      this.router.navigated = false;
+      // if you need to scroll back to top, here is the right place
+      //  window.scrollTo(0, 0);
+
+    });
   }
   options: DatepickerOptions = {
     minYear: 1970,
@@ -132,65 +133,89 @@ export class EditComponent implements OnInit{
   };
   show(ev: DayPilot.Event) {
     return new Promise((resolve) => {
-    this.event = ev;
-    this.form.setValue({
-      start: ev.start().toString(this.dateFormat),
-      end: ev.end().toString(this.dateFormat),
-      name: ev.text(),
-      resource: ev.resource(),
-     
-    });
-    // var currDate=new Date();
-    this.AssignIDForDelete=ev.data.Assignment_CalenderID
-    this.BatchScheduleNameKeyEdit=ev.data.ScheduleNameKey;
-    this.ScheduleNameEdit=ev.data.ScheduleName;
-    this.DateEdit=this.convert_DT(ev.data.start);
-    // if(this.DateEdit < this.convert_DT(currDate)){
-    //   alert("Please check date !");
-    //   return;
-    // }
-    if(ev.data.moveDisabled!=1){ 
-    this.modal.show();
-    }
-    resolve(); 
+      this.event = ev;
+      this.form.setValue({
+        start: ev.start().toString(this.dateFormat),
+        end: ev.end().toString(this.dateFormat),
+        name: ev.text(),
+        resource: ev.resource(),
+
+      });
+      // var currDate=new Date();
+      this.AssignIDForDelete = ev.data.Assignment_CalenderID
+      this.BatchScheduleNameKeyEdit = ev.data.ScheduleNameKey;
+      this.ScheduleNameEdit = ev.data.ScheduleName;
+      this.DateEdit = this.convert_DT(ev.data.start);
+      this.scheduleOldKey=ev.data.ScheduleNameKey;
+      // if(this.DateEdit < this.convert_DT(currDate)){
+      //   alert("Please check date !");
+      //   return;
+      // }
+      if (ev.data.moveDisabled != 1) {
+        this.modal.show();
+      }
+      resolve();
     });
   }
 
   submitEdit() {
     // var currDate=new Date();
     // let data = this.form.getRawValue();
- var date=this.convert_DT(this.DateEdit)
- if(!(this.BatchScheduleNameKeyEdit)){
-  alert("Please provide Assignment Name !");
-  return;
-}
-// if(this.DateEdit < this.convert_DT(currDate)){
-//   alert("Please check date !");
-//   return;
-// }
+    var date = this.convert_DT(this.DateEdit)
+    if (!(this.BatchScheduleNameKeyEdit)) {
+      alert("Please provide Assignment Name !");
+      return;
+    }
+    // if(this.DateEdit < this.convert_DT(currDate)){
+    //   alert("Please check date !");
+    //   return;
+    // }
     // modify the original object from [events] which is stored in event.data
-    this.event.data.start =date
-    this.event.data.end =date
-    this.event.data.resource 
-    this.event.data.text =this.ScheduleNameEdit
-    this.event.data.ScheduleName=this.ScheduleNameEdit;
-    this.event.data.ScheduleNameKey=this.BatchScheduleNameKeyEdit;
+  
 
-    let  obj = {
-      resourceEmployee:  this.event.data.resource ,
-      start:this.convert_DT(this.event.data.start) ,
-      ScheduleNameKey:this.BatchScheduleNameKeyEdit,
-      MetaEmp:this.employeekey,
+    let obj = {
+      resourceEmployee: this.event.data.resource,
+      start: this.convert_DT(this.event.data.start),
+      ScheduleNameKey: this.BatchScheduleNameKeyEdit,
+      MetaEmp: this.employeekey,
       OrganizationID: this.OrganizationID,
-      Assignment_CalenderID:this.event.data.Assignment_CalenderID
+      Assignment_CalenderID: this.event.data.Assignment_CalenderID
     };
-    this.SchedulingService.SchedulerEventUpdate(obj).subscribe(data => {
-      alert("Event has been Updated !");
-      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
-    });
-    this.ds.updateEvent(this.event).subscribe(result => {
-      this.modal.hide(result);
-    });
+   
+    this.SchedulingService.SchedulerTimeRangeCheck(this.BatchScheduleNameKeyEdit,this.convert_DT(this.event.data.start),this.event.data.resource,this.OrganizationID).subscribe(data => {
+      if(data[0].count>0){
+        this.SchedulingService.SchedulerEventUpdate(obj).subscribe(data => {
+          alert("Event has been Updated !");
+        
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+        });
+ 
+      }
+      else{
+       var confirmBox = confirm("Employee not working in this time range. Do you want to Update Schedule ?");
+       if (confirmBox == true) {
+        this.SchedulingService.SchedulerEventUpdate(obj).subscribe(data => {
+          alert("Event has been Updated !");
+          
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+        });
+       }
+       else{
+        this.BatchScheduleNameKeyEdit= this.scheduleOldKey
+       }
+       
+     }
+        
+     });
+    // this.ds.updateEvent(this.event).subscribe(result => {
+    //   this.modal.hide(result);
+    // });
+    this.event.data.start = date
+    this.event.data.end = date
+    this.event.data.resource
+    this.event.data.text = this.ScheduleNameEdit
+    this.event.data.ScheduleName = this.ScheduleNameEdit;
+    this.event.data.ScheduleNameKey = this.BatchScheduleNameKeyEdit;
   }
 
   cancel() {
@@ -202,20 +227,20 @@ export class EditComponent implements OnInit{
   }
 
   dateTimeValidator(format: string) {
-    return function(c:FormControl) {
+    return function (c: FormControl) {
       let valid = !!DayPilot.Date.parse(c.value, format);
-      return valid ? null : {badDateTimeFormat: true};
+      return valid ? null : { badDateTimeFormat: true };
     };
   }
 
-  delete(){
+  delete() {
     var confirmBox = confirm("Do you want to Delete ?");
-      if (confirmBox == true) {
-        this.SchedulingService.SchedulerEventDelete(this.AssignIDForDelete,this.employeekey, this.OrganizationID).subscribe(data => {
-          alert("Sucessfully Deleted !");
-          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
-        });
-      }
+    if (confirmBox == true) {
+      this.SchedulingService.SchedulerEventDelete(this.AssignIDForDelete, this.employeekey, this.OrganizationID).subscribe(data => {
+        alert("Sucessfully Deleted !");
+        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+      });
+    }
   }
   ngOnInit() {
 
@@ -228,23 +253,23 @@ export class EditComponent implements OnInit{
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-   
-       this.SchedulingService
-       .getAllSchedulingNames(this.employeekey, this.OrganizationID)
-       .subscribe((data: any[]) => {
-         this.scheduleNameList = data;
-       });
-     }
 
-     setScheduleNameEdit(){
-      for(var i=0;i<this.scheduleNameList.length;i++){
-     
-             if(parseInt(this.BatchScheduleNameKeyEdit)===this.scheduleNameList[i].BatchScheduleNameKey){
-              
-                this.ScheduleNameEdit=this.scheduleNameList[i].ScheduleName;
-             }
-       }
-  
+    this.SchedulingService
+      .getAllSchedulingNames(this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.scheduleNameList = data;
+      });
+  }
+
+  setScheduleNameEdit() {
+    for (var i = 0; i < this.scheduleNameList.length; i++) {
+
+      if (parseInt(this.BatchScheduleNameKeyEdit) === this.scheduleNameList[i].BatchScheduleNameKey) {
+
+        this.ScheduleNameEdit = this.scheduleNameList[i].ScheduleName;
+      }
     }
+
+  }
 }
 
