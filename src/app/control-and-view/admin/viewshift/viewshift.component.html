@@ -12,7 +12,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let s of shiftdetails;let k = index">
-          <td><input type="text" class="form-control" [disabled]='!(k===grpID)' [(ngModel)]="s.Description">
+          <td>
+            {{s.Description}}
+            <!-- <input type="text" class="form-control" [disabled]='!(k===grpID)' [(ngModel)]="s.Description"> -->
           </td>
 
           <!-- <td>{{ s.StartTime }}</td>
@@ -20,15 +22,15 @@
         <td><input  name="favcolor" [ngStyle]="{background: s.Colour}" disabled></td> -->
 
           <td>
-            <a *ngIf='!(k===grpID)' (click)="changeDisable(k);" class="btn btn-primary"><b>Edit</b></a>
-            <!-- <a [routerLink]="['EditShift',s.Idemployeegrouping]" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp; -->
+            <!-- <a *ngIf='!(k===grpID)' (click)="changeDisable(k);" class="btn btn-primary"><b>Edit</b></a> -->
+            <a [routerLink]="['EditShift',s.Idemployeegrouping]" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
 
-            <a *ngIf='(k===grpID)' (click)="updateGrpName(s.Description,s.Idemployeegrouping);"
+            <!-- <a *ngIf='(k===grpID)' (click)="updateGrpName(s.Description,s.Idemployeegrouping);"
               class="btn btn-success"><b>Update</b></a>&nbsp;
-            <a *ngIf='(k===grpID)' (click)="cancelGrpName();" class="btn btn-warning"><b>Cancel</b></a>&nbsp;
+            <a *ngIf='(k===grpID)' (click)="cancelGrpName();" class="btn btn-warning"><b>Cancel</b></a>&nbsp; -->
 
-            <a class="btn btn-danger"
-              (click)="basicModal.show();deleteShiftPass(s.Idemployeegrouping); "><b>Delete</b></a>
+            <!-- <a class="btn btn-danger"
+              (click)="basicModal.show();deleteShiftPass(s.Idemployeegrouping); "><b>Delete</b></a> -->
           </td>
         </tr>
         <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel"

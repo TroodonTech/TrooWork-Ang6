@@ -68,42 +68,42 @@ export class ViewshiftComponent implements OnInit {
     });
   }
 
-  changeDisable(indexVal) {
-    this.grpID = indexVal;
-    this.grpName1 = this.shiftdetails[indexVal].Description;
-  }
+  // changeDisable(indexVal) {
+  //   this.grpID = indexVal;
+  //   this.grpName1 = this.shiftdetails[indexVal].Description;
+  // }
 
 
-  cancelGrpName() {
-    this.grpID = -1;
+  // cancelGrpName() {
+  //   this.grpID = -1;
 
-    this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-      this.shiftdetails = data;
-    });
-  }
+  //   this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+  //     this.shiftdetails = data;
+  //   });
+  // }
 
-  updateGrpName(grpName, grpnameid) {
-    debugger;
-    if (this.grpName1 == grpName) {
-      this.grpID = -1;
-      this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-        this.shiftdetails = data;
-      });
-    } else {
-      this.scheduleServ.checkForEmpGrpDuplicate(grpName, this.OrganizationID).subscribe((data: any[]) => {
-        if (data.length == 0) {
-          this.scheduleServ.updateShiftDetails(grpnameid, grpName, this.OrganizationID, this.employeekey).subscribe((data: any[]) => {
-            alert("Group Name updated Successfully");
-            this.grpID = -1;
-            this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-              this.shiftdetails = data;
-            });
-          });
-        } else {
-          alert("Group Name already exists");
-          return;
-        }
-      });
-    }
-  }
+  // updateGrpName(grpName, grpnameid) {
+  //   debugger;
+  //   if (this.grpName1 == grpName) {
+  //     this.grpID = -1;
+  //     this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+  //       this.shiftdetails = data;
+  //     });
+  //   } else {
+  //     this.scheduleServ.checkForEmpGrpDuplicate(grpName, this.OrganizationID).subscribe((data: any[]) => {
+  //       if (data.length == 0) {
+  //         this.scheduleServ.updateShiftDetails(grpnameid, grpName, this.OrganizationID, this.employeekey).subscribe((data: any[]) => {
+  //           alert("Group Name updated Successfully");
+  //           this.grpID = -1;
+  //           this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+  //             this.shiftdetails = data;
+  //           });
+  //         });
+  //       } else {
+  //         alert("Group Name already exists");
+  //         return;
+  //       }
+  //     });
+  //   }
+  // }
 }

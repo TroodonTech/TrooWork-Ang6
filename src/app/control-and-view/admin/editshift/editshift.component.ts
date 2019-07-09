@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SchedulingService } from '../../../service/scheduling.service';
 import { ActivatedRoute, Router } from "@angular/router";
+import { People } from '../../../model-class/People';
+import { PeopleServiceService } from '../../../service/people-service.service';
 @Component({
   selector: 'app-editshift',
   templateUrl: './editshift.component.html',
@@ -23,6 +25,14 @@ export class EditshiftComponent implements OnInit {
   PublishAs;
   PaidHours;
   Colour;
+  schedularcount=0;
+  idemployeegrouping;
+  Idscheduler_exception
+  isemployeecalendar;
+
+  schedulerexception: People[];
+  masterhour: People[];
+  masterminute: People[];
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -41,13 +51,13 @@ export class EditshiftComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private scheduleServ: SchedulingService,private route: ActivatedRoute) { 
+  constructor(private scheduleServ: SchedulingService, private route: ActivatedRoute, private router: Router, private PeopleServiceService: PeopleServiceService) {
     this.route.params.subscribe(params => this.shiftk$ = params.Idemployeeshift);
   }
 
   ngOnInit() {
     //token starts....
-    
+
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -57,33 +67,334 @@ export class EditshiftComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
+    this.isemployeecalendar = profile.isemployeecalendar;
     //token ends
+    this.PeopleServiceService
+      .getallschedulingexception(this.OrganizationID)
+      .subscribe((data: People[]) => {
+        this.schedulerexception = data;
+      });
 
-    this.scheduleServ.getShiftsforEditing(this.shiftk$,this.OrganizationID).subscribe((data: any[]) => {
-      this.edit =  data[0];
-     
-      var cur_time = new Date(Date.now());
-      var timeValue1 = this.edit.StartTime;
-      var timeValue2 = this.edit.EndTime;
-      var test1 = timeValue1.split(":");
-      var test2 = timeValue2.split(":");
-      var start = new Date(cur_time.getFullYear(), cur_time.getMonth(), cur_time.getDate(), test1[0], test1[1], 0);
-      var end = new Date(cur_time.getFullYear(), cur_time.getMonth(), cur_time.getDate(), test2[0], test2[1], 0);
-      this.StartTime = start;
-      this.EndTime = end;
+    this.PeopleServiceService
+      .getallmasterhour()
+      .subscribe((data: People[]) => {
+        this.masterhour = data;
+      });
+    this.PeopleServiceService
+      .getallmasterminute()
+      .subscribe((data: People[]) => {
+        this.masterminute = data;
+      });
+    this.scheduleServ.getShiftsforEditing(this.shiftk$, this.OrganizationID).subscribe((data: any[]) => {
+      this.edit = data[0];
+
+      // var cur_time = new Date(Date.now());
+      // var timeValue1 = this.edit.StartTime;
+      // var timeValue2 = this.edit.EndTime;
+      // var test1 = timeValue1.split(":");
+      // var test2 = timeValue2.split(":");
+      // var start = new Date(cur_time.getFullYear(), cur_time.getMonth(), cur_time.getDate(), test1[0], test1[1], 0);
+      // var end = new Date(cur_time.getFullYear(), cur_time.getMonth(), cur_time.getDate(), test2[0], test2[1], 0);
+      // this.StartTime = start;
+      // this.EndTime = end;
+      // scheduler code starts...
+      this.idemployeegrouping = this.edit.Idemployeegrouping;
+
+      if (!(this.edit.Idscheduler_exception)) {
+        this.Idscheduler_exception = "";
+      }
+      else {
+        this.Idscheduler_exception = this.edit.Idscheduler_exception;
+      }
+      console.log(this.Idscheduler_exception+"*****")
+      if (!(this.edit.Start_sun_hour)) {
+        this.edit.Start_sun_hour = '-1';
+      }
+      if (!(this.edit.Start_sun_min)) {
+        this.edit.Start_sun_min = '-1';
+      }
+      if (!(this.edit.Start_sun_format)) {
+        this.edit.Start_sun_format = 'AM';
+      }
+      if (!(this.edit.Start_mon_hour)) {
+        this.edit.Start_mon_hour = '-1';
+      }
+      if (!(this.edit.Start_mon_min)) {
+        this.edit.Start_mon_min = '-1';
+      }
+      if (!(this.edit.Start_mon_format)) {
+        this.edit.Start_mon_format = 'AM';
+      }
+      if (!(this.edit.Start_tue_hour)) {
+        this.edit.Start_tue_hour = '-1';
+      }
+      if (!(this.edit.Start_tue_min)) {
+        this.edit.Start_tue_min = '-1';
+      }
+      if (!(this.edit.Start_tue_format)) {
+        this.edit.Start_tue_format = 'AM';
+      }
+      if (!(this.edit.Start_wed_hour)) {
+        this.edit.Start_wed_hour = '-1';
+      }
+      if (!(this.edit.Start_wed_min)) {
+        this.edit.Start_wed_min = '-1';
+      }
+      if (!(this.edit.Start_wed_format)) {
+        this.edit.Start_wed_format = 'AM';
+      }
+      if (!(this.edit.Start_thu_hour)) {
+        this.edit.Start_thu_hour = '-1';
+      }
+      if (!(this.edit.Start_thu_min)) {
+        this.edit.Start_thu_min = '-1';
+      }
+      if (!(this.edit.Start_thu_format)) {
+        this.edit.Start_thu_format = 'AM';
+      }
+      if (!(this.edit.Start_fri_hour)) {
+        this.edit.Start_fri_hour = '-1';
+      }
+      if (!(this.edit.Start_fri_min)) {
+        this.edit.Start_fri_min = '-1';
+      }
+      if (!(this.edit.Start_fri_format)) {
+        this.edit.Start_fri_format = 'AM';
+      }
+      if (!(this.edit.Start_sat_hour)) {
+        this.edit.Start_sat_hour = '-1';
+      }
+      if (!(this.edit.Start_sat_min)) {
+        this.edit.Start_sat_min = '-1';
+      }
+      if (!(this.edit.Start_sat_format)) {
+        this.edit.start_sat_format = 'AM';
+      }
+      if (!(this.edit.End_sun_hour)) {
+        this.edit.End_sun_hour = '-1';
+      }
+      if (!(this.edit.End_sun_min)) {
+        this.edit.End_sun_min = '-1';
+      }
+      if (!(this.edit.End_sun_format)) {
+        this.edit.End_sun_format = 'AM';
+      }
+      if (!(this.edit.End_mon_hour)) {
+        this.edit.End_mon_hour = '-1';
+      }
+      if (!(this.edit.End_mon_min)) {
+        this.edit.End_mon_min = '-1';
+      }
+      if (!(this.edit.End_mon_format)) {
+        this.edit.End_mon_format = 'AM';
+      }
+      if (!(this.edit.End_tue_hour)) {
+        this.edit.End_tue_hour = '-1';
+      }
+      if (!(this.edit.End_tue_min)) {
+        this.edit.End_tue_min = '-1';
+      }
+      if (!(this.edit.End_tue_format)) {
+        this.edit.End_tue_format = 'AM';
+      }
+      if (!(this.edit.End_wed_hour)) {
+        this.edit.End_wed_hour = '-1';
+      }
+      if (!(this.edit.End_wed_min)) {
+        this.edit.End_wed_min = '-1';
+      }
+      if (!(this.edit.End_wed_format)) {
+        this.edit.End_wed_format = 'AM';
+      }
+      if (!(this.edit.End_thu_hour)) {
+        this.edit.End_thu_hour = '-1';
+      }
+      if (!(this.edit.End_thu_min)) {
+        this.edit.End_thu_min = '-1';
+      }
+      if (!(this.edit.End_thu_format)) {
+        this.edit.End_thu_format = 'AM';
+      }
+      if (!(this.edit.End_fri_hour)) {
+        this.edit.End_fri_hour = '-1';
+      }
+      if (!(this.edit.End_fri_min)) {
+        this.edit.End_fri_min = '-1';
+      }
+      if (!(this.edit.End_fri_format)) {
+        this.edit.End_fri_format = 'AM';
+      }
+      if (!(this.edit.End_sat_hour)) {
+        this.edit.End_sat_hour = '-1';
+      }
+      if (!(this.edit.End_sat_min)) {
+        this.edit.End_sat_min = '-1';
+      }
+      if (!(this.edit.End_sat_format)) {
+        this.edit.End_sat_format = 'AM';
+      }
+      // scheduler code ends...
     });
   }
-  editShift(){
-  // var q = this.StartTime.getHours();
-  // var q1 = this.StartTime.getMinutes();
-  // var newTime = q + ":" + q1;
+  editShift() {
+    this.schedularcount == 0;
+    if (!(this.edit.Description)) {
+      alert("Please enter the Employee Group Name");
+      return;
+    }
+    if (this.edit.Start_sun_hour == '-1' && this.edit.Start_sun_min == '-1' && this.edit.End_sun_hour == '-1' && this.edit.End_sun_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.edit.Start_sun_hour != '-1' && this.edit.Start_sun_min != '-1' && this.edit.End_sun_hour != '-1' && this.edit.End_sun_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else {
+      this.schedularcount++;
+      alert('Values Missing in Sunday');
+      return;
+    }
 
-  // var q2 = this.EndTime.getHours();
-  // var q3 = this.EndTime.getMinutes();
-  // var newTime1 = q2 + ":" + q3;
+    if (this.edit.Start_mon_hour == '-1' && this.edit.Start_mon_min == '-1' && this.edit.End_mon_hour == '-1' && this.edit.End_mon_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.edit.Start_mon_hour != '-1' && this.edit.Start_mon_min != '-1' && this.edit.End_mon_hour != '-1' && this.edit.End_mon_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else {
+      this.schedularcount++;
+      alert('Values Missing in Monday');
+      return;
+    }
 
-  // this.scheduleServ.updateShiftDetails(this.shiftk$,this.edit.Description,this.edit.Abbrevation,this.edit.PublishAs,newTime,this.edit.PaidHours,newTime1,this.edit.Colour,this.OrganizationID,this.employeekey).subscribe((data: any[]) => {
-  //   alert("Updated Successfully")
-  //  });
+    if (this.edit.Start_tue_hour == '-1' && this.edit.Start_tue_min == '-1' && this.edit.End_tue_hour == '-1' && this.edit.End_tue_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.edit.Start_tue_hour != '-1' && this.edit.Start_tue_min != '-1' && this.edit.End_tue_hour != '-1' && this.edit.End_tue_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else {
+      this.schedularcount++;
+
+      alert('Values Missing in Tuesday');
+      return;
+    }
+
+    if (this.edit.Start_wed_hour == '-1' && this.edit.Start_wed_min == '-1' && this.edit.End_wed_hour == '-1' && this.edit.End_wed_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.edit.Start_wed_hour != '-1' && this.edit.Start_wed_min != '-1' && this.edit.End_wed_hour != '-1' && this.edit.End_wed_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else {
+      this.schedularcount++;
+      alert('Values Missing in Wednesday');
+      return;
+    }
+
+    if (this.edit.Start_thu_hour == '-1' && this.edit.Start_thu_min == '-1' && this.edit.End_thu_hour == '-1' && this.edit.End_thu_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.edit.Start_thu_hour != '-1' && this.edit.Start_thu_min != '-1' && this.edit.End_thu_hour != '-1' && this.edit.End_thu_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else {
+      this.schedularcount++;
+      alert('Values Missing in Thursday');
+      return;
+    }
+
+    if (this.edit.Start_fri_hour == '-1' && this.edit.Start_fri_min == '-1' && this.edit.End_fri_hour == '-1' && this.edit.End_fri_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.edit.Start_fri_hour != '-1' && this.edit.Start_fri_min != '-1' && this.edit.End_fri_hour != '-1' && this.edit.End_fri_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else {
+      this.schedularcount++;
+      alert('Values Missing in Friday');
+      return;
+    }
+
+    if (this.edit.Start_sat_hour == '-1' && this.edit.Start_sat_min == '-1' && this.edit.End_sat_hour == '-1' && this.edit.End_sat_min == '-1') {
+      this.schedularcount = this.schedularcount;
+    }
+    else if (this.edit.Start_sat_hour != '-1' && this.edit.Start_sat_min != '-1' && this.edit.End_sat_hour != '-1' && this.edit.End_sat_min != '-1') {
+      this.schedularcount = this.schedularcount;
+    } else {
+      this.schedularcount++;
+      alert('Values Missing in Saturday');
+      return;
+    }
+
+    if (!this.Idscheduler_exception) {
+      this.Idscheduler_exception = null;
+    }
+    if (this.schedularcount == 0) {
+      this.scheduleServ.checkForEmpGrpDuplicate(this.Description, this.OrganizationID).subscribe((data: any[]) => {
+        if (data.length == 0) {
+          const empschobj = {
+            start_sun_hour: this.edit.Start_sun_hour,
+            start_sun_min: this.edit.Start_sun_min,
+            start_sun_format: this.edit.Start_sun_format,
+            start_mon_hour: this.edit.Start_mon_hour,
+            start_mon_min: this.edit.Start_mon_min,
+            start_mon_format: this.edit.Start_mon_format,
+            start_tue_hour: this.edit.Start_tue_hour,
+            start_tue_min: this.edit.Start_tue_min,
+            start_tue_format: this.edit.Start_tue_format,
+            start_wed_hour: this.edit.Start_wed_hour,
+            start_wed_min: this.edit.Start_wed_min,
+            start_wed_format: this.edit.Start_wed_format,
+            start_thu_hour: this.edit.Start_thu_hour,
+            start_thu_min: this.edit.Start_thu_min,
+            start_thu_format: this.edit.Start_thu_format,
+            start_fri_hour: this.edit.Start_fri_hour,
+            start_fri_min: this.edit.Start_fri_min,
+            start_fri_format: this.edit.Start_fri_format,
+            start_sat_hour: this.edit.Start_sat_hour,
+            start_sat_min: this.edit.Start_sat_min,
+            start_sat_format: this.edit.Start_sat_format,
+            end_sun_hour: this.edit.End_sun_hour,
+            end_sun_min: this.edit.End_sun_min,
+            end_sun_format: this.edit.End_sun_format,
+            end_mon_hour: this.edit.End_mon_hour,
+            end_mon_min: this.edit.End_mon_min,
+            end_mon_format: this.edit.End_mon_format,
+            end_tue_hour: this.edit.End_tue_hour,
+            end_tue_min: this.edit.End_tue_min,
+            end_tue_format: this.edit.End_tue_format,
+            end_wed_hour: this.edit.End_wed_hour,
+            end_wed_min: this.edit.End_wed_min,
+            end_wed_format: this.edit.End_wed_format,
+            end_thu_hour: this.edit.End_thu_hour,
+            end_thu_min: this.edit.End_thu_min,
+            end_thu_format: this.edit.End_thu_format,
+            end_fri_hour: this.edit.End_fri_hour,
+            end_fri_min: this.edit.End_fri_min,
+            end_fri_format: this.edit.End_fri_format,
+            end_sat_hour: this.edit.End_sat_hour,
+            end_sat_min: this.edit.End_sat_min,
+            end_sat_format: this.edit.End_sat_format,
+            idscheduler_exception: this.Idscheduler_exception,
+
+            desc: this.edit.Description,
+            orgid: this.OrganizationID,
+            empkey: this.employeekey
+          };
+
+          this.scheduleServ.updateShiftDetails(empschobj).subscribe((data: any[]) => {
+            alert("Updated Successfully");
+            this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewShift'] } }]);
+          });
+        } else {
+          alert("Group Name already exists");
+          return;
+        }
+      });
+    } else {
+      alert("Value for weekly schedule is missing somewhere. Please check it!!!");
+      return;
+    }
+
   }
 }
