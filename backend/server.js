@@ -14356,6 +14356,50 @@ app.post(securedpath + '/getfloorTypeValue', function (req, res) {
 
 app.post(securedpath + '/saveEmployeeShift', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
+    var start_sun_hour = req.body.start_sun_hour;
+    var start_sun_min = req.body.start_sun_min;
+    var start_sun_format = req.body.start_sun_format;
+    var start_mon_hour = req.body.start_mon_hour;
+    var start_mon_min = req.body.start_mon_min;
+    var start_mon_format = req.body.start_mon_format;
+    var start_tue_hour = req.body.start_tue_hour;
+    var start_tue_min = req.body.start_tue_min;
+    var start_tue_format = req.body.start_tue_format;
+    var start_wed_hour = req.body.start_wed_hour;
+    var start_wed_min = req.body.start_wed_min;
+    var start_wed_format = req.body.start_wed_format;
+    var start_thu_hour = req.body.start_thu_hour;
+    var start_thu_min = req.body.start_thu_min;
+    var start_thu_format = req.body.start_thu_format;
+    var start_fri_hour = req.body.start_fri_hour;
+    var start_fri_min = req.body.start_fri_min;
+    var start_fri_format = req.body.start_fri_format;
+    var start_sat_hour = req.body.start_sat_hour;
+    var start_sat_min = req.body.start_sat_min;
+    var start_sat_format = req.body.start_sat_format;
+    var end_sun_hour = req.body.end_sun_hour;
+    var end_sun_min = req.body.end_sun_min;
+    var end_sun_format = req.body.end_sun_format;
+    var end_mon_hour = req.body.end_mon_hour;
+    var end_mon_min = req.body.end_mon_min;
+    var end_mon_format = req.body.end_mon_format;
+    var end_tue_hour = req.body.end_tue_hour;
+    var end_tue_min = req.body.end_tue_min;
+    var end_tue_format = req.body.end_tue_format;
+    var end_wed_hour = req.body.end_wed_hour;
+    var end_wed_min = req.body.end_wed_min;
+    var end_wed_format = req.body.end_wed_format;
+    var end_thu_hour = req.body.end_thu_hour;
+    var end_thu_min = req.body.end_thu_min;
+    var end_thu_format = req.body.end_thu_format;
+    var end_fri_hour = req.body.end_fri_hour;
+    var end_fri_min = req.body.end_fri_min;
+    var end_fri_format = req.body.end_fri_format;
+    var end_sat_hour = req.body.end_sat_hour;
+    var end_sat_min = req.body.end_sat_min;
+    var end_sat_format = req.body.end_sat_format;
+
+    var idscheduler_exception = req.body.idscheduler_exception;
 
     var desc = req.body.desc;
     // var abbr = req.body.abbr;
@@ -14373,7 +14417,7 @@ app.post(securedpath + '/saveEmployeeShift', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @desc=?;set @orgid=?; set @empkey=?;call usp_createEmployeeGroup(@desc,@orgid,@empkey)", [desc, orgid, empkey], function (err, rows) {
+            connection.query("set @desc=?;set @orgid=?; set @empkey=?;set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;call usp_createEmployeeGroup(@desc,@orgid,@empkey,@start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception)", [desc, orgid, empkey, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception], function (err, rows) {
                 // set @abbr=?; set @publishas=?; set @time1=?; set @paidhours=?; set @time2=?; set @color=?; 
                 // @abbr,@publishas,@time1,@paidhours,@time2,@color,
                 // abbr, publishas, time1, paidhours, time2, color,
@@ -14381,8 +14425,8 @@ app.post(securedpath + '/saveEmployeeShift', function (req, res) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
-                    console.log(JSON.stringify(rows[3]));
-                    res.end(JSON.stringify(rows[3]));
+                    console.log(JSON.stringify(rows[46]));
+                    res.end(JSON.stringify(rows[46]));
                 }
             });
         }
@@ -14474,7 +14518,50 @@ app.get(securedpath + '/getShiftsforEditing', function (req, res) {
 
 app.post(securedpath + '/updateEmployeeShiftDetails', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
+    var start_sun_hour = req.body.start_sun_hour;
+    var start_sun_min = req.body.start_sun_min;
+    var start_sun_format = req.body.start_sun_format;
+    var start_mon_hour = req.body.start_mon_hour;
+    var start_mon_min = req.body.start_mon_min;
+    var start_mon_format = req.body.start_mon_format;
+    var start_tue_hour = req.body.start_tue_hour;
+    var start_tue_min = req.body.start_tue_min;
+    var start_tue_format = req.body.start_tue_format;
+    var start_wed_hour = req.body.start_wed_hour;
+    var start_wed_min = req.body.start_wed_min;
+    var start_wed_format = req.body.start_wed_format;
+    var start_thu_hour = req.body.start_thu_hour;
+    var start_thu_min = req.body.start_thu_min;
+    var start_thu_format = req.body.start_thu_format;
+    var start_fri_hour = req.body.start_fri_hour;
+    var start_fri_min = req.body.start_fri_min;
+    var start_fri_format = req.body.start_fri_format;
+    var start_sat_hour = req.body.start_sat_hour;
+    var start_sat_min = req.body.start_sat_min;
+    var start_sat_format = req.body.start_sat_format;
+    var end_sun_hour = req.body.end_sun_hour;
+    var end_sun_min = req.body.end_sun_min;
+    var end_sun_format = req.body.end_sun_format;
+    var end_mon_hour = req.body.end_mon_hour;
+    var end_mon_min = req.body.end_mon_min;
+    var end_mon_format = req.body.end_mon_format;
+    var end_tue_hour = req.body.end_tue_hour;
+    var end_tue_min = req.body.end_tue_min;
+    var end_tue_format = req.body.end_tue_format;
+    var end_wed_hour = req.body.end_wed_hour;
+    var end_wed_min = req.body.end_wed_min;
+    var end_wed_format = req.body.end_wed_format;
+    var end_thu_hour = req.body.end_thu_hour;
+    var end_thu_min = req.body.end_thu_min;
+    var end_thu_format = req.body.end_thu_format;
+    var end_fri_hour = req.body.end_fri_hour;
+    var end_fri_min = req.body.end_fri_min;
+    var end_fri_format = req.body.end_fri_format;
+    var end_sat_hour = req.body.end_sat_hour;
+    var end_sat_min = req.body.end_sat_min;
+    var end_sat_format = req.body.end_sat_format;
 
+    var idscheduler_exception = req.body.idscheduler_exception;
     var shiftkey = req.body.shiftkey;
     var desc = req.body.desc;
     // var abbr = req.body.abbr;
@@ -14492,7 +14579,7 @@ app.post(securedpath + '/updateEmployeeShiftDetails', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @shiftkey=?;set @desc=?; set @orgid=?; set @empkey=?;call usp_updateEmployeeGroupDetails(@shiftkey,@desc,@orgid,@empkey)", [shiftkey, desc, orgid, empkey], function (err, rows) {
+            connection.query("set @shiftkey=?;set @desc=?; set @orgid=?; set @empkey=?;set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;call usp_updateEmployeeGroupDetails(@shiftkey,@desc,@orgid,@empkey,@start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception)", [shiftkey, desc, orgid, empkey, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception], function (err, rows) {
                 // set @abbr=?; set @publishas=?; set @time1=?; set @paidhours=?; set @time2=?; set @color=?;
                 // @abbr,@publishas,@time1,@paidhours,@time2,@color,
                 // abbr, publishas, time1, paidhours, time2, color,
@@ -14500,8 +14587,8 @@ app.post(securedpath + '/updateEmployeeShiftDetails', function (req, res) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
-                    console.log(JSON.stringify(rows[10]));
-                    res.end(JSON.stringify(rows[10]));
+                    console.log(JSON.stringify(rows[46]));
+                    res.end(JSON.stringify(rows[46]));
                 }
             });
         }
@@ -15577,7 +15664,7 @@ app.get(securedpath + '/employeesForScheduler', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set@groupID=?;set @empkey=?;set @OrganizationID=?; call usp_employeesForScheduler(@groupID,@empkey,@OrganizationID)', [groupID,empkey, OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+            connection.query('set@groupID=?;set @empkey=?;set @OrganizationID=?; call usp_employeesForScheduler(@groupID,@empkey,@OrganizationID)', [groupID, empkey, OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -15720,7 +15807,7 @@ app.get(securedpath + '/SchedulerEmployeeGroups', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @empKey=?; set@OrganizationID=?; call usp_SchedulerEmployeeGroups(@empKey,@OrganizationID)', [empKey,OrganizationID], function (err, rows) {
+            connection.query('set @empKey=?; set@OrganizationID=?; call usp_SchedulerEmployeeGroups(@empKey,@OrganizationID)', [empKey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -16504,6 +16591,31 @@ app.get(securedpath + '/getallemployeegrouping', function (req, res) {
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
             connection.query("set @OrganizationID=?;call usp_getallemployeegrouping(@OrganizationID)", [OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[1]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/getweeklyschedulebyEmployeeGroupid', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var empgroupid = url.parse(req.url, true).query['SearchKey'];
+    
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set @empgroupid=?; call usp_getWeeklySchedulebyEmployeeGroupid(@empgroupid)", [empgroupid], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }

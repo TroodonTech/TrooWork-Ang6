@@ -230,20 +230,20 @@ export class SchedulingService {
   }
   //Pooja's code starts
   // createEmpShiftwithColourCode(Description, Abbrevation, publishas, newTime1, paidhours, newTime2, color, OrganizationID, employeekey) {
-  createEmpShiftwithColourCode(Description, OrganizationID, employeekey) {
+  createEmpShiftwithColourCode(empschobj) {
     const url = ConectionSettings.Url + "/saveEmployeeShift";
-    const obj = {
-      desc: Description,
-      // abbr: Abbrevation,
-      // publishas: publishas,
-      // time1: newTime1,
-      // paidhours: paidhours,
-      // time2: newTime2,
-      // color: color,
-      orgid: OrganizationID,
-      empkey: employeekey
-    }
-    return this.http.post(url, obj);
+    // const obj = {
+    //   desc: Description,
+    // abbr: Abbrevation,
+    // publishas: publishas,
+    // time1: newTime1,
+    // paidhours: paidhours,
+    // time2: newTime2,
+    // color: color,
+    //   orgid: OrganizationID,
+    //   empkey: employeekey
+    // }
+    return this.http.post(url, empschobj);
   }
 
   getShifts(employeekey, OrganizationID) {
@@ -262,31 +262,29 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/getShiftsforEditing?shiftkey=' + shiftk$ + '&OrgID=' + OrganizationID);
   }
-  updateShiftDetails(shiftk, Description,
-    // Abbrevation, PublishAs, newTime, PaidHours, newTime1, Colour,
-    OrganizationID, employeekey) {
+  updateShiftDetails(empschobj) {
     const url = ConectionSettings.Url + "/updateEmployeeShiftDetails";
-    const obj = {
-      shiftkey: shiftk,
-      desc: Description,
-      // abbr: Abbrevation,
-      // publishas: PublishAs,
-      // time1: newTime,
-      // paidhours: PaidHours,
-      // time2: newTime1,
-      // color: Colour,
-      orgid: OrganizationID,
-      empkey: employeekey
-    }
-    return this.http.post(url, obj);
+    // const obj = {
+    //   shiftkey: shiftk,
+    //   desc: Description,
+    //   // abbr: Abbrevation,
+    //   // publishas: PublishAs,
+    //   // time1: newTime,
+    //   // paidhours: PaidHours,
+    //   // time2: newTime1,
+    //   // color: Colour,
+    //   orgid: OrganizationID,
+    //   empkey: employeekey
+    // }
+    return this.http.post(url, empschobj);
   }
   //Pooja's code ends
 
   //varun code starts
-  employeesForScheduler(groupID,empkey, orgID) {
+  employeesForScheduler(groupID, empkey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/employeesForScheduler?groupID='+groupID+'&empkey=' + empkey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/employeesForScheduler?groupID=' + groupID + '&empkey=' + empkey + '&OrganizationID=' + orgID);
   }
   SchedulerEventCreate(obj) {
     const url = ConectionSettings.Url + "/SchedulerEventCreate";
@@ -306,7 +304,7 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/scheduleEventCheckForCreate?checkDate=' + checkDate + '&empKey=' + empKey + '&OrganizationID=' + OrganizationID);
   }
-  SchedulerEmployeeGroups(empKey,OrganizationID) {
+  SchedulerEmployeeGroups(empKey, OrganizationID) {
     return this
       .http
       .get(ConectionSettings.Url + '/SchedulerEmployeeGroups?empKey=' + empKey + '&OrganizationID=' + OrganizationID);

@@ -20,6 +20,8 @@ import { PtoRequestActionComponent } from './pto-request-action/pto-request-acti
 import { PtoRequestsfromEmployeesComponent } from './pto-requestsfrom-employees/pto-requestsfrom-employees.component';
 import { TradeRequestActionComponent } from './trade-request-action/trade-request-action.component';
 import { TradeRequestsfromEmployeesComponent } from './trade-requestsfrom-employees/trade-requestsfrom-employees.component';
+import { ViewEmployeeWeeklyScheduleComponent } from './view-employee-weekly-schedule/view-employee-weekly-schedule.component';
+import { ViewEmployeeWeeklyScheduleDetailComponent } from './view-employee-weekly-schedule-detail/view-employee-weekly-schedule-detail.component';
 @NgModule({
   imports: [
     CommonModule
@@ -44,7 +46,9 @@ import { TradeRequestsfromEmployeesComponent } from './trade-requestsfrom-employ
     PtoRequestActionComponent,
     PtoRequestsfromEmployeesComponent,
     TradeRequestActionComponent,
-    TradeRequestsfromEmployeesComponent
+    TradeRequestsfromEmployeesComponent,
+    ViewEmployeeWeeklyScheduleComponent,
+    ViewEmployeeWeeklyScheduleDetailComponent
   ]
 })
 export class PeopleModule { }
