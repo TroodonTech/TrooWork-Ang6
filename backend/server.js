@@ -15852,6 +15852,62 @@ app.get(securedpath + '/SchedulerTimeRangeCheck', function (req, res) {
         connection.release();
     });
 });
+app.get(securedpath + '/AllEmployeeWorkingHourList', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var pagenumber = url.parse(req.url, true).query['pagenumber'];
+    var itemsPerPage = url.parse(req.url, true).query['itemsPerPage'];
+    var empkey = url.parse(req.url, true).query['empkey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @pagenumber=?; set @itemsPerPage=?; set @empkey=?; set @OrganizationID=?;call usp_AllEmployeeWorkingHourList(@pagenumber,@itemsPerPage,@empkey,@OrganizationID)', [pagenumber, itemsPerPage, empkey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[4]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.get(securedpath + '/searchAllEmployeeWorkingHourList', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var searchEmployee = url.parse(req.url, true).query['searchEmployee'];
+    var pageno = url.parse(req.url, true).query['pageno'];
+    var itemsPerPage = url.parse(req.url, true).query['itemsPerPage'];
+    var empkey = url.parse(req.url, true).query['employeekey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    console.log("----------searchAllEmployeeWorkingHourList---------" + empkey + " " + " " + pageno + " " + itemsPerPage + " ");
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set @searchEmployee =?;set @pageno=?; set @itemsPerPage=?;set @employeekey =?;set @OrganizationID =?;call usp_searchAllEmployeeWorkingHourList(@searchEmployee,@pageno,@itemsPerPage,@employeekey,@OrganizationID)", [searchEmployee, pageno, itemsPerPage, empkey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[5]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //********Scheduler************API BY varun ends
 
 //********Scheduler************API by Rodney starts

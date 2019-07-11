@@ -22,6 +22,9 @@ import { TradeRequestActionComponent } from './trade-request-action/trade-reques
 import { TradeRequestsfromEmployeesComponent } from './trade-requestsfrom-employees/trade-requestsfrom-employees.component';
 import { ViewEmployeeWeeklyScheduleComponent } from './view-employee-weekly-schedule/view-employee-weekly-schedule.component';
 import { ViewEmployeeWeeklyScheduleDetailComponent } from './view-employee-weekly-schedule-detail/view-employee-weekly-schedule-detail.component';
+import { EmployeeWorkingHourListComponent } from './employee-working-hour-list/employee-working-hour-list.component';
+
+
 @NgModule({
   imports: [
     CommonModule
@@ -48,7 +51,9 @@ import { ViewEmployeeWeeklyScheduleDetailComponent } from './view-employee-weekl
     TradeRequestActionComponent,
     TradeRequestsfromEmployeesComponent,
     ViewEmployeeWeeklyScheduleComponent,
-    ViewEmployeeWeeklyScheduleDetailComponent
+    ViewEmployeeWeeklyScheduleDetailComponent,
+    EmployeeWorkingHourListComponent,
+
   ]
 })
 export class PeopleModule { }
