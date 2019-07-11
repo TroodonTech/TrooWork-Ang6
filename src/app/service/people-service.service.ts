@@ -1127,4 +1127,14 @@ export class PeopleServiceService {
     
   }
 
+  AllEmployeeWorkingHourList(pagenumber, itemsPerPage, empkey, org) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/AllEmployeeWorkingHourList?pagenumber=' + pagenumber + '&itemsPerPage=' + itemsPerPage + '&empkey=' + empkey + '&OrganizationID=' + org);
+  }
+  searchAllEmployeeWorkingHourList(SearchValue, pageno, itemsPerPage, employeekey, OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/searchAllEmployeeWorkingHourList?searchEmployee=' + SearchValue + '&pageno=' + pageno + '&itemsPerPage=' + itemsPerPage + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
+  }
 }

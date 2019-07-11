@@ -22,6 +22,9 @@ import { TradeRequestsfromEmployeesComponent } from './trade-requestsfrom-employ
 import { ViewEmployeeWeeklyScheduleComponent } from './view-employee-weekly-schedule/view-employee-weekly-schedule.component';
 import { ViewEmployeeWeeklyScheduleDetailComponent } from './view-employee-weekly-schedule-detail/view-employee-weekly-schedule-detail.component';
 import { ManualEmployeeLeaveComponent } from './manual-employee-leave/manual-employee-leave.component';
+import { EmployeeWorkingHourListComponent } from './employee-working-hour-list/employee-working-hour-list.component';
+
+
 @NgModule({
   imports: [
     CommonModule
@@ -48,7 +51,9 @@ import { ManualEmployeeLeaveComponent } from './manual-employee-leave/manual-emp
     TradeRequestsfromEmployeesComponent,
     ViewEmployeeWeeklyScheduleComponent,
     ViewEmployeeWeeklyScheduleDetailComponent,
-    ManualEmployeeLeaveComponent
+    ManualEmployeeLeaveComponent,
+    EmployeeWorkingHourListComponent,
+
   ]
 })
 export class PeopleModule { }
