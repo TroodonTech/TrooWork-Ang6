@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { ViewEmployeeWeeklyScheduleDetailModule } from '../../../manager/people/view-employee-weekly-schedule-detail/view-employee-weekly-schedule-detail.module';
+import { ManualEmployeeLeaveModule } from '../../../manager/people/manual-employee-leave/manual-employee-leave.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -538,11 +538,11 @@ const routes: Routes = [
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/people/schedulerNew/scheduler.module#SchedulerModule',
       },
-      {
-        path: 'ViewSchedulerForEmployee',
-        outlet: 'ManagerOut',
-        loadChildren: '../../../manager/people/view-employee-scheduler/view-employee-scheduler.module#ViewEmployeeSchedulerModule',
-      },
+      // {
+      //   path: 'ViewSchedulerForEmployee',
+      //   outlet: 'ManagerOut',
+      //   loadChildren: '../../../manager/people/view-employee-scheduler/view-employee-scheduler.module#ViewEmployeeSchedulerModule',
+      // },
 
       {
         path: 'RequestsFromEmployees',
@@ -573,6 +573,11 @@ const routes: Routes = [
         path: 'ScheduleEmployee/ScheduleEmployeeDetail/:EmployeeKey',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/people/view-employee-weekly-schedule-detail/view-employee-weekly-schedule-detail.module#ViewEmployeeWeeklyScheduleDetailModule',
+      },
+      {
+        path: 'manualEmpOff/:EmployeeKey',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/people/manual-employee-leave/manual-employee-leave.module#ManualEmployeeLeaveModule',
       }
     ]
   }

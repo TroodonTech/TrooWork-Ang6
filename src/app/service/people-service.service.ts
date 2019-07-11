@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConectionSettings } from './ConnectionSetting';
+import { formatDate } from '@angular/common';
+import { toDate } from '@angular/common/src/i18n/format_date';
+import { makeStateKey } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -1102,5 +1105,26 @@ export class PeopleServiceService {
   }
 
   //Author: Prakash Code Starts for Employee Calendar Ends Here
+
+  getAllReasons(OrgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getAllReasonsForLeaves?OrganizationID=' + OrgID);
+
+  }
+  saveManualLeaveForEmployee(reasonId, fromDate, toDate, empKey, metaKey, orgID) {
+    const obj = {
+      reason: reasonId,
+      from: fromDate,
+      to: toDate,
+      empkey: empKey,
+      metauser: metaKey,
+      orgid: orgID
+    }
+    const url = ConectionSettings.Url + "/saveLeaveForEmp";
+    return this.http.post(url, obj);
+
+    
+  }
 
 }

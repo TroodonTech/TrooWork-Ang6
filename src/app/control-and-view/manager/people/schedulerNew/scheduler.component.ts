@@ -256,11 +256,18 @@ export class SchedulerComponent implements AfterViewInit {
     },
     onEventResize: args => {
       args.cell.disabled = true;
-    }
-
+    },
+    onBeforeCellRender :args=>{
+      if (args.cell.start.getDayOfWeek() === 6 ||args.cell.start.getDayOfWeek() === 0) {
+        args.cell.backColor = "orange";
+      }
+      // if (args.cell.start.getDayOfWeek() === 7) {
+      //   args.cell.backColor = "#000000";
+      // }
+    },
   };
 
-
+ 
 
   ngAfterViewInit(): void {
 

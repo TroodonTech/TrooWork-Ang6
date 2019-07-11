@@ -25,11 +25,11 @@ export class EditshiftComponent implements OnInit {
   PublishAs;
   PaidHours;
   Colour;
-  schedularcount=0;
+  schedularcount = 0;
   idemployeegrouping;
   Idscheduler_exception
   isemployeecalendar;
-
+  desc;
   schedulerexception: People[];
   masterhour: People[];
   masterminute: People[];
@@ -98,15 +98,15 @@ export class EditshiftComponent implements OnInit {
       // this.StartTime = start;
       // this.EndTime = end;
       // scheduler code starts...
-      this.idemployeegrouping = this.edit.Idemployeegrouping;
-
+      // this.idemployeegrouping = this.edit.Idemployeegrouping;
+      this.desc = this.edit.Description;
       if (!(this.edit.Idscheduler_exception)) {
         this.Idscheduler_exception = "";
       }
       else {
         this.Idscheduler_exception = this.edit.Idscheduler_exception;
       }
-      console.log(this.Idscheduler_exception+"*****")
+      console.log(this.Idscheduler_exception + "*****")
       if (!(this.edit.Start_sun_hour)) {
         this.edit.Start_sun_hour = '-1';
       }
@@ -237,10 +237,20 @@ export class EditshiftComponent implements OnInit {
     });
   }
   editShift() {
-    this.schedularcount == 0;
+    this.schedularcount = 0;
+    console.log("initial... " + this.schedularcount);
     if (!(this.edit.Description)) {
       alert("Please enter the Employee Group Name");
       return;
+    } else {
+      if (this.desc !== this.edit.Description) {
+        this.scheduleServ.checkForEmpGrpDuplicate(this.edit.Description, this.OrganizationID).subscribe((data: any[]) => {
+          if (data.length > 0) {
+            alert("Group Name already exists");
+            return;
+          }
+        });
+      }
     }
     if (this.edit.Start_sun_hour == '-1' && this.edit.Start_sun_min == '-1' && this.edit.End_sun_hour == '-1' && this.edit.End_sun_min == '-1') {
       this.schedularcount = this.schedularcount;
@@ -250,6 +260,7 @@ export class EditshiftComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      console.log("sun... " + this.schedularcount);
       alert('Values Missing in Sunday');
       return;
     }
@@ -262,6 +273,7 @@ export class EditshiftComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      console.log("mon... " + this.schedularcount);
       alert('Values Missing in Monday');
       return;
     }
@@ -274,7 +286,7 @@ export class EditshiftComponent implements OnInit {
     }
     else {
       this.schedularcount++;
-
+      console.log("tue... " + this.schedularcount);
       alert('Values Missing in Tuesday');
       return;
     }
@@ -287,6 +299,7 @@ export class EditshiftComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      console.log("wed... " + this.schedularcount);
       alert('Values Missing in Wednesday');
       return;
     }
@@ -299,6 +312,7 @@ export class EditshiftComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      console.log("thu... " + this.schedularcount);
       alert('Values Missing in Thursday');
       return;
     }
@@ -311,6 +325,7 @@ export class EditshiftComponent implements OnInit {
     }
     else {
       this.schedularcount++;
+      console.log("fri... " + this.schedularcount);
       alert('Values Missing in Friday');
       return;
     }
@@ -322,6 +337,7 @@ export class EditshiftComponent implements OnInit {
       this.schedularcount = this.schedularcount;
     } else {
       this.schedularcount++;
+      console.log("sat... " + this.schedularcount);
       alert('Values Missing in Saturday');
       return;
     }
@@ -329,6 +345,7 @@ export class EditshiftComponent implements OnInit {
     if (!this.Idscheduler_exception) {
       this.Idscheduler_exception = null;
     }
+    console.log("before if... " + this.schedularcount);
     if (this.schedularcount == 0) {
       this.scheduleServ.checkForEmpGrpDuplicate(this.Description, this.OrganizationID).subscribe((data: any[]) => {
         if (data.length == 0) {
@@ -376,7 +393,7 @@ export class EditshiftComponent implements OnInit {
             end_sat_min: this.edit.End_sat_min,
             end_sat_format: this.edit.End_sat_format,
             idscheduler_exception: this.Idscheduler_exception,
-
+            groupId: this.shiftk$,
             desc: this.edit.Description,
             orgid: this.OrganizationID,
             empkey: this.employeekey
@@ -392,9 +409,13 @@ export class EditshiftComponent implements OnInit {
         }
       });
     } else {
+      console.log("inside else... " + this.schedularcount);
       alert("Value for weekly schedule is missing somewhere. Please check it!!!");
       return;
     }
 
+  }
+  goBack() {
+    this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewShift'] } }]);
   }
 }

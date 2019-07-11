@@ -2,7 +2,7 @@ import { Component, ViewChild, AfterViewInit, ChangeDetectorRef, OnInit } from "
 import { DayPilot, DayPilotSchedulerComponent, DayPilotModalComponent } from "daypilot-pro-angular";
 import { } from "daypilot-pro-angular";
 import { DataService } from "./data.service";
-import { SchedulingService } from '../../../../service/scheduling.service';
+import { SchedulingService } from '../../../service/scheduling.service';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { DatepickerOptions } from 'ng2-datepicker';
 
