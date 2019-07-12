@@ -1002,6 +1002,25 @@ export class PeopleServiceService {
       .get(ConectionSettings.Url + '/getallmasterminute');
 
   }
+
+  createEmployeebyManager(empschobj) {
+    const url = ConectionSettings.Url + "/addemp";
+
+    return this.http.post(url, empschobj);
+  }
+  getallemployeegrouping(OrgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getallemployeegrouping?OrganizationID=' + OrgID);
+
+  }
+
+  getweeklyschedulebyEmployeeGroupid(employeegroupid) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getweeklyschedulebyEmployeeGroupid?SearchKey=' + employeegroupid);
+  }
+
   UpdateEmployeeDetailsbyManager(mankey, empk, orgid, EmployeeNumber, userRoleTypeKey, FirstName, LastName, MiddleName, BirthDate, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HireDate, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey, remark, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend, idemployeegrouping) {
     const url = ConectionSettings.Url + "/update_employee_info";
     const obj = {
@@ -1082,25 +1101,63 @@ export class PeopleServiceService {
     };
     return this.http.post(url, obj);
   }
+  Employeecreateeditweeklyschedule(empk, metaupdatekey, orgid, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping, exceptionstartdate) {
+    const url = ConectionSettings.Url + "/employeecreateeditweeklyschedule";
+    const obj = {
+      EmployeeKey: empk,
+      OrganizationID: orgid,
 
-  createEmployeebyManager(empschobj) {
-    const url = ConectionSettings.Url + "/addemp";
+      start_sun_hour: start_sun_hour,
+      start_sun_min: start_sun_min,
+      start_sun_format: start_sun_format,
+      start_mon_hour: start_mon_hour,
+      start_mon_min: start_mon_min,
+      start_mon_format: start_mon_format,
+      start_tue_hour: start_tue_hour,
+      start_tue_min: start_tue_min,
+      start_tue_format: start_tue_format,
+      start_wed_hour: start_wed_hour,
+      start_wed_min: start_wed_min,
+      start_wed_format: start_wed_format,
+      start_thu_hour: start_thu_hour,
+      start_thu_min: start_thu_min,
+      start_thu_format: start_thu_format,
+      start_fri_hour: start_fri_hour,
+      start_fri_min: start_fri_min,
+      start_fri_format: start_fri_format,
+      start_sat_hour: start_sat_hour,
+      start_sat_min: start_sat_min,
+      start_sat_format: start_sat_format,
+      end_sun_hour: end_sun_hour,
+      end_sun_min: end_sun_min,
+      end_sun_format: end_sun_format,
+      end_mon_hour: end_mon_hour,
+      end_mon_min: end_mon_min,
+      end_mon_format: end_mon_format,
+      end_tue_hour: end_tue_hour,
+      end_tue_min: end_tue_min,
+      end_tue_format: end_tue_format,
+      end_wed_hour: end_wed_hour,
+      end_wed_min: end_wed_min,
+      end_wed_format: end_wed_format,
+      end_thu_hour: end_thu_hour,
+      end_thu_min: end_thu_min,
+      end_thu_format: end_thu_format,
+      end_fri_hour: end_fri_hour,
+      end_fri_min: end_fri_min,
+      end_fri_format: end_fri_format,
+      end_sat_hour: end_sat_hour,
+      end_sat_min: end_sat_min,
+      end_sat_format: end_sat_format,
 
-    return this.http.post(url, empschobj);
+      idscheduler_exception: idscheduler_exception,
+      idemployeegrouping: idemployeegrouping,
+      exceptionstartdate: exceptionstartdate,
+      metaupdatekey: metaupdatekey
+
+    };
+    return this.http.post(url, obj);
   }
-  getallemployeegrouping(OrgID) {
-    return this
-      .http
-      .get(ConectionSettings.Url + '/getallemployeegrouping?OrganizationID=' + OrgID);
-
-  }
-
-  getweeklyschedulebyEmployeeGroupid(employeegroupid) {
-    return this
-      .http
-      .get(ConectionSettings.Url + '/getweeklyschedulebyEmployeeGroupid?SearchKey=' + employeegroupid);
-  }
-
   //Author: Prakash Code Starts for Employee Calendar Ends Here
 
 }

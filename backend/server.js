@@ -16628,6 +16628,81 @@ app.get(securedpath + '/getweeklyschedulebyEmployeeGroupid', function (req, res)
         connection.release();
     });
 });
+
+app.options('/employeecreateeditweeklyschedule', supportCrossOriginScript);
+app.post(securedpath + '/employeecreateeditweeklyschedule', supportCrossOriginScript, function (req, response) {
+
+    var employeekey = req.body.EmployeeKey;
+    var metaupdatedby = req.body.metaupdatekey;
+    var OrganizationID = req.body.OrganizationID;
+    
+    var start_sun_hour = req.body.start_sun_hour;
+    var start_sun_min = req.body.start_sun_min;
+    var start_sun_format = req.body.start_sun_format;
+    var start_mon_hour = req.body.start_mon_hour;
+    var start_mon_min = req.body.start_mon_min;
+    var start_mon_format = req.body.start_mon_format;
+    var start_tue_hour = req.body.start_tue_hour;
+    var start_tue_min = req.body.start_tue_min;
+    var start_tue_format = req.body.start_tue_format;
+    var start_wed_hour = req.body.start_wed_hour;
+    var start_wed_min = req.body.start_wed_min;
+    var start_wed_format = req.body.start_wed_format;
+    var start_thu_hour = req.body.start_thu_hour;
+    var start_thu_min = req.body.start_thu_min;
+    var start_thu_format = req.body.start_thu_format;
+    var start_fri_hour = req.body.start_fri_hour;
+    var start_fri_min = req.body.start_fri_min;
+    var start_fri_format = req.body.start_fri_format;
+    var start_sat_hour = req.body.start_sat_hour;
+    var start_sat_min = req.body.start_sat_min;
+    var start_sat_format = req.body.start_sat_format;
+    var end_sun_hour = req.body.end_sun_hour;
+    var end_sun_min = req.body.end_sun_min;
+    var end_sun_format = req.body.end_sun_format;
+    var end_mon_hour = req.body.end_mon_hour;
+    var end_mon_min = req.body.end_mon_min;
+    var end_mon_format = req.body.end_mon_format;
+    var end_tue_hour = req.body.end_tue_hour;
+    var end_tue_min = req.body.end_tue_min;
+    var end_tue_format = req.body.end_tue_format;
+    var end_wed_hour = req.body.end_wed_hour;
+    var end_wed_min = req.body.end_wed_min;
+    var end_wed_format = req.body.end_wed_format;
+    var end_thu_hour = req.body.end_thu_hour;
+    var end_thu_min = req.body.end_thu_min;
+    var end_thu_format = req.body.end_thu_format;
+    var end_fri_hour = req.body.end_fri_hour;
+    var end_fri_min = req.body.end_fri_min;
+    var end_fri_format = req.body.end_fri_format;
+    var end_sat_hour = req.body.end_sat_hour;
+    var end_sat_min = req.body.end_sat_min;
+    var end_sat_format = req.body.end_sat_format;
+
+    var idscheduler_exception = req.body.idscheduler_exception;
+    var idemployeegrouping = req.body.idemployeegrouping;
+    var exceptiostartdate=req.body.exceptionsdate;
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @employeekey=?; set @metaupdatedby=?; set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;set @idemployeegrouping=?;set @exceptiostartdate=?;set @organizationID=?; call usp_employeecreateeditweeklyschedule(@employeekey,@metaupdatedby,@start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception,@idemployeegrouping,@exceptiostartdate,@OrganizationID)', [employeekey,metaupdatedby, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping,exceptiostartdate,OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    response.end(JSON.stringify(rows[48]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //Author: Prakash Code Starts for Employee Calendar Ends Here
 /*************END MIGRATE CODE**********************************************************/
 //handle generic exceptions

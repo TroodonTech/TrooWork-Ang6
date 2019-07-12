@@ -12,20 +12,10 @@ import { DatepickerOptions } from 'ng2-datepicker';
 export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
 
   marked = true;
-  // promoted= false;
-  firstName: Array<any>;
-  lastName: Array<any>;
-  MiddleName: Array<any>;
-  employeestatus: People[];
-  jobtitle: People[];
-  department: People[];
-  supervisor: People[];
+
   editempdtails;
   empk$: Object;
   BirthDate: Date;
-  HireDate: Date;
-  delete_EmpKey: Number;
-  employeedetailstable: People[];
 
   role: String;
   name: String;
@@ -34,7 +24,6 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
   OrganizationID: Number;
   empNum;
   statusFlag;
-  remark;
 
   fname;
   lname;
@@ -82,7 +71,6 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
     return window.atob(output);
   }
 
-
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
 
@@ -122,12 +110,12 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
 
   numberValid(event: any) {
     const pattern = /[0-9\+\-\ ]/;
-
     let inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
   }
+
   charValidation(event: any) {
     const patternChar = /[a-zA-Z ]/;
     let inputChar = String.fromCharCode(event.charCode);
@@ -136,83 +124,8 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
     }
   }
 
-  editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend,idemployeegrouping) {
+  createeditweeklyschedule(start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping, exceptionstartdate) {
     this.schedularcount = 0;
-    var mankey;
-    if (!(this.editempdtails.EmployeeNumber) || !EmployeeNumber.trim()) {
-      alert("Employee Number is not provided !");
-      return;
-    }
-    if (!(this.editempdtails.UserRoleTypeKey)) {
-      alert("User Role Type is not provided !");
-      return;
-    }
-
-    if (!(FirstName) || !(FirstName.trim())) {
-      alert("First Name is not provided !");
-      return;
-    }
-    if (!(LastName) || !(LastName.trim())) {
-      alert("Last Name is not provided !");
-      return;
-    }
-    if (!(this.editempdtails.Gender)) {
-      Gender = null;
-    }
-    if (!(this.editempdtails.EmployeeStatusKey)) {
-      alert("Employee Status is not provided !");
-      return;
-    }
-    if (!(PrimaryPhone) || !(PrimaryPhone.trim())) {
-      alert("Primary Phone is not provided !");
-      return;
-    }
-
-    if ((EmployeeStatusKey != 1) && !(this.remark)) {
-      alert("Remarks are not provided !");
-      return;
-    }
-    if (!(this.HireDate)) {
-      alert("Hire Date is not provided !");
-      return;
-    }
-    if (!(this.editempdtails.JobTitleKey)) {
-      alert("Job Title is not provided !");
-      return;
-    }
-    if (!(this.editempdtails.DepartmentKey)) {
-      alert("Department is not provided !");
-      return;
-    }
-    var birthdt;
-    var currentDate = this.convert_DT(new Date());
-
-    if (!(this.BirthDate)) {
-      birthdt = this.convert_DT(new Date());
-    }
-    else {
-      birthdt = this.convert_DT(this.BirthDate);
-    }
-    var hiredt = this.convert_DT(this.HireDate);
-    if (birthdt > currentDate) {
-      alert("Wrong Birth Date !");
-      return;
-    }
-    if (hiredt > currentDate) {
-      alert("Wrong Hire Date !");
-      return;
-    }
-    if (hiredt < birthdt) {
-      alert("Hire Date must be greater than birth date !");
-      return;
-    }
-
-    if (this.editempdtails.UserRoleTypeKey == 3 && !(this.editempdtails.ManagerKey)) {
-      mankey = this.employeekey;
-    }
-    else {
-      mankey = this.editempdtails.ManagerKey;
-    }
 
     //Author: Prakash Code Starts for Employee Calendar Starts Here
     if (start_sun_hour == '-1' && start_sun_min == '-1' && end_sun_hour == '-1' && end_sun_min == '-1') {
@@ -247,7 +160,6 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
     }
     else {
       this.schedularcount++;
-      
       alert('Values Missing in Tuesday');
       return;
     }
@@ -302,43 +214,22 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
     // var empNum ;
     if (!idscheduler_exception) {
       idscheduler_exception = null;
-      idmaster_exception_weekend = null;
+      exceptionstartdate = null;
     }
     if (this.schedularcount == 0) {
-      if (this.empNum == this.editempdtails.EmployeeNumber) {
-        this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey, this.remark, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend,idemployeegrouping)
-          .subscribe((data: People[]) => {
-            alert("Updated Successfully!");
-            // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
-            if (this.role == 'Manager') {
-              this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
-            }
-            else if (this.role == 'Employee' && this.IsSupervisor == 1) {
-              this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewEmployee'] } }]);
-            }
-          });
-      }
-      else {
-        this.PeopleServiceService.CheckForEmployeenumber(this.editempdtails.EmployeeNumber, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-          if (data[0].count == 0) {
-            var hiredt = this.convert_DT(this.BirthDate);
-            this.PeopleServiceService.UpdateEmployeeDetailsbyManager(mankey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey, this.remark, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend,idemployeegrouping)
-              .subscribe((data: People[]) => {
-                alert("Updated Successfully!");
-                // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
-                if (this.role == 'Manager') {
-                  this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
-                }
-                else if (this.role == 'Employee' && this.IsSupervisor == 1) {
-                  this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewEmployee'] } }]);
-                }
-              });
+      this.PeopleServiceService.Employeecreateeditweeklyschedule(this.empk$,this.employeekey, this.OrganizationID, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping, exceptionstartdate)
+        .subscribe((data: People[]) => {
+          alert("Updated Successfully!");
+          // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
+          if (this.role == 'Manager') {
+            this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ScheduleEmployee'] } }]);
           }
-          else {
-            alert("Employee Number already exist !");
+          else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+            this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewEmployee'] } }]);
           }
         });
-      }
+
+
     }
     else {
       alert('Weekly Schedule!');
@@ -349,21 +240,6 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
 
   }
 
-  deleteEmployee() {
-    this.PeopleServiceService
-      .DeleteEmployeeDetailsbyManager(this.delete_EmpKey, this.OrganizationID, this.employeekey).subscribe(res => {
-        // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }])
-        if (this.role == 'Manager') {
-          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
-        }
-        else if (this.role == 'Employee' && this.IsSupervisor == 1) {
-          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewEmployee'] } }]);
-        }
-      });
-  }
-  deleteEmpPass(empk$) {
-    this.delete_EmpKey = empk$;
-  }
   ngOnInit() {
 
     var token = localStorage.getItem('token');
@@ -385,7 +261,7 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
       this.lname = this.editempdtails.LastName;
       this.mname = this.editempdtails.MiddleName;
       this.egender = this.editempdtails.Gender;
-      
+
 
       //Author: Prakash Code Starts for Employee Calendar Starts Here
 
@@ -448,27 +324,10 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
 
     });
 
-    this.PeopleServiceService
-      .getEmployeeStatusListforDropdown(this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.employeestatus = data;
-      });
-    this.PeopleServiceService
-      .getJobTitleListforDropdown(this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.jobtitle = data;
-      });
-    this.PeopleServiceService
-      .getDeptListforDropdown(this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.department = data;
-      });
 
-    this.PeopleServiceService
-      .getSupervisorListforDropdown(this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.supervisor = data;
-      });
+
+
+
 
     this.PeopleServiceService
       .getallemployeegrouping(this.OrganizationID)
