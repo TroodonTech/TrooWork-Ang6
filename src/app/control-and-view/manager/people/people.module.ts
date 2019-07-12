@@ -14,7 +14,6 @@ import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 import { EditEmployeedetailsComponent } from './edit-employeedetails/edit-employeedetails.component';
 import { SettingusernameandpswrdaftremplcreatebymanComponent } from './settingusernameandpswrdaftremplcreatebyman/settingusernameandpswrdaftremplcreatebyman.component';
 import { SchedulerComponent } from './schedulerNew/scheduler.component';
-import { ViewEmployeeSchedulerComponent } from './view-employee-scheduler/view-employee-scheduler.component';
 
 import { PtoRequestActionComponent } from './pto-request-action/pto-request-action.component';
 import { PtoRequestsfromEmployeesComponent } from './pto-requestsfrom-employees/pto-requestsfrom-employees.component';
@@ -22,6 +21,10 @@ import { TradeRequestActionComponent } from './trade-request-action/trade-reques
 import { TradeRequestsfromEmployeesComponent } from './trade-requestsfrom-employees/trade-requestsfrom-employees.component';
 import { ViewEmployeeWeeklyScheduleComponent } from './view-employee-weekly-schedule/view-employee-weekly-schedule.component';
 import { ViewEmployeeWeeklyScheduleDetailComponent } from './view-employee-weekly-schedule-detail/view-employee-weekly-schedule-detail.component';
+import { ManualEmployeeLeaveComponent } from './manual-employee-leave/manual-employee-leave.component';
+import { EmployeeWorkingHourListComponent } from './employee-working-hour-list/employee-working-hour-list.component';
+
+
 @NgModule({
   imports: [
     CommonModule
@@ -41,14 +44,16 @@ import { ViewEmployeeWeeklyScheduleDetailComponent } from './view-employee-weekl
     EditEmployeedetailsComponent,
     SettingusernameandpswrdaftremplcreatebymanComponent,
     SchedulerComponent,
-    ViewEmployeeSchedulerComponent,
 
     PtoRequestActionComponent,
     PtoRequestsfromEmployeesComponent,
     TradeRequestActionComponent,
     TradeRequestsfromEmployeesComponent,
     ViewEmployeeWeeklyScheduleComponent,
-    ViewEmployeeWeeklyScheduleDetailComponent
+    ViewEmployeeWeeklyScheduleDetailComponent,
+    ManualEmployeeLeaveComponent,
+    EmployeeWorkingHourListComponent,
+
   ]
 })
 export class PeopleModule { }

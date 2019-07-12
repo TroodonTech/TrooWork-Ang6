@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { EmployeeDashboardComponent } from './employee-dashboard.component';
-import {  EmployeeChangePasswordModule } from '../../user-password-changes/employee-change-password/employee-change-password.module';
+import { ViewEmployeeSchedulerModule  } from '../../../employee/view-employee-scheduler/view-employee-scheduler.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
  const routes: Routes = [
   {
@@ -48,7 +48,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
       {
         path: 'ViewSchedulerForEmployee',
         outlet: 'EmployeeOut',
-        loadChildren: '../../../manager/people/view-employee-scheduler/view-employee-scheduler.module#ViewEmployeeSchedulerModule',
+        loadChildren: '../../../employee/view-employee-scheduler/view-employee-scheduler.module#ViewEmployeeSchedulerModule',
       },
       {
         path: 'PtoRequest',
