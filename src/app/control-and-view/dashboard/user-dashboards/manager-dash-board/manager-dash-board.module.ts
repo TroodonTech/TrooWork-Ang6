@@ -579,7 +579,7 @@ const routes: Routes = [
         loadChildren: '../../../manager/people/view-employee-weekly-schedule-detail/view-employee-weekly-schedule-detail.module#ViewEmployeeWeeklyScheduleDetailModule',
       },
       {
-        path: 'manualEmpOff/:EmployeeKey',
+        path: 'EmployeeWorkingHourEmpListView/EmployeeWorkingHourList/:EmployeeKey/manualEmpOff/:EmployeeKey',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/people/manual-employee-leave/manual-employee-leave.module#ManualEmployeeLeaveModule',
       },
