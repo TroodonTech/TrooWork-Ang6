@@ -252,6 +252,10 @@ export class EditshiftComponent implements OnInit {
         });
       }
     }
+    if (!(this.edit.Colour)) {
+      alert("PLease select a colour");
+      return;
+    }
     if (this.edit.Start_sun_hour == '-1' && this.edit.Start_sun_min == '-1' && this.edit.End_sun_hour == '-1' && this.edit.End_sun_min == '-1') {
       this.schedularcount = this.schedularcount;
     }
@@ -395,6 +399,7 @@ export class EditshiftComponent implements OnInit {
             idscheduler_exception: this.Idscheduler_exception,
             groupId: this.shiftk$,
             desc: this.edit.Description,
+            color: this.edit.Colour,
             orgid: this.OrganizationID,
             empkey: this.employeekey
           };

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SchedulingService } from '../../../service/scheduling.service';
 import { People } from '../../../model-class/People';
 import { PeopleServiceService } from '../../../service/people-service.service';
-import {  Router } from "@angular/router";
+import { Router } from "@angular/router";
 @Component({
   selector: 'app-createshift',
   templateUrl: './createshift.component.html',
@@ -116,6 +116,10 @@ export class CreateshiftComponent implements OnInit {
     // var newTime2 = t + ":" + t1;
     if (!(this.Description)) {
       alert("Please provide a Group Name !!!");
+      return;
+    }
+    if (!(this.color)) {
+      alert("Please select a color");
       return;
     }
     //Code for scheduler starts....
@@ -256,6 +260,7 @@ export class CreateshiftComponent implements OnInit {
             idscheduler_exception: this.idscheduler_exception,
 
             desc: this.Description,
+            color: this.color,
             orgid: this.OrganizationID,
             empkey: this.employeekey
           };
@@ -322,7 +327,7 @@ export class CreateshiftComponent implements OnInit {
             // this.end_sat_min = '-1';
             // this.end_sat_format = 'AM';
             // this.idscheduler_exception = '';
-// code for if staying in the same page....ends
+            // code for if staying in the same page....ends
           });
         } else {
           alert("Group Name already exists");
