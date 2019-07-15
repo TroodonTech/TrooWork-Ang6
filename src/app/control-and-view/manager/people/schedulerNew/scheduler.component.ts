@@ -147,7 +147,7 @@ export class SchedulerComponent implements AfterViewInit {
     EventMovingStartEndEnabled: true,
     bubble: new DayPilot.Bubble({
       animation: "fast",
-      animated : false
+      animated: false
     }),
     timeRangeSelectedHandling: 'Hold',
     contextMenu: new DayPilot.Menu({
@@ -208,42 +208,42 @@ export class SchedulerComponent implements AfterViewInit {
         OrganizationID: this.OrganizationID
       };
 
-  
 
-        this.SchedulingService.SchedulerTimeRangeCheck(args.e.data.ScheduleNameKey,this.convert_DT(this.MovingToDate),this.MovingToEmpKey,this.OrganizationID).subscribe(data => {
-          if(data[0].count>0){
-            this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
-              this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
-                this.empCalendarActivities();
-                // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
-    
-              });
-            });
-     
-          }
-          else{
-           var confirmBox = confirm("Employee not working in this time range. Do you want to Update Schedule ?");
-           if (confirmBox == true) {
-            this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
-              this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
-                this.empCalendarActivities();
-                // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
-    
-              });
-            });
-           }
-           else{
-            args.preventDefault();           
+
+      this.SchedulingService.SchedulerTimeRangeCheck(args.e.data.ScheduleNameKey, this.convert_DT(this.MovingToDate), this.MovingToEmpKey, this.OrganizationID).subscribe(data => {
+        if (data[0].count > 0) {
+          this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
+            this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
               this.empCalendarActivities();
-              // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);    
-           }
-           
-         }
-            
-         });
+              // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
 
-        
-      
+            });
+          });
+
+        }
+        else {
+          var confirmBox = confirm("Employee not working in this time range. Do you want to Update Schedule ?");
+          if (confirmBox == true) {
+            this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
+              this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
+                this.empCalendarActivities();
+                // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
+
+              });
+            });
+          }
+          else {
+            args.preventDefault();
+            this.empCalendarActivities();
+            // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);    
+          }
+
+        }
+
+      });
+
+
+
     },
     onEventMoving: args => {
 
@@ -256,8 +256,15 @@ export class SchedulerComponent implements AfterViewInit {
     },
     onEventResize: args => {
       args.cell.disabled = true;
-    }
-
+    },
+    onBeforeCellRender: args => {
+      if (args.cell.start.getDayOfWeek() === 6 || args.cell.start.getDayOfWeek() === 0) {
+        args.cell.backColor = "orange";
+      }
+      // if (args.cell.start.getDayOfWeek() === 7) {
+      //   args.cell.backColor = "#000000";
+      // }
+    },
   };
 
 
@@ -284,19 +291,19 @@ export class SchedulerComponent implements AfterViewInit {
     this.ds.getEvents(from, to).subscribe(result => {
       this.events = result;
     });
-    this.config.resources=[];
+    this.config.resources = [];
     this.SchedulingService.SchedulerEmployeeGroups(this.employeekey, this.OrganizationID)
-      .subscribe((group: any[]) => {  
-        for(var i=0;i<group.length;i++){
+      .subscribe((group: any[]) => {
+        for (var i = 0; i < group.length; i++) {
 
-        this.SchedulingService.employeesForScheduler(group[i].Idemployeegrouping,this.employeekey, this.OrganizationID)
-          .subscribe((data: any[]) => {
+          this.SchedulingService.employeesForScheduler(group[i].Idemployeegrouping, this.employeekey, this.OrganizationID)
+            .subscribe((data: any[]) => {
 
-                this.config.resources.push({ name: data[0].Description, id: data[0].Idemployeegrouping, "expanded": true, children: data });
-                     
-        });
-      }
-    });
+              this.config.resources.push({ name: data[0].Description, id: data[0].Idemployeegrouping, "expanded": true, children: data, backColor: data[0].backColor });
+
+            });
+        }
+      });
     this.date = DayPilot.Date.today().firstDayOfMonth();
 
     this.empCalendarActivities();
@@ -334,7 +341,7 @@ export class SchedulerComponent implements AfterViewInit {
       ];
       this.config.scale = "Day";
       this.config.cellDuration = 120;
-      this.config.cellWidth= 150;
+      this.config.cellWidth = 150;
       this.config.days = DayPilot.Date.today().daysInMonth();
       if (this.date) {
         this.config.startDate = this.date;
@@ -354,7 +361,7 @@ export class SchedulerComponent implements AfterViewInit {
       ];
       this.config.scale = "Day";
       this.config.cellDuration = 120;
-      this.config.cellWidth= 200;
+      this.config.cellWidth = 200;
       this.config.days = 7;
       // var d = this.date;
 

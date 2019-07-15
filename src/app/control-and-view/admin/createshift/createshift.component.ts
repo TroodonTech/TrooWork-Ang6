@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SchedulingService } from '../../../service/scheduling.service';
 import { People } from '../../../model-class/People';
 import { PeopleServiceService } from '../../../service/people-service.service';
-
+import { Router } from "@angular/router";
 @Component({
   selector: 'app-createshift',
   templateUrl: './createshift.component.html',
@@ -103,7 +103,7 @@ export class CreateshiftComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private scheduleServ: SchedulingService, private PeopleServiceService: PeopleServiceService) { }
+  constructor(private scheduleServ: SchedulingService, private PeopleServiceService: PeopleServiceService, private router: Router) { }
 
   createShift() {
 
@@ -116,6 +116,10 @@ export class CreateshiftComponent implements OnInit {
     // var newTime2 = t + ":" + t1;
     if (!(this.Description)) {
       alert("Please provide a Group Name !!!");
+      return;
+    }
+    if (!(this.color)) {
+      alert("Please select a color");
       return;
     }
     //Code for scheduler starts....
@@ -256,71 +260,74 @@ export class CreateshiftComponent implements OnInit {
             idscheduler_exception: this.idscheduler_exception,
 
             desc: this.Description,
+            color: this.color,
             orgid: this.OrganizationID,
             empkey: this.employeekey
           };
 
           this.scheduleServ.createEmpShiftwithColourCode(empschobj).subscribe((data: any[]) => {
             alert("Employee Group Name created successfully");
-            this.Description = "";
+            this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewShift'] } }]);
+            // code for if staying in the same page....starts
+            // this.Description = "";
 
-            this.start_sun_hour = '-1';
-            this.start_sun_min = '-1';
-            this.start_sun_format = 'AM';
+            // this.start_sun_hour = '-1';
+            // this.start_sun_min = '-1';
+            // this.start_sun_format = 'AM';
 
-            this.start_mon_hour = '-1';
-            this.start_mon_min = '-1';
-            this.start_mon_format = 'AM';
+            // this.start_mon_hour = '-1';
+            // this.start_mon_min = '-1';
+            // this.start_mon_format = 'AM';
 
-            this.start_tue_hour = '-1';
-            this.start_tue_min = '-1';
-            this.start_tue_format = 'AM';
+            // this.start_tue_hour = '-1';
+            // this.start_tue_min = '-1';
+            // this.start_tue_format = 'AM';
 
-            this.start_wed_hour = '-1';
-            this.start_wed_min = '-1';
-            this.start_wed_format = 'AM';
+            // this.start_wed_hour = '-1';
+            // this.start_wed_min = '-1';
+            // this.start_wed_format = 'AM';
 
-            this.start_thu_hour = '-1';
-            this.start_thu_min = '-1';
-            this.start_thu_format = 'AM';
+            // this.start_thu_hour = '-1';
+            // this.start_thu_min = '-1';
+            // this.start_thu_format = 'AM';
 
-            this.start_fri_hour = '-1';
-            this.start_fri_min = '-1';
-            this.start_fri_format = 'AM';
+            // this.start_fri_hour = '-1';
+            // this.start_fri_min = '-1';
+            // this.start_fri_format = 'AM';
 
-            this.start_sat_hour = '-1';
-            this.start_sat_min = '-1';
-            this.start_sat_format = 'AM';
+            // this.start_sat_hour = '-1';
+            // this.start_sat_min = '-1';
+            // this.start_sat_format = 'AM';
 
-            this.end_sun_hour = '-1';
-            this.end_sun_min = '-1';
-            this.end_sun_format = 'AM';
+            // this.end_sun_hour = '-1';
+            // this.end_sun_min = '-1';
+            // this.end_sun_format = 'AM';
 
-            this.end_mon_hour = '-1';
-            this.end_mon_min = '-1';
-            this.end_mon_format = 'AM';
+            // this.end_mon_hour = '-1';
+            // this.end_mon_min = '-1';
+            // this.end_mon_format = 'AM';
 
-            this.end_tue_hour = '-1';
-            this.end_tue_min = '-1';
-            this.end_tue_format = 'AM';
+            // this.end_tue_hour = '-1';
+            // this.end_tue_min = '-1';
+            // this.end_tue_format = 'AM';
 
-            this.end_wed_hour = '-1';
-            this.end_wed_min = '-1';
-            this.end_wed_format = 'AM';
+            // this.end_wed_hour = '-1';
+            // this.end_wed_min = '-1';
+            // this.end_wed_format = 'AM';
 
-            this.end_thu_hour = '-1';
-            this.end_thu_min = '-1';
-            this.end_thu_format = 'AM';
+            // this.end_thu_hour = '-1';
+            // this.end_thu_min = '-1';
+            // this.end_thu_format = 'AM';
 
-            this.end_fri_hour = '-1';
-            this.end_fri_min = '-1';
-            this.end_fri_format = 'AM';
+            // this.end_fri_hour = '-1';
+            // this.end_fri_min = '-1';
+            // this.end_fri_format = 'AM';
 
-            this.end_sat_hour = '-1';
-            this.end_sat_min = '-1';
-            this.end_sat_format = 'AM';
-            this.idscheduler_exception = '';
-
+            // this.end_sat_hour = '-1';
+            // this.end_sat_min = '-1';
+            // this.end_sat_format = 'AM';
+            // this.idscheduler_exception = '';
+            // code for if staying in the same page....ends
           });
         } else {
           alert("Group Name already exists");

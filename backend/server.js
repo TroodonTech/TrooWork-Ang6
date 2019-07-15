@@ -2199,56 +2199,56 @@ app.post(securedpath + '/update_employee_info', supportCrossOriginScript, functi
     var EmployeeStatusKey1 = req.body.EmployeeStatusKey1;
     var Remark = req.body.Remark;
 
-    var start_sun_hour = req.body.start_sun_hour;
-    var start_sun_min = req.body.start_sun_min;
-    var start_sun_format = req.body.start_sun_format;
-    var start_mon_hour = req.body.start_mon_hour;
-    var start_mon_min = req.body.start_mon_min;
-    var start_mon_format = req.body.start_mon_format;
-    var start_tue_hour = req.body.start_tue_hour;
-    var start_tue_min = req.body.start_tue_min;
-    var start_tue_format = req.body.start_tue_format;
-    var start_wed_hour = req.body.start_wed_hour;
-    var start_wed_min = req.body.start_wed_min;
-    var start_wed_format = req.body.start_wed_format;
-    var start_thu_hour = req.body.start_thu_hour;
-    var start_thu_min = req.body.start_thu_min;
-    var start_thu_format = req.body.start_thu_format;
-    var start_fri_hour = req.body.start_fri_hour;
-    var start_fri_min = req.body.start_fri_min;
-    var start_fri_format = req.body.start_fri_format;
-    var start_sat_hour = req.body.start_sat_hour;
-    var start_sat_min = req.body.start_sat_min;
-    var start_sat_format = req.body.start_sat_format;
-    var end_sun_hour = req.body.end_sun_hour;
-    var end_sun_min = req.body.end_sun_min;
-    var end_sun_format = req.body.end_sun_format;
-    var end_mon_hour = req.body.end_mon_hour;
-    var end_mon_min = req.body.end_mon_min;
-    var end_mon_format = req.body.end_mon_format;
-    var end_tue_hour = req.body.end_tue_hour;
-    var end_tue_min = req.body.end_tue_min;
-    var end_tue_format = req.body.end_tue_format;
-    var end_wed_hour = req.body.end_wed_hour;
-    var end_wed_min = req.body.end_wed_min;
-    var end_wed_format = req.body.end_wed_format;
-    var end_thu_hour = req.body.end_thu_hour;
-    var end_thu_min = req.body.end_thu_min;
-    var end_thu_format = req.body.end_thu_format;
-    var end_fri_hour = req.body.end_fri_hour;
-    var end_fri_min = req.body.end_fri_min;
-    var end_fri_format = req.body.end_fri_format;
-    var end_sat_hour = req.body.end_sat_hour;
-    var end_sat_min = req.body.end_sat_min;
-    var end_sat_format = req.body.end_sat_format;
+    // var start_sun_hour = req.body.start_sun_hour;
+    // var start_sun_min = req.body.start_sun_min;
+    // var start_sun_format = req.body.start_sun_format;
+    // var start_mon_hour = req.body.start_mon_hour;
+    // var start_mon_min = req.body.start_mon_min;
+    // var start_mon_format = req.body.start_mon_format;
+    // var start_tue_hour = req.body.start_tue_hour;
+    // var start_tue_min = req.body.start_tue_min;
+    // var start_tue_format = req.body.start_tue_format;
+    // var start_wed_hour = req.body.start_wed_hour;
+    // var start_wed_min = req.body.start_wed_min;
+    // var start_wed_format = req.body.start_wed_format;
+    // var start_thu_hour = req.body.start_thu_hour;
+    // var start_thu_min = req.body.start_thu_min;
+    // var start_thu_format = req.body.start_thu_format;
+    // var start_fri_hour = req.body.start_fri_hour;
+    // var start_fri_min = req.body.start_fri_min;
+    // var start_fri_format = req.body.start_fri_format;
+    // var start_sat_hour = req.body.start_sat_hour;
+    // var start_sat_min = req.body.start_sat_min;
+    // var start_sat_format = req.body.start_sat_format;
+    // var end_sun_hour = req.body.end_sun_hour;
+    // var end_sun_min = req.body.end_sun_min;
+    // var end_sun_format = req.body.end_sun_format;
+    // var end_mon_hour = req.body.end_mon_hour;
+    // var end_mon_min = req.body.end_mon_min;
+    // var end_mon_format = req.body.end_mon_format;
+    // var end_tue_hour = req.body.end_tue_hour;
+    // var end_tue_min = req.body.end_tue_min;
+    // var end_tue_format = req.body.end_tue_format;
+    // var end_wed_hour = req.body.end_wed_hour;
+    // var end_wed_min = req.body.end_wed_min;
+    // var end_wed_format = req.body.end_wed_format;
+    // var end_thu_hour = req.body.end_thu_hour;
+    // var end_thu_min = req.body.end_thu_min;
+    // var end_thu_format = req.body.end_thu_format;
+    // var end_fri_hour = req.body.end_fri_hour;
+    // var end_fri_min = req.body.end_fri_min;
+    // var end_fri_format = req.body.end_fri_format;
+    // var end_sat_hour = req.body.end_sat_hour;
+    // var end_sat_min = req.body.end_sat_min;
+    // var end_sat_format = req.body.end_sat_format;
 
-    var idscheduler_exception = req.body.idscheduler_exception;
+    // var idscheduler_exception = req.body.idscheduler_exception;
 
-    var idmaster_exception_weekend = req.body.idmaster_exception_weekend;
+    // var idmaster_exception_weekend = req.body.idmaster_exception_weekend;
 
-    var idemployeegrouping = req.body.idemployeegrouping;
+    // var idemployeegrouping = req.body.idemployeegrouping;
 
-    console.log("-----------------isSupervisor----------------" + isSupervisor + "  " + firstname + "  " + employeenumber + "birthdate" + birthdate + "hiredate" + hiredate);
+    // console.log("-----------------isSupervisor----------------" + isSupervisor + "  " + firstname + "  " + employeenumber + "birthdate" + birthdate + "hiredate" + hiredate);
     pool.getConnection(function (err, connection) {
         if (err) {
 
@@ -2256,7 +2256,12 @@ app.post(securedpath + '/update_employee_info', supportCrossOriginScript, functi
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @employeekey=?;set @employeenumber=?;set @firstname=?;set @middlename=?;set @lastname=?;set @jobtitlekey=?;set @managerkey=?;set @addressline1=?;set @addressline2=?;set @city=?;set @state=?;set @zipcode=?;set @country=?;set @primaryphone=?;set @alternatephone=?;set @birthdate=?;set @hiredate=?;set @lastevaluationdate=?;set @nextevaluationdate=?;set @issupervisor=?;set @SupervisorKey=?;set @isrelieved=?;set @ishkii=?;set @isactive=?;set @departmentkey=?;set @metaupdatedby=?; set @email=?; set @OrganizationID=?;set @gender=?;set @shirtSize=?;set @pantSize=?; set @UserRoleTypeKey=?;set @EmployeeStatusKey1=?;set @Remark=?; set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;set @idmaster_exception_weekend=?;set @idemployeegrouping=?;call usp_employeesUpd(@employeekey,@employeenumber,@firstname,@middlename,@lastname,@jobtitlekey,@managerkey,@addressline1,@addressline2,@city,@state,@zipcode,@country,@primaryphone,@alternatephone,@birthdate,@hiredate,@lastevaluationdate,@nextevaluationdate,@issupervisor,@SupervisorKey,@isrelieved,@ishkii,@isactive,@departmentkey,@metaupdatedby,@email,@OrganizationID,@gender,@shirtSize,@pantSize,@UserRoleTypeKey,@EmployeeStatusKey1,@Remark,@start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception, @idmaster_exception_weekend, @idemployeegrouping)', [employeekey, employeenumber, firstname, middlename, lastname, jobtitlekey, managerkey, addressline1, addressline2, city, state, zipcode, country, primaryphone, alternatephone, birthdate, hiredate, lastevaluationdate, nextevaluationdate, isSupervisor, SupervisorKey, isrelieved, ishkii, isactive, departmentkey, metaupdatedby, email, OrganizationID, gender, shirtSize, pantSize, UserRoleTypeKey, EmployeeStatusKey1, Remark, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend, idemployeegrouping], function (err, rows) {
+            connection.query('set @employeekey=?;set @employeenumber=?;set @firstname=?;set @middlename=?;set @lastname=?;set @jobtitlekey=?;set @managerkey=?;set @addressline1=?;set @addressline2=?;set @city=?;set @state=?;set @zipcode=?;set @country=?;set @primaryphone=?;set @alternatephone=?;set @birthdate=?;set @hiredate=?;set @lastevaluationdate=?;set @nextevaluationdate=?;set @issupervisor=?;set @SupervisorKey=?;set @isrelieved=?;set @ishkii=?;set @isactive=?;set @departmentkey=?;set @metaupdatedby=?; set @email=?; set @OrganizationID=?;set @gender=?;set @shirtSize=?;set @pantSize=?; set @UserRoleTypeKey=?;set @EmployeeStatusKey1=?;set @Remark=?;call usp_employeesUpd(@employeekey,@employeenumber,@firstname,@middlename,@lastname,@jobtitlekey,@managerkey,@addressline1,@addressline2,@city,@state,@zipcode,@country,@primaryphone,@alternatephone,@birthdate,@hiredate,@lastevaluationdate,@nextevaluationdate,@issupervisor,@SupervisorKey,@isrelieved,@ishkii,@isactive,@departmentkey,@metaupdatedby,@email,@OrganizationID,@gender,@shirtSize,@pantSize,@UserRoleTypeKey,@EmployeeStatusKey1,@Remark)', [employeekey, employeenumber, firstname, middlename, lastname, jobtitlekey, managerkey, addressline1, addressline2, city, state, zipcode, country, primaryphone, alternatephone, birthdate, hiredate, lastevaluationdate, nextevaluationdate, isSupervisor, SupervisorKey, isrelieved, ishkii, isactive, departmentkey, metaupdatedby, email, OrganizationID, gender, shirtSize, pantSize, UserRoleTypeKey, EmployeeStatusKey1, Remark], function (err, rows) {
+                //  set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;set @idmaster_exception_weekend=?;set @idemployeegrouping=?;
+
+                // @start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception, @idmaster_exception_weekend, @idemployeegrouping
+
+                // start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend, idemployeegrouping
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -11378,55 +11383,55 @@ app.post(securedpath + '/addemp', supportCrossOriginScript, function (req, res) 
     var pantSize = req.body.pantSize;
 
 
-    var start_sun_hour = req.body.start_sun_hour;
-    var start_sun_min = req.body.start_sun_min;
-    var start_sun_format = req.body.start_sun_format;
-    var start_mon_hour = req.body.start_mon_hour;
-    var start_mon_min = req.body.start_mon_min;
-    var start_mon_format = req.body.start_mon_format;
-    var start_tue_hour = req.body.start_tue_hour;
-    var start_tue_min = req.body.start_tue_min;
-    var start_tue_format = req.body.start_tue_format;
-    var start_wed_hour = req.body.start_wed_hour;
-    var start_wed_min = req.body.start_wed_min;
-    var start_wed_format = req.body.start_wed_format;
-    var start_thu_hour = req.body.start_thu_hour;
-    var start_thu_min = req.body.start_thu_min;
-    var start_thu_format = req.body.start_thu_format;
-    var start_fri_hour = req.body.start_fri_hour;
-    var start_fri_min = req.body.start_fri_min;
-    var start_fri_format = req.body.start_fri_format;
-    var start_sat_hour = req.body.start_sat_hour;
-    var start_sat_min = req.body.start_sat_min;
-    var start_sat_format = req.body.start_sat_format;
-    var end_sun_hour = req.body.end_sun_hour;
-    var end_sun_min = req.body.end_sun_min;
-    var end_sun_format = req.body.end_sun_format;
-    var end_mon_hour = req.body.end_mon_hour;
-    var end_mon_min = req.body.end_mon_min;
-    var end_mon_format = req.body.end_mon_format;
-    var end_tue_hour = req.body.end_tue_hour;
-    var end_tue_min = req.body.end_tue_min;
-    var end_tue_format = req.body.end_tue_format;
-    var end_wed_hour = req.body.end_wed_hour;
-    var end_wed_min = req.body.end_wed_min;
-    var end_wed_format = req.body.end_wed_format;
-    var end_thu_hour = req.body.end_thu_hour;
-    var end_thu_min = req.body.end_thu_min;
-    var end_thu_format = req.body.end_thu_format;
-    var end_fri_hour = req.body.end_fri_hour;
-    var end_fri_min = req.body.end_fri_min;
-    var end_fri_format = req.body.end_fri_format;
-    var end_sat_hour = req.body.end_sat_hour;
-    var end_sat_min = req.body.end_sat_min;
-    var end_sat_format = req.body.end_sat_format;
+    // var start_sun_hour = req.body.start_sun_hour;
+    // var start_sun_min = req.body.start_sun_min;
+    // var start_sun_format = req.body.start_sun_format;
+    // var start_mon_hour = req.body.start_mon_hour;
+    // var start_mon_min = req.body.start_mon_min;
+    // var start_mon_format = req.body.start_mon_format;
+    // var start_tue_hour = req.body.start_tue_hour;
+    // var start_tue_min = req.body.start_tue_min;
+    // var start_tue_format = req.body.start_tue_format;
+    // var start_wed_hour = req.body.start_wed_hour;
+    // var start_wed_min = req.body.start_wed_min;
+    // var start_wed_format = req.body.start_wed_format;
+    // var start_thu_hour = req.body.start_thu_hour;
+    // var start_thu_min = req.body.start_thu_min;
+    // var start_thu_format = req.body.start_thu_format;
+    // var start_fri_hour = req.body.start_fri_hour;
+    // var start_fri_min = req.body.start_fri_min;
+    // var start_fri_format = req.body.start_fri_format;
+    // var start_sat_hour = req.body.start_sat_hour;
+    // var start_sat_min = req.body.start_sat_min;
+    // var start_sat_format = req.body.start_sat_format;
+    // var end_sun_hour = req.body.end_sun_hour;
+    // var end_sun_min = req.body.end_sun_min;
+    // var end_sun_format = req.body.end_sun_format;
+    // var end_mon_hour = req.body.end_mon_hour;
+    // var end_mon_min = req.body.end_mon_min;
+    // var end_mon_format = req.body.end_mon_format;
+    // var end_tue_hour = req.body.end_tue_hour;
+    // var end_tue_min = req.body.end_tue_min;
+    // var end_tue_format = req.body.end_tue_format;
+    // var end_wed_hour = req.body.end_wed_hour;
+    // var end_wed_min = req.body.end_wed_min;
+    // var end_wed_format = req.body.end_wed_format;
+    // var end_thu_hour = req.body.end_thu_hour;
+    // var end_thu_min = req.body.end_thu_min;
+    // var end_thu_format = req.body.end_thu_format;
+    // var end_fri_hour = req.body.end_fri_hour;
+    // var end_fri_min = req.body.end_fri_min;
+    // var end_fri_format = req.body.end_fri_format;
+    // var end_sat_hour = req.body.end_sat_hour;
+    // var end_sat_min = req.body.end_sat_min;
+    // var end_sat_format = req.body.end_sat_format;
 
-    var idscheduler_exception = req.body.idscheduler_exception;
+    // var idscheduler_exception = req.body.idscheduler_exception;
 
-    var idmaster_exception_weekend = req.body.idmaster_exception_weekend;
-    var idemployeegrouping = req.body.idemployeegrouping;
+    // var idmaster_exception_weekend = req.body.idmaster_exception_weekend;
+    // var idemployeegrouping = req.body.idemployeegrouping;
 
-    var exceptionsdate=req.body.exceptionsdate;
+    // var exceptionsdate = req.body.exceptionsdate;
 
 
     // console.log("exceptionid: " + idscheduler_exception);
@@ -11477,7 +11482,7 @@ app.post(securedpath + '/addemp', supportCrossOriginScript, function (req, res) 
 
 
 
-    console.log("---------------------" + metaupdatedby + " " + employeenumber + " " + OrganizationID + " " + gender + " " + shirtSize + " " + pantSize + " " + supervisorKey)
+    // console.log("---------------------" + metaupdatedby + " " + employeenumber + " " + OrganizationID + " " + gender + " " + shirtSize + " " + pantSize + " " + supervisorKey)
     pool.getConnection(function (err, connection) {
         if (err) {
 
@@ -11485,13 +11490,16 @@ app.post(securedpath + '/addemp', supportCrossOriginScript, function (req, res) 
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @employeekey=?;set @employeenumber=?;set @firstname=?;set @middlename=?;set @lastname=?;set @jobtitlekey=?;set @managerkey=?;set @addressline1=?;set @addressline2=?;set @city=?;set @state=?;set @zipcode=?;set @country=?;set @primaryphone=?;set @alternatephone=?;set @birthdate=?;set @hiredate=?;set @lastevaluationdate=?;set @nextevaluationdate=?;set @issupervisor=?;set @supervisorKey=?;set @isrelieved=?;set @ishkii=?;set @isactive=?;set @departmentkey=?;set @metaupdatedby=?; set @email=?; set @OrganizationID=?;set @gender=?;set @shirtSize=?;set @pantSize=?;set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;set @idmaster_exception_weekend=?;set @idemployeegrouping=?; set @exceptionsdate=?; call usp_employeesAdd(@employeekey,@employeenumber,@firstname,@middlename,@lastname,@jobtitlekey,@managerkey,@addressline1,@addressline2,@city,@state,@zipcode,@country,@primaryphone,@alternatephone,@birthdate,@hiredate,@lastevaluationdate,@nextevaluationdate,@issupervisor,@supervisorKey,@isrelieved,@ishkii,@isactive,@departmentkey,@metaupdatedby,@email,@OrganizationID,@gender,@shirtSize,@pantSize,@start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception, @idmaster_exception_weekend,@idemployeegrouping,@exceptionsdate)', [employeekey, employeenumber, firstname, middlename, lastname, jobtitlekey, managerkey, addressline1, addressline2, city, state, zipcode, country, primaryphone, alternatephone, birthdate, hiredate, lastevaluationdate, nextevaluationdate, issupervisor, supervisorKey, isrelieved, ishkii, isactive, departmentkey, metaupdatedby, email, OrganizationID, gender, shirtSize, pantSize, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend,idemployeegrouping,exceptionsdate], function (err, rows) {
+            connection.query('set @employeekey=?;set @employeenumber=?;set @firstname=?;set @middlename=?;set @lastname=?;set @jobtitlekey=?;set @managerkey=?;set @addressline1=?;set @addressline2=?;set @city=?;set @state=?;set @zipcode=?;set @country=?;set @primaryphone=?;set @alternatephone=?;set @birthdate=?;set @hiredate=?;set @lastevaluationdate=?;set @nextevaluationdate=?;set @issupervisor=?;set @supervisorKey=?;set @isrelieved=?;set @ishkii=?;set @isactive=?;set @departmentkey=?;set @metaupdatedby=?; set @email=?; set @OrganizationID=?;set @gender=?;set @shirtSize=?;set @pantSize=?;call usp_employeesAdd(@employeekey,@employeenumber,@firstname,@middlename,@lastname,@jobtitlekey,@managerkey,@addressline1,@addressline2,@city,@state,@zipcode,@country,@primaryphone,@alternatephone,@birthdate,@hiredate,@lastevaluationdate,@nextevaluationdate,@issupervisor,@supervisorKey,@isrelieved,@ishkii,@isactive,@departmentkey,@metaupdatedby,@email,@OrganizationID,@gender,@shirtSize,@pantSize)', [employeekey, employeenumber, firstname, middlename, lastname, jobtitlekey, managerkey, addressline1, addressline2, city, state, zipcode, country, primaryphone, alternatephone, birthdate, hiredate, lastevaluationdate, nextevaluationdate, issupervisor, supervisorKey, isrelieved, ishkii, isactive, departmentkey, metaupdatedby, email, OrganizationID, gender, shirtSize, pantSize], function (err, rows) {
+                // set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;set @idmaster_exception_weekend=?;set @idemployeegrouping=?; set @exceptionsdate=?; 
+                // @start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception, @idmaster_exception_weekend,@idemployeegrouping,@exceptionsdate                
+                //  start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend, idemployeegrouping, exceptionsdate        
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
 
-                    res.end(JSON.stringify(rows[77][0]));
+                    res.end(JSON.stringify(rows[31][0]));
                 }
             });
         }
@@ -14407,7 +14415,7 @@ app.post(securedpath + '/saveEmployeeShift', function (req, res) {
     // var time1 = req.body.time1;
     // var paidhours = req.body.paidhours;
     // var time2 = req.body.time2;
-    // var color = req.body.color;
+    var color = req.body.color;
     var orgid = req.body.orgid;
     var empkey = req.body.empkey;
     pool.getConnection(function (err, connection) {
@@ -14417,7 +14425,7 @@ app.post(securedpath + '/saveEmployeeShift', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @desc=?;set @orgid=?; set @empkey=?;set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;call usp_createEmployeeGroup(@desc,@orgid,@empkey,@start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception)", [desc, orgid, empkey, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception], function (err, rows) {
+            connection.query("set @desc=?;set @color=?; set @orgid=?; set @empkey=?;set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;call usp_createEmployeeGroup(@desc,@color,@orgid,@empkey,@start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception)", [desc,color, orgid, empkey, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception], function (err, rows) {
                 // set @abbr=?; set @publishas=?; set @time1=?; set @paidhours=?; set @time2=?; set @color=?; 
                 // @abbr,@publishas,@time1,@paidhours,@time2,@color,
                 // abbr, publishas, time1, paidhours, time2, color,
@@ -14425,8 +14433,8 @@ app.post(securedpath + '/saveEmployeeShift', function (req, res) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
-                    console.log(JSON.stringify(rows[46]));
-                    res.end(JSON.stringify(rows[46]));
+                    console.log(JSON.stringify(rows[47]));
+                    res.end(JSON.stringify(rows[47]));
                 }
             });
         }
@@ -14560,16 +14568,15 @@ app.post(securedpath + '/updateEmployeeShiftDetails', function (req, res) {
     var end_sat_hour = req.body.end_sat_hour;
     var end_sat_min = req.body.end_sat_min;
     var end_sat_format = req.body.end_sat_format;
-
     var idscheduler_exception = req.body.idscheduler_exception;
-    var shiftkey = req.body.shiftkey;
+    var groupID = req.body.groupId;
     var desc = req.body.desc;
     // var abbr = req.body.abbr;
     // var publishas = req.body.publishas;
     // var time1 = req.body.time1;
     // var paidhours = req.body.paidhours;
     // var time2 = req.body.time2;
-    // var color = req.body.color;
+    var color = req.body.color;
     var orgid = req.body.orgid;
     var empkey = req.body.empkey;
     pool.getConnection(function (err, connection) {
@@ -14579,16 +14586,16 @@ app.post(securedpath + '/updateEmployeeShiftDetails', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @shiftkey=?;set @desc=?; set @orgid=?; set @empkey=?;set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;call usp_updateEmployeeGroupDetails(@shiftkey,@desc,@orgid,@empkey,@start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception)", [shiftkey, desc, orgid, empkey, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception], function (err, rows) {
-                // set @abbr=?; set @publishas=?; set @time1=?; set @paidhours=?; set @time2=?; set @color=?;
-                // @abbr,@publishas,@time1,@paidhours,@time2,@color,
+            connection.query("set @groupID=?;set @desc=?; set @color=?; set @orgid=?; set @empkey=?;set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;call usp_updateEmployeeGroupDetails(@groupID,@desc,@color,@orgid,@empkey,@start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception)", [groupID, desc,color, orgid, empkey, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception], function (err, rows) {
+                // set @abbr=?; set @publishas=?; set @time1=?; set @paidhours=?; set @time2=?; 
+                // @abbr,@publishas,@time1,@paidhours,@time2,
                 // abbr, publishas, time1, paidhours, time2, color,
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
-                    console.log(JSON.stringify(rows[46]));
-                    res.end(JSON.stringify(rows[46]));
+                    console.log(JSON.stringify(rows[47]));
+                    res.end(JSON.stringify(rows[47]));
                 }
             });
         }
@@ -15836,7 +15843,7 @@ app.get(securedpath + '/SchedulerTimeRangeCheck', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @ScheduleNameKey=?; set@Date=?; set @empKey=?; set@OrganizationID=?; call usp_SchedulerTimeRangeCheck(@ScheduleNameKey,@Date,@empKey,@OrganizationID)', [ScheduleNameKey,Date,empKey,OrganizationID], function (err, rows) {
+            connection.query('set @ScheduleNameKey=?; set@Date=?; set @empKey=?; set@OrganizationID=?; call usp_SchedulerTimeRangeCheck(@ScheduleNameKey,@Date,@empKey,@OrganizationID)', [ScheduleNameKey, Date, empKey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -16655,7 +16662,57 @@ app.post(securedpath + '/saveTradeRequestAction', supportCrossOriginScript, func
 
 
 // *** PTO & Trade ends...
+app.get(securedpath + '/getAllReasonsForLeaves', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
 
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @OrganizationID=?;call usp_getAllReasonsForLeaves(@OrganizationID)', [OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log(JSON.stringify(rows[1]));
+                    res.end(JSON.stringify(rows[1]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.post(securedpath + '/saveLeaveForEmp', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var reasonID = req.body.reason;
+    var fromDate = req.body.from;
+    var toDate = req.body.to;
+    var empKey = req.body.empkey;
+    var metauserKey = req.body.metauser;
+    var OrganizationID = req.body.orgid;
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @reasonID=?;set @fromDate=?;set @toDate=?;set @empKey=?;set @metauserKey=?;set @OrganizationID=?;call usp_saveManualLeaveForEmp(@reasonID,@fromDate,@toDate,@empKey,@metauserKey,@OrganizationID)', [reasonID, fromDate, toDate, empKey, metauserKey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    // console.log(JSON.stringify(rows[6]));
+                    res.end(JSON.stringify(rows[6]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //********Scheduler************API by Rodney ends
 //Author: Prakash Code Starts for Employee Calendar Starts Here
 //For Employee Scheduling Exceptions
@@ -16784,7 +16841,7 @@ app.get(securedpath + '/getallemployeegrouping', function (req, res) {
 app.get(securedpath + '/getweeklyschedulebyEmployeeGroupid', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     var empgroupid = url.parse(req.url, true).query['SearchKey'];
-    
+
     pool.getConnection(function (err, connection) {
         if (err) {
 
@@ -16799,6 +16856,81 @@ app.get(securedpath + '/getweeklyschedulebyEmployeeGroupid', function (req, res)
                 else {
 
                     res.end(JSON.stringify(rows[1]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.options('/employeecreateeditweeklyschedule', supportCrossOriginScript);
+app.post(securedpath + '/employeecreateeditweeklyschedule', supportCrossOriginScript, function (req, response) {
+
+    var employeekey = req.body.EmployeeKey;
+    var metaupdatedby = req.body.metaupdatekey;
+    var OrganizationID = req.body.OrganizationID;
+    
+    var start_sun_hour = req.body.start_sun_hour;
+    var start_sun_min = req.body.start_sun_min;
+    var start_sun_format = req.body.start_sun_format;
+    var start_mon_hour = req.body.start_mon_hour;
+    var start_mon_min = req.body.start_mon_min;
+    var start_mon_format = req.body.start_mon_format;
+    var start_tue_hour = req.body.start_tue_hour;
+    var start_tue_min = req.body.start_tue_min;
+    var start_tue_format = req.body.start_tue_format;
+    var start_wed_hour = req.body.start_wed_hour;
+    var start_wed_min = req.body.start_wed_min;
+    var start_wed_format = req.body.start_wed_format;
+    var start_thu_hour = req.body.start_thu_hour;
+    var start_thu_min = req.body.start_thu_min;
+    var start_thu_format = req.body.start_thu_format;
+    var start_fri_hour = req.body.start_fri_hour;
+    var start_fri_min = req.body.start_fri_min;
+    var start_fri_format = req.body.start_fri_format;
+    var start_sat_hour = req.body.start_sat_hour;
+    var start_sat_min = req.body.start_sat_min;
+    var start_sat_format = req.body.start_sat_format;
+    var end_sun_hour = req.body.end_sun_hour;
+    var end_sun_min = req.body.end_sun_min;
+    var end_sun_format = req.body.end_sun_format;
+    var end_mon_hour = req.body.end_mon_hour;
+    var end_mon_min = req.body.end_mon_min;
+    var end_mon_format = req.body.end_mon_format;
+    var end_tue_hour = req.body.end_tue_hour;
+    var end_tue_min = req.body.end_tue_min;
+    var end_tue_format = req.body.end_tue_format;
+    var end_wed_hour = req.body.end_wed_hour;
+    var end_wed_min = req.body.end_wed_min;
+    var end_wed_format = req.body.end_wed_format;
+    var end_thu_hour = req.body.end_thu_hour;
+    var end_thu_min = req.body.end_thu_min;
+    var end_thu_format = req.body.end_thu_format;
+    var end_fri_hour = req.body.end_fri_hour;
+    var end_fri_min = req.body.end_fri_min;
+    var end_fri_format = req.body.end_fri_format;
+    var end_sat_hour = req.body.end_sat_hour;
+    var end_sat_min = req.body.end_sat_min;
+    var end_sat_format = req.body.end_sat_format;
+
+    var idscheduler_exception = req.body.idscheduler_exception;
+    var idemployeegrouping = req.body.idemployeegrouping;
+    var exceptiostartdate=req.body.exceptionsdate;
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @employeekey=?; set @metaupdatedby=?; set @start_sun_hour=?;set @start_sun_min=?;set @start_sun_format=?;set @start_mon_hour=?;set @start_mon_min=?;set @start_mon_format=?;set @start_tue_hour=?;set @start_tue_min=?;set @start_tue_format=?;set @start_wed_hour=?;set @start_wed_min=?;set @start_wed_format=?;set @start_thu_hour=?;set @start_thu_min=?;set @start_thu_format=?;set @start_fri_hour=?;set @start_fri_min=?;set @start_fri_format=?;set @start_sat_hour=?;set @start_sat_min=?;set @start_sat_format=?;set @end_sun_hour=?;set @end_sun_min=?;set @end_sun_format=?;set @end_mon_hour=?;set @end_mon_min=?;set @end_mon_format=?;set @end_tue_hour=?;set @end_tue_min=?;set @end_tue_format=?;set @end_wed_hour=?;set @end_wed_min=?;set @end_wed_format=?;set @end_thu_hour=?;set @end_thu_min=?;set @end_thu_format=?;set @end_fri_hour=?;set @end_fri_min=?;set @end_fri_format=?;set @end_sat_hour=?;set @end_sat_min=?;set @end_sat_format=?; set @idscheduler_exception=?;set @idemployeegrouping=?;set @exceptiostartdate=?;set @organizationID=?; call usp_employeecreateeditweeklyschedule(@employeekey,@metaupdatedby,@start_sun_hour,@start_sun_min,@start_sun_format,@start_mon_hour,@start_mon_min,@start_mon_format,@start_tue_hour,@start_tue_min,@start_tue_format,@start_wed_hour,@start_wed_min,@start_wed_format,@start_thu_hour,@start_thu_min,@start_thu_format,@start_fri_hour,@start_fri_min,@start_fri_format,@start_sat_hour,@start_sat_min,@start_sat_format,@end_sun_hour,@end_sun_min,@end_sun_format,@end_mon_hour,@end_mon_min,@end_mon_format,@end_tue_hour,@end_tue_min,@end_tue_format,@end_wed_hour,@end_wed_min,@end_wed_format,@end_thu_hour,@end_thu_min,@end_thu_format,@end_fri_hour,@end_fri_min,@end_fri_format,@end_sat_hour,@end_sat_min,@end_sat_format,@idscheduler_exception,@idemployeegrouping,@exceptiostartdate,@OrganizationID)', [employeekey,metaupdatedby, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping,exceptiostartdate,OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    response.end(JSON.stringify(rows[48]));
                 }
             });
         }

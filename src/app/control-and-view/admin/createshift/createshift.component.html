@@ -4,19 +4,20 @@
     <h4 style="margin-left: 40%;">CREATE EMPLOYEE GROUP NAME</h4>
   </div><br>
   <div class="row bg-info col-md-12" style="padding-top: 3rem;padding-bottom: 2rem">
-    <br>
-    <!-- <div class="col-md-5" style="text-align: center"> -->
-    <div class="form-group col" style="margin-left: 20%;">
-      <label>Group Name</label>
-      <!-- <input type="text" name="desc" class="form-control col-sm-9 col-md-9 col-lg-9" maxlength="20"
-          placeholder="Description" [(ngModel)]="Description"> -->
+    <!-- <br> -->
+    <div class="form-group col-md-6">
+      <div class="form-group">
+        <label>Group Name</label>
+        <input type="text" name="desc" maxlength="20" class="form-control" placeholder="Enter Group Name"
+          style="width: 70%;" [(ngModel)]="Description">
+      </div>
     </div>
-    <!-- </div>
-    <div class="col-md-7"> -->
-    <div class="form-group col" style="margin-left: -50%;">
-      <!-- <label class="form-control col-sm-3 col-md-3 col-lg-3 ">Group Name</label> -->
-      <input type="text" name="desc" maxlength="20" class="form-control" placeholder="Enter Group Name"
-        style="width: 70%;" [(ngModel)]="Description">
+    <div class="col-md-6 ">
+      <div class="form-group">
+        <label>Colour</label>&nbsp;
+        <input [(colorPicker)]="color" [style.background]="color" class="form-control col-sm-9 col-md-9 col-lg-9" />
+        <!-- (colorPickerChange)="colourchange()"  -->
+      </div>
     </div>
   </div>
 

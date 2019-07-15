@@ -3,9 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { EmployeeWorkingHourAddModule } from '../../../manager/people/employee-working-hour-add/employee-working-hour-add.module';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
+import { ManualEmployeeLeaveModule } from '../../../manager/people/manual-employee-leave/manual-employee-leave.module';
+
+import { EmployeeWorkingHourListModule } from '../../../manager/people/employee-working-hour-list/employee-working-hour-list.module';
+
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+  
 const routes: Routes = [
   {
     path: 'ManagerDashBoard',
@@ -538,11 +542,11 @@ const routes: Routes = [
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/people/schedulerNew/scheduler.module#SchedulerModule',
       },
-      {
-        path: 'ViewSchedulerForEmployee',
-        outlet: 'ManagerOut',
-        loadChildren: '../../../manager/people/view-employee-scheduler/view-employee-scheduler.module#ViewEmployeeSchedulerModule',
-      },
+      // {
+      //   path: 'ViewSchedulerForEmployee',
+      //   outlet: 'ManagerOut',
+      //   loadChildren: '../../../manager/people/view-employee-scheduler/view-employee-scheduler.module#ViewEmployeeSchedulerModule',
+      // },
 
       {
         path: 'RequestsFromEmployees',
@@ -575,6 +579,11 @@ const routes: Routes = [
         loadChildren: '../../../manager/people/view-employee-weekly-schedule-detail/view-employee-weekly-schedule-detail.module#ViewEmployeeWeeklyScheduleDetailModule',
       },
       {
+        path: 'EmployeeWorkingHourEmpListView/EmployeeWorkingHourList/:EmployeeKey/manualEmpOff/:EmployeeKey',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/people/manual-employee-leave/manual-employee-leave.module#ManualEmployeeLeaveModule',
+      },
+      {
         path: 'EmployeeWorkingHourEmpListView',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/people/employee-working-hour-emp-list-view/employee-working-hour-emp-list-view.module#EmployeeWorkingHourEmpListViewModule',
@@ -582,7 +591,7 @@ const routes: Routes = [
       {
         path: 'EmployeeWorkingHourEmpListView/EmployeeWorkingHourList/:EmployeeKey',
         outlet: 'ManagerOut',
-        loadChildren: '../../../manager/people/employee-working-hour-list/employee-working-hour-list.module#EmployeeWorkingHourListModule',
+        loadChildren: '../../../manager/people/employee-working-hour-list/employee-working-hour-list.module#EmployeeWorkingHourListModule'
       },
       {
         path: 'EmployeeWorkingHourEmpListView/EmployeeWorkingHourList/:EmployeeKey/EmployeeWorkingHourAdd/:EmployeeKey',
