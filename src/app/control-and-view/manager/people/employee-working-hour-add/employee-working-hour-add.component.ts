@@ -99,10 +99,7 @@ export class EmployeeWorkingHourAddComponent implements OnInit {
       alert("End Time not provided !");
       return;
     }
-    if(this.EndTime<this.StartTime){
-      alert("please check Time !");
-      return;
-    }
+    
     var q = this.EndTime.getHours();
     var q1 = this.EndTime.getMinutes();
     var endTime = q + ":" + q1;
