@@ -14,7 +14,7 @@ export class ManagerDashBoardComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  scheduleIcon;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -49,6 +49,11 @@ export class ManagerDashBoardComponent implements OnInit {
       .getEmpNameForWelcomeMessage(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.empName = data[0].EmpName;
+      });
+      this.loginService
+      .schedulingIcons(this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.scheduleIcon = data[0].IsEmployeeCalendar;
       });
   }
 

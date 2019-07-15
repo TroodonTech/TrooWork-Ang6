@@ -80,4 +80,9 @@ export class LoginService {
     };
     return this.http.post(uri, obj);
   }
+  schedulingIcons(empkey, orgID){
+    return this
+      .http
+      .get(ConectionSettings.Url+'/schedulingIcons?empKey=' + empkey + '&OrganizationID=' + orgID);
+  }
 }

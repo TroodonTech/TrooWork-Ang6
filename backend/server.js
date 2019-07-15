@@ -16036,6 +16036,33 @@ app.post(securedpath + '/createEmpWorkingHour', supportCrossOriginScript, functi
         connection.release();
     });
 });
+app.get(securedpath + '/schedulingIcons', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var empKey = url.parse(req.url, true).query['empKey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+   
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set@empKey=?; set @OrganizationID=?;call usp_schedulingIcons(@empKey,@OrganizationID)", [empKey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //********Scheduler************API BY varun ends
 
 //********Scheduler************API by Rodney starts

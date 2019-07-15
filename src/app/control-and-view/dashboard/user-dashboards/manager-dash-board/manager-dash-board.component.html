@@ -53,14 +53,7 @@
               <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['manageLoginCredentials']}}]"><b>Manage
                   Login
                   Credentials</b></a>
-              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['Scheduler']}}]"><b>Scheduler</b></a>
-              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ScheduleEmployee']}}]"><b>Schedule Employee</b></a>
-              <!-- <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['manualEmpOff']}}]"><b>Manual Employee Leave</b></a> -->
-              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['RequestsFromEmployees']}}]"><b>View
-                  Employee PTO Requests</b></a>
-              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['TradeRequestsFromEmployees']}}]"><b>View
-                  Employee Trade Requests</b></a>
-              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['EmployeeWorkingHourEmpListView']}}]"><b>Employee Working Hour</b></a>    
+              
             </div>
           </li>
           <li class="nav-item dropdown" style="margin-left: -1rem;">
@@ -96,6 +89,19 @@
                   Assignment Schedule</b></a>
               <!-- <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['createshift']}}]"><b>Create Shift</b></a>
               <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewShift']}}]"><b>View Shift</b></a> -->
+            </div>
+          </li>
+          <li *ngIf="scheduleIcon==1" class="nav-item dropdown" style="margin-left: -1rem;">
+            <img class="imagesize nav-link" src="assets/icons/scheduling.png">
+            <div class="dropdown-content" style="margin-left:1rem;">
+              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['Scheduler']}}]"><b>Scheduler</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ScheduleEmployee']}}]"><b>Schedule Employee</b></a>
+              <!-- <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['manualEmpOff']}}]"><b>Manual Employee Leave</b></a> -->
+              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['RequestsFromEmployees']}}]"><b>View
+                  Employee PTO Requests</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['TradeRequestsFromEmployees']}}]"><b>View
+                  Employee Trade Requests</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['EmployeeWorkingHourEmpListView']}}]"><b>Employee Working Hour</b></a>              
             </div>
           </li>
           <li class="nav-item dropdown" style="margin-left: -1rem;">

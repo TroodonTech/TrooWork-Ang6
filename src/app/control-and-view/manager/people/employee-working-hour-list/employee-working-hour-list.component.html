@@ -57,7 +57,7 @@
           <td>{{ e.EmployeeDate }}</td>
           <td>{{ e.SchedulerDisplay }}</td>
           <td>{{ e.SchedulingType }}</td>       
-          <td><input type="checkbox" [(ngModel)]="e.deletechkbox" style="margin-left: 35%;margin-top: 30%"
+          <td style="text-align:center"><input type="checkbox" [(ngModel)]="e.deletechkbox" 
             (change)="checkBoxValueForDelete(k,e.deletechkbox, e.Employee_CalenderID);">
           </td>
         </tr>
