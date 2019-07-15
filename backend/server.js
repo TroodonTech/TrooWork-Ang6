@@ -15908,6 +15908,127 @@ app.get(securedpath + '/searchAllEmployeeWorkingHourList', function (req, res) {
         connection.release();
     });
 });
+app.get(securedpath + '/getWorkingHourListForEmployee', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var startDT = url.parse(req.url, true).query['startDT'];
+    var endDT = url.parse(req.url, true).query['endDT'];
+    var selectEmpKey = url.parse(req.url, true).query['selectEmpKey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+   
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set @startDT =?;set @endDT=?; set@selectEmpKey=?; set @OrganizationID=?;call usp_getWorkingHourListForEmployee(@startDT,@endDT,@selectEmpKey,@OrganizationID)", [startDT, endDT,selectEmpKey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[4]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.options('/deleteWorkingHours', supportCrossOriginScript);
+app.post(securedpath + '/deleteWorkingHours', supportCrossOriginScript, function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+  
+    var deleteWorkingHour = req.body.deleteWorkingHour;
+    var employeekey = req.body.employeekey;
+    var OrganizationID = req.body.OrganizationID;
+ 
+    pool.getConnection(function (err, connection) {
+
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @deleteWorkingHour=?; set @employeekey=?; set @OrganizationID=?;  call usp_deleteWorkingHours(@deleteWorkingHour,@employeekey,@OrganizationID)', [deleteWorkingHour, employeekey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("deleteWorkingHours " + JSON.stringify(rows[3]));
+                    res.end(JSON.stringify(rows[3]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.options('/workingHourDateFilter', supportCrossOriginScript);
+app.post(securedpath + '/workingHourDateFilter', supportCrossOriginScript, function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+  
+    var fromDate = req.body.fromDate;
+    var toDate = req.body.toDate;
+    var empkey = req.body.empkey;
+    var OrganizationID = req.body.OrganizationID;
+ 
+    pool.getConnection(function (err, connection) {
+
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @fromDate=?; set @toDate=?;set@empkey=?; set @OrganizationID=?;  call usp_workingHourDateFilter(@fromDate,@toDate,@empkey,@OrganizationID)', [fromDate, toDate,empkey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("deleteWorkingHours " + JSON.stringify(rows[4]));
+                    res.end(JSON.stringify(rows[4]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.options('/createEmpWorkingHour', supportCrossOriginScript);
+app.post(securedpath + '/createEmpWorkingHour', supportCrossOriginScript, function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+  
+    var date = req.body.date;
+    var startTime = req.body.startTime;
+    var endTime = req.body.endTime;
+    var CreEmp = req.body.CreEmp;
+    var metaCreate = req.body.metaCreate;
+    var OrganizationID = req.body.OrganizationID;
+ 
+    pool.getConnection(function (err, connection) {
+
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @date=?; set @startTime=?;set@endTime=?; set @CreEmp=?; set@metaCreate=?; set@OrganizationID=?;  call usp_createEmpWorkingHour(@date,@startTime,@endTime,@CreEmp,@metaCreate,@OrganizationID)', [date, startTime,endTime, CreEmp,metaCreate,OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("deleteWorkingHours " + JSON.stringify(rows[6]));
+                    res.end(JSON.stringify(rows[6]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //********Scheduler************API BY varun ends
 
 //********Scheduler************API by Rodney starts

@@ -23,6 +23,7 @@ import { TradeRequestsfromEmployeesComponent } from './trade-requestsfrom-employ
 import { ViewEmployeeWeeklyScheduleComponent } from './view-employee-weekly-schedule/view-employee-weekly-schedule.component';
 import { ViewEmployeeWeeklyScheduleDetailComponent } from './view-employee-weekly-schedule-detail/view-employee-weekly-schedule-detail.component';
 import { EmployeeWorkingHourListComponent } from './employee-working-hour-list/employee-working-hour-list.component';
+import { EmployeeWorkingHourAddComponent } from './employee-working-hour-add/employee-working-hour-add.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { EmployeeWorkingHourListComponent } from './employee-working-hour-list/e
     ViewEmployeeWeeklyScheduleComponent,
     ViewEmployeeWeeklyScheduleDetailComponent,
     EmployeeWorkingHourListComponent,
+    EmployeeWorkingHourAddComponent,
 
   ]
 })

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { EmployeeWorkingHourListModule } from '../../../manager/people/employee-working-hour-list/employee-working-hour-list.module';
+import { EmployeeWorkingHourAddModule } from '../../../manager/people/employee-working-hour-add/employee-working-hour-add.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -583,6 +583,11 @@ const routes: Routes = [
         path: 'EmployeeWorkingHourEmpListView/EmployeeWorkingHourList/:EmployeeKey',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/people/employee-working-hour-list/employee-working-hour-list.module#EmployeeWorkingHourListModule',
+      },
+      {
+        path: 'EmployeeWorkingHourEmpListView/EmployeeWorkingHourList/:EmployeeKey/EmployeeWorkingHourAdd/:EmployeeKey',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/people/employee-working-hour-add/employee-working-hour-add.module#EmployeeWorkingHourAddModule',
       }
     ]
   }

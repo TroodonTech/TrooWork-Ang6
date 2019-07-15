@@ -1112,4 +1112,23 @@ export class PeopleServiceService {
       .http
       .get(ConectionSettings.Url + '/searchAllEmployeeWorkingHourList?searchEmployee=' + SearchValue + '&pageno=' + pageno + '&itemsPerPage=' + itemsPerPage + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
+  getWorkingHourListForEmployee(startDT,endDT,selectEmpKey,OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getWorkingHourListForEmployee?startDT=' + startDT + '&endDT=' + endDT +'&selectEmpKey='+selectEmpKey+ '&OrganizationID=' + OrganizationID );
+  }
+  deleteWorkingHours(obj) {
+    const url = ConectionSettings.Url + "/deleteWorkingHours";
+
+    return this.http.post(url, obj);
+  }
+  workingHourDateFilter(obj) {
+    const url = ConectionSettings.Url + "/workingHourDateFilter";
+
+    return this.http.post(url, obj);
+  }
+  createEmpWorkingHour(obj) {
+    const url = ConectionSettings.Url + "/createEmpWorkingHour";
+    return this.http.post(url, obj);
+  }
 }
