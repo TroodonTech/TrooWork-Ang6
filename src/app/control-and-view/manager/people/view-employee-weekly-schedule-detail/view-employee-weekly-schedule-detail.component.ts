@@ -52,6 +52,8 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
 
   employeegrouping: People[];
 
+  exceptionstartdate:Date;
+
   //Author: Prakash Code Starts for Employee Calendar Ends Here
 
   url_base64_decode(str) {
@@ -274,6 +276,7 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
       else {
         this.idscheduler_exception = this.editempdtails.Idscheduler_exception;
         this.idmaster_exception_weekend = '';
+        this.exceptionstartdate=this.editempdtails.exceptionsdate;
         // this.idmaster_exception_weekend = this.editempdtails.Idmaster_exception_weekend;
       }
 
