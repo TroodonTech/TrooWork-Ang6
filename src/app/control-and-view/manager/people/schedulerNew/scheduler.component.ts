@@ -53,6 +53,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
             .header h1 a { text-decoration: none; }
             .header h1 { padding: 0px; margin: 0px; }
             .main { padding: 10px; margin-top: 10px; }
+            
   `]
 })
 export class SchedulerComponent implements AfterViewInit {
@@ -266,6 +267,7 @@ export class SchedulerComponent implements AfterViewInit {
       var dayOfWeek = args.header.start.getDayOfWeek();
       if (dayOfWeek === 0 || dayOfWeek === 6) {
         args.header.backColor = "orange";
+        // args.header.fontWeight = "bold";
       }
     },
   };

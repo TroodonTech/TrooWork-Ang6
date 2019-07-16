@@ -5,9 +5,8 @@ import { DataService } from "./data.service";
 import { SchedulingService } from '../../../service/scheduling.service';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { DatepickerOptions } from 'ng2-datepicker';
-
 @Component({
-  selector: 'view-employee-scheduler-component',
+  selector: 'scheduler-component',
   template: `
   <div style="padding-left: 9rem;padding-right: 9rem;margin-top: 3%;margin-bottom: 3%;">
     <div class="row col-md-12 ">
@@ -28,7 +27,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
           <label>View Range*</label>
            <select [(ngModel)]="Range" (change)='ViewType();empCalendarActivities();' class="form-control col-sm-9 col-md-9 col-lg-9" [value]="value" style="background-color: #d4f4ff;">
               <option value="">--Select--</option>
-              <!-- <option value="Daily">Daily</option> -->
+              <!-- <option value="Daily">Daily</option>-->
               <option value="Week">Week</option>
               <option value="Month">Month</option>
           </select>
@@ -36,11 +35,12 @@ import { DatepickerOptions } from 'ng2-datepicker';
       </div>
     </div>
   </div>
-    
+  
+  
   <daypilot-scheduler [config]="config" [events]="events" #scheduler></daypilot-scheduler>
-`,
+  `,
   styles: [`
-  p, body, td { font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 10pt; }
+   p, body, td { font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 10pt; }
             body { padding: 0px; margin: 0px; background-color: #ffffff; }
             a { color: #1155a3; }
             .space { margin: 10px 0px 10px 0px; }		
@@ -49,10 +49,13 @@ import { DatepickerOptions } from 'ng2-datepicker';
             .header h1 a { text-decoration: none; }
             .header h1 { padding: 0px; margin: 0px; }
             .main { padding: 10px; margin-top: 10px; }
+            
   `]
 })
 export class ViewEmployeeSchedulerComponent implements AfterViewInit {
-
+  constructor(private ds: DataService, private cdr: ChangeDetectorRef, private SchedulingService: SchedulingService) {
+    this.Range = 'Month';
+  }
   @ViewChild("modal") modal: DayPilotModalComponent;
   @ViewChild("scheduler") scheduler: DayPilotSchedulerComponent;
   @ViewChild('basicModal') basicModal: ModalDirective;
@@ -138,82 +141,27 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     treePreventParentUsage: true,
     EventMovingStartEndEnabled: true,
     bubble: new DayPilot.Bubble({
-      animation: "fast"
+      animation: "fast",
+      animated: false
     }),
     timeRangeSelectedHandling: 'Hold',
-    // contextMenu: new DayPilot.Menu({
-    //   items: [
-        //  { text: "Edit", onClick: args => this.edit.show(args.source) },
-    //   ]
-    // }),
-    // onEventClicked: args => {
-    //   this.edit.show(args.e).then(data1 => {
-
-    //     this.empCalendarActivities();
-    //   });
-    // },
-    // onTimeRangeSelect: args => {
-
-    // },
-    // onTimeRangeSelected: args => {
-    //   this.create.show(args);
-    // },
-    onEventMoved: args => {
-
-
-    },
-    onEventMove: args => {
-      console.log("moving MovingFromEmpKey**" + this.MovingFromEmpKey + " " + this.MovingFromDate);
-      console.log("moving MovingToEmpKey**" + this.MovingToEmpKey + " " + this.MovingToDate);
-      for (var i = 0; i < this.AllEmployeeList.length; i++) {
-        if (this.AllEmployeeList[i].id == this.MovingFromEmpKey) {
-          this.FromEmp = this.AllEmployeeList[i].name;
-        }
-        if (this.AllEmployeeList[i].id == this.MovingToEmpKey) {
-          this.ToEmp = this.AllEmployeeList[i].name;
-        }
-      }
-
-      let obj = {
-        resourceEmployee: this.MovingToEmpKey,
-        start: this.MovingToDate,
-        ScheduleNameKey: args.e.data.ScheduleNameKey,
-        MetaEmp: this.employeekey,
-        OrganizationID: this.OrganizationID
-      };
-
-      var confirmBox = confirm("Do you want to Move" + " ?");
-      if (confirmBox == true) {
-
-        this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
-          this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
-            this.empCalendarActivities();
-            alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
-
-          });
-        });
-      } else {
-        args.preventDefault();
-      }
-    },
-    onEventMoving: args => {
-
-      this.MovingFromEmpKey = args.e.data.resource;
-      this.MovingToEmpKey = args.resource;
-
-      this.MovingToDate = this.convert_DT(args.end.value);
-      this.MovingFromDate = this.convert_DT(args.e.data.start);
-      console.log(" date :" + this.MovingToDate);
-    },
     onEventResize: args => {
       args.cell.disabled = true;
-    }
-
+    },
+    onBeforeCellRender: args => {
+      if (args.cell.start.getDayOfWeek() === 6 || args.cell.start.getDayOfWeek() === 0) {
+        args.cell.backColor = "orange";
+      }
+    },
+    onBeforeTimeHeaderRender: args => {
+      var dayOfWeek = args.header.start.getDayOfWeek();
+      if (dayOfWeek === 0 || dayOfWeek === 6) {
+        args.header.backColor = "orange";
+        // args.header.fontWeight = "bold";
+      }
+    },
   };
 
-  constructor(private ds: DataService, private cdr: ChangeDetectorRef, private SchedulingService: SchedulingService) {
-    this.Range = 'Month';
-  }
   ngAfterViewInit(): void {
 
     //token starts....
@@ -231,18 +179,33 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     this.ds.getEvents(from, to).subscribe(result => {
       this.events = result;
     });
-
+    this.config.resources = [];
     this.SchedulingService
       .employeesViewOnlyForScheduler(this.employeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
+      .subscribe((data1: any[]) => {
+        this.config.resources.push({ name: data1[0].Description, id: data1[0].Idemployeegrouping, "expanded": true, children: data1, backColor: data1[0].backColor });
 
-        this.AllEmployeeList = data;
-        this.config.resources = [{ name: 'Shift-01', id: 'GA', "expanded": true, children: data },
-        { name: 'Shift-02', id: 'GA', "expanded": true, children: data }
-        ]
+
+
+
+        this.SchedulingService.SchedulerEmployeeGroups(this.employeekey, this.OrganizationID)
+          .subscribe((group: any[]) => {
+            for (var i = 0; i < group.length; i++) {
+
+              this.SchedulingService.employeesForScheduler(group[i].Idemployeegrouping, this.employeekey, this.OrganizationID)
+                .subscribe((data: any[]) => {
+
+                  this.config.resources.push({ name: data[0].Description, id: data[0].Idemployeegrouping, "expanded": true, children: data, backColor: data[0].backColor });
+
+                });
+            }
+          });
+
+
+
       });
-
     this.date = DayPilot.Date.today().firstDayOfMonth();
+
     this.empCalendarActivities();
   }
 
@@ -278,7 +241,7 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
       ];
       this.config.scale = "Day";
       this.config.cellDuration = 120;
-      this.config.cellWidth= 150;
+      this.config.cellWidth = 150;
       this.config.days = DayPilot.Date.today().daysInMonth();
       if (this.date) {
         this.config.startDate = this.date;
@@ -298,10 +261,11 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
       ];
       this.config.scale = "Day";
       this.config.cellDuration = 120;
-      this.config.cellWidth= 200;
+      this.config.cellWidth = 200;
       this.config.days = 7;
       this.config.startDate = this.convert_DT(this.date);
     }
+    // ...
     // else if (this.Range == 'Daily') {
     //   this.config.timeHeaders = [
     //     {
@@ -318,7 +282,6 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     //   ];
     //   this.config.scale = "CellDuration";
     //   this.config.cellDuration = 30;
-    //   this.config.cellWidth= 150;
     //   this.config.days = 1;
     //   if (this.date) {
     //     this.config.startDate = this.date;
@@ -328,6 +291,8 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     //   }
 
     // }
+
+    // ...
   }
   selecteddate() {
     if (this.Range == 'Week') {
@@ -354,4 +319,6 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
         this.events = data;
       });
   }
+
 }
+
