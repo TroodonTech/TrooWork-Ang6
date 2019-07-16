@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SchedulingService } from '../../../service/scheduling.service';
+import { SchedulingService } from '../../../../service/scheduling.service';
 import { ActivatedRoute, Router } from "@angular/router";
-import { People } from '../../../model-class/People';
-import { PeopleServiceService } from '../../../service/people-service.service';
+import { People } from '../../../../model-class/People';
+import { PeopleServiceService } from '../../../../service/people-service.service';
 @Component({
   selector: 'app-editshift',
   templateUrl: './editshift.component.html',
@@ -406,7 +406,7 @@ export class EditshiftComponent implements OnInit {
 
           this.scheduleServ.updateShiftDetails(empschobj).subscribe((data: any[]) => {
             alert("Updated Successfully");
-            this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewShift'] } }]);
+            this.router.navigate(['ManagerDashBoard', { outlets: { ManagerOut: ['ViewShift'] } }]);
           });
         } else {
           alert("Group Name already exists");
@@ -421,6 +421,6 @@ export class EditshiftComponent implements OnInit {
 
   }
   goBack() {
-    this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewShift'] } }]);
+    this.router.navigate(['ManagerDashBoard', { outlets: { ManagerOut: ['ViewShift'] } }]);
   }
 }

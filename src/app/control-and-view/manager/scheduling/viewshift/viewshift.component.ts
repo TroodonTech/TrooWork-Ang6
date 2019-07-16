@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener, Input, ElementRef } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { SchedulingService } from '../../../service/scheduling.service';
+import { SchedulingService } from '../../../../service/scheduling.service';
 @Component({
   selector: 'app-viewshift',
   templateUrl: './viewshift.component.html',

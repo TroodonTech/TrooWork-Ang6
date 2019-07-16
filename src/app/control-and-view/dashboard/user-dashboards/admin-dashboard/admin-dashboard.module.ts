@@ -108,24 +108,7 @@ const routes: Routes = [
 
       },
 
-      {
-        path: 'createshift',
-        outlet: 'AdminOut',
-        loadChildren: '../../../admin/createshift/createshift.module#CreateshiftModule',
 
-      },
-      {
-        path: 'ViewShift',
-        outlet: 'AdminOut',
-        loadChildren: '../../../admin/viewshift/viewshift.module#ViewshiftModule',
-
-      },
-      {
-        path: 'ViewShift/EditShift/:Idemployeeshift',
-        outlet: 'AdminOut',
-        loadChildren: '../../../admin/editshift/editshift.module#EditshiftModule',
-
-      }
     ]
   }
 ];

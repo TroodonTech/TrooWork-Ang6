@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SchedulingService } from '../../../service/scheduling.service';
-import { People } from '../../../model-class/People';
-import { PeopleServiceService } from '../../../service/people-service.service';
+import { SchedulingService } from '../../../../service/scheduling.service';
+import { People } from '../../../../model-class/People';
+import { PeopleServiceService } from '../../../../service/people-service.service';
 import { Router } from "@angular/router";
 @Component({
   selector: 'app-createshift',
@@ -267,7 +267,7 @@ export class CreateshiftComponent implements OnInit {
 
           this.scheduleServ.createEmpShiftwithColourCode(empschobj).subscribe((data: any[]) => {
             alert("Employee Group Name created successfully");
-            this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewShift'] } }]);
+            this.router.navigate(['ManagerDashBoard', { outlets: { ManagerOut: ['ViewShift'] } }]);
             // code for if staying in the same page....starts
             // this.Description = "";
 

@@ -6,7 +6,7 @@ import { ManagerDashBoardComponent } from './manager-dash-board.component';
 
 import { ManualEmployeeLeaveModule } from '../../../manager/people/manual-employee-leave/manual-employee-leave.module';
 
-import { EmployeeWorkingHourListModule } from '../../../manager/people/employee-working-hour-list/employee-working-hour-list.module';
+import { ViewshiftModule } from '../../../manager/scheduling/viewshift/viewshift.module';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
   
@@ -597,6 +597,24 @@ const routes: Routes = [
         path: 'EmployeeWorkingHourEmpListView/EmployeeWorkingHourList/:EmployeeKey/EmployeeWorkingHourAdd/:EmployeeKey',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/people/employee-working-hour-add/employee-working-hour-add.module#EmployeeWorkingHourAddModule',
+      },
+      {
+        path: 'createshift',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/scheduling/createshift/createshift.module#CreateshiftModule',
+
+      },
+      {
+        path: 'ViewShift',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/scheduling/viewshift/viewshift.module#ViewshiftModule',
+
+      },
+      {
+        path: 'ViewShift/EditShift/:Idemployeeshift',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/scheduling/editshift/editshift.module#EditshiftModule',
+
       }
     ]
   }
