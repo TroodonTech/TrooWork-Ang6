@@ -16943,8 +16943,7 @@ app.post(securedpath + '/employeecreateeditweeklyschedule', supportCrossOriginSc
     var idscheduler_exception = req.body.idscheduler_exception;
     var idemployeegrouping = req.body.idemployeegrouping;
     var exceptiostartdate = req.body.exceptionstartdate;
-    console.log("in serveerjs" + exceptiostartdate);
-
+    
     pool.getConnection(function (err, connection) {
         if (err) {
 
