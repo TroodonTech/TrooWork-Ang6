@@ -140,19 +140,10 @@ export class PtoRequestActionComponent implements OnInit {
       }
     }
 
-    if (!(this.requestdetailsbyID.StatusComment)) {
-      alert('Comments are not provided !');
-      return;
-    } else {
-      var comments1 = this.requestdetailsbyID.StatusComment.trim();
-      if (!(comments1)) {
-        alert('Comments are not provided !');
-        return;
-      }
-    }
+    
 
 
-    var comments = this.requestdetailsbyID.StatusComment.trim();
+    var comments = this.requestdetailsbyID.StatusComment
     this.PeopleServiceService.saveRequestAction(this.ptorequestDetails$, this.employeekey,
       this.statuscurrentdate, this.convert_DT(this.requestdetailsbyID.ApprovedStartDate), this.convert_DT(this.requestdetailsbyID.ApprovedEndDate),
       this.requestdetailsbyID.Status, comments)

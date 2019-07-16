@@ -74,13 +74,7 @@ export class PtoRequestComponent implements OnInit {
       return;
     }
 
-    if (!(this.ptoreason)) {
-      alert('Reason is not provided !');
-      return;
-    } else if (!(this.ptoreason.trim())) {
-      alert('Reason is not provided !');
-      return;
-    }
+   
 
 
     // if (!(this.comments)) {

@@ -86,13 +86,6 @@ export class PtoRequestEditComponent implements OnInit {
     //   }
     // }
 
-    if (!(this.requestdetails.Reason)) {
-      alert("Reason is not provided");
-      return;
-    } else if (!(this.requestdetails.Reason.trim())) {
-      alert("Reason is not provided");
-      return;
-    }
 
     var curr_date = this.convert_DT(new Date());
     if (this.convert_DT(curr_date) > this.convert_DT(this.requestdetails.StartDate)) {
