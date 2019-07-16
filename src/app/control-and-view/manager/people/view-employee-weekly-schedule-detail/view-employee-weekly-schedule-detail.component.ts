@@ -53,6 +53,8 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
   employeegrouping: People[];
 
   exceptionstartdate:Date;
+  exceptionsdate;
+
 
   //Author: Prakash Code Starts for Employee Calendar Ends Here
 
@@ -126,7 +128,7 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
     }
   }
 
-  createeditweeklyschedule(start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping, exceptionstartdate) {
+  createeditweeklyschedule(start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping, exceptionstdate) {
     this.schedularcount = 0;
 
     //Author: Prakash Code Starts for Employee Calendar Starts Here
@@ -216,10 +218,15 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
     // var empNum ;
     if (!idscheduler_exception) {
       idscheduler_exception = null;
-      exceptionstartdate = null;
+      this.exceptionsdate = null;
     }
+    else
+    {
+      this.exceptionsdate=this.convert_DT(exceptionstdate);
+    }
+
     if (this.schedularcount == 0) {
-      this.PeopleServiceService.Employeecreateeditweeklyschedule(this.empk$,this.employeekey, this.OrganizationID, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping, exceptionstartdate)
+      this.PeopleServiceService.Employeecreateeditweeklyschedule(this.empk$,this.employeekey, this.OrganizationID, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping, this.exceptionsdate)
         .subscribe((data: People[]) => {
           alert("Updated Successfully!");
           // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
@@ -276,8 +283,16 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
       else {
         this.idscheduler_exception = this.editempdtails.Idscheduler_exception;
         this.idmaster_exception_weekend = '';
-        this.exceptionstartdate=this.editempdtails.exceptionsdate;
+        // this.exceptionstartdate=this.editempdtails.exceptionsdate;
         // this.idmaster_exception_weekend = this.editempdtails.Idmaster_exception_weekend;
+      }
+
+      if (!(this.editempdtails.exceptionsdate)) {
+        this.exceptionstartdate=new Date(Date.now());
+      }
+      else
+      {
+        this.exceptionstartdate=this.editempdtails.exceptionsdate;
       }
 
       if (!(this.editempdtails.start_sun_hour)) { this.editempdtails.start_sun_hour = '-1'; }
@@ -373,7 +388,7 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
   GoBack() {
     // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
     if (this.role == 'Manager') {
-      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
+      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ScheduleEmployee'] } }]);
     }
     else if (this.role == 'Employee' && this.IsSupervisor == 1) {
       this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewEmployee'] } }]);

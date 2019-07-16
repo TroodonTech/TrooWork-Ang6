@@ -3,6 +3,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PeopleServiceService } from '../../../../service/people-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-manual-employee-leave',
   templateUrl: './manual-employee-leave.component.html',
@@ -60,7 +61,7 @@ export class ManualEmployeeLeaveComponent implements OnInit {
   }
   public date: Date = new Date(Date.now());
 
-  constructor(private peopleService: PeopleServiceService, private route: ActivatedRoute) {
+  constructor(private peopleService: PeopleServiceService, private route: ActivatedRoute, private _location: Location) {
     this.route.params.subscribe(params => this.empKey$ = params.EmployeeKey);
   }
 
@@ -98,7 +99,11 @@ export class ManualEmployeeLeaveComponent implements OnInit {
     }
     this.peopleService.saveManualLeaveForEmployee(this.reasonID, this.convert_DT(this.fromdate), this.convert_DT(this.todate), this.empKey$, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
       alert("Manual leave for employee inserted successfully...");
-      //redirect to emp view page done by varun.
+
+      this._location.back();
     });
+  }
+  goBack() {
+    this._location.back();
   }
 }
