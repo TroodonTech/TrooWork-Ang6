@@ -183,12 +183,9 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     this.SchedulingService
       .employeesViewOnlyForScheduler(this.employeekey, this.OrganizationID)
       .subscribe((data1: any[]) => {
+        var empGrpID = data1[0].Idemployeegrouping;
         this.config.resources.push({ name: data1[0].Description, id: data1[0].Idemployeegrouping, "expanded": true, children: data1, backColor: data1[0].backColor });
-
-
-
-
-        this.SchedulingService.SchedulerEmployeeGroups(this.employeekey, this.OrganizationID)
+        this.SchedulingService.SchedulerEmployeeGroups_EmpView(empGrpID, this.OrganizationID)
           .subscribe((group: any[]) => {
             for (var i = 0; i < group.length; i++) {
 
