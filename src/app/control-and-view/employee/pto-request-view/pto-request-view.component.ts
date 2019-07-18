@@ -39,16 +39,16 @@ export class PtoRequestViewComponent implements OnInit {
 
   }
   deleteRequest() {
-    this.PeopleServiceService.deletePTORequest(this.deleteRequestKey)
+    this.PeopleServiceService.deletePTORequest(this.deleteRequestKey, this.OrganizationID)
       .subscribe((data) => {
-      alert('PTO Request Deleted Successfully');
-      this.PeopleServiceService.getRequestdetails(this.toServeremployeekey, this.OrganizationID).subscribe((data) => {
-        this.requestdetails = data;
+        alert('PTO Request Deleted Successfully');
+        this.PeopleServiceService.getRequestdetails(this.toServeremployeekey, this.OrganizationID).subscribe((data) => {
+          this.requestdetails = data;
+        });
       });
-    });
   }
   ngOnInit() {
-    
+
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));

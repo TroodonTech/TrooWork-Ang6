@@ -869,10 +869,10 @@ export class PeopleServiceService {
     };
     return this.http.post(url, obj);
   }
-  deletePTORequest(deleteRequestKey) {
+  deletePTORequest(deleteRequestKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/deletePTORequest?deleteRequestKey=' + deleteRequestKey);
+      .get(ConectionSettings.Url + '/deletePTORequest?deleteRequestKey=' + deleteRequestKey + '&OrganizationID=' + orgID);
   }
   getRequestdetailsforManager(empKey, orgID) {
     return this
