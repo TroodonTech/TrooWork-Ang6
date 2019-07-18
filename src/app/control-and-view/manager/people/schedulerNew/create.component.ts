@@ -168,7 +168,17 @@ export class CreateComponent implements OnInit {
       MetaEmp: this.employeekey,
       OrganizationID: this.OrganizationID
     };
-   
+    this.SchedulingService.SchedulerWorkingOffCheck(this.convert_DT(this.Date),this.resource,this.OrganizationID).subscribe(data1 => {
+      if(data1[0].count>0){
+        var confirmBox = confirm("Employee not working. Do you want to Create Schedule ?");
+        if (confirmBox == true) {
+          this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
+            alert("Event has been Created !");
+            this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+          });
+        }
+      }
+   else{
     this.SchedulingService.SchedulerTimeRangeCheck(this.BatchScheduleNameKey,this.convert_DT(this.Date),this.resource,this.OrganizationID).subscribe(data => {
      if(data[0].count>0){
       this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
@@ -190,6 +200,9 @@ export class CreateComponent implements OnInit {
     }
        
     });
+  }
+  });
+
     
   }
 
