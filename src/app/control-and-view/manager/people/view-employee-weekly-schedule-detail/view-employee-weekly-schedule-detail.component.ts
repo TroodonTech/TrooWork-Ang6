@@ -52,7 +52,7 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
 
   employeegrouping: People[];
 
-  exceptionstartdate:Date;
+  exceptionstartdate: Date;
   exceptionsdate;
 
 
@@ -129,6 +129,12 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
   }
 
   createeditweeklyschedule(start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping, exceptionstdate) {
+    
+    if (!(idemployeegrouping)) {
+      alert('Please Select Employee Group');
+      return;
+    }
+
     this.schedularcount = 0;
 
     //Author: Prakash Code Starts for Employee Calendar Starts Here
@@ -220,13 +226,12 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
       idscheduler_exception = null;
       this.exceptionsdate = null;
     }
-    else
-    {
-      this.exceptionsdate=this.convert_DT(exceptionstdate);
+    else {
+      this.exceptionsdate = this.convert_DT(exceptionstdate);
     }
 
     if (this.schedularcount == 0) {
-      this.PeopleServiceService.Employeecreateeditweeklyschedule(this.empk$,this.employeekey, this.OrganizationID, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping, this.exceptionsdate)
+      this.PeopleServiceService.Employeecreateeditweeklyschedule(this.empk$, this.employeekey, this.OrganizationID, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping, this.exceptionsdate)
         .subscribe((data: People[]) => {
           alert("Updated Successfully!");
           // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
@@ -274,7 +279,12 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
 
       //Author: Prakash Code Starts for Employee Calendar Starts Here
 
-      this.idemployeegrouping = this.editempdtails.EmployeeGroupID;
+      if (!(this.editempdtails.EmployeeGroupID)) {
+        this.idemployeegrouping = '';
+      }
+      else {
+        this.idemployeegrouping = this.editempdtails.EmployeeGroupID;
+      }
 
       if (!(this.editempdtails.Idscheduler_exception)) {
         this.idscheduler_exception = '';
@@ -288,11 +298,10 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
       }
 
       if (!(this.editempdtails.exceptionsdate)) {
-        this.exceptionstartdate=new Date(Date.now());
+        this.exceptionstartdate = new Date(Date.now());
       }
-      else
-      {
-        this.exceptionstartdate=this.editempdtails.exceptionsdate;
+      else {
+        this.exceptionstartdate = this.editempdtails.exceptionsdate;
       }
 
       if (!(this.editempdtails.start_sun_hour)) { this.editempdtails.start_sun_hour = '-1'; }
@@ -406,77 +415,81 @@ export class ViewEmployeeWeeklyScheduleDetailComponent implements OnInit {
   }
 
   getweeklyschedulebyonchange(employeegroupid) {
+    if (!employeegroupid) {
 
-    this.PeopleServiceService.getweeklyschedulebyEmployeeGroupid(employeegroupid).subscribe((data: Array<any>) => {
-      this.editempdtails = data[0];
-      // this.BirthDate = this.editempdtails.BirthDate;
-      // this.HireDate = this.editempdtails.HireDate;
-      // this.empNum = this.editempdtails.EmployeeNumber;
-      // if (this.editempdtails.EmployeeStatusKey != 1 && this.editempdtails.EmployeeStatusKey != "") {
-      //   this.statusFlag = true;
-      //   this.remark = this.editempdtails.Remark;
-      // }
+    }
+    else {
+      this.PeopleServiceService.getweeklyschedulebyEmployeeGroupid(employeegroupid).subscribe((data: Array<any>) => {
+        this.editempdtails = data[0];
+        // this.BirthDate = this.editempdtails.BirthDate;
+        // this.HireDate = this.editempdtails.HireDate;
+        // this.empNum = this.editempdtails.EmployeeNumber;
+        // if (this.editempdtails.EmployeeStatusKey != 1 && this.editempdtails.EmployeeStatusKey != "") {
+        //   this.statusFlag = true;
+        //   this.remark = this.editempdtails.Remark;
+        // }
 
-      //Author: Prakash Code Starts for Employee Calendar Starts Here
+        //Author: Prakash Code Starts for Employee Calendar Starts Here
 
-      this.idemployeegrouping = this.editempdtails.EmployeeGroupID;
+        this.idemployeegrouping = this.editempdtails.EmployeeGroupID;
 
-      if (!(this.editempdtails.Idscheduler_exception)) {
-        this.idscheduler_exception = '';
-        this.idmaster_exception_weekend = '';
-      }
-      else {
-        this.idscheduler_exception = this.editempdtails.Idscheduler_exception;
-        this.idmaster_exception_weekend = '';
-        // this.idmaster_exception_weekend = this.editempdtails.Idmaster_exception_weekend;
-      }
+        if (!(this.editempdtails.Idscheduler_exception)) {
+          this.idscheduler_exception = '';
+          this.idmaster_exception_weekend = '';
+        }
+        else {
+          this.idscheduler_exception = this.editempdtails.Idscheduler_exception;
+          this.idmaster_exception_weekend = '';
+          // this.idmaster_exception_weekend = this.editempdtails.Idmaster_exception_weekend;
+        }
 
-      if (!(this.editempdtails.start_sun_hour)) { this.editempdtails.start_sun_hour = '-1'; }
-      if (!(this.editempdtails.start_sun_min)) { this.editempdtails.start_sun_min = '-1'; }
-      if (!(this.editempdtails.start_sun_format)) { this.editempdtails.start_sun_format = 'AM'; }
-      if (!(this.editempdtails.start_mon_hour)) { this.editempdtails.start_mon_hour = '-1'; }
-      if (!(this.editempdtails.start_mon_min)) { this.editempdtails.start_mon_min = '-1'; }
-      if (!(this.editempdtails.start_mon_format)) { this.editempdtails.start_mon_format = 'AM'; }
-      if (!(this.editempdtails.start_tue_hour)) { this.editempdtails.start_tue_hour = '-1'; }
-      if (!(this.editempdtails.start_tue_min)) { this.editempdtails.start_tue_min = '-1'; }
-      if (!(this.editempdtails.start_tue_format)) { this.editempdtails.start_tue_format = 'AM'; }
-      if (!(this.editempdtails.start_wed_hour)) { this.editempdtails.start_wed_hour = '-1'; }
-      if (!(this.editempdtails.start_wed_min)) { this.editempdtails.start_wed_min = '-1'; }
-      if (!(this.editempdtails.start_wed_format)) { this.editempdtails.start_wed_format = 'AM'; }
-      if (!(this.editempdtails.start_thu_hour)) { this.editempdtails.start_thu_hour = '-1'; }
-      if (!(this.editempdtails.start_thu_min)) { this.editempdtails.start_thu_min = '-1'; }
-      if (!(this.editempdtails.start_thu_format)) { this.editempdtails.start_thu_format = 'AM'; }
-      if (!(this.editempdtails.start_fri_hour)) { this.editempdtails.start_fri_hour = '-1'; }
-      if (!(this.editempdtails.start_fri_min)) { this.editempdtails.start_fri_min = '-1'; }
-      if (!(this.editempdtails.start_fri_format)) { this.editempdtails.start_fri_format = 'AM'; }
-      if (!(this.editempdtails.start_sat_hour)) { this.editempdtails.start_sat_hour = '-1'; }
-      if (!(this.editempdtails.start_sat_min)) { this.editempdtails.start_sat_min = '-1'; }
-      if (!(this.editempdtails.start_sat_format)) { this.editempdtails.start_sat_format = 'AM'; }
-      if (!(this.editempdtails.end_sun_hour)) { this.editempdtails.end_sun_hour = '-1'; }
-      if (!(this.editempdtails.end_sun_min)) { this.editempdtails.end_sun_min = '-1'; }
-      if (!(this.editempdtails.end_sun_format)) { this.editempdtails.end_sun_format = 'AM'; }
-      if (!(this.editempdtails.end_mon_hour)) { this.editempdtails.end_mon_hour = '-1'; }
-      if (!(this.editempdtails.end_mon_min)) { this.editempdtails.end_mon_min = '-1'; }
-      if (!(this.editempdtails.end_mon_format)) { this.editempdtails.end_mon_format = 'AM'; }
-      if (!(this.editempdtails.end_tue_hour)) { this.editempdtails.end_tue_hour = '-1'; }
-      if (!(this.editempdtails.end_tue_min)) { this.editempdtails.end_tue_min = '-1'; }
-      if (!(this.editempdtails.end_tue_format)) { this.editempdtails.end_tue_format = 'AM'; }
-      if (!(this.editempdtails.end_wed_hour)) { this.editempdtails.end_wed_hour = '-1'; }
-      if (!(this.editempdtails.end_wed_min)) { this.editempdtails.end_wed_min = '-1'; }
-      if (!(this.editempdtails.end_wed_format)) { this.editempdtails.end_wed_format = 'AM'; }
-      if (!(this.editempdtails.end_thu_hour)) { this.editempdtails.end_thu_hour = '-1'; }
-      if (!(this.editempdtails.end_thu_min)) { this.editempdtails.end_thu_min = '-1'; }
-      if (!(this.editempdtails.end_thu_format)) { this.editempdtails.end_thu_format = 'AM'; }
-      if (!(this.editempdtails.end_fri_hour)) { this.editempdtails.end_fri_hour = '-1'; }
-      if (!(this.editempdtails.end_fri_min)) { this.editempdtails.end_fri_min = '-1'; }
-      if (!(this.editempdtails.end_fri_format)) { this.editempdtails.end_fri_format = 'AM'; }
-      if (!(this.editempdtails.end_sat_hour)) { this.editempdtails.end_sat_hour = '-1'; }
-      if (!(this.editempdtails.end_sat_min)) { this.editempdtails.end_sat_min = '-1'; }
-      if (!(this.editempdtails.end_sat_format)) { this.editempdtails.end_sat_format = 'AM'; }
+        if (!(this.editempdtails.start_sun_hour)) { this.editempdtails.start_sun_hour = '-1'; }
+        if (!(this.editempdtails.start_sun_min)) { this.editempdtails.start_sun_min = '-1'; }
+        if (!(this.editempdtails.start_sun_format)) { this.editempdtails.start_sun_format = 'AM'; }
+        if (!(this.editempdtails.start_mon_hour)) { this.editempdtails.start_mon_hour = '-1'; }
+        if (!(this.editempdtails.start_mon_min)) { this.editempdtails.start_mon_min = '-1'; }
+        if (!(this.editempdtails.start_mon_format)) { this.editempdtails.start_mon_format = 'AM'; }
+        if (!(this.editempdtails.start_tue_hour)) { this.editempdtails.start_tue_hour = '-1'; }
+        if (!(this.editempdtails.start_tue_min)) { this.editempdtails.start_tue_min = '-1'; }
+        if (!(this.editempdtails.start_tue_format)) { this.editempdtails.start_tue_format = 'AM'; }
+        if (!(this.editempdtails.start_wed_hour)) { this.editempdtails.start_wed_hour = '-1'; }
+        if (!(this.editempdtails.start_wed_min)) { this.editempdtails.start_wed_min = '-1'; }
+        if (!(this.editempdtails.start_wed_format)) { this.editempdtails.start_wed_format = 'AM'; }
+        if (!(this.editempdtails.start_thu_hour)) { this.editempdtails.start_thu_hour = '-1'; }
+        if (!(this.editempdtails.start_thu_min)) { this.editempdtails.start_thu_min = '-1'; }
+        if (!(this.editempdtails.start_thu_format)) { this.editempdtails.start_thu_format = 'AM'; }
+        if (!(this.editempdtails.start_fri_hour)) { this.editempdtails.start_fri_hour = '-1'; }
+        if (!(this.editempdtails.start_fri_min)) { this.editempdtails.start_fri_min = '-1'; }
+        if (!(this.editempdtails.start_fri_format)) { this.editempdtails.start_fri_format = 'AM'; }
+        if (!(this.editempdtails.start_sat_hour)) { this.editempdtails.start_sat_hour = '-1'; }
+        if (!(this.editempdtails.start_sat_min)) { this.editempdtails.start_sat_min = '-1'; }
+        if (!(this.editempdtails.start_sat_format)) { this.editempdtails.start_sat_format = 'AM'; }
+        if (!(this.editempdtails.end_sun_hour)) { this.editempdtails.end_sun_hour = '-1'; }
+        if (!(this.editempdtails.end_sun_min)) { this.editempdtails.end_sun_min = '-1'; }
+        if (!(this.editempdtails.end_sun_format)) { this.editempdtails.end_sun_format = 'AM'; }
+        if (!(this.editempdtails.end_mon_hour)) { this.editempdtails.end_mon_hour = '-1'; }
+        if (!(this.editempdtails.end_mon_min)) { this.editempdtails.end_mon_min = '-1'; }
+        if (!(this.editempdtails.end_mon_format)) { this.editempdtails.end_mon_format = 'AM'; }
+        if (!(this.editempdtails.end_tue_hour)) { this.editempdtails.end_tue_hour = '-1'; }
+        if (!(this.editempdtails.end_tue_min)) { this.editempdtails.end_tue_min = '-1'; }
+        if (!(this.editempdtails.end_tue_format)) { this.editempdtails.end_tue_format = 'AM'; }
+        if (!(this.editempdtails.end_wed_hour)) { this.editempdtails.end_wed_hour = '-1'; }
+        if (!(this.editempdtails.end_wed_min)) { this.editempdtails.end_wed_min = '-1'; }
+        if (!(this.editempdtails.end_wed_format)) { this.editempdtails.end_wed_format = 'AM'; }
+        if (!(this.editempdtails.end_thu_hour)) { this.editempdtails.end_thu_hour = '-1'; }
+        if (!(this.editempdtails.end_thu_min)) { this.editempdtails.end_thu_min = '-1'; }
+        if (!(this.editempdtails.end_thu_format)) { this.editempdtails.end_thu_format = 'AM'; }
+        if (!(this.editempdtails.end_fri_hour)) { this.editempdtails.end_fri_hour = '-1'; }
+        if (!(this.editempdtails.end_fri_min)) { this.editempdtails.end_fri_min = '-1'; }
+        if (!(this.editempdtails.end_fri_format)) { this.editempdtails.end_fri_format = 'AM'; }
+        if (!(this.editempdtails.end_sat_hour)) { this.editempdtails.end_sat_hour = '-1'; }
+        if (!(this.editempdtails.end_sat_min)) { this.editempdtails.end_sat_min = '-1'; }
+        if (!(this.editempdtails.end_sat_format)) { this.editempdtails.end_sat_format = 'AM'; }
 
-      //Author: Prakash Code Starts for Employee Calendar Ends Here
+        //Author: Prakash Code Starts for Employee Calendar Ends Here
 
-    });
+      });
+    }
   }
 
 }

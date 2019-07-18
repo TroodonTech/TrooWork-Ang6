@@ -309,10 +309,10 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/SchedulerEmployeeGroups?empKey=' + empKey + '&OrganizationID=' + OrganizationID);
   }
-  SchedulerTimeRangeCheck(ScheduleNameKey,Date,empKey,OrganizationID) {
+  SchedulerTimeRangeCheck(ScheduleNameKey, Date, empKey, OrganizationID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/SchedulerTimeRangeCheck?ScheduleNameKey=' + ScheduleNameKey +'&Date='+Date+'&empKey='+empKey+ '&OrganizationID=' + OrganizationID);
+      .get(ConectionSettings.Url + '/SchedulerTimeRangeCheck?ScheduleNameKey=' + ScheduleNameKey + '&Date=' + Date + '&empKey=' + empKey + '&OrganizationID=' + OrganizationID);
   }
   SchedulerWorkingOffCheck(Date,empKey,OrganizationID) {
     return this
@@ -343,6 +343,11 @@ export class SchedulingService {
     return this.
       http.
       get(ConectionSettings.Url + '/checkForEmpGrpDuplicate?groupname=' + groupName + '&OrganizationID=' + orgID);
+  }
+  SchedulerEmployeeGroups_EmpView(groupID, OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/SchedulerEmployeeGroups_EmpView?grpID=' + groupID + '&OrganizationID=' + OrganizationID);
   }
   // @Author:Rodney ends
 }
