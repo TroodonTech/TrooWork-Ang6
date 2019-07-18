@@ -314,6 +314,11 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/SchedulerTimeRangeCheck?ScheduleNameKey=' + ScheduleNameKey + '&Date=' + Date + '&empKey=' + empKey + '&OrganizationID=' + OrganizationID);
   }
+  SchedulerWorkingOffCheck(Date,empKey,OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/SchedulerWorkingOffCheck?Date='+Date+'&empKey='+empKey+ '&OrganizationID=' + OrganizationID);
+  }
   //varun code ends
 
   // @Author:Rodney starts
