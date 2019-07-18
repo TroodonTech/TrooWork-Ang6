@@ -16296,6 +16296,7 @@ app.get(securedpath + '/deletePTORequest', function (req, res) {
 app.get(securedpath + '/getRequestdetailsforManager', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var employeekey = url.parse(req.url, true).query['employeekey'];
     pool.getConnection(function (err, connection) {
         if (err) {
 
@@ -16303,14 +16304,14 @@ app.get(securedpath + '/getRequestdetailsforManager', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @OrganizationID=?;call usp_getRequestdetailsforManager(@OrganizationID)', [OrganizationID], function (err, rows) {
+            connection.query('set @OrganizationID=?;set @employeekey=?;call usp_getRequestdetailsforManager(@OrganizationID,@employeekey)', [OrganizationID,employeekey], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
 
 
-                    res.end(JSON.stringify(rows[1]));
+                    res.end(JSON.stringify(rows[2]));
 
 
                 }

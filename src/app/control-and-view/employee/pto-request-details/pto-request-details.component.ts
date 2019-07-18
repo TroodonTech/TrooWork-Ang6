@@ -61,28 +61,34 @@ export class PtoRequestDetailsComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(public PeopleServiceService:PeopleServiceService, private router:Router , private route:ActivatedRoute) { 
+  constructor(public PeopleServiceService: PeopleServiceService, private router: Router, private route: ActivatedRoute) {
     this.route.params.subscribe(params => this.ptorequestID$ = params.requestID);
   }
 
   goBack() {
-    this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
+    // this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
+
+    if (this.role == 'Employee' && this.IsSupervisor == 0) {
+      this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
+    } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewPtoRequest'] } }]);
+    }
   }
 
   ngOnInit() {
 
-  var token = localStorage.getItem('token');
-  var encodedProfile = token.split('.')[1];
-  var profile = JSON.parse(this.url_base64_decode(encodedProfile));
-  this.role = profile.role;
-  this.IsSupervisor = profile.IsSupervisor;
-  this.name = profile.username;
-  this.toServeremployeekey = profile.employeekey;
-  this.OrganizationID = profile.OrganizationID;
-  this.editflag=false;
- 
-  this.PeopleServiceService.getRequestInfoforEmployee(this.ptorequestID$).subscribe((data) => {
-    this.requestdetails = data[0];
+    var token = localStorage.getItem('token');
+    var encodedProfile = token.split('.')[1];
+    var profile = JSON.parse(this.url_base64_decode(encodedProfile));
+    this.role = profile.role;
+    this.IsSupervisor = profile.IsSupervisor;
+    this.name = profile.username;
+    this.toServeremployeekey = profile.employeekey;
+    this.OrganizationID = profile.OrganizationID;
+    this.editflag = false;
+
+    this.PeopleServiceService.getRequestInfoforEmployee(this.ptorequestID$).subscribe((data) => {
+      this.requestdetails = data[0];
     });
   }
 }

@@ -303,6 +303,41 @@ const routes: Routes = [
         loadChildren: '../../../manager/people/meeting-training-edit/meeting-training-edit.module#MeetingTrainingEditModule',
 
       },
+      {
+        path: 'Scheduler',
+        outlet: 'Superout',
+        loadChildren: '../../../manager/people/schedulerNew/scheduler.module#SchedulerModule',
+      },
+      {
+        path: 'RequestsFromEmployees',
+        outlet: 'Superout',
+        loadChildren: '../../../manager/people/pto-requestsfrom-employees/ptorequestsfromemployees.module#PtorequestsfromemployeesModule',
+      },
+      {
+        path: 'RequestsFromEmployees/PTORequestAction/:requestID',
+        outlet: 'Superout',
+        loadChildren: '../../../manager/people/pto-request-action/pto-request-action.module#PtoRequestActionModule',
+      },
+      {
+        path: 'PtoRequest',
+        outlet: 'Superout',
+        loadChildren: '../../../employee/pto-request/pto-request.module#PtoRequestModule',
+      },
+      {
+        path: 'ViewPtoRequest',
+        outlet: 'Superout',
+        loadChildren: '../../../employee/pto-request-view/pto-request-view.module#PtoRequestViewModule',
+      },
+      {
+        path: 'ViewPtoRequest/PTORequestDetails/:requestID',
+        outlet: 'Superout',
+        loadChildren: '../../../employee/pto-request-details/pto-request-details.module#PtoRequestDetailsModule',
+      },
+      {
+        path: 'ViewPtoRequest/PTORequestEdit/:requestID',
+        outlet: 'Superout',
+        loadChildren: '../../../employee/pto-request-edit/pto-request-edit.module#PtoRequestEditModule',
+      },
     ]
   }
 ];

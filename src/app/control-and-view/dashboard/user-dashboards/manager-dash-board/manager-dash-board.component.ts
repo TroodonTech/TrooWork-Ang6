@@ -44,17 +44,18 @@ export class ManagerDashBoardComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
+    this.scheduleIcon = profile.isemployeecalendar;
 
     this.loginService
       .getEmpNameForWelcomeMessage(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.empName = data[0].EmpName;
       });
-      this.loginService
-      .schedulingIcons(this.employeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.scheduleIcon = data[0].IsEmployeeCalendar;
-      });
+    // this.loginService
+    // .schedulingIcons(this.employeekey, this.OrganizationID)
+    // .subscribe((data: any[]) => {
+    //   this.scheduleIcon = data[0].IsEmployeeCalendar;
+    // });
   }
 
 }

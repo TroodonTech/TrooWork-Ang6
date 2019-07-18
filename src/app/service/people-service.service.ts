@@ -874,10 +874,10 @@ export class PeopleServiceService {
       .http
       .get(ConectionSettings.Url + '/deletePTORequest?deleteRequestKey=' + deleteRequestKey);
   }
-  getRequestdetailsforManager(orgID) {
+  getRequestdetailsforManager(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/getRequestdetailsforManager?OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/getRequestdetailsforManager?OrganizationID=' + orgID + '&employeekey=' + empKey);
   }
   getRequestdetailsbyID(ptorequestDetails$) {
     return this
@@ -1102,7 +1102,7 @@ export class PeopleServiceService {
       .get(ConectionSettings.Url + '/getweeklyschedulebyEmployeeGroupid?SearchKey=' + employeegroupid);
   }
   Employeecreateeditweeklyschedule(empk, metaupdatekey, orgid, start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idemployeegrouping, exceptionstartdate) {
-    console.log("inservice "+exceptionstartdate)
+    console.log("inservice " + exceptionstartdate)
     const url = ConectionSettings.Url + "/employeecreateeditweeklyschedule";
     const obj = {
       EmployeeKey: empk,
@@ -1192,10 +1192,10 @@ export class PeopleServiceService {
       .http
       .get(ConectionSettings.Url + '/searchAllEmployeeWorkingHourList?searchEmployee=' + SearchValue + '&pageno=' + pageno + '&itemsPerPage=' + itemsPerPage + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
-  getWorkingHourListForEmployee(startDT,endDT,selectEmpKey,OrganizationID) {
+  getWorkingHourListForEmployee(startDT, endDT, selectEmpKey, OrganizationID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/getWorkingHourListForEmployee?startDT=' + startDT + '&endDT=' + endDT +'&selectEmpKey='+selectEmpKey+ '&OrganizationID=' + OrganizationID );
+      .get(ConectionSettings.Url + '/getWorkingHourListForEmployee?startDT=' + startDT + '&endDT=' + endDT + '&selectEmpKey=' + selectEmpKey + '&OrganizationID=' + OrganizationID);
   }
   deleteWorkingHours(obj) {
     const url = ConectionSettings.Url + "/deleteWorkingHours";

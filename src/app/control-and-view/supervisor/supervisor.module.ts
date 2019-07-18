@@ -12,6 +12,14 @@ import { TrainingComponent } from './training/training.component';
   imports: [
     CommonModule
   ],
-  declarations: [CreateWorkOrderComponent, CreateQuickWorkOrderComponent, ViewWorkOrderComponent, TrainingComponent,CreateinspectionComponent, ViewinspctnbysprvsrComponent, SupervsrinspectiontemplateComponent]
+  declarations: [
+    CreateWorkOrderComponent,
+    CreateQuickWorkOrderComponent,
+    ViewWorkOrderComponent,
+    TrainingComponent,
+    CreateinspectionComponent,
+    ViewinspctnbysprvsrComponent,
+    SupervsrinspectiontemplateComponent,
+  ]
 })
 export class SupervisorModule { }

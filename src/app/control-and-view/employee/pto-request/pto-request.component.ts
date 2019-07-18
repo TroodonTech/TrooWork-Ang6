@@ -74,7 +74,7 @@ export class PtoRequestComponent implements OnInit {
       return;
     }
 
-   
+
 
 
     // if (!(this.comments)) {
@@ -116,7 +116,13 @@ export class PtoRequestComponent implements OnInit {
       .submitRequest(curr_date, this.toServeremployeekey, this.OrganizationID, this.convert_DT(this.startdate),
         this.convert_DT(this.enddate), requestcomments, this.ptoreason).subscribe((data: any[]) => {
           alert("PTO Request Submitted Successfully");
-          this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
+          // this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
+
+          if (this.role == 'Employee' && this.IsSupervisor == 0) {
+            this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
+          } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+            this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewPtoRequest'] } }]);
+          }
         });
   }
 
