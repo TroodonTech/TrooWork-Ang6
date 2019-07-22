@@ -180,27 +180,24 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
       this.events = result;
     });
     this.config.resources = [];
-    this.SchedulingService
-      .employeesViewOnlyForScheduler(this.employeekey, this.OrganizationID)
-      .subscribe((data1: any[]) => {
-        var empGrpID = data1[0].Idemployeegrouping;
-        this.config.resources.push({ name: data1[0].Description, id: data1[0].Idemployeegrouping, "expanded": true, children: data1, backColor: data1[0].backColor });
-        this.SchedulingService.SchedulerEmployeeGroups_EmpView(empGrpID, this.OrganizationID)
-          .subscribe((group: any[]) => {
-            for (var i = 0; i < group.length; i++) {
+    // this.SchedulingService
+    //   .employeesViewOnlyForScheduler(this.employeekey, this.OrganizationID)
+    //   .subscribe((data1: any[]) => {
+    //     var empGrpID = [];
+    //     empGrpID.push({ name: data1[0].Description, id: data1[0].Idemployeegrouping, "expanded": true, children: data1, backColor: data1[0].backColor });
 
-              this.SchedulingService.employeesForScheduler(group[i].Idemployeegrouping, this.employeekey, this.OrganizationID)
-                .subscribe((data: any[]) => {
-
-                  this.config.resources.push({ name: data[0].Description, id: data[0].Idemployeegrouping, "expanded": true, children: data, backColor: data[0].backColor });
-
-                });
-            }
-          });
-
-
+    //     var new1 = empGrpID;
+    this.SchedulingService.employeesForScheduler('Employee', this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.config.resources = data;
 
       });
+
+
+
+
+
+    // });
     this.date = DayPilot.Date.today().firstDayOfMonth();
 
     this.empCalendarActivities();
