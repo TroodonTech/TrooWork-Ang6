@@ -14,7 +14,7 @@ export class SupervisorDashboardComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  scheduleIcon;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -44,6 +44,7 @@ export class SupervisorDashboardComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
+    this.scheduleIcon = profile.isemployeecalendar;
 
     this.loginService
       .getEmpNameForWelcomeMessage(this.employeekey, this.OrganizationID)

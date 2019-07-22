@@ -98,7 +98,11 @@ export class PtoRequestActionComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['RequestsFromEmployees'] } }]);
+    if (this.role == 'Manager') {
+      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['RequestsFromEmployees'] } }]);
+    } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['RequestsFromEmployees'] } }]);
+    }
   }
 
   constructor(private PeopleServiceService: PeopleServiceService, private route: ActivatedRoute, private router: Router) {
@@ -140,7 +144,7 @@ export class PtoRequestActionComponent implements OnInit {
       }
     }
 
-    
+
 
 
     var comments = this.requestdetailsbyID.StatusComment
@@ -151,7 +155,14 @@ export class PtoRequestActionComponent implements OnInit {
         this.details = data[0];
         alert("Request updated Successfully");
 
-        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['RequestsFromEmployees'] } }]);
+        // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['RequestsFromEmployees'] } }]);
+
+        if (this.role == 'Manager') {
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['RequestsFromEmployees'] } }]);
+        } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['RequestsFromEmployees'] } }]);
+        }
+
       });
   }
 

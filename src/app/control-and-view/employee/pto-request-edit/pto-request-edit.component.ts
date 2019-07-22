@@ -106,15 +106,25 @@ export class PtoRequestEditComponent implements OnInit {
     }
 
     this.PeopleServiceService.setEditedRequest(curr_date, this.ptorequestID$, this.convert_DT(this.requestdetails.StartDate), this.convert_DT(this.requestdetails.EndDate),
-      comments, this.requestdetails.Reason,this.toServeremployeekey).subscribe((data) => {
+      comments, this.requestdetails.Reason, this.toServeremployeekey).subscribe((data) => {
         this.requestdetails = data;
         alert('PTO Request Updated Successfully');
-        this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
+        // this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
+        if (this.role == 'Employee' && this.IsSupervisor == 0) {
+          this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
+        } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewPtoRequest'] } }]);
+        }
       });
   }
 
   goBack() {
-    this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
+    // this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
+    if (this.role == 'Employee' && this.IsSupervisor == 0) {
+      this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
+    } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewPtoRequest'] } }]);
+    }
   }
 
   ngOnInit() {

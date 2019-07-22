@@ -146,7 +146,7 @@ export class EditComponent implements OnInit {
       this.BatchScheduleNameKeyEdit = ev.data.ScheduleNameKey;
       this.ScheduleNameEdit = ev.data.ScheduleName;
       this.DateEdit = this.convert_DT(ev.data.start);
-      this.scheduleOldKey=ev.data.ScheduleNameKey;
+      this.scheduleOldKey = ev.data.ScheduleNameKey;
       // if(this.DateEdit < this.convert_DT(currDate)){
       //   alert("Please check date !");
       //   return;
@@ -171,7 +171,7 @@ export class EditComponent implements OnInit {
     //   return;
     // }
     // modify the original object from [events] which is stored in event.data
-  
+
 
     let obj = {
       resourceEmployee: this.event.data.resource,
@@ -181,32 +181,42 @@ export class EditComponent implements OnInit {
       OrganizationID: this.OrganizationID,
       Assignment_CalenderID: this.event.data.Assignment_CalenderID
     };
-   
-    this.SchedulingService.SchedulerTimeRangeCheck(this.BatchScheduleNameKeyEdit,this.convert_DT(this.event.data.start),this.event.data.resource,this.OrganizationID).subscribe(data => {
-      if(data[0].count>0){
+
+    this.SchedulingService.SchedulerTimeRangeCheck(this.BatchScheduleNameKeyEdit, this.convert_DT(this.event.data.start), this.event.data.resource, this.OrganizationID).subscribe(data => {
+      if (data[0].count > 0) {
         this.SchedulingService.SchedulerEventUpdate(obj).subscribe(data => {
           alert("Event has been Updated !");
-        
-          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+
+          // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+          if (this.role == 'Manager') {
+            this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+          } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+            this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Scheduler'] } }]);
+          }
         });
- 
+
       }
-      else{
-       var confirmBox = confirm("Employee not working in this time range. Do you want to Update Schedule ?");
-       if (confirmBox == true) {
-        this.SchedulingService.SchedulerEventUpdate(obj).subscribe(data => {
-          alert("Event has been Updated !");
-          
-          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
-        });
-       }
-       else{
-        this.BatchScheduleNameKeyEdit= this.scheduleOldKey
-       }
-       
-     }
-        
-     });
+      else {
+        var confirmBox = confirm("Employee not working in this time range. Do you want to Update Schedule ?");
+        if (confirmBox == true) {
+          this.SchedulingService.SchedulerEventUpdate(obj).subscribe(data => {
+            alert("Event has been Updated !");
+
+            // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+            if (this.role == 'Manager') {
+              this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+            } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+              this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Scheduler'] } }]);
+            }
+          });
+        }
+        else {
+          this.BatchScheduleNameKeyEdit = this.scheduleOldKey
+        }
+
+      }
+
+    });
     // this.ds.updateEvent(this.event).subscribe(result => {
     //   this.modal.hide(result);
     // });
@@ -238,7 +248,12 @@ export class EditComponent implements OnInit {
     if (confirmBox == true) {
       this.SchedulingService.SchedulerEventDelete(this.AssignIDForDelete, this.employeekey, this.OrganizationID).subscribe(data => {
         alert("Sucessfully Deleted !");
-        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+        // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+        if (this.role == 'Manager') {
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
+        } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Scheduler'] } }]);
+        }
       });
     }
   }

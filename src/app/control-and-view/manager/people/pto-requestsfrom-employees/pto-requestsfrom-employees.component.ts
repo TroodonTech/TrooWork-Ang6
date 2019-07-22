@@ -51,7 +51,7 @@ export class PtoRequestsfromEmployeesComponent implements OnInit {
   this.employeekey = profile.employeekey;
   this.OrganizationID = profile.OrganizationID;
  
-  this.PeopleServiceService.getRequestdetailsforManager(this.OrganizationID)
+  this.PeopleServiceService.getRequestdetailsforManager(this.employeekey,this.OrganizationID)
     .subscribe((data) => {
     this.requestdetails = data;
     });

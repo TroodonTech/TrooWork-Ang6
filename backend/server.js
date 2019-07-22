@@ -16101,7 +16101,7 @@ app.get(securedpath + '/SchedulerWorkingOffCheck', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set@Date=?; set@empKey=?; set @OrganizationID=?;call usp_SchedulerWorkingOffCheck(@Date,@empKey,@OrganizationID)", [Date,empKey, OrganizationID], function (err, rows) {
+            connection.query("set@Date=?; set@empKey=?; set @OrganizationID=?;call usp_SchedulerWorkingOffCheck(@Date,@empKey,@OrganizationID)", [Date, empKey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -16321,6 +16321,7 @@ app.post(securedpath + '/setEditedRequest', supportCrossOriginScript, function (
 app.get(securedpath + '/deletePTORequest', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     var deleteRequestKey = url.parse(req.url, true).query['deleteRequestKey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
     pool.getConnection(function (err, connection) {
         if (err) {
 
@@ -16328,7 +16329,7 @@ app.get(securedpath + '/deletePTORequest', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @deleteRequestKey=?;call usp_deletePTORequest(@deleteRequestKey)', [deleteRequestKey], function (err, rows) {
+            connection.query('set @deleteRequestKey=?;set @OrganizationID=?; call usp_deletePTORequest(@deleteRequestKey,@OrganizationID)', [deleteRequestKey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -16347,6 +16348,7 @@ app.get(securedpath + '/deletePTORequest', function (req, res) {
 app.get(securedpath + '/getRequestdetailsforManager', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var employeekey = url.parse(req.url, true).query['employeekey'];
     pool.getConnection(function (err, connection) {
         if (err) {
 
@@ -16354,14 +16356,14 @@ app.get(securedpath + '/getRequestdetailsforManager', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @OrganizationID=?;call usp_getRequestdetailsforManager(@OrganizationID)', [OrganizationID], function (err, rows) {
+            connection.query('set @OrganizationID=?;set @employeekey=?;call usp_getRequestdetailsforManager(@OrganizationID,@employeekey)', [OrganizationID, employeekey], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
 
 
-                    res.end(JSON.stringify(rows[1]));
+                    res.end(JSON.stringify(rows[2]));
 
 
                 }
@@ -17021,7 +17023,7 @@ app.post(securedpath + '/employeecreateeditweeklyschedule', supportCrossOriginSc
     var idscheduler_exception = req.body.idscheduler_exception;
     var idemployeegrouping = req.body.idemployeegrouping;
     var exceptiostartdate = req.body.exceptionstartdate;
-    
+
     pool.getConnection(function (err, connection) {
         if (err) {
 

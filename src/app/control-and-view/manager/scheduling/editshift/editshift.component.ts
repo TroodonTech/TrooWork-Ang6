@@ -242,18 +242,10 @@ export class EditshiftComponent implements OnInit {
     if (!(this.edit.Description)) {
       alert("Please enter the Employee Group Name");
       return;
-    } else {
-      if (this.desc !== this.edit.Description) {
-        this.scheduleServ.checkForEmpGrpDuplicate(this.edit.Description, this.OrganizationID).subscribe((data: any[]) => {
-          if (data.length > 0) {
-            alert("Group Name already exists");
-            return;
-          }
-        });
-      }
     }
+
     if (!(this.edit.Colour)) {
-      alert("PLease select a colour");
+      alert("Please select a colour");
       return;
     }
     if (this.edit.Start_sun_hour == '-1' && this.edit.Start_sun_min == '-1' && this.edit.End_sun_hour == '-1' && this.edit.End_sun_min == '-1') {
@@ -351,68 +343,82 @@ export class EditshiftComponent implements OnInit {
     }
     console.log("before if... " + this.schedularcount);
     if (this.schedularcount == 0) {
-      this.scheduleServ.checkForEmpGrpDuplicate(this.Description, this.OrganizationID).subscribe((data: any[]) => {
-        if (data.length == 0) {
-          const empschobj = {
-            start_sun_hour: this.edit.Start_sun_hour,
-            start_sun_min: this.edit.Start_sun_min,
-            start_sun_format: this.edit.Start_sun_format,
-            start_mon_hour: this.edit.Start_mon_hour,
-            start_mon_min: this.edit.Start_mon_min,
-            start_mon_format: this.edit.Start_mon_format,
-            start_tue_hour: this.edit.Start_tue_hour,
-            start_tue_min: this.edit.Start_tue_min,
-            start_tue_format: this.edit.Start_tue_format,
-            start_wed_hour: this.edit.Start_wed_hour,
-            start_wed_min: this.edit.Start_wed_min,
-            start_wed_format: this.edit.Start_wed_format,
-            start_thu_hour: this.edit.Start_thu_hour,
-            start_thu_min: this.edit.Start_thu_min,
-            start_thu_format: this.edit.Start_thu_format,
-            start_fri_hour: this.edit.Start_fri_hour,
-            start_fri_min: this.edit.Start_fri_min,
-            start_fri_format: this.edit.Start_fri_format,
-            start_sat_hour: this.edit.Start_sat_hour,
-            start_sat_min: this.edit.Start_sat_min,
-            start_sat_format: this.edit.Start_sat_format,
-            end_sun_hour: this.edit.End_sun_hour,
-            end_sun_min: this.edit.End_sun_min,
-            end_sun_format: this.edit.End_sun_format,
-            end_mon_hour: this.edit.End_mon_hour,
-            end_mon_min: this.edit.End_mon_min,
-            end_mon_format: this.edit.End_mon_format,
-            end_tue_hour: this.edit.End_tue_hour,
-            end_tue_min: this.edit.End_tue_min,
-            end_tue_format: this.edit.End_tue_format,
-            end_wed_hour: this.edit.End_wed_hour,
-            end_wed_min: this.edit.End_wed_min,
-            end_wed_format: this.edit.End_wed_format,
-            end_thu_hour: this.edit.End_thu_hour,
-            end_thu_min: this.edit.End_thu_min,
-            end_thu_format: this.edit.End_thu_format,
-            end_fri_hour: this.edit.End_fri_hour,
-            end_fri_min: this.edit.End_fri_min,
-            end_fri_format: this.edit.End_fri_format,
-            end_sat_hour: this.edit.End_sat_hour,
-            end_sat_min: this.edit.End_sat_min,
-            end_sat_format: this.edit.End_sat_format,
-            idscheduler_exception: this.Idscheduler_exception,
-            groupId: this.shiftk$,
-            desc: this.edit.Description,
-            color: this.edit.Colour,
-            orgid: this.OrganizationID,
-            empkey: this.employeekey
-          };
-
-          this.scheduleServ.updateShiftDetails(empschobj).subscribe((data: any[]) => {
-            alert("Updated Successfully");
-            this.router.navigate(['ManagerDashBoard', { outlets: { ManagerOut: ['ViewShift'] } }]);
-          });
-        } else {
-          alert("Group Name already exists");
-          return;
-        }
-      });
+      // this.scheduleServ.checkForEmpGrpDuplicate(this.edit.Description, this.OrganizationID).subscribe((data: any[]) => {
+      // if (data.length == 0) {
+      const empschobj = {
+        start_sun_hour: this.edit.Start_sun_hour,
+        start_sun_min: this.edit.Start_sun_min,
+        start_sun_format: this.edit.Start_sun_format,
+        start_mon_hour: this.edit.Start_mon_hour,
+        start_mon_min: this.edit.Start_mon_min,
+        start_mon_format: this.edit.Start_mon_format,
+        start_tue_hour: this.edit.Start_tue_hour,
+        start_tue_min: this.edit.Start_tue_min,
+        start_tue_format: this.edit.Start_tue_format,
+        start_wed_hour: this.edit.Start_wed_hour,
+        start_wed_min: this.edit.Start_wed_min,
+        start_wed_format: this.edit.Start_wed_format,
+        start_thu_hour: this.edit.Start_thu_hour,
+        start_thu_min: this.edit.Start_thu_min,
+        start_thu_format: this.edit.Start_thu_format,
+        start_fri_hour: this.edit.Start_fri_hour,
+        start_fri_min: this.edit.Start_fri_min,
+        start_fri_format: this.edit.Start_fri_format,
+        start_sat_hour: this.edit.Start_sat_hour,
+        start_sat_min: this.edit.Start_sat_min,
+        start_sat_format: this.edit.Start_sat_format,
+        end_sun_hour: this.edit.End_sun_hour,
+        end_sun_min: this.edit.End_sun_min,
+        end_sun_format: this.edit.End_sun_format,
+        end_mon_hour: this.edit.End_mon_hour,
+        end_mon_min: this.edit.End_mon_min,
+        end_mon_format: this.edit.End_mon_format,
+        end_tue_hour: this.edit.End_tue_hour,
+        end_tue_min: this.edit.End_tue_min,
+        end_tue_format: this.edit.End_tue_format,
+        end_wed_hour: this.edit.End_wed_hour,
+        end_wed_min: this.edit.End_wed_min,
+        end_wed_format: this.edit.End_wed_format,
+        end_thu_hour: this.edit.End_thu_hour,
+        end_thu_min: this.edit.End_thu_min,
+        end_thu_format: this.edit.End_thu_format,
+        end_fri_hour: this.edit.End_fri_hour,
+        end_fri_min: this.edit.End_fri_min,
+        end_fri_format: this.edit.End_fri_format,
+        end_sat_hour: this.edit.End_sat_hour,
+        end_sat_min: this.edit.End_sat_min,
+        end_sat_format: this.edit.End_sat_format,
+        idscheduler_exception: this.Idscheduler_exception,
+        groupId: this.shiftk$,
+        desc: this.edit.Description,
+        color: this.edit.Colour,
+        orgid: this.OrganizationID,
+        empkey: this.employeekey
+      };
+      if (this.desc !== this.edit.Description) {
+        this.scheduleServ.checkForEmpGrpDuplicate(this.edit.Description, this.OrganizationID).subscribe((data: any[]) => {
+          if (data.length > 0) {
+            alert("Group Name already exists");
+            return;
+          } else {
+            this.scheduleServ.updateShiftDetails(empschobj).subscribe((data: any[]) => {
+              alert("Updated Successfully");
+              this.router.navigate(['ManagerDashBoard', { outlets: { ManagerOut: ['ViewShift'] } }]);
+            });
+          }
+        });
+      }
+      else {
+        this.scheduleServ.updateShiftDetails(empschobj).subscribe((data: any[]) => {
+          alert("Updated Successfully");
+          this.router.navigate(['ManagerDashBoard', { outlets: { ManagerOut: ['ViewShift'] } }]);
+        });
+      }
+      // } else {
+      //   alert("Group Name already exists");
+      //   return;
+      // }
+      // });
     } else {
       console.log("inside else... " + this.schedularcount);
       alert("Value for weekly schedule is missing somewhere. Please check it!!!");
