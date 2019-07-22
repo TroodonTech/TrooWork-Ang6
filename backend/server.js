@@ -17021,6 +17021,39 @@ app.post(securedpath + '/employeecreateeditweeklyschedule', supportCrossOriginSc
         connection.release();
     });
 });
+
+app.post(securedpath + '/getPtoRequestdetailsforManager', supportCrossOriginScript, function (req, res) {
+
+    var newWOObj = {};
+    newWOObj = req.body;
+    
+    var OrganizationID = newWOObj.OrganizationID;
+    var employeekey = newWOObj.employeekey;
+    var fromdate = newWOObj.fromdate;
+    var todate = newWOObj.todate;
+    var ptostatus = newWOObj.ptoStatus;
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @OrganizationID=?;set @employeekey=?;set @fromdate=?;set @todate=?;set @ptostatus=?;call usp_getPTORequestdetailsforManager(@OrganizationID,@employeekey,@fromdate,@todate,@ptostatus)', [OrganizationID, employeekey, fromdate, todate, ptostatus], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[5]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
 //Author: Prakash Code Starts for Employee Calendar Ends Here
 /*************END MIGRATE CODE**********************************************************/
 //handle generic exceptions

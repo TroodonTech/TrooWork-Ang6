@@ -1,7 +1,44 @@
 <div style="padding-left: 9rem;padding-right: 9rem;">
+  <br><br>
   <div class="row col-md-12 ">
     <h4 style="margin-left: 40%;">VIEW PTO REQUESTS</h4>
   </div>
+  <br><br><br>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem"
+    class="row bg-info col-md-12">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>From Date</label>
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="fromdate"></ng-datepicker>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>To Date</label>
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate"></ng-datepicker>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Status</label>
+        <select [(ngModel)]="ptoStatus" style="background-color: #d4f4ff;" class="form-control">
+          <option value="" selected>--Select--</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+    </div>
+    <div class="row col-md-12">
+      <div style="margin-left: 45%">
+        <button type="button" class="btn btn-success"
+          (click)="viewpto(fromdate,todate,ptoStatus)"><b>GENERATE</b></button>
+      </div>
+    </div>
+
+  </div>
+
   <br>
   <!-- <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12"> -->
   <div style="margin-left: 1.5rem;margin-right: 1.5rem; text-align: center;">
