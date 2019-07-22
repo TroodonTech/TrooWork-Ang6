@@ -15671,13 +15671,36 @@ app.get(securedpath + '/employeesForScheduler', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set@groupID=?;set @empkey=?;set @OrganizationID=?; call usp_employeesForScheduler(@groupID,@empkey,@OrganizationID)', [groupID, empkey, OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+            connection.query('set@groupID=?;set @empkey=?;set @OrganizationID=?; call usp_getEmployeesForScheduler(@groupID,@empkey,@OrganizationID)', [groupID, empkey, OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
+                    console.log("json "+JSON.stringify(rows[3]));
+                    // res.end(JSON.stringify(rows[3]));
+                    var data=rows[3];
+                    var resources=[];                    
+                    var arr=0;
+                    var tempArr=[];                   
+                    var selectedGroup=data[0].Idemployeegrouping;// 1st group Id                   
+                     tempArr[arr]=[];// creating 2D array
+                    for(var i=0;i<data.length;i++){
+                    if(selectedGroup==data[i].Idemployeegrouping){// check for group id                       
+                     tempArr[arr].push(data[i]);
+                    }
+                    else{                       
+                     arr=arr+1;
+                        tempArr[arr]=[];// creating 2D array
+                        var selectedGroup=data[i].Idemployeegrouping           
+                        tempArr[arr].push(data[i]);
+                     }       
+                    }
 
-                    res.end(JSON.stringify(rows[3]));
+                    for(var j=0;j<=arr;j++){// inserting array value to scheduler tree list
+                        resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": true, children: tempArr[j], backColor: tempArr[j][0].backColor });
+                       
+                    }
+                    res.send(resources);  
                 }
             });
         }
