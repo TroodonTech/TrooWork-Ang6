@@ -174,13 +174,14 @@ export class SchedulerComponent implements AfterViewInit {
         .subscribe((data: any[]) => {
 
           if (data[0].count == 0) {
-            this.create.show(args);
-          }
-          else {
             var confirmBox = confirm("Employee not working. Do you want to Create Schedule ?");
             if (confirmBox == true) {
               this.create.show(args);
             }
+
+          }
+          else {
+            this.create.show(args);
           }
 
         });
@@ -208,7 +209,6 @@ export class SchedulerComponent implements AfterViewInit {
         MetaEmp: this.employeekey,
         OrganizationID: this.OrganizationID
       };
-
 
 
       this.SchedulingService.SchedulerTimeRangeCheck(args.e.data.ScheduleNameKey, this.convert_DT(this.MovingToDate), this.MovingToEmpKey, this.OrganizationID).subscribe(data => {
@@ -303,7 +303,7 @@ export class SchedulerComponent implements AfterViewInit {
     this.SchedulingService.employeesForScheduler('Manager', this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
 
-        this.config.resources=data;
+        this.config.resources = data;
       });
 
 
