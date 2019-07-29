@@ -615,6 +615,11 @@ const routes: Routes = [
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/scheduling/editshift/editshift.module#EditshiftModule',
 
+      },
+      {
+        path: 'ViewServiceRequest',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/work-order/view-service-request/view-service-request.module#ViewServiceRequestModule',
       }
     ]
   }

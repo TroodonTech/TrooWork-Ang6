@@ -374,6 +374,18 @@ export class WorkOrderServiceService {
       .get(ConectionSettings.Url+'/metricTypevalues?OrganizationID=' + OrgID);
   }
 
-  
+  getviewWorkorderservicerequest(vpto) {
+    const url = ConectionSettings.Url+'/getviewWorkorderservicerequest';
+    return this
+      .http
+      .post(url,vpto);
+  }
+
+  generateWorkorderbyservicerequest(vpto) {
+    const url = ConectionSettings.Url+'/generateWorkorderbyservicerequest';
+    return this
+      .http
+      .post(url,vpto);
+  }
 
 }
