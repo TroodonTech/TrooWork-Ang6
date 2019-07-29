@@ -16114,6 +16114,40 @@ app.get(securedpath + '/SchedulerWorkingOffCheck', function (req, res) {
         connection.release();
     });
 });
+
+app.options('/addUserWorkRequest', supportCrossOriginScript);
+app.post(securedpath + '/addUserWorkRequest', supportCrossOriginScript, function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var Facility_Key = req.body.Facility_Key;
+    var Floor_Key = req.body.Floor_Key;
+    var Zone_Key = req.body.Zone_Key;
+    var Orgid = req.body.Orgid;
+    var roomKey = req.body.roomKey;
+    var Comments = req.body.Comments;
+    var Datetime = req.body.Datetime;
+
+
+    pool.getConnection(function (err, connection) {
+
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set@Facility_Key=?; set@Floor_Key=?; set@Zone_Key=?;set @Orgid=?; set @roomKey=?;set@Comments=?; set @Datetime=?; call usp_addUserWorkRequest(@Facility_Key,@Floor_Key,@Zone_Key,@Orgid,@roomKey,@Comments,@Datetime)', [Facility_Key,Floor_Key,Zone_Key,Orgid, roomKey, Comments, Datetime], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("deleteWorkingHours " + JSON.stringify(rows[7]));
+                    res.end(JSON.stringify(rows[7]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //********Scheduler************API BY varun ends
 
 //********Scheduler************API by Rodney starts

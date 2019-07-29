@@ -11,6 +11,7 @@ import { TradeRequestViewComponent } from './trade-request-view/trade-request-vi
 import { TradeRequestEditComponent } from './trade-request-edit/trade-request-edit.component';
 import { TradeRequestDetailsComponent } from './trade-request-details/trade-request-details.component';
 import { ViewEmployeeSchedulerComponent } from './view-employee-scheduler/view-employee-scheduler.component';
+import { TradeRequestApproveComponent } from './trade-request-approve/trade-request-approve.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { ViewEmployeeSchedulerComponent } from './view-employee-scheduler/view-e
     TradeRequestViewComponent,
     TradeRequestEditComponent,
     TradeRequestDetailsComponent,
-    ViewEmployeeSchedulerComponent
+    ViewEmployeeSchedulerComponent,
+    TradeRequestApproveComponent
   ]
 })
 export class EmployeeModule { }

@@ -62,6 +62,10 @@
                 <a><input type="submit" mdbBtn color="default" (click)="loginFn(userName.value,passWord.value,tenantID.value)"
                         sclass="waves-light" mdbWavesEffect value="Login"></a>
             </div>
+            <div class=" mt-5 md-form">
+                <a [routerLink]="['Reviews',100,233]" class="btn btn-primary"><b>Review</b></a>
+                <a [routerLink]="['UserWorkRequest',924,1464,4433,134593,233]" class="btn btn-primary"><b>User Work Request</b></a>
+            </div>
         </form>
     </div>
     <div class=" col-md-4 top_margin">
