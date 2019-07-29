@@ -630,7 +630,13 @@ const routes: Routes = [
         path: 'GenerateQRCode/QRCodeView/:RoomKey',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/inventory/qr-code-view/qr-code-view.module#QrCodeViewModule'
+      },
+      {
+        path: 'ViewServiceRequest',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/work-order/view-service-request/view-service-request.module#ViewServiceRequestModule',
       }
+
     ]
   }
 ];
