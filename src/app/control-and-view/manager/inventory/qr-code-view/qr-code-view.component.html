@@ -1,0 +1,22 @@
+<div style="padding-left: 9rem;padding-right: 9rem;">
+
+  <div class="row col-md-12 ">
+    <h4 style="margin-left: 47%">QR CODE</h4>
+  </div>
+
+  <div style="margin-left: 1.5rem; margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem"
+  class="row bg-info col-md-12" id="part1">
+
+    <h5 style="margin-left: 40%"><span style="color: red">{{roomdetailsnamelist.FacilityName}} </span> - <span style="color: blue">{{roomdetailsnamelist.FloorName}}</span>
+      - {{roomdetailsnamelist.RoomId}} </h5>
+
+    <ngx-qrcode style="margin-left: 40%" qrc-element-type="url" [qrc-value]="qrcode" ></ngx-qrcode>
+  </div><br>
+
+  <div class="row col-md-12">
+    <div style="margin-left: 45%;">
+      <button type="button" class="btn btn-success" (click)="captureScreen()">DOWNLOAD</button>
+    </div>
+  </div>
+
+</div>
