@@ -664,4 +664,11 @@ export class InventoryService {
     return this.http.post(url, obj);
   }
   // @rodney ends....
+
+  getRoomDetailsNamesList(RoomKey,OrgID){
+    return this
+    .http
+    .get(ConectionSettings.Url+'/getRoomDetailsNamesList?roomKey=' + RoomKey + '&OrganizationID=' + OrgID);
+  }
+  
 }
