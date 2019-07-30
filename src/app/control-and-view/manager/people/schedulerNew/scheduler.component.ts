@@ -58,7 +58,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
 })
 export class SchedulerComponent implements AfterViewInit {
   constructor(private ds: DataService, private cdr: ChangeDetectorRef, private SchedulingService: SchedulingService) {
-    this.Range = 'Month';
+    this.Range ;
   }
   @ViewChild("modal") modal: DayPilotModalComponent;
   @ViewChild("scheduler") scheduler: DayPilotSchedulerComponent;
@@ -154,10 +154,15 @@ export class SchedulerComponent implements AfterViewInit {
     contextMenu: new DayPilot.Menu({
       items: [
         // { text: "Edit", onClick: args => this.edit.show(args.source) },
-        { text: "Create", onClick: args => this.create.show(args.source.data) }
+        { text: "Create", onClick: args =>{
+          this.ds.setData(this.Range,this.date);
+         this.create.show(args.source.data)
+        }   
+        }
       ]
     }),
     onEventClicked: args => {
+      this.ds.setData(this.Range,this.date);
       this.edit.show(args.e).then(data1 => {
 
         // this.empCalendarActivities();
@@ -176,11 +181,13 @@ export class SchedulerComponent implements AfterViewInit {
           if (data[0].count == 0) {
             var confirmBox = confirm("Employee not working. Do you want to Create Schedule ?");
             if (confirmBox == true) {
+              this.ds.setData(this.Range,this.date);
               this.create.show(args);
             }
 
           }
           else {
+            this.ds.setData(this.Range,this.date);
             this.create.show(args);
           }
 
@@ -298,16 +305,14 @@ export class SchedulerComponent implements AfterViewInit {
     });
     this.config.resources = [];
 
-
-
+  this.Range=  this.ds.getType();
+  this.date=this.ds.getDate();
+  this.ViewType() ;
     this.SchedulingService.employeesForScheduler('Manager', this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
 
         this.config.resources = data;
       });
-
-
-    this.date = DayPilot.Date.today().firstDayOfMonth();
 
     this.empCalendarActivities();
   }
