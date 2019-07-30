@@ -267,7 +267,7 @@ export class SchedulerComponent implements AfterViewInit {
     },
     onBeforeCellRender: args => {
       if (args.cell.start.getDayOfWeek() === 6 || args.cell.start.getDayOfWeek() === 0) {
-        args.cell.backColor = "orange";
+        args.cell.backColor = "white";
       }
     },
     onBeforeTimeHeaderRender: args => {

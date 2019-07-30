@@ -4,16 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
-// import { GenerateQrCodeModule } from "../../../manager/inventory/generate-qr-code/generate-qr-code.module";
-
-import { ManualEmployeeLeaveModule } from '../../../manager/people/manual-employee-leave/manual-employee-leave.module';
-
-import { ViewshiftModule } from '../../../manager/scheduling/viewshift/viewshift.module';
+import { SchedulerReportModule } from '../../../manager/reports/scheduler-report/scheduler-report.module';
 
 // import { QrCodeViewModule } from "../../../manager/inventory/qr-code-view/qr-code-view.module";
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-  
+
 const routes: Routes = [
   {
     path: 'ManagerDashBoard',
@@ -619,6 +615,11 @@ const routes: Routes = [
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/scheduling/editshift/editshift.module#EditshiftModule',
 
+      },
+      {
+        path: 'schedulerReport',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/reports/scheduler-report/scheduler-report.module#SchedulerReportModule',
       },
       {
         path: 'GenerateQRCode',
