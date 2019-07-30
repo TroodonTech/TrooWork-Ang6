@@ -9,14 +9,14 @@ import { PeopleServiceService } from "../../../service/people-service.service";
 export class TradeRequestViewComponent implements OnInit {
   role: String;
   name: String;
-  toServeremployeekey: Number;
+  toServeremployeekey;
   IsSupervisor: Number;
   OrganizationID: Number;
   requestdetails;
   editflag;
   deleteRequestKey;
   OtherEmployeedetails;
-
+checkEmp;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -60,6 +60,7 @@ export class TradeRequestViewComponent implements OnInit {
     this.toServeremployeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
+    this.checkEmp=parseInt(this.toServeremployeekey);
     this.PeopleServiceService.getTradeRequestdetails(this.OrganizationID, this.toServeremployeekey).subscribe((data) => {
       this.requestdetails = data;
     });

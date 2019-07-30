@@ -190,7 +190,7 @@ export class PtoRequestActionComponent implements OnInit {
           this.assignmentdetails1 = data;
           var hi = "";
           for (var i = 0; i < this.assignmentdetails1.length; i++) {
-            hi = hi + (i + 1) + ". " + this.assignmentdetails1[i].BatchSchduleName + "\n";
+            hi = hi + this.assignmentdetails1[i].AssignmentDate + " - " + this.assignmentdetails1[i].BatchSchduleName + "\n";
           }
           this.assignmentdetails = hi;
         } else if (data.length == 0) {

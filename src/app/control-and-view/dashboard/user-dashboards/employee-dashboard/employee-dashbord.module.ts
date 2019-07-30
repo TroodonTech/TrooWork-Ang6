@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { EmployeeDashboardComponent } from './employee-dashboard.component';
-import { ViewEmployeeSchedulerModule  } from '../../../employee/view-employee-scheduler/view-employee-scheduler.module';
+import { TradeRequestApproveModule  } from '../../../employee/trade-request-approve/trade-request-approve.module';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
  const routes: Routes = [
   {
     path: 'EmployeeDashboard',
-    component: EmployeeDashboardComponent,// varun - EmployeeDashboard as parent component
-    children: [ // varun- child components
+    component: EmployeeDashboardComponent,//by varun - EmployeeDashboard as parent component
+    children: [ //by varun- child components
       {
         path: 'Emp_welcomePage',
         outlet: 'EmployeeOut',
@@ -86,9 +86,9 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
         loadChildren: '../../../employee/trade-request-edit/trade-request-edit.module#TradeRequestEditModule',
       },
       {
-        path: 'ViewTradeRequest/TradeRequestDetails/:requestID',
+        path: 'ViewTradeRequest/TradeRequestApprove/:requestID',
         outlet: 'EmployeeOut',
-        loadChildren: '../../../employee/trade-request-details/trade-request-details.module#TradeRequestDetailsModule',
+        loadChildren: '../../../employee/trade-request-approve/trade-request-approve.module#TradeRequestApproveModule',
       },
      ]
   }

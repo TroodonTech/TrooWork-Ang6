@@ -1159,6 +1159,7 @@ export class PeopleServiceService {
     };
     return this.http.post(url, obj);
   }
+
   //Author: Prakash Code Starts for Employee Calendar Ends Here
 
   getAllReasons(OrgID) {
@@ -1211,4 +1212,11 @@ export class PeopleServiceService {
     const url = ConectionSettings.Url + "/createEmpWorkingHour";
     return this.http.post(url, obj);
   }
+  getPTORequestdetailsforManager(vpto) {
+    const url = ConectionSettings.Url+'/getPtoRequestdetailsforManager';
+    return this
+      .http
+      .post(url,vpto);
+  }
+
 }

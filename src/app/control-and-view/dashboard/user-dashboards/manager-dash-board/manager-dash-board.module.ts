@@ -6,6 +6,8 @@ import { ManagerDashBoardComponent } from './manager-dash-board.component';
 
 import { SchedulerReportModule } from '../../../manager/reports/scheduler-report/scheduler-report.module';
 
+// import { QrCodeViewModule } from "../../../manager/inventory/qr-code-view/qr-code-view.module";
+
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -618,8 +620,24 @@ const routes: Routes = [
         path: 'schedulerReport',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/reports/scheduler-report/scheduler-report.module#SchedulerReportModule',
+      },
+      {
+        path: 'GenerateQRCode',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/inventory/generate-qr-code/generate-qr-code.module#GenerateQrCodeModule',
 
+      },
+      {
+        path: 'GenerateQRCode/QRCodeView/:RoomKey',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/inventory/qr-code-view/qr-code-view.module#QrCodeViewModule'
+      },
+      {
+        path: 'ViewServiceRequest',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/work-order/view-service-request/view-service-request.module#ViewServiceRequestModule',
       }
+
     ]
   }
 ];

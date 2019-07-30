@@ -13,5 +13,9 @@ export class ReviewService {
     const url = ConectionSettings.Url+"/addReview";
     return this.http.post(url, obj);
   }
-
+  UserWorkRequest(obj)
+  {
+    const url = ConectionSettings.Url+"/addUserWorkRequest";
+    return this.http.post(url, obj);
+  }
 }

@@ -1,31 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { PeopleServiceService } from "../../../../service/people-service.service";
+import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Input } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { DatepickerOptions } from 'ng2-datepicker';
+import { WorkOrderServiceService } from '../../../../service/work-order-service.service';
+
 @Component({
-  selector: 'app-pto-requestsfrom-employees',
-  templateUrl: './pto-requestsfrom-employees.component.html',
-  styleUrls: ['./pto-requestsfrom-employees.component.scss']
+  selector: 'app-view-service-request',
+  templateUrl: './view-service-request.component.html',
+  styleUrls: ['./view-service-request.component.scss']
 })
-export class PtoRequestsfromEmployeesComponent implements OnInit {
+export class ViewServiceRequestComponent implements OnInit {
 
   role: String;
   name: String;
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-  curr_date;
-  startdate;
-  enddate;
-  assignment;
-  comments;
-  requestdetails;
-  deleterequestKey;
 
   fromdate;
   todate;
-  ptoStatus;
-
+  requestdetails;
   vpto;
+
   options: DatepickerOptions = {
     minYear: 1970,
     maxYear: 2030,
@@ -44,6 +39,7 @@ export class PtoRequestsfromEmployeesComponent implements OnInit {
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
 
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -61,7 +57,7 @@ export class PtoRequestsfromEmployeesComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private PeopleServiceService: PeopleServiceService) { }
+  constructor(private WorkOrderServiceService: WorkOrderServiceService) { }
 
   ngOnInit() {
 
@@ -76,17 +72,15 @@ export class PtoRequestsfromEmployeesComponent implements OnInit {
 
     this.fromdate = new Date(Date.now());
     this.todate = new Date(Date.now());
-    this.ptoStatus = '';
+
 
     this.fromdate = this.convert_DT(this.fromdate);
     this.todate = this.convert_DT(this.todate);
 
-    var pstatus = null;
 
     this.vpto = {
       fromdate: this.fromdate,
       todate: this.todate,
-      ptoStatus: pstatus,
 
       OrganizationID: this.OrganizationID,
       employeekey: this.employeekey
@@ -96,19 +90,14 @@ export class PtoRequestsfromEmployeesComponent implements OnInit {
     //     this.requestdetails = data;
     //   });
 
-    this.PeopleServiceService.getPTORequestdetailsforManager(this.vpto)
+    this.WorkOrderServiceService.getviewWorkorderservicerequest(this.vpto)
       .subscribe((data) => {
         this.requestdetails = data;
       });
 
   }
-  public convert_DT(str) {
-    var date = new Date(str),
-      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-      day = ("0" + date.getDate()).slice(-2);
-    return [date.getFullYear(), mnth, day].join("-");
-  }
-  viewpto(fromdate, todate, ptoStatus) {
+
+  viewserviceRequest(fromdate, todate) {
 
     if ((todate) && (this.convert_DT(fromdate) > this.convert_DT(todate))) {
       todate = null;
@@ -121,28 +110,46 @@ export class PtoRequestsfromEmployeesComponent implements OnInit {
       fdate = this.convert_DT(fromdate);
       tdate = this.convert_DT(todate);
 
-      var pstatus;
-      if (!ptoStatus) {
-        pstatus = null;
-      }
-      else {
-        pstatus = ptoStatus;
-      }
-
       this.vpto = {
         fromdate: fdate,
         todate: tdate,
-        ptoStatus: pstatus,
-
         OrganizationID: this.OrganizationID,
         employeekey: this.employeekey
       };
 
-      this.PeopleServiceService.getPTORequestdetailsforManager(this.vpto)
+      this.WorkOrderServiceService.getviewWorkorderservicerequest(this.vpto)
         .subscribe((data) => {
           this.requestdetails = data;
         });
     }
   }
 
+  createworkorderbyservicerequest(servicerequestid) {
+
+    this.fromdate = new Date(Date.now());
+    this.todate = new Date(Date.now());
+    this.fromdate = this.convert_DT(this.fromdate);
+    this.todate = this.convert_DT(this.todate);
+
+    this.vpto = {
+      fromdate: this.fromdate,
+      todate: this.todate,
+      servicerequestid: servicerequestid,
+      OrganizationID: this.OrganizationID,
+      employeekey: this.employeekey
+    };
+
+    this.WorkOrderServiceService.generateWorkorderbyservicerequest(this.vpto)
+      .subscribe((data) => {
+        this.requestdetails = data;
+      });
+
+  }
+
+  public convert_DT(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
 }
