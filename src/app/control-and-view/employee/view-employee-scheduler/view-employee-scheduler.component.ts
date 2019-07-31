@@ -150,14 +150,15 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     },
     onBeforeCellRender: args => {
       if (args.cell.start.getDayOfWeek() === 6 || args.cell.start.getDayOfWeek() === 0) {
-        args.cell.backColor = "orange";
+        args.cell.backColor = "white";
       }
     },
     onBeforeTimeHeaderRender: args => {
       var dayOfWeek = args.header.start.getDayOfWeek();
       if (dayOfWeek === 0 || dayOfWeek === 6) {
-        args.header.backColor = "orange";
-        // args.header.fontWeight = "bold";
+        if (args.header.level >0) {
+          args.header.backColor = "orange";
+        }
       }
     },
   };

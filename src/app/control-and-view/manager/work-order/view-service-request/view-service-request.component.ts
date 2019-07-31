@@ -21,6 +21,9 @@ export class ViewServiceRequestComponent implements OnInit {
   requestdetails;
   vpto;
 
+  curdate;
+  curtime;
+
   options: DatepickerOptions = {
     minYear: 1970,
     maxYear: 2030,
@@ -39,6 +42,12 @@ export class ViewServiceRequestComponent implements OnInit {
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
 
+  public convert_DT(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -109,7 +118,8 @@ export class ViewServiceRequestComponent implements OnInit {
       var tdate;
       fdate = this.convert_DT(fromdate);
       tdate = this.convert_DT(todate);
-
+      this.fromdate = fdate;
+      this.todate = tdate;
       this.vpto = {
         fromdate: fdate,
         todate: tdate,
@@ -126,14 +136,17 @@ export class ViewServiceRequestComponent implements OnInit {
 
   createworkorderbyservicerequest(servicerequestid) {
 
-    this.fromdate = new Date(Date.now());
-    this.todate = new Date(Date.now());
-    this.fromdate = this.convert_DT(this.fromdate);
-    this.todate = this.convert_DT(this.todate);
+    this.curdate = new Date(Date.now());
 
+    var h = this.curdate.getHours();
+    var mi = this.curdate.getMinutes();
+    var s = this.curdate.getSeconds();
+
+    this.curdate = this.convert_DT(this.curdate);
+    this.curtime = h + ":" + mi + ":" + s;
     this.vpto = {
-      fromdate: this.fromdate,
-      todate: this.todate,
+      date1: this.curdate,
+      time1: this.curtime,
       servicerequestid: servicerequestid,
       OrganizationID: this.OrganizationID,
       employeekey: this.employeekey
@@ -142,14 +155,9 @@ export class ViewServiceRequestComponent implements OnInit {
     this.WorkOrderServiceService.generateWorkorderbyservicerequest(this.vpto)
       .subscribe((data) => {
         this.requestdetails = data;
+        this.viewserviceRequest(this.fromdate, this.todate);
       });
 
   }
 
-  public convert_DT(str) {
-    var date = new Date(str),
-      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-      day = ("0" + date.getDate()).slice(-2);
-    return [date.getFullYear(), mnth, day].join("-");
-  }
 }
