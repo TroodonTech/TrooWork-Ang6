@@ -153,9 +153,12 @@ export class ViewServiceRequestComponent implements OnInit {
     };
 
     this.WorkOrderServiceService.generateWorkorderbyservicerequest(this.vpto)
-      .subscribe((data) => {
+      .subscribe((data: any[]) => {
         this.requestdetails = data;
-        this.viewserviceRequest(this.fromdate, this.todate);
+        if (data.length > 0) {
+          alert("WorkOrder created successfully");
+          this.viewserviceRequest(this.fromdate, this.todate);
+        }
       });
 
   }
