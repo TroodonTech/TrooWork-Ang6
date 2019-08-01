@@ -353,7 +353,7 @@ export class SchedulerComponent implements AfterViewInit {
       this.config.cellWidth = 150;
       this.config.days = DayPilot.Date.today().daysInMonth();
       if (this.date) {
-        this.config.startDate = this.date;
+        this.config.startDate = this.convert_DT(this.date);
       }
       else {
         this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
