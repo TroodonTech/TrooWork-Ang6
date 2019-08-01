@@ -314,10 +314,15 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/SchedulerTimeRangeCheck?ScheduleNameKey=' + ScheduleNameKey + '&Date=' + Date + '&empKey=' + empKey + '&OrganizationID=' + OrganizationID);
   }
-  SchedulerWorkingOffCheck(Date,empKey,OrganizationID) {
+  SchedulerWorkingOffCheck(Date, empKey, OrganizationID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/SchedulerWorkingOffCheck?Date='+Date+'&empKey='+empKey+ '&OrganizationID=' + OrganizationID);
+      .get(ConectionSettings.Url + '/SchedulerWorkingOffCheck?Date=' + Date + '&empKey=' + empKey + '&OrganizationID=' + OrganizationID);
+  }
+  getEmpSchedulerStartDate() {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getEmpSchedulerStartDate');
   }
   //varun code ends
 
@@ -328,10 +333,10 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/employeeCalendarDetailsForScheduler?dateRange=' + dateRange + '&startDate=' + startDate + '&OrganizationID=' + OrgID);
   }
-  empCalendarDetailsForViewOnly(empkey, dateRange, startDate, OrgID) {
+  empCalendarDetailsForViewOnly(empkey, dateRange, startDate,endDate, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/employeeCalendarDetailsForSchedulerOnlyForView?dateRange=' + dateRange + '&startDate=' + startDate + '&empKey=' + empkey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/employeeCalendarDetailsForSchedulerOnlyForView?dateRange=' + dateRange + '&startDate=' + startDate +'&endDate='+endDate+ '&empKey=' + empkey + '&OrganizationID=' + OrgID);
   }
   employeesViewOnlyForScheduler(empkey, orgID) {
     return this
@@ -348,6 +353,46 @@ export class SchedulingService {
     return this
       .http
       .get(ConectionSettings.Url + '/SchedulerEmployeeGroups_EmpView?grpID=' + groupID + '&OrganizationID=' + OrganizationID);
+  }
+  getEmployeesForSchedulerReport(OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getAllEmployeesForSchedulerReport?OrganizationID=' + OrganizationID);
+  }
+  getEmployeesofEmpGroup(GroupID, OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getAllEmployeesofGroupForSchedulerReport?groupID=' + GroupID + '&OrganizationID=' + OrganizationID);
+  }
+  SchedulerEmployeeGroupsForReport(OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/SchedulerEmployeeGroupsForReport?OrganizationID=' + OrganizationID);
+  }
+
+  generateSchedulerReport(fromdate, todate, groupID, empKeys, OrganizationID) {
+    const url = ConectionSettings.Url + "/generateSchedulerReport";
+    const obj = {
+      fromDate: fromdate,
+      toDate: todate,
+      groupId: groupID,
+      empKey: empKeys,
+      organizationID: OrganizationID
+    }
+    return this.http.post(url, obj);
+  }
+
+  iteratedatesForReport(fromdate) {
+
+    const url = ConectionSettings.Url + "/getIteratedDates";
+    const obj = {
+      fromdate: fromdate
+      // todate: todate
+    }
+    return this.http.post(url, obj);
+
+    // return this.
+    //   http.get(ConectionSettings.Url + '/getIteratedDates?fromdate=' + fromdate + '&todate=' + todate);
   }
   // @Author:Rodney ends
 }

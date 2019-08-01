@@ -122,7 +122,6 @@ export class EmployeesDowntimeReportComponent implements OnInit {
       alert("Please check from Date & to date!");
       return;
     }
-    debugger;
     if((this.convert_DT(this.fromdate)>=this.convert_DT(new Date()))||(this.convert_DT(this.todate)>=this.convert_DT(new Date()))){
       alert("Please provide date less than current date!");
       return;

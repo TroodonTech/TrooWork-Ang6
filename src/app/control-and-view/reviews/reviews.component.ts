@@ -53,6 +53,9 @@ export class ReviewsComponent implements OnInit {
     var today_DT = this.convert_DT(new Date());
     var p="";
     p=today_DT+" "+h+":"+mi+":"+s;
+
+
+    
     this.reviewAdd= {
      Orgid : this.OrgId$,
      roomKey : this.rKey$,
@@ -62,6 +65,7 @@ export class ReviewsComponent implements OnInit {
     };
     this.reviewservice.submitReview(this.reviewAdd).subscribe((data: any[]) => {
       alert('Thank you for your valuable feedback !');
+      this.router.navigate(['']);
     });
   }
   ngOnInit() {

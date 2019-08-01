@@ -18,7 +18,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
         <h3 style="text-align: right"></h3>
         <div class="form-group" style="width: 85%;">
           <label>Date*</label>
-           <ng-datepicker [options]="options" position="top-right" [(ngModel)]="date" (ngModelChange)="selecteddate();empCalendarActivities();"></ng-datepicker>
+           <ng-datepicker [options]="options" position="top-right" minDate='CurrentDate' [(ngModel)]="date" (ngModelChange)="selecteddate();empCalendarActivities();"></ng-datepicker>
         </div>
       </div>
       <div class="col-md-6">
@@ -75,7 +75,8 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
   MovingToDate;
   MovingFromDate;
   FromEmp; ToEmp;
-
+  CurrentDate;
+  maxDate;
   convert_DT(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(- 2),
@@ -150,14 +151,15 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     },
     onBeforeCellRender: args => {
       if (args.cell.start.getDayOfWeek() === 6 || args.cell.start.getDayOfWeek() === 0) {
-        args.cell.backColor = "orange";
+        args.cell.backColor = "white";
       }
     },
     onBeforeTimeHeaderRender: args => {
       var dayOfWeek = args.header.start.getDayOfWeek();
       if (dayOfWeek === 0 || dayOfWeek === 6) {
-        args.header.backColor = "orange";
-        // args.header.fontWeight = "bold";
+        if (args.header.level >0) {
+          args.header.backColor = "orange";
+        }
       }
     },
   };
@@ -192,7 +194,10 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
         this.config.resources = data;
 
       });
-
+    this.SchedulingService.getEmpSchedulerStartDate().subscribe((data: any[]) => {
+      this.CurrentDate = data[0].Date;
+      this.empCalendarActivities();
+    });
 
 
 
@@ -200,7 +205,7 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     // });
     this.date = DayPilot.Date.today().firstDayOfMonth();
 
-    this.empCalendarActivities();
+    
   }
 
   createClosed(args) {
@@ -307,8 +312,30 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
   }
 
   empCalendarActivities() {
+    var TempEndDate;
+    var Todate;
+
+    this.maxDate = new Date(this.CurrentDate);
+    this.maxDate.setDate(this.maxDate.getDate() + 55);
+    this.options.maxDate= this.maxDate;
+
+    if (this.Range = 'Month') {
+      TempEndDate = new Date(this.date);
+      TempEndDate.setDate(TempEndDate.getDate() + new Date(this.date.getFullYear(), this.date.getMonth()+1, 0).getDate());
+    }
+    else {
+      TempEndDate = new Date(this.date);
+      TempEndDate.setDate(TempEndDate.getDate() + 7);
+    }
+    if (this.convert_DT(TempEndDate) > this.convert_DT(this.maxDate) ) {
+      Todate = this.maxDate
+    }
+    else {
+      Todate = TempEndDate
+    }
+   
     this.SchedulingService
-      .empCalendarDetailsForViewOnly(this.employeekey, this.Range, this.convert_DT(this.date), this.OrganizationID)
+      .empCalendarDetailsForViewOnly(this.employeekey, this.Range, this.convert_DT(this.date), this.convert_DT(Todate), this.OrganizationID)
       .subscribe((data: any[]) => {
         this.events = data;
       });

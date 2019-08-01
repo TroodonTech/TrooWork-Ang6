@@ -7,11 +7,12 @@ import { ManagerDashBoardComponent } from './manager-dash-board.component';
 import { ManualEmployeeLeaveModule } from '../../../manager/people/manual-employee-leave/manual-employee-leave.module';
 
 import { ViewshiftModule } from '../../../manager/scheduling/viewshift/viewshift.module';
+import { SchedulerReportModule } from '../../../manager/reports/scheduler-report/scheduler-report.module';
 
 import { GenerateQrCodeListModule } from "../../../manager/inventory/generate-qr-code-list/generate-qr-code-list.module";
 import { QrCodeViewListModule } from "../../../manager/inventory/qr-code-view-list/qr-code-view-list.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-  
+
 const routes: Routes = [
   {
     path: 'ManagerDashBoard',
@@ -619,6 +620,11 @@ const routes: Routes = [
 
       },
       {
+        path: 'schedulerReport',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/reports/scheduler-report/scheduler-report.module#SchedulerReportModule',
+      },
+      {
         path: 'GenerateQRCode',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/inventory/generate-qr-code/generate-qr-code.module#GenerateQrCodeModule',
@@ -643,7 +649,14 @@ const routes: Routes = [
         path: 'QrCodeViewList/:QRCodeRoomKey/:checkvaluetag',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/inventory/qr-code-view-list/qr-code-view-list.module#QrCodeViewListModule'
+
+      }, 
+      {
+        path: 'ViewServiceRequest',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/work-order/view-service-request/view-service-request.module#ViewServiceRequestModule',
       }
+
     ]
   }
 ];

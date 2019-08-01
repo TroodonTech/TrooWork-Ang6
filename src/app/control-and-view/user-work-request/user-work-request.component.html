@@ -1,0 +1,45 @@
+<!-- <div style="text-align:center">
+  <h4>USER WORK REQUEST</h4>
+  <div>
+    <div style=" background-color: #FFFFFF;margin-left: 15rem;margin-right: 15rem;  padding-bottom: 1%;">
+
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <h5 style="text-align:right"><label>Comments</label></h5>
+        </div>
+        <div class="col-md-6">
+          <textarea class="form-control" [(ngModel)]="comments"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;">
+    <button type="button" style="text-align:center" class="btn btn-success" (click)="Submit()"><b>SUBMIT</b></button>
+  </div>
+</div> -->
+<br><br><br>
+<div  style=" padding-left: 9rem;padding-right: 9rem;">
+  <!-- <div class="container"> -->
+  <div class="row col-md-12 col-sm-12">
+    <h4 style="margin-left: 42%;">USER WORK REQUEST</h4>
+  </div>
+
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-top: 1%;" class="row bg-info col-md-12">
+
+    <div class="col-md-6 col-sm-6">
+      <div class="form-group" style="margin-left: 40%">
+        <label>Comments</label>
+      </div>
+    </div>
+   
+      <div class="form-group col-md-6 col-sm-6">
+        <textarea class="form-control col-md-12 col-sm-12" maxlength="200" [(ngModel)]="comments" rows="5" ></textarea>
+      </div>
+    
+    <br>
+    <div class="row col-md-12 col-sm-12" style="margin-left: 42%">
+      <a style="color:white !important" class="btn btn-success" (click)="Submit()"><b>SUBMIT</b>
+      </a>
+    </div>
+  </div>
+</div>
