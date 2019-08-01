@@ -338,6 +338,11 @@ const routes: Routes = [
         outlet: 'Superout',
         loadChildren: '../../../employee/pto-request-edit/pto-request-edit.module#PtoRequestEditModule',
       },
+      {
+        path: 'schedulerReport',
+        outlet: 'Superout',
+        loadChildren: '../../../manager/reports/scheduler-report/scheduler-report.module#SchedulerReportModule',
+      },
     ]
   }
 ];

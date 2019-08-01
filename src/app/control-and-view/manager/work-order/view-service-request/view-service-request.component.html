@@ -32,13 +32,13 @@
   <br>
   <!-- <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12"> -->
   <div style="margin-left: 1.5rem;margin-right: 1.5rem; text-align: center;">
-    <table class="table table-responsive table-hover table-bordered table" style="display: inline-table;max-width: 110%;width: 104%;">
+    <table class="table table-responsive table-hover table-bordered table" style="display: inline-table;max-width: 110%;width: 104%">
       <thead class="tableHead">
         <th> Requested Date </th>
         <th> Building - Floor - Zone</th>
         <th> Room </th>
         <th> Description</th>
-        <!-- <th> Action </th> -->
+        <th> Action </th>
       </thead>
       <tbody>
         <tr *ngFor="let x of requestdetails">
@@ -46,7 +46,7 @@
           <td>{{ x.FacilityName }} - {{ x.FloorName }} - {{ x.ZoneName }}</td>
           <td>{{ x.RoomId }}</td>
           <td>{{ x.Requestnotes }}</td>
-          <!-- <td>
+          <td>
             <span *ngIf="x.IsWorkorderCreated === 0">
               <button type="button" class="btn btn-success"
                 (click)="createworkorderbyservicerequest(x.Workorder_servicerequestID,fromdate,todate)"><b>GENERATE WORK
@@ -56,7 +56,7 @@
               WorkOrder Created
             </span>
 
-          </td> -->
+          </td>
         </tr>
         <tr *ngIf="requestdetails?.length == 0">
           <td colspan="4" class="no-data-available">No records found</td>
