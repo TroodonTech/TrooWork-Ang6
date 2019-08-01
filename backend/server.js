@@ -16114,7 +16114,30 @@ app.get(securedpath + '/SchedulerWorkingOffCheck', function (req, res) {
         connection.release();
     });
 });
+app.get(securedpath + '/getEmpSchedulerStartDate', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
 
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("call usp_getEmpSchedulerStartDate()", [], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[0]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 app.options('/addUserWorkRequest', supportCrossOriginScript);
 app.post(securedpath + '/addUserWorkRequest', supportCrossOriginScript, function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -16185,6 +16208,7 @@ app.get(securedpath + '/employeeCalendarDetailsForSchedulerOnlyForView', functio
     var dateRange = url.parse(req.url, true).query['dateRange'];
     var startDate = url.parse(req.url, true).query['startDate'];
     var empKey = url.parse(req.url, true).query['empKey'];
+    var endDate = url.parse(req.url, true).query['endDate'];
     var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
 
     pool.getConnection(function (err, connection) {
@@ -16194,13 +16218,13 @@ app.get(securedpath + '/employeeCalendarDetailsForSchedulerOnlyForView', functio
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @startDate=?;set @dateRange=?; set @empKey=?; set @OrganizationID=?; call usp_getEmpDetailsFromEmpCalendar_EmployeeView(@startDate,@dateRange,@empKey,@OrganizationID)', [startDate, dateRange, empKey, OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+            connection.query('set @startDate=?;set@endDate=?;set @dateRange=?; set @empKey=?; set @OrganizationID=?; call usp_getEmpDetailsFromEmpCalendar_EmployeeView(@startDate,@endDate,@dateRange,@empKey,@OrganizationID)', [startDate,endDate, dateRange, empKey, OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
 
-                    res.end(JSON.stringify(rows[4]));
+                    res.end(JSON.stringify(rows[5]));
                 }
             });
         }

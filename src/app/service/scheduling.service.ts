@@ -319,6 +319,11 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/SchedulerWorkingOffCheck?Date=' + Date + '&empKey=' + empKey + '&OrganizationID=' + OrganizationID);
   }
+  getEmpSchedulerStartDate() {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getEmpSchedulerStartDate');
+  }
   //varun code ends
 
   // @Author:Rodney starts
@@ -328,10 +333,10 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/employeeCalendarDetailsForScheduler?dateRange=' + dateRange + '&startDate=' + startDate + '&OrganizationID=' + OrgID);
   }
-  empCalendarDetailsForViewOnly(empkey, dateRange, startDate, OrgID) {
+  empCalendarDetailsForViewOnly(empkey, dateRange, startDate,endDate, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/employeeCalendarDetailsForSchedulerOnlyForView?dateRange=' + dateRange + '&startDate=' + startDate + '&empKey=' + empkey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/employeeCalendarDetailsForSchedulerOnlyForView?dateRange=' + dateRange + '&startDate=' + startDate +'&endDate='+endDate+ '&empKey=' + empkey + '&OrganizationID=' + OrgID);
   }
   employeesViewOnlyForScheduler(empkey, orgID) {
     return this
