@@ -3,7 +3,7 @@
 <div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <!-- <div class="bg-dark" style="width: 100%;height: 100%;"> -->
 
-  <h4 class="refer"> GENERATE QR CODE </h4>
+  <h4 class="refer"> GENERATE QR CODE LIST</h4>
 
   <div style="margin-left: 1.5rem;padding-right: 2rem; padding-top: 2rem;width: 95.5%" class="row bg-info col-md-12">
 
@@ -86,23 +86,29 @@
         <th> Zone </th>
         <th> Room Type </th>
         <th> Room </th>
-        <th>Generate QR Code</th>
+        <th *ngIf="checkflag==false">Generate WO QR Code</th>
+        <th *ngIf="checkflag==true"> <button class="btn btn-primary button_style" type="button" (click)="GenerateQRCodeRoomList();">
+          Generate WO QR Code</button></th>
+        <th *ngIf="feedcheckflag==false">Generate Feedback QR Code</th>
+        <th *ngIf="feedcheckflag==true"> <button class="btn btn-primary button_style" type="button" (click)="GenerateFeedbackQRCodeRoomList();">
+          Generate Feedback QR Code</button></th>
       </thead>
       <tbody>
-        <tr *ngFor="let x of rooms">
+        <tr *ngFor="let x of rooms; let i=index">
           <td>{{ x.FacilityName }}</td>
           <td>{{ x.FloorName }}</td>
           <td>{{ x.FloorTypeName }}</td>
           <td>{{ x.ZoneName }}</td>
           <td>{{ x.RoomTypeText }}</td>
           <td>{{ x.RoomName }}</td>
-          <td>
-            <a class="btn btn-primary" [routerLink]="['WOQRCodeView', x.RoomKey]"><b>WO Request QR Code</b></a>&nbsp;
-            <a class="btn btn-primary" [routerLink]="['FeedbackQRCodeView', x.RoomKey]"><b>Feedback QR Code</b></a>
-          </td>
+          <td> <input type="checkbox" [(ngModel)]="x.QRCodeCheckValue" [disabled]="feedcheckflag"
+              (change)="toggleVisibility($event); checkBoxValueForQRCode(i,x.QRCodeCheckValue, x.RoomKey);"></td>
+              
+          <td> <input type="checkbox" [(ngModel)]="x.feedbackQRCodeCheckValue" [disabled]="checkflag"
+            (change)="toggleVisibility($event); checkBoxValueForFeedbackQRCode(i,x.feedbackQRCodeCheckValue, x.RoomKey);"></td>
         </tr>
         <tr *ngIf="rooms?.length == 0">
-          <td colspan="7" class="no-data-available">No records found</td>
+          <td colspan="8" class="no-data-available">No records found</td>
         </tr>
       </tbody>
     </table>
@@ -111,3 +117,4 @@
     <button class="btn btn-success" style="float: right;" (click)="nextPage()" *ngIf="showHide2">Next >></button>
   </div>
 </div>
+

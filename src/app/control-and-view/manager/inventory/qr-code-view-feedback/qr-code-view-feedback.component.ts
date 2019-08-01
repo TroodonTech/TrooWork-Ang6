@@ -7,11 +7,12 @@ import html2canvas from 'html2canvas';
 import 'jspdf-autotable';
 
 @Component({
-  selector: 'app-qr-code-view',
-  templateUrl: './qr-code-view.component.html',
-  styleUrls: ['./qr-code-view.component.scss']
+  selector: 'app-qr-code-view-feedback',
+  templateUrl: './qr-code-view-feedback.component.html',
+  styleUrls: ['./qr-code-view-feedback.component.scss']
 })
-export class QrCodeViewComponent implements OnInit {
+export class QrCodeViewFeedbackComponent implements OnInit {
+
 
   qrcode ;
   roomKey$;
@@ -56,7 +57,7 @@ export class QrCodeViewComponent implements OnInit {
       doc.autoTable({
         html: '#contentToConvert',
       });
-      doc.save('WOQRCode.pdf');
+      doc.save('FeedbackQRCode.pdf');
     });
   }
 
@@ -72,12 +73,12 @@ export class QrCodeViewComponent implements OnInit {
 
     this.inventoryService.getRoomDetailsList(this.roomKey$,this.OrganizationID).subscribe((data) => {
       this.roomdetails = data[0];
-        this.qrcode = ConectionSettings.AbsUrl+'/#/UserWorkRequest/'+this.roomdetails.FacilityKey+'/'+this.roomdetails.FloorKey+'/'+this.roomdetails.ZoneKey+'/'+this.roomdetails.RoomTypeKey+'/'+this.OrganizationID+'/'+this.roomKey$+'';
+        this.qrcode = ConectionSettings.AbsUrl+'/#/Reviews/'+this.roomdetails.FacilityKey+'/'+this.roomdetails.FloorKey+'/'+this.roomdetails.ZoneKey+'/'+this.roomdetails.RoomTypeKey+'/'+this.OrganizationID+'/'+this.roomKey$+'';
       });
 
     this.inventoryService.getRoomDetailsNamesList(this.roomKey$,this.OrganizationID).subscribe((data) => {
       this.roomdetailsnamelist = data[0];
     });
   }
-
 }
+
