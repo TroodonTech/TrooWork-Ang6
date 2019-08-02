@@ -26,7 +26,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
         <div class="form-group" style="width: 85%;">
           <label>View Range*</label>
            <select [(ngModel)]="Range" (change)='ViewType();empCalendarActivities();' class="form-control col-sm-9 col-md-9 col-lg-9" [value]="value" style="background-color: #d4f4ff;">
-              <option value="">--Select--</option>
+           <!-- <option value="">--Select--</option> -->
               <!-- <option value="Daily">Daily</option>-->
               <option value="Week">Week</option>
               <option value="Month">Month</option>
@@ -157,7 +157,7 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     onBeforeTimeHeaderRender: args => {
       var dayOfWeek = args.header.start.getDayOfWeek();
       if (dayOfWeek === 0 || dayOfWeek === 6) {
-        if (args.header.level >0) {
+        if (args.header.level > 0) {
           args.header.backColor = "orange";
         }
       }
@@ -205,7 +205,7 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
     // });
     this.date = DayPilot.Date.today().firstDayOfMonth();
 
-    
+
   }
 
   createClosed(args) {
@@ -252,6 +252,10 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
       this.config.timeHeaders = [
         {
           "groupBy": "Month"
+        },
+        {
+          "groupBy": "Day",
+          "format": "dddd"
         },
         {
           "groupBy": "Day",
@@ -317,23 +321,23 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
 
     this.maxDate = new Date(this.CurrentDate);
     this.maxDate.setDate(this.maxDate.getDate() + 55);
-    this.options.maxDate= this.maxDate;
+    this.options.maxDate = this.maxDate;
 
     if (this.Range = 'Month') {
       TempEndDate = new Date(this.date);
-      TempEndDate.setDate(TempEndDate.getDate() + new Date(this.date.getFullYear(), this.date.getMonth()+1, 0).getDate());
+      TempEndDate.setDate(TempEndDate.getDate() + new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDate());
     }
     else {
       TempEndDate = new Date(this.date);
       TempEndDate.setDate(TempEndDate.getDate() + 7);
     }
-    if (this.convert_DT(TempEndDate) > this.convert_DT(this.maxDate) ) {
+    if (this.convert_DT(TempEndDate) > this.convert_DT(this.maxDate)) {
       Todate = this.maxDate
     }
     else {
       Todate = TempEndDate
     }
-   
+
     this.SchedulingService
       .empCalendarDetailsForViewOnly(this.employeekey, this.Range, this.convert_DT(this.date), this.convert_DT(Todate), this.OrganizationID)
       .subscribe((data: any[]) => {
