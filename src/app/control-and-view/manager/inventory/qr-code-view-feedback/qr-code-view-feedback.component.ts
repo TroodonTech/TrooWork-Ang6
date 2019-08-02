@@ -5,6 +5,7 @@ import { ConectionSettings } from '../../../../service/ConnectionSetting';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import 'jspdf-autotable';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-qr-code-view-feedback',
@@ -24,7 +25,7 @@ export class QrCodeViewFeedbackComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService,private _location: Location) {
     this.route.params.subscribe(params => this.roomKey$ = params.RoomKey);
   }
 
@@ -79,6 +80,9 @@ export class QrCodeViewFeedbackComponent implements OnInit {
     this.inventoryService.getRoomDetailsNamesList(this.roomKey$,this.OrganizationID).subscribe((data) => {
       this.roomdetailsnamelist = data[0];
     });
+  }
+  goBack(){
+    this._location.back();
   }
 }
 

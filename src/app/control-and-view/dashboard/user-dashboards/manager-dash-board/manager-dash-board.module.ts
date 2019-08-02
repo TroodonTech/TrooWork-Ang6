@@ -8,7 +8,7 @@ import { ManualEmployeeLeaveModule } from '../../../manager/people/manual-employ
 
 import { ViewshiftModule } from '../../../manager/scheduling/viewshift/viewshift.module';
 import { SchedulerReportModule } from '../../../manager/reports/scheduler-report/scheduler-report.module';
-
+  
 import { GenerateQrCodeListModule } from "../../../manager/inventory/generate-qr-code-list/generate-qr-code-list.module";
 import { QrCodeViewListModule } from "../../../manager/inventory/qr-code-view-list/qr-code-view-list.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';

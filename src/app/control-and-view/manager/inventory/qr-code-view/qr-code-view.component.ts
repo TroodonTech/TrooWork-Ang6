@@ -5,6 +5,7 @@ import { ConectionSettings } from '../../../../service/ConnectionSetting';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import 'jspdf-autotable';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-qr-code-view',
@@ -23,7 +24,7 @@ export class QrCodeViewComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService,private _location: Location) {
     this.route.params.subscribe(params => this.roomKey$ = params.RoomKey);
   }
 
@@ -52,10 +53,6 @@ export class QrCodeViewComponent implements OnInit {
       var imgWidth = 208;
       var imgHeight = canvas.height * imgWidth / canvas.width;
       doc.addImage(img, 'PNG', 0, 0, imgWidth, imgHeight);
-      doc.addPage();
-      doc.autoTable({
-        html: '#contentToConvert',
-      });
       doc.save('WOQRCode.pdf');
     });
   }
@@ -79,5 +76,7 @@ export class QrCodeViewComponent implements OnInit {
       this.roomdetailsnamelist = data[0];
     });
   }
-
+  goBack(){
+    this._location.back();
+  }
 }
