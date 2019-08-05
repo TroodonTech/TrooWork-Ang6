@@ -14,7 +14,7 @@ const routes: Routes = [
     loadChildren: './control-and-view/reviews/reviews.module#ReviewsModule' 
   },
   {
-    path: 'UserWorkRequest/:Facility_Key/:Floor_Key/:Zone_Key/:rev_orgid/:room_key',// user request page
+    path: 'UserWorkRequest/:Facility_Key/:Floor_Key/:Zone_Key/:RoomType_Key/:rev_orgid/:room_key',// user request page
     loadChildren: './control-and-view/user-work-request/user-work-request.module#UserWorkRequestModule' 
   },
 ];
