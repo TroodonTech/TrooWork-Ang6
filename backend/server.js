@@ -14002,11 +14002,10 @@ app.options('/addReview', supportCrossOriginScript);
 app.post(securedpath + '/addReview', supportCrossOriginScript, function (request, res) {
 
     var Orgid = request.body.Orgid;
-    var roomKey = request.body.roomKey;
-    var starValue = request.body.starValue;
+    var templateid = request.body.templateid;
     var Comments = request.body.Comments;
     var feedback_time = request.body.feedback_time;
-
+    var roomKey = request.body.roomKey;
 
     pool.getConnection(function (err, connection) {
         if (err) {
@@ -14015,7 +14014,7 @@ app.post(securedpath + '/addReview', supportCrossOriginScript, function (request
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @Orgid=?; set @roomKey=?; set @starValue=?; set @Comments=?; set @feedback_time=?; call usp_addReviews(@Orgid,@roomKey,@starValue,@Comments,@feedback_time)', [Orgid, roomKey, starValue, Comments, feedback_time], function (err, rows) {
+            connection.query('set @Orgid=?; set @templateid=?; set @Comments=?; set @feedback_time=?; set @roomKey=?; call usp_addReviews(@Orgid,@templateid,@Comments,@feedback_time,@roomKey)', [Orgid, templateid, Comments, feedback_time,roomKey], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 } else {
@@ -14023,7 +14022,7 @@ app.post(securedpath + '/addReview', supportCrossOriginScript, function (request
                     res.end(JSON.stringify(rows[5]));
                 }
             });
-        }
+}
         connection.release();
     });
 });
@@ -16135,7 +16134,7 @@ app.post(securedpath + '/addUserWorkRequest', supportCrossOriginScript, function
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set@Facility_Key=?; set@Floor_Key=?; set@Zone_Key=?;set @Orgid=?; set @roomKey=?;set@Comments=?; set @Datetime=?; call usp_addUserWorkRequest(@Facility_Key,@Floor_Key,@Zone_Key,@Orgid,@roomKey,@Comments,@Datetime)', [Facility_Key,Floor_Key,Zone_Key,Orgid, roomKey, Comments, Datetime], function (err, rows) {
+            connection.query('set@Facility_Key=?; set@Floor_Key=?; set@Zone_Key=?;set @Orgid=?; set @roomKey=?;set@Comments=?; set @Datetime=?; call usp_addUserWorkRequest(@Facility_Key,@Floor_Key,@Zone_Key,@Orgid,@roomKey,@Comments,@Datetime)', [Facility_Key, Floor_Key, Zone_Key, Orgid, roomKey, Comments, Datetime], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -16955,7 +16954,7 @@ app.post(securedpath + '/generateSchedulerReport', function (req, res) {
                 else {
                     // console.log(JSON.stringify(rows[6]));
                     res.end(JSON.stringify(rows[5]));
-                    
+
                 }
             });
         }
@@ -16986,6 +16985,62 @@ app.post(securedpath + '/getIteratedDates', function (req, res) {
         connection.release();
     });
 });
+// Review starts....
+app.get(securedpath + '/getReviewQuestionDetails', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var templateID = url.parse(req.url, true).query['templateID'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @templateID=?;set @OrganizationID=?;call usp_getReviewQuestionDetails(@templateID,@OrganizationID)', [templateID, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.options('/addReviewDetails', supportCrossOriginScript);
+app.post(securedpath + '/addReviewDetails', supportCrossOriginScript, function (request, res) {
+
+    var Orgid = request.body.OrganizationID;
+    var feedbackmasterkey = request.body.feedbackmasterkey;
+    var starvalue = request.body.templateQstnValues;
+    var templateid = request.body.templateid;
+    var questionid = request.body.questionid;
+    var feedback_time = request.body.feedback_time;
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @Orgid=?; set @feedbackmasterkey=?; set @starvalue=?; set @templateid=?;set @questionid=?; set @feedback_time=?; call usp_addReviewDetails(@Orgid,@feedbackmasterkey,@starvalue,@templateid,@questionid,@feedback_time)', [Orgid, feedbackmasterkey, starvalue, templateid, questionid, feedback_time], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                } else {
+                    console.log("ROWS" + JSON.stringify(rows[6]));
+                    res.end(JSON.stringify(rows[6]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+//Review ends...
+
 //********Scheduler************API by Rodney ends
 //Author: Prakash Code Starts for Employee Calendar Starts Here
 //For Employee Scheduling Exceptions
@@ -17317,7 +17372,7 @@ app.get(securedpath + '/getRoomDetailsNamesList', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @roomKey=?; set@OrganizationID=?; call usp_getRoomDetailsNamesList(@roomKey,@OrganizationID)", [roomKey,OrganizationID], function (err, rows) {
+            connection.query("set @roomKey=?; set@OrganizationID=?; call usp_getRoomDetailsNamesList(@roomKey,@OrganizationID)", [roomKey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
