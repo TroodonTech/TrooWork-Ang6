@@ -7,13 +7,13 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ['./user-work-request.component.scss']
 })
 export class UserWorkRequestComponent implements OnInit {
-  OrgId$ ;
+  OrgId$;
   rKey$;
   comments;
   Facility_Key;
   Floor_Key;
   Zone_Key;
-  constructor(private reviewservice: ReviewService,private router: Router,private route: ActivatedRoute) { 
+  constructor(private reviewservice: ReviewService, private router: Router, private route: ActivatedRoute) {
     this.route.params.subscribe(params => this.Facility_Key = params.Facility_Key);
     this.route.params.subscribe(params => this.Floor_Key = params.Floor_Key);
     this.route.params.subscribe(params => this.Zone_Key = params.Zone_Key);
@@ -28,8 +28,8 @@ export class UserWorkRequestComponent implements OnInit {
   };
   ngOnInit() {
   }
-  Submit(){
-    if(!this.comments){
+  Submit() {
+    if (!this.comments) {
       alert("comment not provided !");
       return;
     }
@@ -47,18 +47,18 @@ export class UserWorkRequestComponent implements OnInit {
     var p = "";
     p = today_DT + " " + h + ":" + mi + ":" + s;
 
-    let reviewAdd= {
-      Facility_Key:this.Facility_Key,
-      Floor_Key:this.Floor_Key,
-      Zone_Key:this.Zone_Key,
-      Orgid : this.OrgId$,
-      roomKey : this.rKey$,
-      Comments : this.comments,
-      Datetime : p
-     };
-     this.reviewservice.UserWorkRequest(reviewAdd).subscribe((data: any[]) => {
-       alert('Thank you for your Request !');
-       this.router.navigate(['']);
-     });
+    let reviewAdd = {
+      Facility_Key: this.Facility_Key,
+      Floor_Key: this.Floor_Key,
+      Zone_Key: this.Zone_Key,
+      Orgid: this.OrgId$,
+      roomKey: this.rKey$,
+      Comments: this.comments,
+      Datetime: p
+    };
+    
+    this.reviewservice.UserWorkRequest(reviewAdd).subscribe((data: any[]) => {
+      this.router.navigate(['thankYou', 'workRequest']);
+    });
   }
 }
