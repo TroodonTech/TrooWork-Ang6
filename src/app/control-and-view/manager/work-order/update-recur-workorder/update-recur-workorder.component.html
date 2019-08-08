@@ -71,11 +71,11 @@
 
       <div class="form-group">
         <label>Workorder Notes</label>
-        <textarea class="form-control rounded-0" maxlength="200" [(ngModel)]="WorkorderNotes" rows="6" style="resize: none;width: 100% !important"></textarea>
+        <textarea class="form-control rounded-1" maxlength="200" [(ngModel)]="WorkorderNotes" rows="6" style="resize: none;width: 100% !important"></textarea>
       </div>
       <div class="form-group">
         <label>Room Name List</label>
-        <textarea class="form-control rounded-0" [(ngModel)]="RoomNameList" rows="6" style="resize: none;width: 100% !important"
+        <textarea class="form-control rounded-1" [(ngModel)]="RoomNameList" rows="6" style="resize: none;width: 100% !important"
           [disabled]="true"></textarea>
       </div>
       <div class="form-group" *ngIf="isRecurring==true">
