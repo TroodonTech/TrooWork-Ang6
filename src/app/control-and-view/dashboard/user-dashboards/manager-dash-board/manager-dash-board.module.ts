@@ -4,10 +4,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
+import { ManualEmployeeLeaveModule } from '../../../manager/people/manual-employee-leave/manual-employee-leave.module';
+
+import { ViewshiftModule } from '../../../manager/scheduling/viewshift/viewshift.module';
 import { SchedulerReportModule } from '../../../manager/reports/scheduler-report/scheduler-report.module';
-
-// import { QrCodeViewModule } from "../../../manager/inventory/qr-code-view/qr-code-view.module";
-
+  
+import { GenerateQrCodeListModule } from "../../../manager/inventory/generate-qr-code-list/generate-qr-code-list.module";
+import { QrCodeViewListModule } from "../../../manager/inventory/qr-code-view-list/qr-code-view-list.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -628,10 +631,26 @@ const routes: Routes = [
 
       },
       {
-        path: 'GenerateQRCode/QRCodeView/:RoomKey',
+        path: 'GenerateQRCode/WOQRCodeView/:RoomKey',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/inventory/qr-code-view/qr-code-view.module#QrCodeViewModule'
       },
+      {
+        path: 'GenerateQRCode/FeedbackQRCodeView/:RoomKey',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/inventory/qr-code-view-feedback/qr-code-view-feedback.module#QrCodeViewFeedbackModule'
+      },
+      {
+        path: 'GenerateQRCodeList',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/inventory/generate-qr-code-list/generate-qr-code-list.module#GenerateQrCodeListModule'
+      },
+      {
+        path: 'QrCodeViewList/:QRCodeRoomKey/:checkvaluetag',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/inventory/qr-code-view-list/qr-code-view-list.module#QrCodeViewListModule'
+
+      }, 
       {
         path: 'ViewServiceRequest',
         outlet: 'ManagerOut',

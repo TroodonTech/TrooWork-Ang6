@@ -14,12 +14,12 @@ const routes: Routes = [
     loadChildren: './control-and-view/reviews/reviews.module#ReviewsModule'
   },
   {
-    path: 'UserWorkRequest/:Facility_Key/:Floor_Key/:Zone_Key/:rev_orgid/:room_key',// user request page
-    loadChildren: './control-and-view/user-work-request/user-work-request.module#UserWorkRequestModule'
-  },
-  {
     path: 'thankYou/:type',// thank you page 
     loadChildren: './control-and-view/thankyou-page/thankyou-page.module#ThankyouPageModule'
+  },
+  {
+    path: 'UserWorkRequest/:Facility_Key/:Floor_Key/:Zone_Key/:RoomType_Key/:rev_orgid/:room_key',// user request page
+    loadChildren: './control-and-view/user-work-request/user-work-request.module#UserWorkRequestModule' 
   },
 ];
 

@@ -1,29 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgDatepickerModule} from 'ng2-datepicker';
-import { UserWorkRequestComponent } from "./user-work-request.component";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { QrCodeViewFeedbackComponent } from "./qr-code-view-feedback.component";
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 const routes: Routes = [
   {
     path: '',
-    component: UserWorkRequestComponent
+    component: QrCodeViewFeedbackComponent
   }
-
+  
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    NgDatepickerModule,
+    MDBBootstrapModule,
     FormsModule, ReactiveFormsModule,
-    RouterModule.forChild(routes),
-    MDBBootstrapModule.forRoot()
+    NgxQRCodeModule,
+    RouterModule.forChild(routes)
   ],
-  declarations: [UserWorkRequestComponent]
+  declarations: [QrCodeViewFeedbackComponent]
 })
-export class UserWorkRequestModule { }
+export class QrCodeViewFeedbackModule { }
