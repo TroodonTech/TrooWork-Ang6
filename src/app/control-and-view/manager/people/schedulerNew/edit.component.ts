@@ -1,6 +1,6 @@
 import { Component, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
 import { DayPilot, DayPilotModalComponent } from "daypilot-pro-angular";
-import Modal = DayPilot.Angular.Modal;
+
 import { Validators, FormBuilder, FormGroup, FormControl } from "@angular/forms";
 import { DataService, CreateEventParams, EventData, UpdateEventParams } from "./data.service";
 import { SchedulingService } from '../../../../service/scheduling.service';
