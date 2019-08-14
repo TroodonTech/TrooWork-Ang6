@@ -2,6 +2,8 @@ import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Inpu
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { DatepickerOptions } from 'ng2-datepicker';
 import { WorkOrderServiceService } from '../../../../service/work-order-service.service';
+import { SchedulingService } from '../../../../service/scheduling.service';
+
 
 @Component({
   selector: 'app-view-service-request',
@@ -23,6 +25,7 @@ export class ViewServiceRequestComponent implements OnInit {
 
   curdate;
   curtime;
+  EmployeeOption;
 
   options: DatepickerOptions = {
     minYear: 1970,
@@ -66,7 +69,7 @@ export class ViewServiceRequestComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private WorkOrderServiceService: WorkOrderServiceService) { }
+  constructor(private WorkOrderServiceService: WorkOrderServiceService,private SchedulingService: SchedulingService) { }
 
   ngOnInit() {
 
@@ -103,7 +106,10 @@ export class ViewServiceRequestComponent implements OnInit {
       .subscribe((data) => {
         this.requestdetails = data;
       });
-
+      this.SchedulingService.getEmployeesForSchedulerReport(this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.EmployeeOption = data;
+      });
   }
 
   viewserviceRequest(fromdate, todate) {
@@ -134,7 +140,7 @@ export class ViewServiceRequestComponent implements OnInit {
     }
   }
 
-  createworkorderbyservicerequest(servicerequestid) {
+  createworkorderbyservicerequest(servicerequestid,empKey) {
 
     this.curdate = new Date(Date.now());
 
@@ -149,9 +155,13 @@ export class ViewServiceRequestComponent implements OnInit {
       time1: this.curtime,
       servicerequestid: servicerequestid,
       OrganizationID: this.OrganizationID,
-      employeekey: this.employeekey
+      employeekey: this.employeekey,
+      CreateEmpKey:empKey
     };
-
+    if(!empKey){
+      alert("Employee not provided !");
+      return;
+    }
     this.WorkOrderServiceService.generateWorkorderbyservicerequest(this.vpto)
       .subscribe((data: any[]) => {
         this.requestdetails = data;

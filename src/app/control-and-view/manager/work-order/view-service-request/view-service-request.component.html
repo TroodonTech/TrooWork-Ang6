@@ -38,18 +38,33 @@
         <th> Building - Floor - Zone</th>
         <th> Room </th>
         <th> Description</th>
+        <th> Employee*</th>
         <th> Action </th>
       </thead>
       <tbody>
         <tr *ngFor="let x of requestdetails">
           <td>{{ x.ServiceRequestedDate }}</td>
-          <td>{{ x.FacilityName }} - {{ x.FloorName }} - {{ x.ZoneName }}</td>
+          <td>
+              <span style="color: red">{{x.FacilityName}}</span> - <span style="color: blue">{{x.FloorName}}</span> -
+              <span style="color: black">{{x.ZoneName}}</span>
+
+          </td>
+          
           <td>{{ x.RoomId }}</td>
           <td>{{ x.Requestnotes }}</td>
           <td>
+            <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="x.EmployeeKey" required>
+              <option value="">--Select--</option>
+              <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">
+                {{e.name}}
+              </option>
+            </select>
+
+          </td>
+          <td>
             <span *ngIf="x.IsWorkorderCreated === 0">
               <button type="button" class="btn btn-success"
-                (click)="createworkorderbyservicerequest(x.Workorder_servicerequestID,fromdate,todate)"><b>GENERATE WORK
+                (click)="createworkorderbyservicerequest(x.Workorder_servicerequestID,x.EmployeeKey)"><b>GENERATE WORK
                   ORDER</b></button>
             </span>
             <span *ngIf="x.IsWorkorderCreated === 1">
@@ -59,7 +74,7 @@
           </td>
         </tr>
         <tr *ngIf="requestdetails?.length == 0">
-          <td colspan="5" class="no-data-available">No records found</td>
+          <td colspan="6" class="no-data-available">No records found</td>
         </tr>
       </tbody>
     </table>

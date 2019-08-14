@@ -17421,6 +17421,7 @@ app.post(securedpath + '/generateWorkorderbyservicerequest', supportCrossOriginS
     var date1 = newWOObj.date1;
     var time1 = newWOObj.time1;
     var servicerequestid = newWOObj.servicerequestid;
+    var CreateEmpKey = newWOObj.CreateEmpKey;
 
     pool.getConnection(function (err, connection) {
         if (err) {
@@ -17429,13 +17430,13 @@ app.post(securedpath + '/generateWorkorderbyservicerequest', supportCrossOriginS
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @OrganizationID=?;set @employeekey=?;set @date1=?;set @time1=?;set @servicerequestid=?;call usp_generateWorkorderbyservicerequest(@OrganizationID,@employeekey,@date1,@time1,@servicerequestid)', [OrganizationID, employeekey, date1, time1, servicerequestid], function (err, rows) {
+            connection.query('set @OrganizationID=?;set @employeekey=?;set @date1=?;set @time1=?;set @servicerequestid=?; set@CreateEmpKey=?; call usp_generateWorkorderbyservicerequest(@OrganizationID,@employeekey,@date1,@time1,@servicerequestid,@CreateEmpKey)', [OrganizationID, employeekey, date1, time1, servicerequestid,CreateEmpKey], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
 
-                    res.end(JSON.stringify(rows[5]));
+                    res.end(JSON.stringify(rows[6]));
                 }
             });
         }
