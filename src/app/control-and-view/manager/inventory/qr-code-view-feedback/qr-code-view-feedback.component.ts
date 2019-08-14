@@ -54,7 +54,7 @@ export class QrCodeViewFeedbackComponent implements OnInit {
       var imgWidth = 208;
       var imgHeight = canvas.height * imgWidth / canvas.width;
       doc.addImage(img, 'PNG', 0, 0, imgWidth, imgHeight);
-      doc.addPage();
+      // doc.addPage();
       doc.autoTable({
         html: '#contentToConvert',
       });

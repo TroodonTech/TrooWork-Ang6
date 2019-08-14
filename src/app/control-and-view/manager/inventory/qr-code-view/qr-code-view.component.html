@@ -1,4 +1,4 @@
-<div style="padding-left: 9rem;padding-right: 9rem;">
+<!-- <div style="padding-left: 9rem;padding-right: 9rem;">
 
   <div class="row col-md-12 ">
     <h4 style="margin-left: 45%">WO QR CODE</h4>
@@ -20,4 +20,46 @@
     </div>
   </div>
 
+</div> -->
+
+<div style="padding-left: 9rem;padding-right: 9rem;">
+  <div *ngIf="qrcode && roomdetailsnamelist"
+    style="margin-left: 1.5rem; margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem;"
+    class="row bg-info col-md-12" id="part1">
+    <!-- header logo-->
+    <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark">
+      <mdb-navbar-brand>
+        <a class="navbar-brand" href="http://troodontechnology.com/">
+          <img src="assets/icons/TROOWORK-transperant.png" style="width: 10rem;">
+        </a>
+      </mdb-navbar-brand>
+    </mdb-navbar>
+    <br>
+    <h1 style="margin-left: 19%;font-weight: 800;margin-top: 11%">SERVICE REQUEST</h1>
+    <h1 style="margin-left: 11%">
+      We care about your satisfaction. If there is any request, scan the QR Code below for service. We will get back to
+      you.
+    </h1>
+    <ngx-qrcode style="margin-left: 38%" qrc-element-type="url" [qrc-value]="qrcode"></ngx-qrcode>
+
+    <!-- footer-->
+    <div class="container bg-footer" style="width: 102%;max-width:102%;">
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <p class="text-sm-center">
+            © 2018 TrooWork - All Rights Reserved /Privacy Policy/ Sitemap
+            <br>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row col-md-12">
+    <div style="margin-left: 45%;">
+      <button type="button" class="btn btn-success" (click)="captureScreen()">DOWNLOAD</button>
+      <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
+    </div>
+  </div>
 </div>

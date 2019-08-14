@@ -17122,6 +17122,31 @@ app.post(securedpath + '/addReviewDetails', supportCrossOriginScript, function (
         connection.release();
     });
 });
+
+app.get(securedpath + '/getReviewDetailsForReport', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var fromDate = url.parse(req.url, true).query['fromDate'];
+    var toDate = url.parse(req.url, true).query['toDate'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @fromDate=?;set @toDate=?;set @OrganizationID=?;call usp_getReviewDetailsForReport(@fromDate,@toDate,@OrganizationID)', [fromDate,toDate, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[3]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //Review ends...
 
 //********Scheduler************API by Rodney ends

@@ -8,7 +8,8 @@ import { BatchWorkOrderReportComponent } from './batch-work-order-report/batch-w
 import { BatchScheduleAssignmentReportComponent } from './batch-schedule-assignment-report/batch-schedule-assignment-report.component';
 import { EmployeesDowntimeReportComponent } from './employees-downtime-report/employees-downtime-report.component';
 import { InventoryReportComponent } from './inventory-report/inventory-report.component';
-import { SchedulerReportComponent } from './scheduler-report/scheduler-report.component'
+import { SchedulerReportComponent } from './scheduler-report/scheduler-report.component';
+import { ReviewReportComponent } from './review-report/review-report.component'
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { SchedulerReportComponent } from './scheduler-report/scheduler-report.co
   ],
   declarations: [InspectionReportComponent, BarcodeReportComponent,
     DashboardReportComponent, WorkorderReportComponent, BatchWorkOrderReportComponent,
-    BatchScheduleAssignmentReportComponent, EmployeesDowntimeReportComponent, InventoryReportComponent, SchedulerReportComponent]
+    BatchScheduleAssignmentReportComponent, EmployeesDowntimeReportComponent, InventoryReportComponent, SchedulerReportComponent, ReviewReportComponent]
 })
 export class ReportsModule { }

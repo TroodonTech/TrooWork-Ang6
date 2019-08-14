@@ -338,4 +338,12 @@ export class ReportServiceService {
       .post(url, obj);
   }
   // @Author Rodney - For inventory ends
+
+  //Review Report - @Rodney starts....
+  getReviewReportDetails(from,to, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getReviewDetailsForReport?fromDate=' + from + '&toDate=' + to+ '&OrganizationID=' + orgID);
+  }
+  //Review Report - @Rodney ends....
 }
