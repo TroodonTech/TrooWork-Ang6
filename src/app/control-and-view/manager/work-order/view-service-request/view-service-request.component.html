@@ -39,6 +39,7 @@
         <th> Room </th>
         <th> Description</th>
         <th> Employee*</th>
+        <th> Status </th>
         <th> Action </th>
       </thead>
       <tbody>
@@ -61,6 +62,7 @@
             </select>
 
           </td>
+          <td>{{ x.WorkorderStatus }}</td>
           <td>
             <span *ngIf="x.IsWorkorderCreated === 0">
               <button type="button" class="btn btn-success"
@@ -74,7 +76,7 @@
           </td>
         </tr>
         <tr *ngIf="requestdetails?.length == 0">
-          <td colspan="6" class="no-data-available">No records found</td>
+          <td colspan="7" class="no-data-available">No records found</td>
         </tr>
       </tbody>
     </table>
