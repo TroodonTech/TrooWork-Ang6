@@ -9,6 +9,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class ReviewsComponent implements OnInit {
 
   comments;
+  fac$;
+  flr$;
+  zone$;
+  rtype$;
   OrgId$;
   rKey$;
   tempKey$;
@@ -29,6 +33,10 @@ export class ReviewsComponent implements OnInit {
   lastIndexValue;
 
   constructor(private reviewservice: ReviewService, private router: Router, private route: ActivatedRoute) {
+    this.route.params.subscribe(params => this.fac$ = params.Facility_Key);
+    this.route.params.subscribe(params => this.flr$ = params.Floor_Key);
+    this.route.params.subscribe(params => this.zone$ = params.Zone_Key);
+    this.route.params.subscribe(params => this.rtype$ = params.RoomType_Key);
     this.route.params.subscribe(params => this.OrgId$ = params.rev_orgid);
     this.route.params.subscribe(params => this.rKey$ = params.room_key);
     this.route.params.subscribe(params => this.tempKey$ = params.templateID);
