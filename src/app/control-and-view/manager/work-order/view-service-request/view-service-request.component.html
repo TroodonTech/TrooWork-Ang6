@@ -54,7 +54,7 @@
           <td>{{ x.RoomId }}</td>
           <td>{{ x.Requestnotes }}</td>
           <td>
-            <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="x.EmployeeKey" required>
+            <select style="background-color: #D4F4FF !important;" [disabled]="(x.EmployeeKey)" class="form-control" [(ngModel)]="x.EmployeeKey" required>
               <option value="">--Select--</option>
               <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">
                 {{e.name}}

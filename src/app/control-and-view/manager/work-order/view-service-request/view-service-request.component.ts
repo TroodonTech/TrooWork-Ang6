@@ -17,6 +17,7 @@ export class ViewServiceRequestComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
+  EmployeeKey;
 
   fromdate;
   todate;
@@ -81,6 +82,7 @@ export class ViewServiceRequestComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
+
 
     this.fromdate = new Date(Date.now());
     this.todate = new Date(Date.now());
