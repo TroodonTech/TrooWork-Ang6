@@ -211,7 +211,7 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
       if (this.convert_DT(TempEndDate) > this.convert_DT(this.maxDate)) {
         Todate = this.maxDate
       }
-      
+
       else {
         Todate = TempEndDate
       }
@@ -227,9 +227,9 @@ export class ViewEmployeeSchedulerComponent implements AfterViewInit {
 
               });
           }
-          else {
-            alert("Please add employees in schedule Group !")
-          }
+          // else {
+           // alert("Please add employees in schedule Group !")
+          // }
         });
 
     });
