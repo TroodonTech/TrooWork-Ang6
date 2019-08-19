@@ -310,13 +310,23 @@ export class SchedulerComponent implements AfterViewInit {
     this.Range = this.ds.getType();
     this.date = this.ds.getDate();
     this.ViewType();
-    this.SchedulingService.employeesForScheduler('Manager', this.employeekey, this.OrganizationID)
+   
+
+      this.SchedulingService
+      .empCalendarDetails(this.Range, this.convert_DT(this.date), this.OrganizationID)
       .subscribe((data: any[]) => {
-
-        this.config.resources = data;
+        this.events = data;
+        if( this.events.length>0){
+          this.SchedulingService.employeesForScheduler('Manager', this.employeekey, this.OrganizationID)
+          .subscribe((data: any[]) => {
+    
+            this.config.resources = data;
+          });
+        }
+        else{
+          alert("Please add employees in schedule Group !")
+        }
       });
-
-    this.empCalendarActivities();
   }
 
   createClosed(args) {
