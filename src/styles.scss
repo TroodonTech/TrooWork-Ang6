@@ -9085,7 +9085,8 @@
       }
 
       .qrcode img{
-        width: 200% !important;
+        width: 400% !important; // qrcode-big
+        // width: 300% !important; // qrcode-small
     }
 //   input[type="radio"] {
 //     -webkit-appearance: checkbox;

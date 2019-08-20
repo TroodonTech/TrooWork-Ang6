@@ -1,59 +1,30 @@
-<!-- <div style="padding-left: 9rem;padding-right: 9rem;">
-
-  <div class="row col-md-12 ">
-    <h4 style="margin-left: 45%">WO QR CODE</h4>
-  </div>
-
-  <div *ngIf="qrcode && roomdetailsnamelist" style="margin-left: 1.5rem; margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem"
-  class="row bg-info col-md-12" id="part1">
-
-    <h5 style="margin-left: 40%"><span style="color: red">{{roomdetailsnamelist.FacilityName}} </span> - <span style="color: blue">{{roomdetailsnamelist.FloorName}}</span>
-      - {{roomdetailsnamelist.RoomId}} </h5>
-
-    <ngx-qrcode style="margin-left: 40%" qrc-element-type="url" [qrc-value]="qrcode" ></ngx-qrcode>
-  </div><br>
-
-  <div class="row col-md-12">
-    <div style="margin-left: 40%;">
-      <button type="button" class="btn btn-success" (click)="captureScreen()">DOWNLOAD</button>
-      <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go Back</b></a>
-    </div>
-  </div>
-
-</div> -->
-
 <div style="padding-left: 9rem;padding-right: 9rem;">
   <div *ngIf="qrcode && roomdetailsnamelist"
     style="margin-left: 1.5rem; margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem;"
     class="row bg-info col-md-12" id="part1">
-    <!-- header logo-->
-    <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark">
-      <mdb-navbar-brand>
-        <a class="navbar-brand" href="http://troodontechnology.com/">
-          <img src="assets/icons/TROOWORK-transperant.png" style="width: 10rem;">
-        </a>
-      </mdb-navbar-brand>
-    </mdb-navbar>
     <br>
-    <h1 style="margin-left: 19%;font-weight: 800;margin-top: 11%">SERVICE REQUEST</h1>
-    <h1 style="margin-left: 11%">
-      We care about your satisfaction. If there is any request, scan the QR Code below for service. We will get back to
-      you.
+    <h1 style="font-weight: 800;font-size: 111px;margin-left: 10%;margin-top: 10%">SERVICE REQUEST</h1>
+    <h1 style="font-size: 48px;text-align: justify;margin-left: 9%;margin-right: 9%;margin-top: 5%">
+      We care about your satisfaction. If there is any request, scan the QR Code below for service. We will get
+      back to you.
     </h1>
-    <ngx-qrcode style="margin-left: 38%" qrc-element-type="url" [qrc-value]="qrcode"></ngx-qrcode>
+    <ngx-qrcode style="margin-left: 22%;margin-top: 5%" qrc-element-type="url" [qrc-value]="qrcode"></ngx-qrcode>
+    <!-- <ngx-qrcode style="margin-left: 30%;margin-top: 10%" qrc-element-type="url" [qrc-value]="qrcode"></ngx-qrcode> -->
 
-    <!-- footer-->
-    <div class="container bg-footer" style="width: 102%;max-width:102%;">
-      <div class="row">
-        <div class="col-md-12 mt-3">
-          <p class="text-sm-center">
-            © 2018 TrooWork - All Rights Reserved /Privacy Policy/ Sitemap
-            <br>
-          </p>
-        </div>
-      </div>
+    <!-- <div style="margin-top: 60%;margin-left: -50%;"> -->
+    <div style="margin-top: 60%;margin-left: -35%;">
+      <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark">
+        <mdb-navbar-brand>
+          <a class="navbar-brand" href="http://troodontechnology.com/">
+            <img src="assets/icons/TROOWORK-transperant.png" style="width: 20rem;margin-left: 50%">
+          </a>
+
+          <a class="navbar-brand" href="http://troodontechnology.com/">
+            <img src="assets/icons/troodon-sticker1.png" style="width: 30rem;margin-left: 50%">
+          </a>
+        </mdb-navbar-brand>
+      </mdb-navbar>
     </div>
-
   </div>
 
   <div class="row col-md-12">
