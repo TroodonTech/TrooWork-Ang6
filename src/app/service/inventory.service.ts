@@ -14,21 +14,21 @@ export class InventoryService {
   getBuildings(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/allfacilityByPageNo?pageno=' + page + '&itemsperpage=' + itemsCount + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/allfacilityByPageNo?pageno=' + page + '&itemsperpage=' + itemsCount + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   EditFacility(facKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getfacilityById?facKey=' + facKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getfacilityById?facKey=' + facKey + '&OrganizationID=' + OrgID);
 
   }
   EditFloorAutoGenerate(floorKey, facKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getFloorById?facKey=' + facKey + '&floorKey=' + floorKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getFloorById?facKey=' + facKey + '&floorKey=' + floorKey + '&OrganizationID=' + OrgID);
   }
   UpdateBuilding(FacilityName, FacilityKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+'/updateFacility';
+    const url = ConectionSettings.Url + '/updateFacility';
     const obj = {
       facility_key: FacilityKey,
       facility_name: FacilityName,
@@ -41,7 +41,7 @@ export class InventoryService {
 
   }
   DeleteBuilding(facility_key, empKey, OrgID) {
-    const url = ConectionSettings.Url+'/deleteFacility';
+    const url = ConectionSettings.Url + '/deleteFacility';
     const obj = {
       facility_key: facility_key,
       employeekey: empKey,
@@ -53,7 +53,7 @@ export class InventoryService {
 
   }
   DeleteFloor(FacilityKey, FloorKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+'/deleteFloor';
+    const url = ConectionSettings.Url + '/deleteFloor';
     const obj = {
       FacilityKey: FacilityKey,
       FloorKey: FloorKey,
@@ -68,29 +68,29 @@ export class InventoryService {
   SearchBuilding(SearchFacility, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchBuildingList?OrganizationID=' + OrgID + '&searchFacility=' + SearchFacility)
+      .get(ConectionSettings.Url + '/searchBuildingList?OrganizationID=' + OrgID + '&searchFacility=' + SearchFacility)
 
 
   }
   SearchFloor(SearchFloor, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getSearchFloor?OrganizationID=' + OrgID + '&searchFloor=' + SearchFloor)
+      .get(ConectionSettings.Url + '/getSearchFloor?OrganizationID=' + OrgID + '&searchFloor=' + SearchFloor)
 
 
   }
   getFloors(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getAllfacility_floor?pagenumber=' + page + '&itemsPerPage=' + itemsCount + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllfacility_floor?pagenumber=' + page + '&itemsPerPage=' + itemsCount + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getZones(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getAllfacility_floor_zone?pageno=' + page + '&itemsperpage=' + itemsCount + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllfacility_floor_zone?pageno=' + page + '&itemsperpage=' + itemsCount + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   createFloors(FacilityKey, FloorName, FloorDescription, empKey, OrgID) {
-    const url = ConectionSettings.Url+'/addnewfloor';
+    const url = ConectionSettings.Url + '/addnewfloor';
     const obj = {
       FacilityKey: FacilityKey,
       FloorDescription: FloorDescription,
@@ -103,7 +103,7 @@ export class InventoryService {
       .post(url, obj);
   }
   createZones(FacilityKey, FloorName, ZoneName, empKey, OrgID) {
-    const url = ConectionSettings.Url+'/addnewZone';
+    const url = ConectionSettings.Url + '/addnewZone';
     const obj = {
       facility: FacilityKey,
       floor: FloorName,
@@ -115,37 +115,34 @@ export class InventoryService {
       .http
       .post(url, obj);
   }
-  CheckNewFloor(FacilityKey,FloorName,employeekey,OrganizationID)
-  {
+  CheckNewFloor(FacilityKey, FloorName, employeekey, OrganizationID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/checkForNewFloor?FacilityKey='+FacilityKey+'&FloorName='+FloorName+'&employeekey='+employeekey+'&OrganizationID='+OrganizationID);
+      .get(ConectionSettings.Url + '/checkForNewFloor?FacilityKey=' + FacilityKey + '&FloorName=' + FloorName + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
   getallBuildingList(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/allfacility?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/allfacility?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
-  CheckNewBuilding(FacilityName,type,employeekey,OrganizationID)
-  {
+  CheckNewBuilding(FacilityName, type, employeekey, OrganizationID) {
     return this
-    .http
-    .get(ConectionSettings.Url+'/checkForNewInventory?checkValue=' + FacilityName + '&type=' + type+'&employeekey='+employeekey+ '&OrganizationID=' + OrganizationID);
+      .http
+      .get(ConectionSettings.Url + '/checkForNewInventory?checkValue=' + FacilityName + '&type=' + type + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
-  CheckRoomType(RoomTypeName,type,employeekey,OrganizationID)
-  {
+  CheckRoomType(RoomTypeName, type, employeekey, OrganizationID) {
     return this
-    .http
-    .get(ConectionSettings.Url+'/checkForNewInventory?checkValue=' + RoomTypeName + '&type=' + type+'&employeekey='+employeekey+ '&OrganizationID=' + OrganizationID);
+      .http
+      .get(ConectionSettings.Url + '/checkForNewInventory?checkValue=' + RoomTypeName + '&type=' + type + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
 
   getallFloorList(facKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/floorvaluesByfacKey?key=' + facKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/floorvaluesByfacKey?key=' + facKey + '&OrganizationID=' + OrgID);
   }
   UpdateFloor(FacilityKey, FloorKey, FloorName, FloorDescription, empKey, OrgID) {
-    const url = ConectionSettings.Url+'/updateFloor';
+    const url = ConectionSettings.Url + '/updateFloor';
     const obj = {
       FacilityKey: FacilityKey,
       FloorKey: FloorKey,
@@ -163,24 +160,24 @@ export class InventoryService {
   searchZone(SearchZone, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchZoneList?OrganizationID=' + OrgID + '&searchZone=' + SearchZone)
+      .get(ConectionSettings.Url + '/searchZoneList?OrganizationID=' + OrgID + '&searchZone=' + SearchZone)
   }
 
   EditZoneAutoGenerate(zoneKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getZoneById?zoneKey=' + zoneKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getZoneById?zoneKey=' + zoneKey + '&OrganizationID=' + OrgID);
   }
 
 
   checkForZone(FacilityKey, FloorKey, ZoneName, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/checkForNewZone?FacilityKey=' + FacilityKey + '&FloorKey=' + FloorKey + '&ZoneName=' + ZoneName + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForNewZone?FacilityKey=' + FacilityKey + '&FloorKey=' + FloorKey + '&ZoneName=' + ZoneName + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   updateZone(facilityKey, facilityName, floorName, floorKey, zoneKey, zoneName, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/updateZone";
+    const url = ConectionSettings.Url + "/updateZone";
     const obj = {
       FacilityKey: facilityKey,
       FloorKey: floorKey,
@@ -196,7 +193,7 @@ export class InventoryService {
 
 
   DeleteZone(FacilityKey, FloorKey, ZoneKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/deleteZoneById";
+    const url = ConectionSettings.Url + "/deleteZoneById";
     const obj = {
       facility: FacilityKey,
       floorkey: FloorKey,
@@ -210,10 +207,10 @@ export class InventoryService {
   checkForNewDepartment(DeptName, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/checkForNewInventory?checkValue=' + DeptName + '&type=department' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForNewInventory?checkValue=' + DeptName + '&type=department' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   addDepartment(DeptName, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/addNewDepartment";
+    const url = ConectionSettings.Url + "/addNewDepartment";
     const obj = {
       DepartmentName: DeptName,
       empkey: empKey,
@@ -226,17 +223,17 @@ export class InventoryService {
   getDepartmentList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/viewDepartmentpage?pageno=' + page + '&itemsPerPage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/viewDepartmentpage?pageno=' + page + '&itemsPerPage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   SearchDepartment(DeptName, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchDepartmentType?OrganizationID=' + OrgID + '&searchDepartment=' + DeptName)
+      .get(ConectionSettings.Url + '/searchDepartmentType?OrganizationID=' + OrgID + '&searchDepartment=' + DeptName)
   }
 
   DeleteDepartment(deptKey, OrgID) {
-    const url = ConectionSettings.Url+"/deleteDepartment";
+    const url = ConectionSettings.Url + "/deleteDepartment";
     const obj = {
       DepartmentKey: deptKey,
       OrganizationID: OrgID
@@ -247,11 +244,11 @@ export class InventoryService {
   EditDepartment(deptKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/editviewDepartment?DepartmentKey=' + deptKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/editviewDepartment?DepartmentKey=' + deptKey + '&OrganizationID=' + OrgID);
 
   }
   UpdateDepartment(departmentName, departmentKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/editSelectedDepartment";
+    const url = ConectionSettings.Url + "/editSelectedDepartment";
     const obj = {
       DepartmentKey: departmentKey,
       DepartmentName: departmentName,
@@ -265,18 +262,18 @@ export class InventoryService {
   SearchEquipment(EquipName, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchequipment?OrganizationID=' + OrgID + '&searchEquipment=' + EquipName);
+      .get(ConectionSettings.Url + '/searchequipment?OrganizationID=' + OrgID + '&searchEquipment=' + EquipName);
   }
 
   getEquipmentList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getAllEquipmentTypeEquipment?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllEquipmentTypeEquipment?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
 
   DeleteEquipment(EquipKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/deleteEquipmentById";
+    const url = ConectionSettings.Url + "/deleteEquipmentById";
     const obj = {
       EquipmentKey: EquipKey,
       employeekey: empKey,
@@ -288,16 +285,16 @@ export class InventoryService {
   getEquipmentTypeList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getAllEquipmentTypes?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllEquipmentTypes?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   SearchEquipmentType(EquipTypeName, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchEquipmentTypeList?OrganizationID=' + OrgID + '&searchEquipmentType=' + EquipTypeName);
+      .get(ConectionSettings.Url + '/searchEquipmentTypeList?OrganizationID=' + OrgID + '&searchEquipmentType=' + EquipTypeName);
   }
 
   DeleteEquipmentType(EquipTypeKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/deleteEquipmentTypeById";
+    const url = ConectionSettings.Url + "/deleteEquipmentTypeById";
     const obj = {
       equipmentTypeKey: EquipTypeKey,
       employeekey: empKey,
@@ -309,11 +306,11 @@ export class InventoryService {
   checkForNewEquipmentType(EquipmentTypeName, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/checkForNewInventory?checkValue=' + EquipmentTypeName + '&type=equipmenttype' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForNewInventory?checkValue=' + EquipmentTypeName + '&type=equipmenttype' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   addEquipmentType(EquipmentTypeName, EquipmentTypeDescription, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/addnewEquipmentType";
+    const url = ConectionSettings.Url + "/addnewEquipmentType";
     const obj = {
       EquipmentType: EquipmentTypeName,
       EquipmentTypeDescription: EquipmentTypeDescription,
@@ -327,11 +324,11 @@ export class InventoryService {
   getEquipmentTypeListEdit(equipTypeKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getEquipmentTypeKeyById?equipmentTypeKey=' + equipTypeKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getEquipmentTypeKeyById?equipmentTypeKey=' + equipTypeKey + '&OrganizationID=' + OrgID);
   }
 
   UpdateEquipmentType(equipType, equipTypeDesc, equipTypeKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/updateEquipmentType";
+    const url = ConectionSettings.Url + "/updateEquipmentType";
     const obj = {
       EquipmentType: equipType,
       EquipmentTypeDescription: equipTypeDesc,
@@ -347,16 +344,16 @@ export class InventoryService {
   getRoomTypeList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getAllRoomType?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllRoomType?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   SearchRoomType(RoomType, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchroomType?OrganizationID=' + OrgID + '&searchRoomType=' + RoomType);
+      .get(ConectionSettings.Url + '/searchroomType?OrganizationID=' + OrgID + '&searchRoomType=' + RoomType);
   }
 
   DeleteRoomType(RoomTypeKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/deleteRoomTypeById";
+    const url = ConectionSettings.Url + "/deleteRoomTypeById";
     const obj = {
       roomTypeKey: RoomTypeKey,
       employeekey: empKey,
@@ -368,17 +365,17 @@ export class InventoryService {
   getMetricValues(OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/metricTypevalues?OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/metricTypevalues?OrganizationID=' + OrgID);
   }
 
   checkRoomType(RoomTypeName, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/checkForNewInventory?checkValue=' + RoomTypeName + '&type=roomtype' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForNewInventory?checkValue=' + RoomTypeName + '&type=roomtype' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   addRoomType(roomTypeName, MetricTypeValue, metricType, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/addnewRoomtype";
+    const url = ConectionSettings.Url + "/addnewRoomtype";
     const obj = {
       RoomTypeName: roomTypeName,
       metric: 1,
@@ -394,16 +391,16 @@ export class InventoryService {
   getFloorTypeList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/allFloorType?pagenumber=' + page + '&itemsPerPage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/allFloorType?pagenumber=' + page + '&itemsPerPage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   SearchFloorType(FloorType, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchFloorTypeList?OrganizationID=' + OrgID + '&searchFloorType=' + FloorType);
+      .get(ConectionSettings.Url + '/searchFloorTypeList?OrganizationID=' + OrgID + '&searchFloorType=' + FloorType);
   }
 
   DeleteFloorType(FloorTypeKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/deleteFloorTypeById";
+    const url = ConectionSettings.Url + "/deleteFloorTypeById";
     const obj = {
       floortypekey: FloorTypeKey,
       employeekey: empKey,
@@ -415,16 +412,16 @@ export class InventoryService {
   getRoomList(page, itemsCount, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getAllRooms?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getAllRooms?pageno=' + page + '&itemsperpage=' + itemsCount + '&empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   SearchRoom(Room, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/searchRoomOnTable?OrganizationID=' + OrgID + '&searchRoom=' + Room + '&employeekey=' + empKey);
+      .get(ConectionSettings.Url + '/searchRoomOnTable?OrganizationID=' + OrgID + '&searchRoom=' + Room + '&employeekey=' + empKey);
   }
 
   DeleteRoom(RoomKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/deleteRoomById?roomkey=" + RoomKey + "&employeekey=" + empKey + "&OrganizationID=" + OrgID;
+    const url = ConectionSettings.Url + "/deleteRoomById?roomkey=" + RoomKey + "&employeekey=" + empKey + "&OrganizationID=" + OrgID;
     const obj = {};
     return this.http.post(url, obj);
   }
@@ -432,12 +429,12 @@ export class InventoryService {
   EditRoomtTypeAutoGenerate(roomTypeKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getRoomTypeById?roomTypeKey=' + roomTypeKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getRoomTypeById?roomTypeKey=' + roomTypeKey + '&OrganizationID=' + OrgID);
   }
 
 
   updateRoomType(roomTypeKey, metricTypeKey, metricType, roomTypeName, MetricTypeValue, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/updateRoomType";
+    const url = ConectionSettings.Url + "/updateRoomType";
     const obj = {
       RoomTypeKey: roomTypeKey,
       RoomTypeName: roomTypeName,
@@ -452,26 +449,26 @@ export class InventoryService {
   getBarcodeForEquipment(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getBarcodeForEquipment?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getBarcodeForEquipment?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getAllEquipmentType(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/allequiptype?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/allequiptype?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   checkForNewEquipment(EquipmentTypeKey, EquipmentName, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/checkForNewEquipment?EquipmentTypeKey='+EquipmentTypeKey+'&EquipmentName='+EquipmentName+'&employeekey='+empKey+'&OrganizationID='+OrgID);
+      .get(ConectionSettings.Url + '/checkForNewEquipment?EquipmentTypeKey=' + EquipmentTypeKey + '&EquipmentName=' + EquipmentName + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   checkForNewEquipmentbarcode(barcode, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/checkForBarcodeInventory?Barcode=' + barcode + '&type=equipment' + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForBarcodeInventory?Barcode=' + barcode + '&type=equipment' + '&OrganizationID=' + OrgID);
   }
   addEquipment(EquipmentName, EquipmentDescription, Barcode, EquipmentTypeKey, FacKey, FloorKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/addnewEquipment";
+    const url = ConectionSettings.Url + "/addnewEquipment";
     const obj = {
 
       EquipmentTypeKey: EquipmentTypeKey,
@@ -491,33 +488,33 @@ export class InventoryService {
   EditEquipmentAutoGenerate(equipKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getEquipmentKeyById?equipmentKey=' + equipKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getEquipmentKeyById?equipmentKey=' + equipKey + '&OrganizationID=' + OrgID);
   }
 
   getallFloorTypeList(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getFloorTypeListForRoomEdit?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getFloorTypeListForRoomEdit?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getallRoomTypeList(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getRoomTypeListForRoomEdit?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getRoomTypeListForRoomEdit?empkey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getBarcodeForRoom(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getBarcodeForRoom?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getBarcodeForRoom?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getallZoneList(facKey, flrKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getZoneListForRoomEdit?FacilityKey=' + facKey + '&FloorKey=' + flrKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getZoneListForRoomEdit?FacilityKey=' + facKey + '&FloorKey=' + flrKey + '&OrganizationID=' + OrgID);
   }
 
 
   checkNewRoom(facilityKey, floorKey, floorTypeKey, zoneKey, roomTypeKey, roomName, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/checkForNewRoom";
+    const url = ConectionSettings.Url + "/checkForNewRoom";
     const obj = {
 
       FacilityKey: facilityKey,
@@ -535,20 +532,20 @@ export class InventoryService {
 
     return this
       .http
-      .get(ConectionSettings.Url+'/checkUniqueBarcode_Updation?roomkey=' + -1 + '&barcode=' + Barcode + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkUniqueBarcode_Updation?roomkey=' + -1 + '&barcode=' + Barcode + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   //Add check according to building and Floor name
-  checkRoomName(facilityKey,floorKey,RoomName, OrgID) {
+  checkRoomName(facilityKey, floorKey, RoomName, OrgID) {
 
     return this
       .http
-      .get(ConectionSettings.Url+'/checkNewRoomName?RoomName=' + RoomName +'&FacilityKey='+ facilityKey+'&FloorKey='+floorKey+'&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkNewRoomName?RoomName=' + RoomName + '&FacilityKey=' + facilityKey + '&FloorKey=' + floorKey + '&OrganizationID=' + OrgID);
 
   }
 
 
   addRoom(facilityKey, floorKey, floorTypeKey, zoneKey, roomTypeKey, roomName, SquareFoot, barcode, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/addnewRoom";
+    const url = ConectionSettings.Url + "/addnewRoom";
     const obj = {
 
       FacilityKey: facilityKey,
@@ -572,18 +569,18 @@ export class InventoryService {
 
     return this
       .http
-      .get(ConectionSettings.Url+'/getRoomById?roomKey=' + RoomKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getRoomById?roomKey=' + RoomKey + '&OrganizationID=' + OrgID);
 
   }
   checkUniqueBarcode_Updation(Barcode, roomkey, employeekey, OrganizationID) {
 
     return this
       .http
-      .get(ConectionSettings.Url+'/checkUniqueBarcode_Updation?barcode=' + Barcode + '&roomkey=' + roomkey + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
+      .get(ConectionSettings.Url + '/checkUniqueBarcode_Updation?barcode=' + Barcode + '&roomkey=' + roomkey + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
 
   }
   updateRoom(obj) {
-    const url = ConectionSettings.Url+'/updateRoom';
+    const url = ConectionSettings.Url + '/updateRoom';
     return this
       .http
       .post(url, obj);
@@ -592,11 +589,11 @@ export class InventoryService {
   checkForNewFloorType(FloorTypeName, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/checkForNewInventory?checkValue=' + FloorTypeName + '&type=floortype' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForNewInventory?checkValue=' + FloorTypeName + '&type=floortype' + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   addNewFloorType(floorTypeName, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/addnewfloortype";
+    const url = ConectionSettings.Url + "/addnewfloortype";
     const obj = {
       FloorTypeName: floorTypeName,
       employeekey: empKey,
@@ -608,12 +605,12 @@ export class InventoryService {
   EditFloorType(FloorTypeKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/getFloorTypeById?floortypeKey=' + FloorTypeKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getFloorTypeById?floortypeKey=' + FloorTypeKey + '&OrganizationID=' + OrgID);
 
   }
 
   UpdateFloorType(floorTypeName, FlrTypeKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/updateFloorType";
+    const url = ConectionSettings.Url + "/updateFloorType";
     const obj = {
       FloorTypeKey: FlrTypeKey,
       FloorTypeName: floorTypeName,
@@ -623,7 +620,7 @@ export class InventoryService {
     return this.http.post(url, obj);
   }
   updateEquipment(equipmentName, equipmentDescription, equipmentBarcode, equipTypeKey, FacKey, floorKey, equipKey, empKey, OrgID) {
-    const url = ConectionSettings.Url+"/updateEquipment";
+    const url = ConectionSettings.Url + "/updateEquipment";
     const obj = {
       EquipmentKey: equipKey,
       EquipmentTypeKey: equipTypeKey,
@@ -644,13 +641,13 @@ export class InventoryService {
   checkEditedRoomName(facKey, roomName, RoomKey, empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url+'/checkForEditedRoomName?roomKey=' + RoomKey + '&RoomName=' + roomName + '&FacilityKey=' + facKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/checkForEditedRoomName?roomKey=' + RoomKey + '&RoomName=' + roomName + '&FacilityKey=' + facKey + '&employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
 
   getAllRoomFilterList(OrgID, bldgKey, flrKey, zKey, rTypeKey, rKey, flrTypeKey, empKey) {
     console.log("service... org" + OrgID + " ..... bldg " + bldgKey + " .....flr " + flrKey + " .....zone " + zKey + " .....rtype " + rTypeKey + " .....room " + rKey + " .....flrtype " + flrTypeKey + " .....emp " + empKey);
-    const url = ConectionSettings.Url+"/viewRoomsByallFilters";
+    const url = ConectionSettings.Url + "/viewRoomsByallFilters";
     const obj = {
       manager: empKey,
       facilitykey: bldgKey,
@@ -663,12 +660,18 @@ export class InventoryService {
     }
     return this.http.post(url, obj);
   }
+
+  getTemplateDetailsForFeedback(OrgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getTemplateDetailsForFeedbackByOrgId?OrganizationID=' + OrgID);
+  }
   // @rodney ends....
 
-  getRoomDetailsNamesList(RoomKey,OrgID){
+  getRoomDetailsNamesList(RoomKey, OrgID) {
     return this
-    .http
-    .get(ConectionSettings.Url+'/getRoomDetailsNamesList?roomKey=' + RoomKey + '&OrganizationID=' + OrgID);
+      .http
+      .get(ConectionSettings.Url + '/getRoomDetailsNamesList?roomKey=' + RoomKey + '&OrganizationID=' + OrgID);
   }
-  
+
 }

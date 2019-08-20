@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 export class QrCodeViewFeedbackComponent implements OnInit {
 
 
-  qrcode ;
+  qrcode;
   roomKey$;
   roomdetails;
   roomdetailsnamelist;
@@ -25,7 +25,7 @@ export class QrCodeViewFeedbackComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
 
-  constructor(private route: ActivatedRoute, private inventoryService: InventoryService,private _location: Location) {
+  constructor(private route: ActivatedRoute, private inventoryService: InventoryService, private _location: Location) {
     this.route.params.subscribe(params => this.roomKey$ = params.RoomKey);
   }
 
@@ -72,16 +72,23 @@ export class QrCodeViewFeedbackComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    this.inventoryService.getRoomDetailsList(this.roomKey$,this.OrganizationID).subscribe((data) => {
+    this.inventoryService.getRoomDetailsList(this.roomKey$, this.OrganizationID).subscribe((data) => {
       this.roomdetails = data[0];
-        this.qrcode = ConectionSettings.AbsUrl+'/#/Reviews/'+this.roomdetails.FacilityKey+'/'+this.roomdetails.FloorKey+'/'+this.roomdetails.ZoneKey+'/'+this.roomdetails.RoomTypeKey+'/'+this.OrganizationID+'/'+this.roomKey$+'/1';
+      this.inventoryService.getTemplateDetailsForFeedback(this.OrganizationID).subscribe((data) => {
+        var tempID = data[0];
+        if(!tempID){
+          tempID=[];
+          tempID.TemplateID=0;
+        }
+        this.qrcode = ConectionSettings.AbsUrl + '/#/Reviews/' + this.roomdetails.FacilityKey + '/' + this.roomdetails.FloorKey + '/' + this.roomdetails.ZoneKey + '/' + this.roomdetails.RoomTypeKey + '/' + this.OrganizationID + '/' + this.roomKey$ + '/' + tempID.TemplateID;
       });
+    });
 
-    this.inventoryService.getRoomDetailsNamesList(this.roomKey$,this.OrganizationID).subscribe((data) => {
+    this.inventoryService.getRoomDetailsNamesList(this.roomKey$, this.OrganizationID).subscribe((data) => {
       this.roomdetailsnamelist = data[0];
     });
   }
-  goBack(){
+  goBack() {
     this._location.back();
   }
 }
