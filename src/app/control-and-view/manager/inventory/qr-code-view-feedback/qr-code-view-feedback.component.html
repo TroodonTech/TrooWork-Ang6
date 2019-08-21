@@ -1,47 +1,52 @@
-<div style="padding-left: 9rem;padding-right: 9rem;">
-
-  <!-- <div *ngIf="qrcode && roomdetailsnamelist"
-    style="margin-left: 1.5rem; margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem"
-    class="row bg-info col-md-12" id="part2">
-    <h1 style="margin-left: 43%;font-weight: 800">FEEDBACK</h1>
-    <h1 style="margin-left: 11%">
-      Your feedback is valuable to us so that we can make your experience better. Scan the QR Code
-      to give us your feedback.
-    </h1>
-    <ngx-qrcode style="margin-left: 38%" qrc-element-type="url" [qrc-value]="qrcode"></ngx-qrcode>
-
-  </div> -->
-
+<div style="padding-left: 9%;padding-right: 9%;">
 
   <div *ngIf="qrcode && roomdetailsnamelist"
-    style="margin-left: 1.5rem; margin-right: 1.5rem;padding-top: 1rem;padding-bottom: 1rem;"
-    class="row bg-info col-md-12" id="part1">
-    <!-- header logo-->
+    style="margin-left: 1.5%; margin-right: 1.5%;padding-top: 1%;padding-bottom: 1%;"
+    class="row bg-info col-md-12 col-sm-12 col-lg-12 col-xs-12" id="part1">
+    <table>
+      <tr>
+        <td colspan="16">
+          <h1 style="font-size: 150px;text-align: center !important; font-weight: 500;">FEEDBACK</h1>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="16">
+          <h1 style="font-size: 48px;text-align: justify;">
+            Your feedback is valuable to us so that we can make your experience better. Scan the QR Code
+            to give us your feedback.
+          </h1>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="16"></td>
+      </tr>
+      <tr>
+        <td colspan="16">
+          <span style="text-align: center">
+            <ngx-qrcode qrc-element-type="url" [qrc-value]="qrcode"></ngx-qrcode>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="16"></td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <span style="text-align: left">
+            <img src="assets/icons/TROOWORK-transperant.png" style="width: 60%;">
+          </span>
+        </td>
+        <td colspan="4">
+          <span>
 
-    <br>
-    <h1 style="font-weight: 800;font-size: 150px;margin-left: 20%;margin-top: 10%">FEEDBACK</h1>
-    <h1 style="font-size: 48px;text-align: justify;margin-left: 9%;margin-right: 9%;margin-top: 5%">
-      Your feedback is valuable to us so that we can make your experience better. Scan the QR Code
-      to give us your feedback.
-    </h1>
-    <ngx-qrcode style="margin-left: 22%;margin-top: 5%" qrc-element-type="url" [qrc-value]="qrcode"></ngx-qrcode>
-    <!-- <ngx-qrcode style="margin-left: 30%;margin-top: 10%" qrc-element-type="url" [qrc-value]="qrcode"></ngx-qrcode> -->
-
-    <!-- footer-->
-    <!-- <div style="margin-top: 60%;margin-left: -50%;"> -->
-      <div style="margin-top: 60%;margin-left: -35%;">
-      <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark">
-        <mdb-navbar-brand>
-          <a class="navbar-brand" href="http://troodontechnology.com/">
-            <img src="assets/icons/TROOWORK-transperant.png" style="width: 20rem;margin-left: 50%">
-          </a>
-
-          <a class="navbar-brand" href="http://troodontechnology.com/">
-            <img src="assets/icons/troodon-sticker1.png" style="width: 30rem;margin-left: 50%">
-          </a>
-        </mdb-navbar-brand>
-      </mdb-navbar>
-    </div>
+          </span>
+        </td>
+        <td colspan="6" style="width:40%">
+          <span style="text-align: right">
+            <img src="assets/icons/troodon-sticker1.png" style="width: 100%;">
+          </span>
+      </tr>
+    </table>
   </div>
 
   <div class="row col-md-12">
