@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewService } from '../../service/review.service';
+import { InventoryService } from '../../service/inventory.service';
 import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'app-reviews',
@@ -32,14 +33,14 @@ export class ReviewsComponent implements OnInit {
 
   lastIndexValue;
 
-  constructor(private reviewservice: ReviewService, private router: Router, private route: ActivatedRoute) {
+  constructor(private reviewservice: ReviewService, private router: Router, private route: ActivatedRoute, private inventoryService: InventoryService) {
     this.route.params.subscribe(params => this.fac$ = params.Facility_Key);
     this.route.params.subscribe(params => this.flr$ = params.Floor_Key);
     this.route.params.subscribe(params => this.zone$ = params.Zone_Key);
     this.route.params.subscribe(params => this.rtype$ = params.RoomType_Key);
     this.route.params.subscribe(params => this.OrgId$ = params.rev_orgid);
     this.route.params.subscribe(params => this.rKey$ = params.room_key);
-    this.route.params.subscribe(params => this.tempKey$ = params.templateID);
+    // this.route.params.subscribe(params => this.tempKey$ = params.templateID);
   }
 
   saveRatings(TemplateQuestionID, ScoreName) {
@@ -202,27 +203,36 @@ export class ReviewsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.reviewservice.getReviewQuestions(this.tempKey$, this.OrgId$).subscribe((data: any[]) => {
-      this.reviewQuestions = data;
+    this.inventoryService.getTemplateDetailsForFeedback(this.OrgId$).subscribe((data) => {
+      var tempID = data[0];
+      if (!tempID) {
+        tempID = [];
+        tempID.TemplateID = 0;
+      }
+      this.tempKey$ = tempID.TemplateID;
 
-      if (this.reviewQuestions[0].ScoreName === 'Yes/No') {
-        this.names = ['Yes', 'No'];
-        this.ScoreName = this.reviewQuestions[0].ScoreName;
-      }
-      else if (this.reviewQuestions[0].ScoreName === 'Pass/Fail') {
-        this.names = ['Fail', 'N/A'];
-        this.ScoreName = this.reviewQuestions[0].ScoreName;
-      }
-      else if (this.reviewQuestions[0].ScoreName === '5 Star') {
-        for (var i = 0; i < this.reviewQuestions.length; i++) {
-          this.starList[i] = [true, true, true, true, true];
-        }
-      } else if (this.reviewQuestions[0].ScoreName === '3 Star') {
-        for (var i = 0; i < this.reviewQuestions.length; i++) {
-          this.starList[i] = [true, true, true];
-        }
-      }
+      this.reviewservice.getReviewQuestions(this.tempKey$, this.OrgId$).subscribe((data: any[]) => {
+        this.reviewQuestions = data;
 
+        if (this.reviewQuestions[0].ScoreName === 'Yes/No') {
+          this.names = ['Yes', 'No'];
+          this.ScoreName = this.reviewQuestions[0].ScoreName;
+        }
+        else if (this.reviewQuestions[0].ScoreName === 'Pass/Fail') {
+          this.names = ['Fail', 'N/A'];
+          this.ScoreName = this.reviewQuestions[0].ScoreName;
+        }
+        else if (this.reviewQuestions[0].ScoreName === '5 Star') {
+          for (var i = 0; i < this.reviewQuestions.length; i++) {
+            this.starList[i] = [true, true, true, true, true];
+          }
+        } else if (this.reviewQuestions[0].ScoreName === '3 Star') {
+          for (var i = 0; i < this.reviewQuestions.length; i++) {
+            this.starList[i] = [true, true, true];
+          }
+        }
+
+      });
     });
   }
 

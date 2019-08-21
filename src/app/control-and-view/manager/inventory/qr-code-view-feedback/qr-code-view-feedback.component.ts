@@ -74,14 +74,14 @@ export class QrCodeViewFeedbackComponent implements OnInit {
 
     this.inventoryService.getRoomDetailsList(this.roomKey$, this.OrganizationID).subscribe((data) => {
       this.roomdetails = data[0];
-      this.inventoryService.getTemplateDetailsForFeedback(this.OrganizationID).subscribe((data) => {
-        var tempID = data[0];
-        if(!tempID){
-          tempID=[];
-          tempID.TemplateID=0;
-        }
-        this.qrcode = ConectionSettings.AbsUrl + '/#/Reviews/' + this.roomdetails.FacilityKey + '/' + this.roomdetails.FloorKey + '/' + this.roomdetails.ZoneKey + '/' + this.roomdetails.RoomTypeKey + '/' + this.OrganizationID + '/' + this.roomKey$ + '/' + tempID.TemplateID;
-      });
+      // this.inventoryService.getTemplateDetailsForFeedback(this.OrganizationID).subscribe((data) => {
+      //   var tempID = data[0];
+      //   if(!tempID){
+      //     tempID=[];
+      //     tempID.TemplateID=0;
+      //   }
+        this.qrcode = ConectionSettings.AbsUrl + '/#/Reviews/' + this.roomdetails.FacilityKey + '/' + this.roomdetails.FloorKey + '/' + this.roomdetails.ZoneKey + '/' + this.roomdetails.RoomTypeKey + '/' + this.OrganizationID + '/' + this.roomKey$ ;
+      // });
     });
 
     this.inventoryService.getRoomDetailsNamesList(this.roomKey$, this.OrganizationID).subscribe((data) => {

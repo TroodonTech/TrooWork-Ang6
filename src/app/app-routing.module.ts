@@ -10,7 +10,7 @@ const routes: Routes = [
     loadChildren: './control-and-view/dashboard/login/login.module#LoginModule' // varun- first page to load for lazy loading.... 
   },
   {
-    path: 'Reviews/:Facility_Key/:Floor_Key/:Zone_Key/:RoomType_Key/:rev_orgid/:room_key/:templateID',// user review page
+    path: 'Reviews/:Facility_Key/:Floor_Key/:Zone_Key/:RoomType_Key/:rev_orgid/:room_key',// user review page
     loadChildren: './control-and-view/reviews/reviews.module#ReviewsModule'
   },
   {
