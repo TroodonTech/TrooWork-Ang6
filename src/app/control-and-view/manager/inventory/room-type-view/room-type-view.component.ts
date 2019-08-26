@@ -66,6 +66,7 @@ export class RoomTypeViewComponent implements OnInit {
   //validation ends ..... @rodney
   previousPage() {
     this.loading = true;
+    this.pageNo = +this.pageNo - 1;
     this.inventoryService
       .getRoomTypeList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
