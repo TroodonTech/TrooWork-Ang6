@@ -8,11 +8,12 @@ import { InspectiontemplatedetailEditComponent } from './inspectiontemplatedetai
 import { InspectionViewComponent } from './inspection-view/inspection-view.component';
 import { ViewinspectionmanagerComponent } from './viewinspectionmanager/viewinspectionmanager.component';
 import { ManagerinspectiontemplateComponent } from './managerinspectiontemplate/managerinspectiontemplate.component';
+import { FeedbackManageComponent } from './feedback-manage/feedback-manage.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [InspectionCreateComponent, InspectiontemplateCreateComponent, InspectiontemplateandquestionsViewComponent, InspectiontemplateEditComponent, InspectiontemplatedetailEditComponent, InspectionViewComponent, ViewinspectionmanagerComponent, ManagerinspectiontemplateComponent]
+  declarations: [InspectionCreateComponent, InspectiontemplateCreateComponent, InspectiontemplateandquestionsViewComponent, InspectiontemplateEditComponent, InspectiontemplatedetailEditComponent, InspectionViewComponent, ViewinspectionmanagerComponent, ManagerinspectiontemplateComponent, FeedbackManageComponent]
 })
 export class InspectionModule { }

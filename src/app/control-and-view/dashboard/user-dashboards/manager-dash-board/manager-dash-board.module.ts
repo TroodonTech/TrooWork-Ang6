@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
-import {ReviewReportModule } from "../../../manager/reports/review-report/review-report.module";
+import { FeedbackManageModule } from "../../../manager/inspection/feedback-manage/feedback-manage.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -644,16 +644,21 @@ const routes: Routes = [
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/inventory/qr-code-view-list/qr-code-view-list.module#QrCodeViewListModule'
 
-      }, 
+      },
       {
         path: 'ViewServiceRequest',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/work-order/view-service-request/view-service-request.module#ViewServiceRequestModule',
-      }, 
+      },
       {
         path: 'reviewReport',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/reports/review-report/review-report.module#ReviewReportModule',
+      },
+      {
+        path: 'feedbackManage',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/inspection/feedback-manage/feedback-manage.module#FeedbackManageModule',
       }
 
     ]
