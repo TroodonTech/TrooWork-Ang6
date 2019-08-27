@@ -142,7 +142,7 @@ export class SchedulerComponent implements AfterViewInit {
     cellWidth: 150,
     eventHeight: 30,
     days: DayPilot.Date.today().daysInMonth(),
-    startDate: DayPilot.Date.today().firstDayOfMonth(),
+    startDate: DayPilot.Date.today(),
     treeEnabled: true,
     treePreventParentUsage: true,
     EventMovingStartEndEnabled: true,
@@ -367,7 +367,7 @@ export class SchedulerComponent implements AfterViewInit {
         this.config.startDate = this.convert_DT(this.date);
       }
       else {
-        this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
+        this.config.startDate = DayPilot.Date.today();
       }
     } else if (this.Range == 'Week') {
       this.config.timeHeaders = [
@@ -417,7 +417,7 @@ export class SchedulerComponent implements AfterViewInit {
     //     this.config.startDate = this.date;
     //   }
     //   else {
-    //     this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
+    //     this.config.startDate = DayPilot.Date.today();
     //   }
 
     // }
@@ -437,7 +437,7 @@ export class SchedulerComponent implements AfterViewInit {
         this.config.startDate = this.convert_DT(this.date);
       }
       else {
-        this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
+        this.config.startDate = DayPilot.Date.today();
       }
     }
   }
