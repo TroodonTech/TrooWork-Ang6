@@ -134,14 +134,26 @@ export class PtoRequestActionComponent implements OnInit {
       //   return;
       // }
 
-      if ((this.convert_DT(this.requestdetailsbyID.ApprovedStartDate) < this.convert_DT(this.requestdetailsbyID.StartDate)) || (this.convert_DT(this.requestdetailsbyID.ApprovedStartDate) > this.convert_DT(this.requestdetailsbyID.EndDate))) {
+      if (((this.convert_DT(this.requestdetailsbyID.ApprovedStartDate)) >= (this.requestdetailsbyID.StartDate)) && ((this.convert_DT(this.requestdetailsbyID.ApprovedStartDate)) <= (this.requestdetailsbyID.EndDate))) { }
+      else {
         alert("Approved start date must be between requested dates!");
         return;
       }
-      if ((this.convert_DT(this.requestdetailsbyID.ApprovedEndDate) < this.convert_DT(this.requestdetailsbyID.StartDate)) || (this.convert_DT(this.requestdetailsbyID.ApprovedEndDate) > this.convert_DT(this.requestdetailsbyID.EndDate))) {
+
+      if (((this.convert_DT(this.requestdetailsbyID.ApprovedEndDate)) >= (this.requestdetailsbyID.StartDate)) && ((this.convert_DT(this.requestdetailsbyID.ApprovedEndDate)) <= (this.requestdetailsbyID.EndDate))) { }
+      else {
         alert("Approved end date must be between requested dates!");
         return;
       }
+
+      // if ((this.convert_DT(this.requestdetailsbyID.ApprovedStartDate) < this.convert_DT(this.requestdetailsbyID.StartDate)) || (this.convert_DT(this.requestdetailsbyID.ApprovedStartDate) > this.convert_DT(this.requestdetailsbyID.EndDate))) {
+      //   alert("Approved start date must be between requested dates!");
+      //   return;
+      // }
+      // if ((this.convert_DT(this.requestdetailsbyID.ApprovedEndDate) < this.convert_DT(this.requestdetailsbyID.StartDate)) || (this.convert_DT(this.requestdetailsbyID.ApprovedEndDate) > this.convert_DT(this.requestdetailsbyID.EndDate))) {
+      //   alert("Approved end date must be between requested dates!");
+      //   return;
+      // }
     }
 
 
