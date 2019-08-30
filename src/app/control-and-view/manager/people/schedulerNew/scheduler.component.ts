@@ -58,7 +58,8 @@ import { DatepickerOptions } from 'ng2-datepicker';
 })
 export class SchedulerComponent implements AfterViewInit {
   constructor(private ds: DataService, private cdr: ChangeDetectorRef, private SchedulingService: SchedulingService) {
-    this.Range;
+    this.date=new Date();
+    this.Range='Month';
   }
   @ViewChild("modal") modal: DayPilotModalComponent;
   @ViewChild("scheduler") scheduler: DayPilotSchedulerComponent;
@@ -148,7 +149,17 @@ export class SchedulerComponent implements AfterViewInit {
     EventMovingStartEndEnabled: true,
     bubble: new DayPilot.Bubble({
       animation: "fast",
-      animated: false
+      animated: false,
+    onLoad: function(args) {
+      var ev = args.source;
+      args.async = true;  // notify manually using .loaded()
+            
+      // simulating slow server-side load
+      setTimeout(function() {
+        args.html =  args.source.data.ScheduleName;
+        args.loaded();
+      }, 500);
+    }
     }),
     timeRangeSelectedHandling: 'Hold',
     contextMenu: new DayPilot.Menu({
