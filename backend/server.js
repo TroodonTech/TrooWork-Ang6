@@ -1,4 +1,5 @@
 var config = require('./config');
+var sendGridApi = require('./sendGridApi');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -15503,12 +15504,12 @@ app.post(securedpath + '/generatedowntimeReport', supportCrossOriginScript, func
     });
 });
 
-// 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 is your sendgrid api
+
 app.post(securedpath + '/sendmail', function (req, res) {
     var options = {
         service: 'Gmail',
         auth: {
-            api_key: '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'
+            api_key: sendGridApi.ApiKey
         }
     };
     var mailer = nodemailer.createTransport(sgTransport(options));
