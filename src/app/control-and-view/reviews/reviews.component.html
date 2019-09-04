@@ -5,7 +5,7 @@
     </a>
   </mdb-navbar-brand>
 </mdb-navbar>
-<div style="padding-left: 25rem;padding-right: 25rem;overflow-x: hidden">
+<div style="overflow-x: hidden">
   <div style="text-align:center">
     <h4 style="text-align:center"><b>REVIEW US</b></h4>
   </div>
@@ -33,15 +33,29 @@
       </li>
 
     </ul>
-    <div style="margin-left: 13%">
-      <label>
-        <b style="font-weight: 700 !important">{{reviewQuestions?.length+1}}. Any Other Comments.</b>
-      </label>
-      <textarea class="form-control rounded-1" rows="3" [(ngModel)]="comments" style="margin-left: 3%;width: 90%"></textarea>
-    </div>
+
+    <ul id="menu" class="form-group">
+
+      <li class="col-sm-offset-4 col-sm-10" style="margin-left: 11%">
+        <div class="list inspectionPadding">
+          <span class="item-text-wrap"><b style="font-weight: 700 !important">{{reviewQuestions?.length+1}}. Any Other
+              Comments.</b></span>
+          <div class="col-md-6">
+            <div>
+              <br>
+              <textarea class="form-control rounded-1" rows="3" [(ngModel)]="comments" style="width: 90%"></textarea>
+              <br>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+
+
   </div>
   <br>
-  <div class="row col-md-12" style="margin-left: 19rem;">
+  <div class="row col-md-12" style="margin-left: 12rem;">
     <div style="text-align:center">
       <button type="button" style="text-align:center" class="btn btn-success"
         (click)="SubmitReview();"><b>SUBMIT</b></button>
