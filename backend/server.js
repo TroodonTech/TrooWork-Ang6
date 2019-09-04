@@ -15684,19 +15684,21 @@ app.get(securedpath + '/employeesForScheduler', function (req, res) {
                     var selectedGroup = data[0].Idemployeegrouping;// 1st group Id                   
                     tempArr[arr] = [];// creating 2D array
                     for (var i = 0; i < data.length; i++) {
-                        if (selectedGroup == data[i].Idemployeegrouping) {// check for group id                       
+                        if (selectedGroup == data[i].Idemployeegrouping) {// check for group id  
+                            data[i].IsShift=0;                     
                             tempArr[arr].push(data[i]);
                         }
                         else {
                             arr = arr + 1;
                             tempArr[arr] = [];// creating 2D array
                             var selectedGroup = data[i].Idemployeegrouping
+                            data[i].IsShift=0;
                             tempArr[arr].push(data[i]);
                         }
                     }
 
                     for (var j = 0; j <= arr; j++) {// inserting array value to scheduler tree list
-                        resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": true, children: tempArr[j], backColor: tempArr[j][0].backColor });
+                        resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": true, children: tempArr[j],IsShift:1, backColor: tempArr[j][0].backColor });
 
                     }
                     res.send(resources);
@@ -17277,6 +17279,59 @@ app.post(securedpath + '/insertFeedbackQuestion', supportCrossOriginScript, func
     });
 });
 
+app.options('/cancelWorkOrder', supportCrossOriginScript);
+app.post(securedpath + '/cancelWorkOrder', supportCrossOriginScript, function (request, res) {
+
+    var workOrderKey = request.body.workOrderKey;
+    var reason = request.body.Reason;
+    var updateDate = request.body.updateDate;
+    var updateTime = request.body.updateTime;
+    var empKey = request.body.empKey;
+    var OrganizationID = request.body.OrganizationID;
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @workOrderKey=?;set @reason=?;set @updateDate=?;set @updateTime=?; set @empKey=?; set @OrganizationID=?; call usp_cancelWorkOrder(@workOrderKey,@reason,@updateDate,@updateTime,@empKey,@OrganizationID)', [workOrderKey, reason, updateDate, updateTime, empKey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                } else {
+                    res.end(JSON.stringify(rows[4]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.options('/deleteEmpFromEmpGroup', supportCrossOriginScript);
+app.post(securedpath + '/deleteEmpFromEmpGroup', supportCrossOriginScript, function (request, res) {
+
+    var empKey = request.body.empKey;
+    var OrganizationID = request.body.orgID;
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @empKey=?; set @OrganizationID=?; call usp_deleteEmpFromEmpGroup(@empKey,@OrganizationID)', [empKey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                } else {
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //Review ends...
 
 //********Scheduler************API by Rodney ends
