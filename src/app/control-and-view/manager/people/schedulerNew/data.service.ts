@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
 @Injectable()
 export class DataService {
 newtype= 'Month';
-passDate=DayPilot.Date.today().firstDayOfMonth();
+passDate=DayPilot.Date.today();
   resources: any[] = [
     { name: 'Employee1', id: 'GA',"expanded": true, children: [
       { name: 'Resource 1', id: 'R1' },

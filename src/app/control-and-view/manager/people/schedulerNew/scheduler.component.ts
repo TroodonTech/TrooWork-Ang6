@@ -58,7 +58,8 @@ import { DatepickerOptions } from 'ng2-datepicker';
 })
 export class SchedulerComponent implements AfterViewInit {
   constructor(private ds: DataService, private cdr: ChangeDetectorRef, private SchedulingService: SchedulingService) {
-    this.Range;
+    this.date=new Date();
+    this.Range='Month';
   }
   @ViewChild("modal") modal: DayPilotModalComponent;
   @ViewChild("scheduler") scheduler: DayPilotSchedulerComponent;
@@ -177,13 +178,23 @@ export class SchedulerComponent implements AfterViewInit {
     cellWidth: 150,
     eventHeight: 30,
     days: DayPilot.Date.today().daysInMonth(),
-    startDate: DayPilot.Date.today().firstDayOfMonth(),
+    startDate: DayPilot.Date.today(),
     treeEnabled: true,
     treePreventParentUsage: true,
     EventMovingStartEndEnabled: true,
     bubble: new DayPilot.Bubble({
       animation: "fast",
-      animated: false
+      animated: false,
+    onLoad: function(args) {
+      var ev = args.source;
+      args.async = true;  // notify manually using .loaded()
+            
+      // simulating slow server-side load
+      setTimeout(function() {
+        args.html =  args.source.data.ScheduleName;
+        args.loaded();
+      }, 500);
+    }
     }),
     timeRangeSelectedHandling: 'Hold',
     contextMenuResource: this.menu,
@@ -405,7 +416,7 @@ export class SchedulerComponent implements AfterViewInit {
         this.config.startDate = this.convert_DT(this.date);
       }
       else {
-        this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
+        this.config.startDate = DayPilot.Date.today();
       }
     } else if (this.Range == 'Week') {
       this.config.timeHeaders = [
@@ -455,7 +466,7 @@ export class SchedulerComponent implements AfterViewInit {
     //     this.config.startDate = this.date;
     //   }
     //   else {
-    //     this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
+    //     this.config.startDate = DayPilot.Date.today();
     //   }
 
     // }
@@ -475,7 +486,7 @@ export class SchedulerComponent implements AfterViewInit {
         this.config.startDate = this.convert_DT(this.date);
       }
       else {
-        this.config.startDate = DayPilot.Date.today().firstDayOfMonth();
+        this.config.startDate = DayPilot.Date.today();
       }
     }
   }
