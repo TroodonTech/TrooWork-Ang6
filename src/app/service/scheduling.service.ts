@@ -333,10 +333,10 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/employeeCalendarDetailsForScheduler?dateRange=' + dateRange + '&startDate=' + startDate + '&OrganizationID=' + OrgID);
   }
-  empCalendarDetailsForViewOnly(empkey, dateRange, startDate,endDate, OrgID) {
+  empCalendarDetailsForViewOnly(empkey, dateRange, startDate, endDate, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/employeeCalendarDetailsForSchedulerOnlyForView?dateRange=' + dateRange + '&startDate=' + startDate +'&endDate='+endDate+ '&empKey=' + empkey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/employeeCalendarDetailsForSchedulerOnlyForView?dateRange=' + dateRange + '&startDate=' + startDate + '&endDate=' + endDate + '&empKey=' + empkey + '&OrganizationID=' + OrgID);
   }
   employeesViewOnlyForScheduler(empkey, orgID) {
     return this
@@ -393,6 +393,16 @@ export class SchedulingService {
 
     // return this.
     //   http.get(ConectionSettings.Url + '/getIteratedDates?fromdate=' + fromdate + '&todate=' + todate);
+  }
+
+  deleteEmpFromEmpGroup(empID, orgid) {
+    const url = ConectionSettings.Url + "/deleteEmpFromEmpGroup";
+    const obj = {
+      empKey: empID,
+      orgID: orgid
+    }
+    return this.http.post(url, obj);
+
   }
   // @Author:Rodney ends
 }
