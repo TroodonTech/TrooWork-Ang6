@@ -273,7 +273,7 @@ export class EditAssignmentScheduleForReportComponent implements OnInit {
 
           for(var i=0;i<this.woList.length;i++){
             if (this.roomList[j].WorkorderTypeKey==this.woList[i].WorkorderTypeKey){
-              // debugger;
+              
              if(this.woList[i].MetricType== 'Minutes Per')
              {
              this.roomList[j].Minutes=this.woList[i].MetricValue;
@@ -625,7 +625,7 @@ export class EditAssignmentScheduleForReportComponent implements OnInit {
             this.roomList[j].photoReq = false;
             photoObj1.push(this.roomList[j].photoReq);
           }
-          // debugger;
+          
 // console.log(this.roomList[j].KeepActive+" ... "+j);
           if (this.roomList[j].KeepActive === true || this.roomList[j].KeepActive == 1) {
             this.roomList[j].KeepActive = true;
@@ -967,7 +967,7 @@ export class EditAssignmentScheduleForReportComponent implements OnInit {
 
           for(var i=0;i<this.woList.length;i++){
             if (this.roomList[j].WorkorderTypeKey==this.woList[i].WorkorderTypeKey){
-              // debugger;
+             
              if(this.woList[i].MetricType== 'Minutes Per')
              {
              this.roomList[j].Minutes=this.woList[i].MetricValue;
@@ -1044,13 +1044,13 @@ export class EditAssignmentScheduleForReportComponent implements OnInit {
 
   }
   CalMetric(index,list){
-    // debugger;
+    
    
       if(list=='roomTempList')
       {
         for(var i=0;i<this.woList.length;i++){
      if (this.roomTempList[index].WorkorderTypeKey==this.woList[i].WorkorderTypeKey){
-       debugger;
+     
       //  this.roomTempList[index].Minutes=0;
       if(this.woList[i].MetricType== 'Minutes Per')
       {
@@ -1071,7 +1071,7 @@ export class EditAssignmentScheduleForReportComponent implements OnInit {
     {
       for(var i=0;i<this.woList.length;i++){
       if (this.roomList[index].WorkorderTypeKey==this.woList[i].WorkorderTypeKey){
-        debugger;
+       
        if(this.woList[i].MetricType== 'Minutes Per')
        {
        this.roomList[index].Minutes=this.woList[i].MetricValue;

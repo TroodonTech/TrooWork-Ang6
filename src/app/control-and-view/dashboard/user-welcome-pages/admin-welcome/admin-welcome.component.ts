@@ -60,7 +60,7 @@ export class AdminWelcomeComponent implements OnInit {
       });
 
       this.loginService.getMaintenanceUpdateMsg(this.employeekey, this.OrganizationID).subscribe((data: any[])=> {
-        // debugger;
+        
           this.Message = data[0].Message;
       });
 

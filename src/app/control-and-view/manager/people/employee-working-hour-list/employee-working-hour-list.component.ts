@@ -156,7 +156,7 @@ export class EmployeeWorkingHourListComponent implements OnInit {
       });
   }
   DateFilter(){//filter function
-    debugger;
+   
     var toDate= new Date();
     if(this.convert_DT(this.fromdate)<this.convert_DT(toDate)){
       alert("Please select current date or higher !");

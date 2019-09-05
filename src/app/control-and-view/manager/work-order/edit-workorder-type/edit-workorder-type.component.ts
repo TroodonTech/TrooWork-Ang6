@@ -60,7 +60,7 @@ export class EditWorkorderTypeComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
+  
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));

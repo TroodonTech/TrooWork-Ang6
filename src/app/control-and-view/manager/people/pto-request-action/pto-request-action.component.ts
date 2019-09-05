@@ -118,7 +118,7 @@ export class PtoRequestActionComponent implements OnInit {
 
     if (this.requestdetailsbyID.Status === "Approved") {
 
-      debugger;
+      
       if (!(this.requestdetailsbyID.ApprovedStartDate)) {
         alert('Approved Start Date is not provided !');
         return;

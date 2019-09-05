@@ -165,7 +165,7 @@ export class WorkOrderServiceService {
   }
   view_wotype(WOTKey,OrganizationID)
   {
-    // debugger;
+    
     return this
     .http
     .get(ConectionSettings.Url+'/editviewWorkOrderType?WorkorderTypeKey='+WOTKey+'&OrganizationID='+OrganizationID);

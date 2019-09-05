@@ -87,7 +87,7 @@ export class CreateWorkorderTypeComponent implements OnInit {
   //function for creating new workordertype
   addWOT(MetricType,WorkOrderTypeName,MetricTypeValue)
    {
-    //  debugger;
+   
     if (!WorkOrderTypeName) {
       alert("Please enter work-order type!");
     } else if (!WorkOrderTypeName.trim()) {
@@ -122,7 +122,7 @@ export class CreateWorkorderTypeComponent implements OnInit {
           else if (data[0].count == 0) {//if not add new wot
             this.WorkOrderServiceService.createWOT(this.add_WOT)
               .subscribe((data: any[]) => {
-                debugger;
+                
                 alert("Work-order type created successfully");
                 // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
                 if (this.role == 'Manager') {

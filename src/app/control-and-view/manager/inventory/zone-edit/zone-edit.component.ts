@@ -61,7 +61,7 @@ export class ZoneEditComponent implements OnInit {
   }
 
   updateZone(FacilityKey, FacilityName, FloorName, FloorKey, ZoneKey, ZoneName) {
-   debugger;
+   
    if(!(this.zoneEditValues.FacilityKey)  ){
     alert("Please Choose Building!");
     return;

@@ -130,7 +130,7 @@ export class BarchartReportComponent implements OnInit {
     this.ReportServiceService
       .generateDowntimeReportService(this.convert_DT(fromdate), EmployeeKey, this.OrganizationID)
       .subscribe((data1: any) => {
-        // debugger;
+        
         this.loading = false;
         if (data1.length > 0) {
           this.tableflag = true;

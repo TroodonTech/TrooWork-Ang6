@@ -104,7 +104,7 @@ export class TradeRequestActionComponent implements OnInit {
   }
 
   saveTradeRequestAction() {
-    debugger;
+   
     if (!(this.traderequestdetailsbyID.Status)) {
       alert('Status is not provided !');
       return;
