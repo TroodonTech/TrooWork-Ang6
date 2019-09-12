@@ -11,6 +11,9 @@ import { SchedulingService } from '../../../../service/scheduling.service';
   styleUrls: ['./generate-qr-code.component.scss']
 })
 export class GenerateQrCodeComponent implements OnInit {
+
+      ////////Author :  Aswathy//////
+      
   pageNo: Number = 1;
   itemsPerPage: Number = 25;
   showHide1: boolean;

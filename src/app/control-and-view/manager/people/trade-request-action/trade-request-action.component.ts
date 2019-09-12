@@ -10,6 +10,8 @@ import { DatepickerOptions } from 'ng2-datepicker';
 })
 export class TradeRequestActionComponent implements OnInit {
 
+    //////////Authors : Aswathy///////
+
   role: String;
   name: String;
   employeekey: Number;

@@ -15477,6 +15477,8 @@ app.get(securedpath + '/getEmployeesLocationWithSnapshot', function (req, res) {
     });
 });
 
+////code by aswathy starts////////
+
 app.post(securedpath + '/generatedowntimeReport', supportCrossOriginScript, function (req, res) {
 
     var fromdate = req.body.fromdate;
@@ -15503,7 +15505,7 @@ app.post(securedpath + '/generatedowntimeReport', supportCrossOriginScript, func
         connection.release();
     });
 });
-
+///code by aswathy ends here//
 
 app.post(securedpath + '/sendmail', function (req, res) {
     var options = {
@@ -16455,6 +16457,7 @@ app.get(securedpath + '/employeesViewOnlyForScheduler', function (req, res) {
 });
 
 // *** PTO & Trade starts...
+//code by Aswathy starts/.
 
 app.post(securedpath + '/savePTORequest', supportCrossOriginScript, function (req, res) {
 
@@ -16993,7 +16996,7 @@ app.post(securedpath + '/saveTradeRequestAction', supportCrossOriginScript, func
     });
 });
 
-
+//code by Aswathy ends...
 // *** PTO & Trade ends...
 app.get(securedpath + '/getAllReasonsForLeaves', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");

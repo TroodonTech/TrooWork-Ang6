@@ -13,6 +13,8 @@ import { Router } from "@angular/router";
 })
 export class GenerateQrCodeListComponent implements OnInit {
 
+      ////////Author :  Aswathy//////
+      
   pageNo: Number = 1;
   itemsPerPage: Number = 25;
   showHide1: boolean;

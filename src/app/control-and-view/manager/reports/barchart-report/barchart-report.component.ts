@@ -16,6 +16,8 @@ import 'jspdf-autotable';
 })
 export class BarchartReportComponent implements OnInit {
 
+  //////////////////////Author : Aswathy///////////////////////////////
+  
   loading: boolean;// loading
   role: String;
   name: String;
