@@ -191,7 +191,7 @@ export class ViewinspctnbysprvsrComponent implements OnInit {
   }
   //for deleting inspection
   checkBoxValueForDelete(index, CheckValue, inspectionorderkey) {
-    debugger;
+    
     this.checkValue[index] = CheckValue;
     this.inspectionorderKey[index] = inspectionorderkey;
     for (var i = 0; i < this.checkValue.length;) {

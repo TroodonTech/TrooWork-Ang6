@@ -65,7 +65,7 @@ export class EquipmentCreateComponent implements OnInit {
     this.FloorKey = floorKey;
   }
   addEquipment(EquipmentName, EquipmentDescription, Barcode, EquipmentTypeKey) {
-    debugger;
+    
     if (!EquipmentName || !EquipmentName.trim()) {
       alert("Please Enter Equipment Name!");
       return;

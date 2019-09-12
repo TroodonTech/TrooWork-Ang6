@@ -13,6 +13,8 @@ import 'jspdf-autotable';
 })
 export class QrCodeViewListComponent implements OnInit {
 
+      ////////Author :  Aswathy//////
+
   qrcode = [];
   QRCodeRoomKey$;
   roomdetails;

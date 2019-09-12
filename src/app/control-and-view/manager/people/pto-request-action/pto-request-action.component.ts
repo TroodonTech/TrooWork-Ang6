@@ -10,6 +10,8 @@ import { DatepickerOptions } from 'ng2-datepicker';
 })
 export class PtoRequestActionComponent implements OnInit {
 
+  //////////Authors : Aswathy///////
+
   role: String;
   name: String;
   employeekey: Number;
@@ -118,7 +120,7 @@ export class PtoRequestActionComponent implements OnInit {
 
     if (this.requestdetailsbyID.Status === "Approved") {
 
-      debugger;
+      
       if (!(this.requestdetailsbyID.ApprovedStartDate)) {
         alert('Approved Start Date is not provided !');
         return;

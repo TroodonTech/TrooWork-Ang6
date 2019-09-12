@@ -234,7 +234,7 @@ export class CreateBatchScheduleComponent implements OnInit {
 
 
   getScheduleDetails(scheduleKey) {
-    // debugger;
+  
     this.BatchScheduleNameKey = scheduleKey;
     this.empName = null;
     this.WorkorderNotes = null;
@@ -268,10 +268,10 @@ export class CreateBatchScheduleComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.roomList = data;
         for (var j = 0; j < this.roomList.length; j++) {
-          // debugger;
+        
           for (var i = 0; i < this.woList.length; i++) {
             if (this.roomList[j].WorkorderTypeKey == this.woList[i].WorkorderTypeKey) {
-              // debugger;
+             
               if (this.woList[i].MetricType == 'Minutes Per') {
                 this.roomList[j].Minutes = this.woList[i].MetricValue;
                 // console.log("Metric value::::" + this.woList[i].MetricValue);
@@ -722,7 +722,7 @@ export class CreateBatchScheduleComponent implements OnInit {
 
           // for(var i=0;i<this.woList.length;i++){
           //   if (this.roomList[j].WorkorderTypeKey==this.woList[i].WorkorderTypeKey){
-          //     // debugger;
+        
           //    if(this.woList[i].MetricType== 'Minutes Per')
           //    {
           //    this.roomList[j].Minutes=this.woList[i].MetricValue;
@@ -926,13 +926,13 @@ export class CreateBatchScheduleComponent implements OnInit {
   }
 
   CalMetric(index, list) {
-    // debugger;
+
 
 
     if (list == 'roomTempList') {
       for (var i = 0; i < this.woList.length; i++) {
         if (this.roomTempList[index].WorkorderTypeKey == this.woList[i].WorkorderTypeKey) {
-          //  debugger;
+        
           if (this.woList[i].MetricType == 'Minutes Per') {
             this.roomTempList[index].Minutes = this.woList[i].MetricValue;
             // console.log("Metric value::::" + this.woList[i].MetricValue);
@@ -950,7 +950,7 @@ export class CreateBatchScheduleComponent implements OnInit {
     if (list == 'roomList') {
       for (var i = 0; i < this.woList.length; i++) {
         if (this.roomList[index].WorkorderTypeKey == this.woList[i].WorkorderTypeKey) {
-          // debugger;
+          
           if (this.woList[i].MetricType == 'Minutes Per') {
             this.roomList[index].Minutes = this.woList[i].MetricValue;
             // console.log("Metric value::::" + this.woList[i].MetricValue);

@@ -132,7 +132,7 @@ export class BatchScheduleRoomComponent implements OnInit {
     var room;
     var roomtype;
     var zone;
-    // debugger;
+   
     if (!(this.FacilityKey)) {
       building = null;
     }
@@ -365,7 +365,7 @@ export class BatchScheduleRoomComponent implements OnInit {
     var room;
     var roomtype;
     var zone;
-    // debugger;
+   
     if (!(this.FacilityKey)) {
       building = null;
     }

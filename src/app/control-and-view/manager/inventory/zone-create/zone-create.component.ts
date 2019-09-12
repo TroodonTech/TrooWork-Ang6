@@ -39,7 +39,7 @@ export class ZoneCreateComponent implements OnInit {
   constructor(private inventoryService: InventoryService, private router: Router,private _location: Location) { }
 
   addZone(FacilityKey, FloorName, ZoneName,FloorKey) {
-    debugger;
+    
     if(!(this.FacilityKey) || !(this.FacilityKey.trim()) ){
       alert("Please Choose Building!");
       return;

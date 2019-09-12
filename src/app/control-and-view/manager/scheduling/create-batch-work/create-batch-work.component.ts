@@ -52,7 +52,7 @@ export class CreateBatchWorkComponent implements OnInit {
   }
 
   createScheduleName() {
-    debugger;
+    
     if (this.scheduleName && !this.scheduleName.trim()) {
       alert("Please provide a Assignment Name");
       return;

@@ -14,6 +14,8 @@ import {Location} from '@angular/common';
 })
 export class QrCodeViewComponent implements OnInit {
 
+      ////////Author :  Aswathy//////
+
   qrcode ;
   roomKey$;
   roomdetails;

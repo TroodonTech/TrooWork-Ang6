@@ -9,6 +9,9 @@ import { Router, ActivatedRoute } from "@angular/router";
   styleUrls: ['./trade-request-edit.component.scss']
 })
 export class TradeRequestEditComponent implements OnInit {
+
+    ////////Author :  Aswathy//////
+    
   role: String;
   name: String;
   toServeremployeekey: Number;
@@ -91,7 +94,7 @@ export class TradeRequestEditComponent implements OnInit {
     }
 
     var curr_date = this.convert_DT(new Date());
-    debugger;
+    
     if (this.convert_DT(curr_date) > this.convert_DT(this.traderequestdetails.StartDate)) {
       alert("Start Date can't be less than Today...!");
       return;
