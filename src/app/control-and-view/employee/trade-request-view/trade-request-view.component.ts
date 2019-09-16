@@ -7,6 +7,9 @@ import { PeopleServiceService } from "../../../service/people-service.service";
   styleUrls: ['./trade-request-view.component.scss']
 })
 export class TradeRequestViewComponent implements OnInit {
+
+    ////////Author :  Aswathy//////
+    
   role: String;
   name: String;
   toServeremployeekey;

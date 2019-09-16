@@ -15477,6 +15477,8 @@ app.get(securedpath + '/getEmployeesLocationWithSnapshot', function (req, res) {
     });
 });
 
+////code by aswathy starts////////
+
 app.post(securedpath + '/generatedowntimeReport', supportCrossOriginScript, function (req, res) {
 
     var fromdate = req.body.fromdate;
@@ -15503,7 +15505,7 @@ app.post(securedpath + '/generatedowntimeReport', supportCrossOriginScript, func
         connection.release();
     });
 });
-
+///code by aswathy ends here//
 
 app.post(securedpath + '/sendmail', function (req, res) {
     var options = {
@@ -16338,6 +16340,37 @@ app.get(securedpath + '/workorderCreateByEmployeeBarcode', function (req, res) {
         connection.release();
     });
 });
+app.get(securedpath + '/workorderCreateByEmployeeBarcodeWorkorderType', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var barcode = url.parse(req.url, true).query['barcode'];
+    var Date = url.parse(req.url, true).query['Date'];
+    var checkIn = url.parse(req.url, true).query['checkIn'];
+    var empKey = url.parse(req.url, true).query['emp'];
+    var wot = url.parse(req.url, true).query['wot'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set@barcode=?;set@Date=?;set@checkIn=?; set@empKey=?; set @wot=?; set @OrganizationID=?;call usp_workorderCreateByEmployeeBarcodeWorkorderType(@barcode,@Date,@checkIn,@empKey,@wot,@OrganizationID)", [barcode, Date, checkIn, empKey,wot, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[6]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 app.get(securedpath + '/checkRoomWorkorderCreateByEmployeeBarcode', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
 
@@ -16455,6 +16488,7 @@ app.get(securedpath + '/employeesViewOnlyForScheduler', function (req, res) {
 });
 
 // *** PTO & Trade starts...
+//code by Aswathy starts/.
 
 app.post(securedpath + '/savePTORequest', supportCrossOriginScript, function (req, res) {
 
@@ -16993,7 +17027,7 @@ app.post(securedpath + '/saveTradeRequestAction', supportCrossOriginScript, func
     });
 });
 
-
+//code by Aswathy ends...
 // *** PTO & Trade ends...
 app.get(securedpath + '/getAllReasonsForLeaves', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");

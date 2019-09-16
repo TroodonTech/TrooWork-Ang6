@@ -8,6 +8,8 @@ import { PeopleServiceService } from "../../../../service/people-service.service
 })
 export class TradeRequestsfromEmployeesComponent implements OnInit {
 
+    //////////Authors : Aswathy///////
+
   role: String;
   name: String;
   employeekey: Number;

@@ -325,7 +325,9 @@ export class ReportServiceService {
       .post(url, obj);
 
   }
+  // @Author Rodney - For inventory ends
 
+  ////Aswathy's code starts here/////
   generateDowntimeReportService(fromdate, EmployeeKey, OrganizationID) {
     const url = ConectionSettings.Url+'/generatedowntimeReport';
     const obj = {
@@ -337,8 +339,7 @@ export class ReportServiceService {
       .http
       .post(url, obj);
   }
-  // @Author Rodney - For inventory ends
-
+  ////Aswathy's code ends here/////
   //Review Report - @Rodney starts....
   getReviewReportDetails(from,to, orgID) {
     return this

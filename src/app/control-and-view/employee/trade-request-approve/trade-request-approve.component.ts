@@ -9,6 +9,9 @@ import { DatepickerOptions } from 'ng2-datepicker';
   styleUrls: ['./trade-request-approve.component.scss']
 })
 export class TradeRequestApproveComponent implements OnInit {
+
+    ////////Author :  Aswathy//////
+    
   role: String;
   name: String;
   employeekey: Number;

@@ -51,7 +51,7 @@ export class ViewshiftComponent implements OnInit {
     //token ends
 
     this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-      //  debugger;
+      
       this.shiftdetails = data;
 
     });
@@ -83,7 +83,7 @@ export class ViewshiftComponent implements OnInit {
   // }
 
   // updateGrpName(grpName, grpnameid) {
-  //   debugger;
+
   //   if (this.grpName1 == grpName) {
   //     this.grpID = -1;
   //     this.scheduleServ.getShifts(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {

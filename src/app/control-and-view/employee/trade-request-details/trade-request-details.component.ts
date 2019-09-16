@@ -10,6 +10,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 export class TradeRequestDetailsComponent implements OnInit {
 
+    ////////Author :  Aswathy//////
+
   role: String;
   name: String;
   toServeremployeekey: Number;

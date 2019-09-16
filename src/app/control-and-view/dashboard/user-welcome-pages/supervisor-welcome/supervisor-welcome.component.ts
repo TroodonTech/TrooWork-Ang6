@@ -66,7 +66,7 @@ export class SupervisorWelcomeComponent implements OnInit {
         this.empName = data[0].EmpName;
       });
       this.loginService.getMaintenanceUpdateMsg(this.employeekey, this.OrganizationID).subscribe((data: any[])=> {
-        // debugger;
+       
           this.Message = data[0].Message;
       });
   }

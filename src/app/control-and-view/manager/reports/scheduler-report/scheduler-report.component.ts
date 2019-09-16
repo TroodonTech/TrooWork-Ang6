@@ -285,7 +285,7 @@ export class SchedulerReportComponent implements OnInit {
     //     // var workList = "";
     //     // tableflag = 0;
     //     // console.log("schedulerReport started");
-    //     // debugger;
+   
     //     // for (var z = 0; z < this.schReport.length; z++) {
     //     //   if ((z + 1) == this.schReport.length) {
     //     //     workList = workList + this.schReport[z].text + "\n";
@@ -314,7 +314,7 @@ export class SchedulerReportComponent implements OnInit {
 
     //     //   }
     //     // }
-    //     // debugger;
+    
     //     // tableflag = tableflag + 1;
     //     // console.log("schedulerReport completed");
     //     // for (var h = 0; h < this.empListForTable.length; h++) {
@@ -324,7 +324,7 @@ export class SchedulerReportComponent implements OnInit {
     //     //   console.log("i did " + h);
     //     //   for (var d = 0; d < this.dateList.length; d++) {
     //     //     for (var a = 0; a < this.schedulerReport.length; a++) {
-    //     //       // debugger;
+    
     //     //       if ((this.schedulerReport[a].EmployeeKey === this.newList[h].EmployeeKey) && (this.schedulerReport[a].start === this.dateList[d].rundate)) {
     //     //         console.log(a + "i won " + d);
     //     //         this.newList[h].textdate = this.schedulerReport[a].start;

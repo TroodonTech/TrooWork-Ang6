@@ -96,7 +96,7 @@ export class FeedbackManageComponent implements OnInit {
   savetemplate() {
 
     var temp_insertArry = this.newAttribute;
-    debugger;
+    
     if (this.tempID == 0) {
       this.inspectionService.createMasterReviewTempalte(this.toServeremployeekey, this.OrganizationID).subscribe((data: any[]) => {
         this.tempID = data[0].idreviewtemplate;
