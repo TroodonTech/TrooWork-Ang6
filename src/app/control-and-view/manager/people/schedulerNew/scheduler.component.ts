@@ -197,7 +197,7 @@ export class SchedulerComponent implements AfterViewInit {
     }
     }),
     timeRangeSelectedHandling: 'Hold',
-    // contextMenuResource: this.menu,
+    contextMenuResource: this.menu,
     contextMenu: new DayPilot.Menu({
       items: [
         // { text: "Edit", onClick: args => this.edit.show(args.source) },
