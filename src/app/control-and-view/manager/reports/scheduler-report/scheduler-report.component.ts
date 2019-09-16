@@ -350,24 +350,38 @@ export class SchedulerReportComponent implements OnInit {
 
       this.schReport[a].date1 = this.schedulerReport1[a].start;
       this.schReport[a].textDescription1 = this.schedulerReport1[a].text;
+      this.schReport[a].backColor1 = this.schedulerReport1[a].backColor;
+      this.schReport[a].empColor = this.schedulerReport1[a].empColor;
 
       this.schReport[a].date2 = this.schedulerReport2[a].start;
       this.schReport[a].textDescription2 = this.schedulerReport2[a].text;
+      this.schReport[a].backColor2 = this.schedulerReport2[a].backColor;
+      this.schReport[a].empColor = this.schedulerReport2[a].empColor;
 
       this.schReport[a].date3 = this.schedulerReport3[a].start;
       this.schReport[a].textDescription3 = this.schedulerReport3[a].text;
+      this.schReport[a].backColor3 = this.schedulerReport3[a].backColor;
+      this.schReport[a].empColor = this.schedulerReport3[a].empColor;
 
       this.schReport[a].date4 = this.schedulerReport4[a].start;
       this.schReport[a].textDescription4 = this.schedulerReport4[a].text;
+      this.schReport[a].backColor4 = this.schedulerReport4[a].backColor;
+      this.schReport[a].empColor = this.schedulerReport4[a].empColor;
 
       this.schReport[a].date5 = this.schedulerReport5[a].start;
       this.schReport[a].textDescription5 = this.schedulerReport5[a].text;
+      this.schReport[a].backColor5 = this.schedulerReport5[a].backColor;
+      this.schReport[a].empColor = this.schedulerReport5[a].empColor;
 
       this.schReport[a].date6 = this.schedulerReport6[a].start;
       this.schReport[a].textDescription6 = this.schedulerReport6[a].text;
+      this.schReport[a].backColor6 = this.schedulerReport6[a].backColor;
+      this.schReport[a].empColor = this.schedulerReport6[a].empColor;
 
       this.schReport[a].date7 = this.schedulerReport7[a].start;
       this.schReport[a].textDescription7 = this.schedulerReport7[a].text;
+      this.schReport[a].backColor7 = this.schedulerReport7[a].backColor;
+      this.schReport[a].empColor = this.schedulerReport7[a].empColor;
     }
     if (!(this.Idemployeegrouping)) {
       this.Idemployeegrouping = "";

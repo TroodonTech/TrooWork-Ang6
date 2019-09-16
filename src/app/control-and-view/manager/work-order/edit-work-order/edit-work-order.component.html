@@ -1,4 +1,5 @@
-<div style="padding-left: 9rem;padding-right: 9rem;">
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+<div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
   <div class="row col-md-12 ">
     <h4 style="margin-left: 40%">EDIT THIS WORK ORDER INSTANCE</h4>
   </div>
@@ -76,7 +77,11 @@
         <textarea class="form-control rounded-1" [(ngModel)]="WorkorderNotes" rows="6"
           style="resize: none;width: 100% !important"></textarea>
       </div>
-
+      <div class="form-group" *ngIf="WOEditList.WorkorderStatus ==='Cancelled'">
+        <label>Reason for cancellation</label>
+        <textarea class="form-control rounded-1" [(ngModel)]="WOEditList.CancelReason" rows="3"
+          style="resize: none;width: 100% !important"></textarea>
+      </div>
     </div>
 
     <div class="col-md-6">
@@ -135,8 +140,8 @@
 
       <div class="form-group">
         <label style="margin-left: -1rem" class="col-sm-3 col-md-3 col-lg-3 ">Time*</label><br>
-        <p-calendar [inputStyle]="{'width':'275%'}" [(ngModel)]="timeValue" [timeOnly]="true"
-          hourFormat="12" required></p-calendar>
+        <p-calendar [inputStyle]="{'width':'275%'}" [(ngModel)]="timeValue" [timeOnly]="true" hourFormat="12" required>
+        </p-calendar>
       </div>
 
       <div class="form-group">
@@ -153,14 +158,14 @@
         <input type="checkbox" [(ngModel)]="keepActive" data-md-icheck />&nbsp;
         <label>Keep Active</label>&nbsp;
       </div>
-   
 
-    <div class="form-group">
-      <input type="checkbox" [(ngModel)]="GpsSnapShot" data-md-icheck />&nbsp;
-      <label>Gps SnapShot</label>&nbsp;
+
+      <div class="form-group">
+        <input type="checkbox" [(ngModel)]="GpsSnapShot" data-md-icheck />&nbsp;
+        <label>Gps SnapShot</label>&nbsp;
+      </div>
+
     </div>
-
-  </div>
 
     <div style="margin-left:35%">
       <button type="button" [disabled]="WOEditList.WorkorderStatus!=='Scheduled'" class="btn btn-success"

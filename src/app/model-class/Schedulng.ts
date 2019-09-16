@@ -32,4 +32,14 @@ export interface Scheduling {
     textDescription5: String;
     textDescription6: String;
     textDescription7: String;
+
+    backColor1: String;
+    backColor2: String;
+    backColor3: String;
+    backColor4: String;
+    backColor5: String;
+    backColor6: String;
+    backColor7: String;
+    
+    empColor: String;
 }

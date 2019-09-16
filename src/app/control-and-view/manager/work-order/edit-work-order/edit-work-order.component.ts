@@ -16,6 +16,7 @@ export class EditWorkOrderComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
   delete_curwo;
+  loading;
   //for token decoding
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -132,6 +133,7 @@ export class EditWorkOrderComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
   };
   ngOnInit() {
+    this.loading=true;
     this.workordertypekey = "";
     this.FacilityKey = "";
     this.FloorKey = "";
@@ -155,6 +157,7 @@ export class EditWorkOrderComponent implements OnInit {
       .getWO_edit(this.WO_Key, this.OrganizationID)
       .subscribe((data: any[]) => {//service for getting edited work order details
         this.WOEditList = data[0];
+        this.loading=false;
         if(this.WOEditList.KeepActive==1){
           this.keepActive=true;
         }

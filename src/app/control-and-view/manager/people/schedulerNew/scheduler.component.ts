@@ -121,41 +121,41 @@ export class SchedulerComponent implements AfterViewInit {
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
 
-  // menu: DayPilot.Menu = new DayPilot.Menu({
-  //   items: [
-  //     {
-  //       text: "Delete", onClick: args => {
-  //         let row = args.source.data;
-  //         if (row.IsShift == 1) {
-  //           alert("Can't delete an employee group... !!!! ");
-  //         } else if (row.IsShift == 0) {
-  //           var k = confirm("Do you really want to delete " + row.name + " from the employee group " + row.Description + " ?");
-  //           console.log(k);
-  //           if (k) {
-  //             this.SchedulingService.deleteEmpFromEmpGroup(row.id, this.OrganizationID).subscribe((data: any[]) => {
-  //               alert("Employee removed from Employee Group successfully.....");
-  //               this.SchedulingService
-  //                 .empCalendarDetails(this.Range, this.convert_DT(this.date), this.OrganizationID)
-  //                 .subscribe((data: any[]) => {
-  //                   this.events = data;
-  //                   if (this.events.length > 0) {
-  //                     this.SchedulingService.employeesForScheduler('Manager', this.employeekey, this.OrganizationID)
-  //                       .subscribe((data: any[]) => {
+  menu: DayPilot.Menu = new DayPilot.Menu({
+    items: [
+      {
+        text: "Delete", onClick: args => {
+          let row = args.source.data;
+          if (row.IsShift == 1) {
+            alert("Can't delete an employee group... !!!! ");
+          } else if (row.IsShift == 0) {
+            var k = confirm("Do you really want to delete " + row.name + " from the employee group " + row.Description + " ?");
+            console.log(k);
+            if (k) {
+              this.SchedulingService.deleteEmpFromEmpGroup(row.id, this.OrganizationID).subscribe((data: any[]) => {
+                alert("Employee removed from Employee Group successfully.....");
+                this.SchedulingService
+                  .empCalendarDetails(this.Range, this.convert_DT(this.date), this.OrganizationID)
+                  .subscribe((data: any[]) => {
+                    this.events = data;
+                    if (this.events.length > 0) {
+                      this.SchedulingService.employeesForScheduler('Manager', this.employeekey, this.OrganizationID)
+                        .subscribe((data: any[]) => {
 
-  //                         this.config.resources = data;
-  //                       });
-  //                   }
-  //                   else {
-  //                     alert("Please add employees in schedule Group !")
-  //                   }
-  //                 });
-  //             });
-  //           }
-  //         }
-  //       }
-  //     },
-  //   ]
-  // });
+                          this.config.resources = data;
+                        });
+                    }
+                    else {
+                      alert("Please add employees in schedule Group !")
+                    }
+                  });
+              });
+            }
+          }
+        }
+      },
+    ]
+  });
 
   config: any = {
     timeHeaders: [
