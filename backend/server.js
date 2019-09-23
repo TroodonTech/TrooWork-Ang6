@@ -16371,6 +16371,34 @@ app.get(securedpath + '/workorderCreateByEmployeeBarcodeWorkorderType', function
         connection.release();
     });
 });
+app.get(securedpath + '/roomDetailsFromBarcode_mob', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var empkey = url.parse(req.url, true).query['empkey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var scannedBarcode = url.parse(req.url, true).query['scannedBarcode'];
+
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set@empkey=?;set@OrganizationID=?;set@scannedBarcode=?; call usp_roomDetailsFromBarcode_mob(@empkey,@OrganizationID,@scannedBarcode)", [empkey, OrganizationID, scannedBarcode], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[3][0]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 app.get(securedpath + '/checkRoomWorkorderCreateByEmployeeBarcode', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
 
