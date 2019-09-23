@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
-import { FeedbackManageModule } from "../../../manager/inspection/feedback-manage/feedback-manage.module";
+import { WorkorderInProgressReportModule } from "../../../manager/reports/workorder-in-progress-report/workorder-in-progress-report.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -659,8 +659,12 @@ const routes: Routes = [
         path: 'feedbackManage',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/inspection/feedback-manage/feedback-manage.module#FeedbackManageModule',
+      },
+      {
+        path: 'woprogressReport',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/reports/workorder-in-progress-report/workorder-in-progress-report.module#WorkorderInProgressReportModule',
       }
-
     ]
   }
 ];

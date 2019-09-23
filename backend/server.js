@@ -15822,20 +15822,20 @@ app.get(securedpath + '/employeesForScheduler', function (req, res) {
                     tempArr[arr] = [];// creating 2D array
                     for (var i = 0; i < data.length; i++) {
                         if (selectedGroup == data[i].Idemployeegrouping) {// check for group id  
-                            data[i].IsShift=0;                     
+                            data[i].IsShift = 0;
                             tempArr[arr].push(data[i]);
                         }
                         else {
                             arr = arr + 1;
                             tempArr[arr] = [];// creating 2D array
                             var selectedGroup = data[i].Idemployeegrouping
-                            data[i].IsShift=0;
+                            data[i].IsShift = 0;
                             tempArr[arr].push(data[i]);
                         }
                     }
 
                     for (var j = 0; j <= arr; j++) {// inserting array value to scheduler tree list
-                        resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": true, children: tempArr[j],IsShift:1, backColor: tempArr[j][0].backColor });
+                        resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": true, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
 
                     }
                     res.send(resources);
@@ -17530,6 +17530,31 @@ app.post(securedpath + '/deleteEmpFromEmpGroup', supportCrossOriginScript, funct
     });
 });
 //Review ends...
+app.get(securedpath + '/getWODetailswithStatus', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @OrganizationID=?;call usp_getWODetailswithStatus(@OrganizationID)', [OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[1]));
+                }
+                res.end();
+            });
+        }
+        connection.release();
+    });
+
+});
 
 //********Scheduler************API by Rodney ends
 //Author: Prakash Code Starts for Employee Calendar Starts Here

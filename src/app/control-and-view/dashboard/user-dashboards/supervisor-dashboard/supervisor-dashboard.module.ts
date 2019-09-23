@@ -343,6 +343,11 @@ const routes: Routes = [
         outlet: 'Superout',
         loadChildren: '../../../manager/reports/scheduler-report/scheduler-report.module#SchedulerReportModule',
       },
+      {
+        path: 'ViewServiceRequest',
+        outlet: 'Superout',
+        loadChildren: '../../../manager/work-order/view-service-request/view-service-request.module#ViewServiceRequestModule',
+      },
     ]
   }
 ];
