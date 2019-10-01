@@ -18,7 +18,7 @@ export class GooglePieChartService extends GoogleChartsBaseService {
             'backgroundColor': 'transparent',
             'width':500, 'height':500,                                                                                                                                                                                                                                                                                                                                                                                                                                                    
             'chartArea': {'width': '100%', 'height': '80%'}, 
-            'colors': ['#ef0404', '#3552e0', '#9823a3', '#f9f502', '#0ab223','#efab34'],
+            'colors': ['#ef0404', '#3552e0', '#efab34', '#f9f502', '#0ab223','yellow'],
             tooltip: { trigger: 'selection',text:'percentage'  },
             pieSliceTextStyle: {
               color: 'black',
