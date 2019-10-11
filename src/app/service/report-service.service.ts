@@ -223,7 +223,7 @@ export class ReportServiceService {
   }
 
 
-  generateWorkOrderReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, todate, RoomKey, EmployeeKey, WorkorderStatusKey, empKey, orgID) {
+  generateWorkOrderReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, todate, RoomKey, EmployeeKey, WorkorderStatusKey, empKey, orgID,WorkorderType_Key) {
     const url = ConectionSettings.Url + '/workorderReportByallFilters';
     const obj = {
       OrganizationID: orgID,
@@ -236,7 +236,8 @@ export class ReportServiceService {
       zoneKey: ZoneKey,
       roomKey: RoomKey,
       employeeKey: EmployeeKey,
-      workorderStatusKey: WorkorderStatusKey
+      workorderStatusKey: WorkorderStatusKey,
+      WorkorderTypeKey:WorkorderType_Key
     };
     return this
       .http
@@ -326,7 +327,13 @@ export class ReportServiceService {
 
   }
   // @Author Rodney - For inventory ends
+  getInspectionReportByAllFilter(obj){//new inspection report api ----by varun 
+    const url = ConectionSettings.Url + '/getInspectionReportByAllFilter';
+    return this
+    .http
+    .post(url, obj);
 
+  }
   ////Aswathy's code starts here/////
   generateDowntimeReportService(fromdate, EmployeeKey, OrganizationID) {
     const url = ConectionSettings.Url+'/generatedowntimeReport';
