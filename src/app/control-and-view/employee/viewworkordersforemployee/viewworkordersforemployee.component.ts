@@ -577,6 +577,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
           this.WorkOrderServiceService
             .getWOdetailsForEmployee(this.pageNo, this.itemsPerPage, curr_date, this.toServeremployeekey, this.OrganizationID)
             .subscribe((data: any[]) => {
+              alert("Selected workorder has been cancelled");
               this.WorkorderDetTable = data;
               if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
                 this.showHide2 = true;

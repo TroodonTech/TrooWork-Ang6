@@ -39,7 +39,7 @@ export class ViewWorkOrdersComponent implements OnInit {
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field
-    addStyle: {'font-size':'18px','width':'100%', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
+    addStyle: { 'font-size': '18px', 'width': '100%', 'border': '1px solid #ced4da', 'border-radius': '0.25rem' }, // Optional, value to pass to [ngStyle] on the input field
     fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
@@ -86,18 +86,18 @@ export class ViewWorkOrdersComponent implements OnInit {
   pagination: Number;
   searchform: FormGroup;
   workorderCheckValue;
-  checkflag:boolean;
+  checkflag: boolean;
   //code for special character restriction
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
 
-  latitude ;
-  longitude ;
+  latitude;
+  longitude;
   basicModal1;
-  
+
 
   constructor(private formBuilder: FormBuilder, private WorkOrderServiceService: WorkOrderServiceService, private el: ElementRef) { }
-//function for token decoding
+  //function for token decoding
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -114,7 +114,7 @@ export class ViewWorkOrdersComponent implements OnInit {
     }
     return window.atob(output);
   }
-//
+  //
 
   @HostListener('keypress', ['$event']) onKeyPress(event) {
     return new RegExp(this.regexStr).test(event.key);
@@ -177,7 +177,7 @@ export class ViewWorkOrdersComponent implements OnInit {
   //
   ngOnInit() {
     this.loading = true;
-    this.checkflag=false;
+    this.checkflag = false;
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -246,7 +246,7 @@ export class ViewWorkOrdersComponent implements OnInit {
     });
 
   }
-     //function called on checkbox value change
+  //function called on checkbox value change
   toggleVisibility(e) {
     if (e.target.checked) {
       this.marked = true;
@@ -316,7 +316,7 @@ export class ViewWorkOrdersComponent implements OnInit {
     else {
       this.RoomTypeKey = "";
       this.RoomKey = "";
-      this.getZoneRoomTypeRoom(this.FloorKey,this.FacilityKey);
+      this.getZoneRoomTypeRoom(this.FloorKey, this.FacilityKey);
     }
   }
   getRoom(roomtype, zone, facility, floor) {//get room based on zone,facility,floor,roomtype
@@ -334,7 +334,7 @@ export class ViewWorkOrdersComponent implements OnInit {
   }
   //function called when filter is applied
   viewWO_Filter() {
-    if ((this.todate) && (this.convert_DT(this.ondate )> this.convert_DT(this.todate))) {
+    if ((this.todate) && (this.convert_DT(this.ondate) > this.convert_DT(this.todate))) {
       alert("Please check your start date!");
 
     }
@@ -457,26 +457,22 @@ export class ViewWorkOrdersComponent implements OnInit {
   checkBoxValueForDelete(index, CheckValue, WorkorderKey) {
     this.checkValue[index] = CheckValue;
     this.workorderKey[index] = WorkorderKey;
-    for(var i=0;i<this.checkValue.length;)
-    {
-        if(this.checkValue[i]==true)
-        {
-          this.checkflag=true;
+    for (var i = 0; i < this.checkValue.length;) {
+      if (this.checkValue[i] == true) {
+        this.checkflag = true;
+        return;
+      }
+      else {
+        if (i == (this.checkValue.length - 1)) {
+          this.checkValue = [];
+          this.checkflag = false;
           return;
         }
-        else
-        {
-          if(i==(this.checkValue.length-1))
-          {
-            this.checkValue=[];
-            this.checkflag=false;
-            return;
-          }
-          i++;
-        }
+        i++;
       }
+    }
   }
-    //function called on search
+  //function called on search
   searchworkType_emp_room(search_value) {
     var value = search_value.trim();
     var fac_key;
@@ -640,7 +636,7 @@ export class ViewWorkOrdersComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.workorderList.workorderCheckValue = false;
         this.checkValue = [];
-        this.checkflag=false;
+        this.checkflag = false;
         this.workorderKey = [];
         alert("Work order deleted successfully");
         this.viewWO_Filter();
@@ -648,11 +644,38 @@ export class ViewWorkOrdersComponent implements OnInit {
       });
   }
 
-  passGpsValue(Latitude,Longitude){
-   
+  passGpsValue(Latitude, Longitude) {
+
     this.latitude = parseFloat(Latitude);
     this.longitude = parseFloat(Longitude);
-  
+
   }
 
+  canceltheWorkorder(woKey) {
+
+    var reason = prompt("Enter the reason for cancelling the workorder...");
+
+    var t = new Date();
+    var t = new Date();
+    var y = t.getFullYear();
+    var m = t.getMonth();
+    var d = t.getDate();
+    var h = t.getHours();
+    var mi = t.getMinutes();
+    var s = t.getSeconds();
+    console.log(reason);
+
+    var today_DT = this.convert_DT(new Date());
+    var p = "";
+    p = today_DT + " " + h + ":" + mi + ":" + s;
+
+    if ((reason.trim())) {
+      this.WorkOrderServiceService
+        .setCancelWorkorder(woKey, reason, today_DT, p, this.emp_key, this.org_id)
+        .subscribe((data: any[]) => {
+          alert("Selected workorder has been cancelled");
+          this.viewWO_Filter();
+        });
+    }
+  }
 }

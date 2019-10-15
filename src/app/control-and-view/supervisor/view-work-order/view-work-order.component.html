@@ -117,10 +117,17 @@
                                 <button type="button"
                                     class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}"
                                     (click)="workorderFinish(i)"><b>FINISH</b></button>&nbsp;
-                                <button type="button"
-                                    *ngIf="w.WorkorderStatus !== 'Completed'||w.WorkorderStatus !== 'Cancelled'"
+
+                                <button type="button" *ngIf="w.WorkorderStatus === 'Scheduled'"
                                     class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}"
                                     (click)="canceltheWorkorder(w.WorkorderKey)"><b>CANCEL</b></button>&nbsp;
+                                <button type="button" *ngIf="w.WorkorderStatus === 'InProgress'"
+                                    class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}"
+                                    (click)="canceltheWorkorder(w.WorkorderKey)"><b>CANCEL</b></button>&nbsp;
+                                <button type="button" *ngIf="w.WorkorderStatus === 'Delayed'"
+                                    class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}"
+                                    (click)="canceltheWorkorder(w.WorkorderKey)"><b>CANCEL</b></button>&nbsp;
+
                             </div>
                             <div *ngIf="showbutton[i] == true && showbutton[i] !== false">
                                 <button type="button" *ngIf="countCancel1" class="btn btn-warning"
