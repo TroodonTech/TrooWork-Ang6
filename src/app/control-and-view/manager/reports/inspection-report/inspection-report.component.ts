@@ -4,7 +4,7 @@ import { Reports } from '../../../../model-class/reports';
 import { ReportServiceService } from '../../../../service/report-service.service';
 import { ExcelserviceService } from '../../../../service/excelservice.service';
 import { DatepickerOptions } from 'ng2-datepicker';//for datepicker
-
+import { InspectionService } from '../../../../service/inspection.service';
 import * as FileSaver from 'file-saver';//for excel
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 @Component({
@@ -21,6 +21,8 @@ export class InspectionReportComponent implements OnInit {
   OrganizationID: Number;
   SupervisorKey;
   loading: boolean;// loading
+  templateNameList;
+  TemplateName;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -83,7 +85,7 @@ export class InspectionReportComponent implements OnInit {
     // Template: '', Date: '', Location: '', Auditor: '', Employee: '', Status: ''
   }
   ];
-  constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private excelService: ExcelserviceService) {
+  constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private excelService: ExcelserviceService,private inspectionService: InspectionService) {
     this.inspectionreport = fb.group({
       SupervisorKey: ['', Validators.required],
       SupervisorText: ['', Validators.required]
@@ -116,7 +118,7 @@ export class InspectionReportComponent implements OnInit {
   ngOnInit() {
     this.SupervisorKey = ""
     this.fromdate = new Date();
-
+    this.TemplateName='';
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -132,9 +134,16 @@ export class InspectionReportComponent implements OnInit {
       .subscribe((data: Reports[]) => {
         this.supervisoroptions = data;
       });
+      this.inspectionService
+      .getTemplateName(this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.templateNameList = data;
+      });
   }
   //function for genaerating report
   generateInspectionReport(from_date, to_date, SupervisorKey) {
+    var Template_Name,Supervisor_Key;
+
     if (!from_date) {
       var fromdate = this.convert_DT(new Date());
 
@@ -152,26 +161,54 @@ export class InspectionReportComponent implements OnInit {
 
     if (todate && fromdate > todate) {
       todate = null;
-      alert("Please check your Start Date!");
+      alert("Please check your Dates !");
       return;
     }
+    if(this.TemplateName){
+      Template_Name=this.TemplateName;
+    }
+    else{
+      Template_Name=null;
+    }
+    if(SupervisorKey){
+      Supervisor_Key=SupervisorKey;
+    }
+    else{
+      Supervisor_Key=null;
+    }
+    let inspectData={
+      fromdate:fromdate,
+      todate:todate,
+      TemplateName:Template_Name,
+      SupervisorKey:Supervisor_Key,
+      employeekey:this.employeekey,
+      OrganizationID:this.OrganizationID
+    }
     this.loading = true;
-    if (!SupervisorKey) {//inspection report for supervisorkey=null
-      this.ReportServiceService
-        .getinspectionreport_bydate(fromdate, todate, this.employeekey, this.OrganizationID)
+    this.ReportServiceService
+        .getInspectionReportByAllFilter(inspectData)
         .subscribe((data: Reports[]) => {
           this.viewinspectionReport = data;
           this.loading = false;
-        });
-    }
-    else {//inspection report for selected supervisor
-      this.ReportServiceService
-        .getinspectionreport(fromdate, todate, SupervisorKey, this.OrganizationID)
-        .subscribe((data: Reports[]) => {
-          this.viewinspectionReport = data;
-          this.loading = false;
-        });
-    }
+      });
+    // if (!SupervisorKey) {//inspection report for supervisorkey=null
+    //   this.ReportServiceService
+    //     .getinspectionreport_bydate(fromdate, todate, this.employeekey, this.OrganizationID)
+    //     .subscribe((data: Reports[]) => {
+    //       this.viewinspectionReport = data;
+    //       this.loading = false;
+    //     });
+    // }
+    // else {//inspection report for selected supervisor
+    //   this.ReportServiceService
+    //     .getinspectionreport(fromdate, todate, SupervisorKey, this.OrganizationID)
+    //     .subscribe((data: Reports[]) => {
+    //       this.viewinspectionReport = data;
+    //       this.loading = false;
+    //     });
+    // }
+
+
   }
 
 }

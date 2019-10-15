@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Reports } from '../../../../model-class/reports';
-
+import { WorkOrderServiceService } from '../../../../service/work-order-service.service';
 import { ReportServiceService } from '../../../../service/report-service.service';
 import { ExcelserviceService } from '../../../../service/excelservice.service';
 import { DatepickerOptions } from 'ng2-datepicker';
@@ -90,12 +90,14 @@ export class WorkorderReportComponent implements OnInit {
   EmployeeKey;
   WorkorderStatusKey;
   todate:Date;
+  workorderTypeList;
+  WorkorderTypeKey;
 
   public workexcel: Array<any> = [{
     WorkorderTypeName: '', DateandTime: '', Status: '', Employee: '', Room: '', Equipment: '', CheckinTime: '', CheckoutTime: '', Duration: '', DelayTime: '', Notes: ''
   }];
 
-  constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private excelService: ExcelserviceService) { }
+  constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private excelService: ExcelserviceService, private WorkOrderServiceService: WorkOrderServiceService) { }
 
   ngOnInit() {
     this.FacilityKey = "";
@@ -106,7 +108,7 @@ export class WorkorderReportComponent implements OnInit {
     this.EmployeeKey = "";
     this.WorkorderStatusKey = "";
     this.fromdate = new Date();
-
+    this.WorkorderTypeKey='';
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -127,6 +129,12 @@ export class WorkorderReportComponent implements OnInit {
 
     this.ReportServiceService.getWorkstatus(this.employeekey, this.OrganizationID).subscribe((data: Reports[]) => {
       this.workstatus = data;
+    });
+    this.WorkOrderServiceService//for getting all workordertypes
+    .getallworkorderType(this.employeekey, this.OrganizationID)
+    .subscribe((data: any[]) => {
+      
+      this.workorderTypeList = data;
     });
   }
 
@@ -177,6 +185,7 @@ export class WorkorderReportComponent implements OnInit {
   }
 
   generateWorkOrderReport(from_date, to_date, FacilityKey, FloorKey, RoomTypeKey, ZoneKey, RoomKey, EmployeeKey, WorkorderStatusKey) {
+    var WorkorderType_Key;
     if ((to_date) && (this.convert_DT(from_date) >this.convert_DT( to_date))) {
       todate = null;
       alert("Please check your Start Date!");
@@ -239,8 +248,14 @@ export class WorkorderReportComponent implements OnInit {
       {
         todate = this.convert_DT(to_date);
       }
+      if(this.WorkorderTypeKey){
+        WorkorderType_Key=this.WorkorderTypeKey;
+      }
+      else{
+        WorkorderType_Key=null;
+      }
        this.ReportServiceService
-      .generateWorkOrderReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, todate, RoomKey, EmployeeKey, WorkorderStatusKey, this.employeekey, this.OrganizationID)
+      .generateWorkOrderReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, todate, RoomKey, EmployeeKey, WorkorderStatusKey, this.employeekey, this.OrganizationID,WorkorderType_Key)
       .subscribe((data: Reports[]) => {
         this.viewWorkorderReport = data;
         this.loading = false;

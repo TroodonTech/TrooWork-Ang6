@@ -7155,6 +7155,7 @@ app.post(securedpath + '/workorderReportByallFilters', supportCrossOriginScript,
     var employeekey = newWOObj.employeeKey;
     console.log("inside server empkey= " + employeekey);
     var OrganizationID = newWOObj.OrganizationID;
+    var WorkorderTypeKey = newWOObj.WorkorderTypeKey;
 
     pool.getConnection(function (err, connection) {
         if (err) {
@@ -7163,13 +7164,13 @@ app.post(securedpath + '/workorderReportByallFilters', supportCrossOriginScript,
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @manager =?;set @workorderStatusKey =?;set @workorderDate =?;set @workorderDate2 =?;set @facilitykey=?; set @roomTypeKey=?;set @floorKey=?;set @roomKey=?;set @zoneKey=?;set @employeekey=?;set @OrganizationID=?;call usp_workorderReportByallFilters(@manager,@workorderStatusKey,@workorderDate,@workorderDate2,@facilitykey,@roomTypeKey,@floorKey,@roomKey,@zoneKey,@employeekey,@OrganizationID)", [manager, workorderStatusKey, workorderDate, workorderDate2, facilitykey, roomTypeKey, floorKey, roomKey, zoneKey, employeekey, OrganizationID], function (err, rows) {
+            connection.query("set @manager =?;set @workorderStatusKey =?;set @workorderDate =?;set @workorderDate2 =?;set @facilitykey=?; set @roomTypeKey=?;set @floorKey=?;set @roomKey=?;set @zoneKey=?;set @employeekey=?;set @OrganizationID=?; set@WorkorderTypeKey=?;call usp_workorderReportByallFilters(@manager,@workorderStatusKey,@workorderDate,@workorderDate2,@facilitykey,@roomTypeKey,@floorKey,@roomKey,@zoneKey,@employeekey,@OrganizationID,@WorkorderTypeKey)", [manager, workorderStatusKey, workorderDate, workorderDate2, facilitykey, roomTypeKey, floorKey, roomKey, zoneKey, employeekey, OrganizationID,WorkorderTypeKey], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
 
-                    res.end(JSON.stringify(rows[11]));
+                    res.end(JSON.stringify(rows[12]));
                 }
             });
         }
@@ -16371,6 +16372,34 @@ app.get(securedpath + '/workorderCreateByEmployeeBarcodeWorkorderType', function
         connection.release();
     });
 });
+app.get(securedpath + '/roomDetailsFromBarcode_mob', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var empkey = url.parse(req.url, true).query['empkey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var scannedBarcode = url.parse(req.url, true).query['scannedBarcode'];
+
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set@empkey=?;set@OrganizationID=?;set@scannedBarcode=?; call usp_roomDetailsFromBarcode_mob(@empkey,@OrganizationID,@scannedBarcode)", [empkey, OrganizationID, scannedBarcode], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[3][0]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 app.get(securedpath + '/checkRoomWorkorderCreateByEmployeeBarcode', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
 
@@ -16393,6 +16422,39 @@ app.get(securedpath + '/checkRoomWorkorderCreateByEmployeeBarcode', function (re
                 else {
 
                     res.end(JSON.stringify(rows[3]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.options('/getInspectionReportByAllFilter', supportCrossOriginScript);
+app.post(securedpath + '/getInspectionReportByAllFilter', supportCrossOriginScript, function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var fromdate = req.body.fromdate;
+    var todate = req.body.todate;
+    var TemplateName = req.body.TemplateName;
+    var SupervisorKey = req.body.SupervisorKey;
+    var employeekey = req.body.employeekey;
+    var OrganizationID = req.body.OrganizationID;
+
+    pool.getConnection(function (err, connection) {
+
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @fromdate=?; set @todate=?; set @TemplateName=?; set @SupervisorKey=?; set@employeekey=?; set@OrganizationID=?; call usp_getInspectionReportByAllFilter(@fromdate,@todate,@TemplateName,@SupervisorKey,@employeekey,@OrganizationID)', [fromdate, todate, TemplateName, SupervisorKey,employeekey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("getInspectionReportByAllFilter " + JSON.stringify(rows[6]));
+                    res.end(JSON.stringify(rows[6]));
                 }
             });
         }

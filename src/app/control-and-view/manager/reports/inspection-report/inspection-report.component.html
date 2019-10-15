@@ -29,17 +29,26 @@
         <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="todate"></igx-datePicker> -->
         <ng-datepicker [options]="options"   position="top-right"  [(ngModel)]="todate"></ng-datepicker >
       </div>
-    </div>
+      <div class="form-group">
+        <label style="margin-top: 1rem;" class="col-sm-3 col-md-3 col-lg-3 ">Template Name</label>
+        <select [(ngModel)]="TemplateName" style="background-color: #d4f4ff;" class="form-control">
+          <option value="">--Select--</option>
+          <option *ngFor="let s of templateNameList" [value]="s.TemplateID">
+            {{s.TemplateName}}
+          </option>
+        </select>
+      </div>
+    </div>  
     <div class="row col-md-12">
       <div class="col-md-6"></div>
-      <div style="text-align:center">
+      <div style="margin-left: 47%">
         <button type="button" class="btn btn-success" (click)=generateInspectionReport(fromdate,todate,SupervisorKey)><b>GENERATE</b></button>
         <br>
       </div>
     </div> 
   </div>
   <br>
-  <div style="margin-left: 48.5%;" *ngIf="viewinspectionReport?.length> 0">
+  <div style="margin-left: 46%;" *ngIf="viewinspectionReport?.length> 0">
     <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
   </div>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem; width: 100%">
