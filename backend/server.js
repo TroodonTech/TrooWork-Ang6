@@ -16461,6 +16461,46 @@ app.post(securedpath + '/getInspectionReportByAllFilter', supportCrossOriginScri
         connection.release();
     });
 });
+app.options('/workorderViewsEmpByAll', supportCrossOriginScript);
+app.post(securedpath + '/workorderViewsEmpByAll', supportCrossOriginScript, function (req, res) {
+
+    var newWOObj = {};
+    newWOObj = req.body;
+
+    var OrganizationID = newWOObj.OrganizationID;
+    var employeekey = newWOObj.empKey;
+    var startDate = newWOObj.startDate;
+    var endDate = newWOObj.endDate;
+    var SearchWO = newWOObj.SearchWO;
+    var RoomTypeKey = newWOObj.RoomTypeKey;
+    var FloorKey = newWOObj.FloorKey;
+    var ZoneKey = newWOObj.ZoneKey;
+    var FacilityKey = newWOObj.FacilityKey;
+    var pageNo = newWOObj.pageNo;
+    var itemsPerPage = newWOObj.itemsPerPage;
+    var isFiltered = newWOObj.isFiltered;
+    
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @OrganizationID=?;set @employeekey=?;set @startDate=?;set @endDate=?;set @SearchWO=?; set@RoomTypeKey=?; set@FloorKey=?; set@ZoneKey=?; set@FacilityKey=?; set@pageNo=?; set@itemsPerPage=?; set@isFiltered=?; call usp_workorderViewsEmpByAll(@OrganizationID,@employeekey,@startDate,@endDate,@SearchWO,@RoomTypeKey,@FloorKey,@ZoneKey,@FacilityKey,@pageNo,@itemsPerPage,@isFiltered)', [OrganizationID, employeekey, startDate, endDate, SearchWO, RoomTypeKey,FloorKey,ZoneKey,FacilityKey,pageNo,itemsPerPage,isFiltered], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[12]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //********Scheduler************API BY varun ends
 
 //********Scheduler************API by Rodney starts

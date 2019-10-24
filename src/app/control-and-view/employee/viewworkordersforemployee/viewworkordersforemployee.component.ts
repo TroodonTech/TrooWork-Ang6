@@ -57,7 +57,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
   submitFlag;
   BarcodeValue;
   SearchWO;
-
+  showGenerate = false;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -130,9 +130,68 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
   previousPage() {
     this.pageNo = +this.pageNo - 1;
-    var curr_date = this.convert_DT(new Date());
-    this.WorkOrderServiceService
-      .getWOdetailsForEmployee(this.pageNo, this.itemsPerPage, curr_date, this.toServeremployeekey, this.OrganizationID)
+    var fromDate, FacilityKey, ZoneKey, toDate, FloorKey, RoomTypeKey, SearchWO, startDate, endDate;
+    if (this.WorkorderDate) {
+      fromDate = this.WorkorderDate;
+    }
+    else {
+      fromDate = new Date();
+    }
+    if (this.FacilityKey) {
+      FacilityKey = this.FacilityKey;
+    }
+    else {
+      FacilityKey = null;
+    }
+    if (this.ZoneKey) {
+      ZoneKey = this.ZoneKey;
+    }
+    else {
+      ZoneKey = null;
+    }
+    if (this.WorkorderDate2) {
+      toDate = this.WorkorderDate2;
+    }
+    else {
+      toDate = fromDate;
+    }
+    if (this.FloorKey) {
+      FloorKey = this.FloorKey;
+    }
+    else {
+      FloorKey = null;
+    }
+    if (this.RoomTypeKey) {
+      RoomTypeKey = this.RoomTypeKey;
+    }
+    else {
+      RoomTypeKey = null;
+    }
+
+    if (this.SearchWO) {
+      SearchWO = this.SearchWO;
+    }
+    else {
+      SearchWO = null;
+    }
+    startDate = this.convert_DT(fromDate);
+    endDate = this.convert_DT(toDate);
+
+    let Wo = {
+      startDate: startDate,
+      endDate: endDate,
+      SearchWO: SearchWO,
+      RoomTypeKey: RoomTypeKey,
+      FloorKey: FloorKey,
+      ZoneKey: ZoneKey,
+      FacilityKey: FacilityKey,
+      pageNo: this.pageNo,
+      itemsPerPage: this.itemsPerPage,
+      empKey: this.toServeremployeekey,
+      OrganizationID: this.OrganizationID
+    }
+    this.loading = true;
+    this.WorkOrderServiceService.workorderViewsEmpByAll(Wo)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
         if (this.pageNo == 1) {
@@ -142,14 +201,74 @@ export class ViewworkordersforemployeeComponent implements OnInit {
           this.showHide2 = true;
           this.showHide1 = true;
         }
+        this.loading = false;
       });
   }
 
   nextPage() {
     this.pageNo = +this.pageNo + 1;
-    var curr_date = this.convert_DT(new Date());
-    this.WorkOrderServiceService
-      .getWOdetailsForEmployee(this.pageNo, this.itemsPerPage, curr_date, this.toServeremployeekey, this.OrganizationID)
+    var fromDate, FacilityKey, ZoneKey, toDate, FloorKey, RoomTypeKey, SearchWO, startDate, endDate;
+    if (this.WorkorderDate) {
+      fromDate = this.WorkorderDate;
+    }
+    else {
+      fromDate = new Date();
+    }
+    if (this.FacilityKey) {
+      FacilityKey = this.FacilityKey;
+    }
+    else {
+      FacilityKey = null;
+    }
+    if (this.ZoneKey) {
+      ZoneKey = this.ZoneKey;
+    }
+    else {
+      ZoneKey = null;
+    }
+    if (this.WorkorderDate2) {
+      toDate = this.WorkorderDate2;
+    }
+    else {
+      toDate = fromDate;
+    }
+    if (this.FloorKey) {
+      FloorKey = this.FloorKey;
+    }
+    else {
+      FloorKey = null;
+    }
+    if (this.RoomTypeKey) {
+      RoomTypeKey = this.RoomTypeKey;
+    }
+    else {
+      RoomTypeKey = null;
+    }
+
+    if (this.SearchWO) {
+      SearchWO = this.SearchWO;
+    }
+    else {
+      SearchWO = null;
+    }
+    startDate = this.convert_DT(fromDate);
+    endDate = this.convert_DT(toDate);
+
+    let Wo = {
+      startDate: startDate,
+      endDate: endDate,
+      SearchWO: SearchWO,
+      RoomTypeKey: RoomTypeKey,
+      FloorKey: FloorKey,
+      ZoneKey: ZoneKey,
+      FacilityKey: FacilityKey,
+      pageNo: this.pageNo,
+      itemsPerPage: this.itemsPerPage,
+      empKey: this.toServeremployeekey,
+      OrganizationID: this.OrganizationID
+    }
+    this.loading = true;
+    this.WorkOrderServiceService.workorderViewsEmpByAll(Wo)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
         this.pagination = +this.WorkorderDetTable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
@@ -161,6 +280,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
           this.showHide2 = false;
           this.showHide1 = true;
         }
+        this.loading = false;
       });
   }
   checktoshowFinish(i) {
@@ -245,24 +365,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
           if (this.SearchWO.trim().length == 0) {
 
-            var curr_date = this.convert_DT(new Date());
-            this.WorkOrderServiceService
-              .getWOdetailsForEmployee(this.pageNo, this.itemsPerPage, curr_date, this.toServeremployeekey, this.OrganizationID)
-              .subscribe((data: any[]) => {
-                this.WorkorderDetTable = data;
-                this.loading = false;
-                if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
-                  this.showHide2 = true;
-                  this.showHide1 = false;
-                }
-                else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
-                  this.showHide2 = false;
-                  this.showHide1 = false;
-                }
-                for (var i = 0; i < this.WorkorderDetTable.length; i++) {
-                  this.FinishButton[i] = true;
-                }
-              });
+            this.workorderViewsEmpByAll();
           }
         });
     }
@@ -270,24 +373,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       if ((value.length == 0) && (SearchValue.length == 0)) {
         this.loading = true;
       }
-      var curr_date = this.convert_DT(new Date());
-      this.WorkOrderServiceService
-        .getWOdetailsForEmployee(this.pageNo, this.itemsPerPage, curr_date, this.toServeremployeekey, this.OrganizationID)
-        .subscribe((data: any[]) => {
-          this.WorkorderDetTable = data;
-          this.loading = false;
-          if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
-            this.showHide2 = true;
-            this.showHide1 = false;
-          }
-          else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
-            this.showHide2 = false;
-            this.showHide1 = false;
-          }
-          for (var i = 0; i < this.WorkorderDetTable.length; i++) {
-            this.FinishButton[i] = true;
-          }
-        });
+      this.workorderViewsEmpByAll();
     }
 
   }
@@ -328,27 +414,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     //     }
     //   });
 
-    this.WorkOrderServiceService
-      .getworkOrderTablewithOnDateandToDateFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
-      .subscribe((data: any[]) => {
-        this.WorkorderDetTable = data;
-        this.loading = false;
-        for (var i = 0; i < this.WorkorderDetTable.length; i++) {
-          this.FinishButton[i] = true;
-        }
-        if (!(this.FacilityKey)) {
-          this.FacilityKey = '';
-        }
-        if (!(this.FloorKey)) {
-          this.FloorKey = '';
-        }
-        if (!(this.ZoneKey)) {
-          this.ZoneKey = '';
-        }
-        if (!(this.RoomTypeKey)) {
-          this.RoomTypeKey = '';
-        }
-      });
+    this.workorderViewsEmpByAll();
     // this.WorkOrderServiceService
     //   .getworkOrderTablewithbuildingFilter(date1, date2, this.toServeremployeekey, this.OrganizationID, this.FacilityKey, this.FloorKey, this.RoomTypeKey, this.ZoneKey)
     //   .subscribe((data: any[]) => {
@@ -428,23 +494,8 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       this.showbutton[i] = false;
 
     }
-    var curr_date = this.convert_DT(new Date());
-    this.WorkOrderServiceService
-      .getWOdetailsForEmployee(this.pageNo, this.itemsPerPage, curr_date, this.toServeremployeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.WorkorderDetTable = data;
-        if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
-          this.showHide2 = true;
-          this.showHide1 = false;
-        }
-        else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
-          this.showHide2 = false;
-          this.showHide1 = false;
-        }
-        for (var i = 0; i < this.WorkorderDetTable.length; i++) {
-          this.FinishButton[i] = true;
-        }
-      });
+
+    this.workorderViewsEmpByAll();
   };
   FileSelected(WorkorderKey) {
     this.addUrl = '?Workorderkey=' + WorkorderKey + '&EmployeeKey=' + this.toServeremployeekey + '&OrganizationID=' + this.OrganizationID;
@@ -476,12 +527,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     }
     if (this.countCancel1 == true) {
       this.countCancel1 = false;
-      var curr_date = this.convert_DT(new Date());
-      this.WorkOrderServiceService
-        .getWOdetailsForEmployee(this.pageNo, this.itemsPerPage, curr_date, this.toServeremployeekey, this.OrganizationID)
-        .subscribe((data: any[]) => {
-          this.WorkorderDetTable = data;
-        });
+      this.workorderViewsEmpByAll();
 
     }
     this.submitFlag = false;
@@ -511,24 +557,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     this.ZoneKey = "";
     this.RoomTypeKey = "";
     this.WorkorderDate = new Date();
-    var curr_date = this.convert_DT(new Date());
-    this.WorkOrderServiceService
-      .getWOdetailsForEmployee(this.pageNo, this.itemsPerPage, curr_date, this.toServeremployeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.WorkorderDetTable = data;
-        this.loading = false;// loading
-        if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
-          this.showHide2 = true;
-          this.showHide1 = false;
-        }
-        else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
-          this.showHide2 = false;
-          this.showHide1 = false;
-        }
-        for (var i = 0; i < this.WorkorderDetTable.length; i++) {
-          this.FinishButton[i] = true;
-        }
-      });
+    this.workorderViewsEmpByAll();
 
     this.WorkOrderServiceService
       .getallBuildingsForEmployee(this.toServeremployeekey, this.OrganizationID)
@@ -549,7 +578,106 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       alert('File uploaded successfully');
     };
   }
-
+  filterApplied() {
+    this.showGenerate = true;
+  }
+  workorderViewsEmpByAll() {
+    var fromDate, FacilityKey, ZoneKey, toDate, FloorKey, RoomTypeKey, SearchWO, startDate, endDate, isFiltered;
+    if (this.WorkorderDate) {
+      fromDate = this.WorkorderDate;
+    }
+    else {
+      fromDate = new Date();
+    }
+    if (this.FacilityKey) {
+      FacilityKey = this.FacilityKey;
+    }
+    else {
+      FacilityKey = null;
+    }
+    if (this.ZoneKey) {
+      ZoneKey = this.ZoneKey;
+    }
+    else {
+      ZoneKey = null;
+    }
+    if (this.WorkorderDate2) {
+      toDate = this.WorkorderDate2;
+    }
+    else {
+      toDate = fromDate;
+    }
+    if (this.FloorKey) {
+      FloorKey = this.FloorKey;
+    }
+    else {
+      FloorKey = null;
+    }
+    if (this.RoomTypeKey) {
+      RoomTypeKey = this.RoomTypeKey;
+    }
+    else {
+      RoomTypeKey = null;
+    }
+    if (this.SearchWO) {
+      var SearchWO = this.SearchWO.trim();
+      if (SearchWO.length < 3) {
+        SearchWO = null;
+        this.SearchWO = null;
+      }
+    }
+    else {
+      SearchWO = null;
+    }
+    if (this.showGenerate) {
+      isFiltered = 1;
+    }
+    else {
+      isFiltered = 0;
+    }
+    startDate = this.convert_DT(fromDate);
+    endDate = this.convert_DT(toDate);
+    if (endDate < startDate) {
+      alert("Please Check Dates !");
+      return;
+    }
+    let Wo = {
+      startDate: startDate,
+      endDate: endDate,
+      SearchWO: SearchWO,
+      RoomTypeKey: RoomTypeKey,
+      FloorKey: FloorKey,
+      ZoneKey: ZoneKey,
+      FacilityKey: FacilityKey,
+      pageNo: this.pageNo,
+      itemsPerPage: this.itemsPerPage,
+      empKey: this.toServeremployeekey,
+      OrganizationID: this.OrganizationID,
+      isFiltered: isFiltered
+    }
+    this.loading = true;
+    this.WorkOrderServiceService.workorderViewsEmpByAll(Wo).subscribe((data: any[]) => {
+      this.WorkorderDetTable = data;
+      this.loading = false;// loading
+      if (data.length>0) {
+        if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
+        for (var i = 0; i < this.WorkorderDetTable.length; i++) {
+          this.FinishButton[i] = true;
+        }
+      }
+      else {
+        this.showHide2 = false;
+        this.showHide1 = false;
+      }
+    })
+  }
   // @Rodney starts
   canceltheWorkorder(woKey) {
 
@@ -573,24 +701,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
       this.WorkOrderServiceService
         .setCancelWorkorder(woKey, reason, today_DT, p, this.toServeremployeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
-          var curr_date = this.convert_DT(new Date());
-          this.WorkOrderServiceService
-            .getWOdetailsForEmployee(this.pageNo, this.itemsPerPage, curr_date, this.toServeremployeekey, this.OrganizationID)
-            .subscribe((data: any[]) => {
-              alert("Selected workorder has been cancelled");
-              this.WorkorderDetTable = data;
-              if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
-                this.showHide2 = true;
-                this.showHide1 = false;
-              }
-              else if (this.WorkorderDetTable[0].totalItems <= this.itemsPerPage) {
-                this.showHide2 = false;
-                this.showHide1 = false;
-              }
-              for (var i = 0; i < this.WorkorderDetTable.length; i++) {
-                this.FinishButton[i] = true;
-              }
-            });
+          this.workorderViewsEmpByAll();
         });
     }
   }

@@ -402,6 +402,13 @@ export class WorkOrderServiceService {
       .http
       .post(url, obj);
   }
+  workorderViewsEmpByAll(obj) {
+    const url = ConectionSettings.Url + '/workorderViewsEmpByAll';
+ 
+    return this
+      .http
+      .post(url, obj);
+  }
   // @Rodney starts...
   getallWorkorderDetailswithStatus(OrgID) {
     return this
