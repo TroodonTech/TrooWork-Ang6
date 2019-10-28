@@ -7164,7 +7164,7 @@ app.post(securedpath + '/workorderReportByallFilters', supportCrossOriginScript,
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @manager =?;set @workorderStatusKey =?;set @workorderDate =?;set @workorderDate2 =?;set @facilitykey=?; set @roomTypeKey=?;set @floorKey=?;set @roomKey=?;set @zoneKey=?;set @employeekey=?;set @OrganizationID=?; set@WorkorderTypeKey=?;call usp_workorderReportByallFilters(@manager,@workorderStatusKey,@workorderDate,@workorderDate2,@facilitykey,@roomTypeKey,@floorKey,@roomKey,@zoneKey,@employeekey,@OrganizationID,@WorkorderTypeKey)", [manager, workorderStatusKey, workorderDate, workorderDate2, facilitykey, roomTypeKey, floorKey, roomKey, zoneKey, employeekey, OrganizationID,WorkorderTypeKey], function (err, rows) {
+            connection.query("set @manager =?;set @workorderStatusKey =?;set @workorderDate =?;set @workorderDate2 =?;set @facilitykey=?; set @roomTypeKey=?;set @floorKey=?;set @roomKey=?;set @zoneKey=?;set @employeekey=?;set @OrganizationID=?; set@WorkorderTypeKey=?;call usp_workorderReportByallFilters(@manager,@workorderStatusKey,@workorderDate,@workorderDate2,@facilitykey,@roomTypeKey,@floorKey,@roomKey,@zoneKey,@employeekey,@OrganizationID,@WorkorderTypeKey)", [manager, workorderStatusKey, workorderDate, workorderDate2, facilitykey, roomTypeKey, floorKey, roomKey, zoneKey, employeekey, OrganizationID, WorkorderTypeKey], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -15706,6 +15706,39 @@ scheduler.scheduleJob(rule1, function () {
 });
 
 
+var rule2 = new scheduler.RecurrenceRule();
+rule2.hour = 08;
+rule2.minute = 30;
+rule2.second = 00;
+rule2.month = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+rule2.date = 01;
+
+scheduler.scheduleJob(rule2, function () {
+
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        } else {
+
+            connection.query('call usp_cronjob_employee()', [], function (err, rows) {
+
+
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("Scheduler...from server..");
+
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+
 app.get(securedpath + '/allWorkOrderTypeWithOutQuickNew', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     var empkey = url.parse(req.url, true).query['empkey'];
@@ -16359,7 +16392,7 @@ app.get(securedpath + '/workorderCreateByEmployeeBarcodeWorkorderType', function
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set@barcode=?;set@Date=?;set@checkIn=?; set@empKey=?; set @wot=?; set @OrganizationID=?;call usp_workorderCreateByEmployeeBarcodeWorkorderType(@barcode,@Date,@checkIn,@empKey,@wot,@OrganizationID)", [barcode, Date, checkIn, empKey,wot, OrganizationID], function (err, rows) {
+            connection.query("set@barcode=?;set@Date=?;set@checkIn=?; set@empKey=?; set @wot=?; set @OrganizationID=?;call usp_workorderCreateByEmployeeBarcodeWorkorderType(@barcode,@Date,@checkIn,@empKey,@wot,@OrganizationID)", [barcode, Date, checkIn, empKey, wot, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -16448,7 +16481,7 @@ app.post(securedpath + '/getInspectionReportByAllFilter', supportCrossOriginScri
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @fromdate=?; set @todate=?; set @TemplateName=?; set @SupervisorKey=?; set@employeekey=?; set@OrganizationID=?; call usp_getInspectionReportByAllFilter(@fromdate,@todate,@TemplateName,@SupervisorKey,@employeekey,@OrganizationID)', [fromdate, todate, TemplateName, SupervisorKey,employeekey, OrganizationID], function (err, rows) {
+            connection.query('set @fromdate=?; set @todate=?; set @TemplateName=?; set @SupervisorKey=?; set@employeekey=?; set@OrganizationID=?; call usp_getInspectionReportByAllFilter(@fromdate,@todate,@TemplateName,@SupervisorKey,@employeekey,@OrganizationID)', [fromdate, todate, TemplateName, SupervisorKey, employeekey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -16479,7 +16512,7 @@ app.post(securedpath + '/workorderViewsEmpByAll', supportCrossOriginScript, func
     var pageNo = newWOObj.pageNo;
     var itemsPerPage = newWOObj.itemsPerPage;
     var isFiltered = newWOObj.isFiltered;
-    
+
 
     pool.getConnection(function (err, connection) {
         if (err) {
@@ -16488,7 +16521,7 @@ app.post(securedpath + '/workorderViewsEmpByAll', supportCrossOriginScript, func
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @OrganizationID=?;set @employeekey=?;set @startDate=?;set @endDate=?;set @SearchWO=?; set@RoomTypeKey=?; set@FloorKey=?; set@ZoneKey=?; set@FacilityKey=?; set@pageNo=?; set@itemsPerPage=?; set@isFiltered=?; call usp_workorderViewsEmpByAll(@OrganizationID,@employeekey,@startDate,@endDate,@SearchWO,@RoomTypeKey,@FloorKey,@ZoneKey,@FacilityKey,@pageNo,@itemsPerPage,@isFiltered)', [OrganizationID, employeekey, startDate, endDate, SearchWO, RoomTypeKey,FloorKey,ZoneKey,FacilityKey,pageNo,itemsPerPage,isFiltered], function (err, rows) {
+            connection.query('set @OrganizationID=?;set @employeekey=?;set @startDate=?;set @endDate=?;set @SearchWO=?; set@RoomTypeKey=?; set@FloorKey=?; set@ZoneKey=?; set@FacilityKey=?; set@pageNo=?; set@itemsPerPage=?; set@isFiltered=?; call usp_workorderViewsEmpByAll(@OrganizationID,@employeekey,@startDate,@endDate,@SearchWO,@RoomTypeKey,@FloorKey,@ZoneKey,@FacilityKey,@pageNo,@itemsPerPage,@isFiltered)', [OrganizationID, employeekey, startDate, endDate, SearchWO, RoomTypeKey, FloorKey, ZoneKey, FacilityKey, pageNo, itemsPerPage, isFiltered], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
