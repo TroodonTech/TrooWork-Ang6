@@ -61,19 +61,21 @@
           <th> Percentage Completed </th>
           <th> WorkOrder Type</th>
           <th>Total WorkOrder</th>
+          <th>Cancelled WorkOrder</th>
           <th> Quantity Left</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let x of reporttable">
           <td>{{x.EmployeeName}} </td>
-          <td>{{(x.CompletedCount/x.totalCount)*100|number:'1.0-0'}}% </td>
+          <td>{{((x.CompletedCount + x.CancelCount)/x.totalCount)*100|number:'1.0-0'}}% </td>
           <td>{{x.WorkorderTypeName}}</td>
           <td>{{x.totalCount}} </td>
-          <td>{{x.totalCount-x.CompletedCount}}</td>
+          <td>{{x.CancelCount}} </td>
+          <td>{{x.totalCount-(x.CompletedCount + x.CancelCount)}}</td>
         </tr>
         <tr *ngIf="reporttable?.length == 0">
-          <td colspan="5" class="no-data-available">No records found</td>
+          <td colspan="6" class="no-data-available">No records found</td>
         </tr>
       </tbody>
     </table>
