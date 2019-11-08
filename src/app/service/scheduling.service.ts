@@ -404,5 +404,23 @@ export class SchedulingService {
     return this.http.post(url, obj);
 
   }
+
+  getAllEmployeesofEmpGroup(GroupID, OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getAllEmployeesofGroupForSeniorityEdit?groupID=' + GroupID + '&OrganizationID=' + OrganizationID);
+  }
+
+  saveOrderChange(metauser, OrganizationID, empKey, orderVal) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/updateEmployeeSeniorityORder?empKey=' + empKey + '&orderVal=' + orderVal + '&metauser=' + metauser + '&OrganizationID=' + OrganizationID);
+
+  }
+  getAllEmployeesForSchedulerReport(OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getEmployeesForSchedulerReport?OrganizationID=' + OrganizationID);
+  }
   // @Author:Rodney ends
 }
