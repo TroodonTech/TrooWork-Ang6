@@ -13047,7 +13047,7 @@ app.post(securedpath + '/saveScheduleReport', supportCrossOriginScript, function
                 }
                 else {
 
-                    res.end(JSON.stringify(rows[20]));
+                    res.end(JSON.stringify(rows[23]));
                 }
             });
         }
