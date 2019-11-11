@@ -10,7 +10,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(userName, passWord, tenantID) {
-    const uri = ConectionSettings.AbsUrl+'/authenticate';
+    const uri = ConectionSettings.AbsUrl+'/authenticate_SuType';
     const obj = {
       uname: userName,
       pwd: passWord,

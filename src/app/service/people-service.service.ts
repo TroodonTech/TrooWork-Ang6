@@ -55,10 +55,11 @@ export class PeopleServiceService {
 
   }
 
-  getallEmployeesList(empKey, OrgID) {
+  getallEmployeesList(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allemployees?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      // .get(ConectionSettings.Url + '/allemployees?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/allemployees_SuType?empkey=' + empKey + '&OrganizationID=' + orgID);
 
   }
 
@@ -135,7 +136,8 @@ export class PeopleServiceService {
   getSupervisorList(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      // .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/supervisorname_SuType?employeekey=' + empKey + '&OrganizationID=' + OrgID);
 
   }
   getallEventList(empKey, OrgID) {
@@ -253,7 +255,8 @@ export class PeopleServiceService {
   getManagerForEmployeeForSuperAdmin(OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/getManagerForEmployeeForSuperAdmin?OrganizationID=' + OrgID);
+      // .get(ConectionSettings.Url + '/getManagerForEmployeeForSuperAdmin?OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/getManagerForEmployeeForSuperAdmin_SuType?OrganizationID=' + OrgID);
   }
   getUserRoleType(OrgID) {
     return this
@@ -274,7 +277,8 @@ export class PeopleServiceService {
   getSuperVisor(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      // .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/supervisorname_SuType?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
   getDepartment(empKey, OrgID) {
     return this
@@ -444,7 +448,8 @@ export class PeopleServiceService {
   getSupervisorListforDropdown(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      // .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/supervisorname_SuType?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   EditEmployeeDetailsbyManager(empk, orgid) {
@@ -553,7 +558,8 @@ export class PeopleServiceService {
   getvaluesForManagerDropdowninSA(empkey, orgid) {
     return this
       .http
-      .get(ConectionSettings.Url + '/getManagerForEmployee?employeekey=' + empkey + '&OrganizationID=' + orgid);
+      // .get(ConectionSettings.Url + '/getManagerForEmployee?employeekey=' + empkey + '&OrganizationID=' + orgid);
+      .get(ConectionSettings.Url + '/getManagerForEmployee_SuType?employeekey=' + empkey + '&OrganizationID=' + orgid);
   }
   DeleteEmployeeDetailsbyManager(delete_EmpKey, orgID, updatedby) {
     const url = ConectionSettings.Url + "/removeEmployee";
@@ -688,7 +694,8 @@ export class PeopleServiceService {
   getmanagersForEmp(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/getManagerForEmployee?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      // .get(ConectionSettings.Url + '/getManagerForEmployee?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/getManagerForEmployee_SuType?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
 
   createEmployeebyAdmin(EmployeeNumber, ManagerKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, HD, issupervisor, JobTitleKey, DepartmentKey, employeekey, OrganizationID) {
