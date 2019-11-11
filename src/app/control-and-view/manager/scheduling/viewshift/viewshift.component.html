@@ -24,7 +24,8 @@
           <td>
             <!-- <a *ngIf='!(k===grpID)' (click)="changeDisable(k);" class="btn btn-primary"><b>Edit</b></a> -->
             <a [routerLink]="['EditShift',s.Idemployeegrouping]" class="btn btn-primary"><b>Edit</b></a>&nbsp;&nbsp;
-
+            <a [routerLink]="['ViewGroupEmployees',s.Idemployeegrouping,s.Description]" class="btn btn-primary"><b>View
+                Employees</b></a>&nbsp;&nbsp;
             <!-- <a *ngIf='(k===grpID)' (click)="updateGrpName(s.Description,s.Idemployeegrouping);"
               class="btn btn-success"><b>Update</b></a>&nbsp;
             <a *ngIf='(k===grpID)' (click)="cancelGrpName();" class="btn btn-warning"><b>Cancel</b></a>&nbsp; -->
