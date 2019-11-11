@@ -213,13 +213,11 @@ export class AddEmployeeComponent implements OnInit {
     else {
       manKey = -1;
     }
+    
     if (this.UserRoleTypeKey == 3 && this.ManagerKey) {
       manKey = this.ManagerKey;
     }
-    else {
-      manKey = -1;
-    }
-    if (this.UserRoleTypeKey == 5 && this.ManagerKey) {
+    else if (this.UserRoleTypeKey == 5 && this.ManagerKey) {
       manKey = this.ManagerKey;
     }
     else {

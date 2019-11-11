@@ -109,7 +109,7 @@ export class CreateemployeeComponent implements OnInit {
   createEmployee() {
 
     var manKey;
-
+    var IsSupervisor;
     if (!(this.OrganizationID)) {
       alert("Organization is not provided !");
       return;
@@ -138,6 +138,14 @@ export class CreateemployeeComponent implements OnInit {
     else {
       manKey = -1;
     }
+
+    if (this.UserRoleTypeKey == 5) {
+      IsSupervisor = 1;
+    }
+    else {
+      IsSupervisor = 0;
+    }
+
     if (!(this.FirstName)) {
       alert("First Name is not provided !");
       return;
@@ -195,7 +203,7 @@ export class CreateemployeeComponent implements OnInit {
           alert("Employee Number already exists");
         }
         else {
-          this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, manKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.JobTitleKey, this.DepartmentKey, this.employeekey)
+          this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, manKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.JobTitleKey, this.DepartmentKey, this.employeekey,IsSupervisor)
             .subscribe((data: any[]) => {
               this.temp_res = data;
               alert("Employee Created !");

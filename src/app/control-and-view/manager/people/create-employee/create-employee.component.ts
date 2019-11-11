@@ -201,6 +201,7 @@ export class CreateEmployeeComponent implements OnInit {
   createEmployee() {
     // this.schedularcount = 0;
     var managerkey;
+    var IsSupervisor;
     // managerkey = this.employeekey;
     if (!(this.EmployeeNumber) || !this.EmployeeNumber.trim()) {
       alert("Employee Number Not provided !");
@@ -210,12 +211,23 @@ export class CreateEmployeeComponent implements OnInit {
       alert("User Role Type Not provided !");
       return;
     }
+
     if (this.UserRoleTypeKey == 3) {
+      managerkey = this.employeekey;
+    } else if (this.UserRoleTypeKey == 5) {
       managerkey = this.employeekey;
     }
     else {
       managerkey = -1;
     }
+
+    if (this.UserRoleTypeKey == 5) {
+      IsSupervisor = 1;
+    }
+    else {
+      IsSupervisor = 0;
+    }
+
     if (!(this.FirstName) || !this.FirstName.trim()) {
       alert("First Name is not provided !");
       return;
@@ -454,7 +466,7 @@ export class CreateEmployeeComponent implements OnInit {
     this.PeopleServiceService.checkEmpNumber(this.EmployeeNumber, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
       if (data[0].count == 0) {
         // this.PeopleServiceService.createEmployeebyManager(empschobj).subscribe((data22: any[]) => {
-        this.PeopleServiceService.createEmployeebyManager(this.EmployeeNumber, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox, this.JobTitleKey, this.SupervisorKey, this.DepartmentKey, this.employeekey, this.OrganizationID, managerkey).subscribe((data22: any[]) => {
+        this.PeopleServiceService.createEmployeebyManager(this.EmployeeNumber, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox, this.JobTitleKey, this.SupervisorKey, this.DepartmentKey, this.employeekey, this.OrganizationID, managerkey,IsSupervisor).subscribe((data22: any[]) => {
           this.temp_res = data22;
           alert("Employee Created !");
           var empKey = this.temp_res.EmployeeKey;
@@ -484,7 +496,7 @@ export class CreateEmployeeComponent implements OnInit {
   }
   ngOnInit() {
     this.marked = false;
-    
+
     this.UserRoleTypeKey = '';
     this.Gender = '';
     this.JobTitleKey = '';
