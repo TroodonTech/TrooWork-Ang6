@@ -79,26 +79,25 @@ export class CreateWorkorderTypeComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
     this.WorkOrderServiceService
-    .getMetricValues(this.OrganizationID)
-    .subscribe((data: any[]) => {
-      this.metricValues = data;
-    });
+      .getMetricValues(this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.metricValues = data;
+      });
   }
   //function for creating new workordertype
-  addWOT(MetricType,WorkOrderTypeName,MetricTypeValue)
-   {
-   
+  addWOT(MetricType, WorkOrderTypeName, MetricTypeValue) {
+
     if (!WorkOrderTypeName) {
       alert("Please enter work-order type!");
     } else if (!WorkOrderTypeName.trim()) {
       alert("Please enter work-order type!");
-    } 
-   else if (!MetricType) {
-    alert("Enter MetricType!");
-  } else if (!MetricTypeValue ) {
-    alert("Enter MetricTypeValue!");
-  }
-  else {
+    }
+    else if (!MetricType) {
+      alert("Enter MetricType!");
+    } else if (!MetricTypeValue) {
+      alert("Enter MetricTypeValue!");
+    }
+    else {
       this.add_WOT = {
         WorkorderTypeName: WorkOrderTypeName,
         RoomTypeKey: null,
@@ -108,8 +107,8 @@ export class CreateWorkorderTypeComponent implements OnInit {
         OrganizationID: this.OrganizationID,
         empkey: this.employeekey,
         // MetricTypeValue, MetricType,
-        metric:MetricType,
-        MetricType:MetricTypeValue
+        metric: MetricType,
+        MetricType: MetricTypeValue
 
 
       };
@@ -122,13 +121,14 @@ export class CreateWorkorderTypeComponent implements OnInit {
           else if (data[0].count == 0) {//if not add new wot
             this.WorkOrderServiceService.createWOT(this.add_WOT)
               .subscribe((data: any[]) => {
-                
+
                 alert("Work-order type created successfully");
                 // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
                 if (this.role == 'Manager') {
                   this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
                 }
-                else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                else if (this.role == 'Supervisor') {
                   this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['WorkOrderType'] } }]);
                 }
               });
@@ -141,7 +141,8 @@ export class CreateWorkorderTypeComponent implements OnInit {
     if (this.role == 'Manager') {
       this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
     }
-    else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    else if (this.role == 'Supervisor') {
       this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['WorkOrderType'] } }]);
     }
   }

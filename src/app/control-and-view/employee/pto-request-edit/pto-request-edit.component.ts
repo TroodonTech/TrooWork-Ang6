@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 export class PtoRequestEditComponent implements OnInit {
 
-    ////////Author :  Aswathy//////
+  ////////Author :  Aswathy//////
 
   role: String;
   name: String;
@@ -112,9 +112,11 @@ export class PtoRequestEditComponent implements OnInit {
         this.requestdetails = data;
         alert('PTO Request Updated Successfully');
         // this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
-        if (this.role == 'Employee' && this.IsSupervisor == 0) {
+        // if (this.role == 'Employee' && this.IsSupervisor == 0) {
+        if (this.role == 'Employee') {
           this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
-        } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          // } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        } else if (this.role == 'Supervisor') {
           this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewPtoRequest'] } }]);
         }
       });
@@ -122,9 +124,11 @@ export class PtoRequestEditComponent implements OnInit {
 
   goBack() {
     // this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
-    if (this.role == 'Employee' && this.IsSupervisor == 0) {
+    // if (this.role == 'Employee' && this.IsSupervisor == 0) {
+    if (this.role == 'Employee') {
       this.router.navigate(['/EmployeeDashboard', { outlets: { EmployeeOut: ['ViewPtoRequest'] } }]);
-    } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+      // } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    } else if (this.role == 'Supervisor') {
       this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewPtoRequest'] } }]);
     }
   }

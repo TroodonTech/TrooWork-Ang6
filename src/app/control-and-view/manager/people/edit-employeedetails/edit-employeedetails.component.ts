@@ -129,7 +129,7 @@ export class EditEmployeedetailsComponent implements OnInit {
     }
   }
 
-  editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey) {
+  editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, SupervisorKey, JobTitleKey, DepartmentKey) {
     // start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend,idemployeegrouping
     // this.schedularcount = 0;
     var mankey;
@@ -300,14 +300,15 @@ export class EditEmployeedetailsComponent implements OnInit {
     // }
     // if (this.schedularcount == 0) {
     if (this.empNum == this.editempdtails.EmployeeNumber) {
-      this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey, this.remark).subscribe((data: People[]) => {
+      this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, SupervisorKey, JobTitleKey, DepartmentKey, this.remark).subscribe((data: People[]) => {
         // start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend, idemployeegrouping
         alert("Updated Successfully!");
         // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
         if (this.role == 'Manager') {
           this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
         }
-        else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        else if (this.role == 'Supervisor') {
           this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewEmployee'] } }]);
         }
       });
@@ -316,7 +317,7 @@ export class EditEmployeedetailsComponent implements OnInit {
       this.PeopleServiceService.CheckForEmployeenumber(this.editempdtails.EmployeeNumber, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
         if (data[0].count == 0) {
           var hiredt = this.convert_DT(this.BirthDate);
-          this.PeopleServiceService.UpdateEmployeeDetailsbyManager(mankey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, IsSupervisor, SupervisorKey, JobTitleKey, DepartmentKey, this.remark)
+          this.PeopleServiceService.UpdateEmployeeDetailsbyManager(mankey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, SupervisorKey, JobTitleKey, DepartmentKey, this.remark)
             //  start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend, idemployeegrouping
             .subscribe((data: People[]) => {
               alert("Updated Successfully!");
@@ -324,7 +325,8 @@ export class EditEmployeedetailsComponent implements OnInit {
               if (this.role == 'Manager') {
                 this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
               }
-              else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+              // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+              else if (this.role == 'Supervisor') {
                 this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewEmployee'] } }]);
               }
             });
@@ -351,7 +353,8 @@ export class EditEmployeedetailsComponent implements OnInit {
         if (this.role == 'Manager') {
           this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
         }
-        else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        else if (this.role == 'Supervisor') {
           this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewEmployee'] } }]);
         }
       });
@@ -382,6 +385,11 @@ export class EditEmployeedetailsComponent implements OnInit {
         this.remark = this.editempdtails.Remark;
       }
 
+      if (this.editempdtails.UserRoleName === "Employee") {
+        this.marked = true;
+      } else {
+        this.marked = false;
+      }
       //Author: Prakash Code Starts for Employee Calendar Starts Here
 
       // this.idemployeegrouping = this.editempdtails.EmployeeGroupID;
@@ -495,19 +503,20 @@ export class EditEmployeedetailsComponent implements OnInit {
 
   }
 
-  toggleVisibility(e) {
-    if (e.target.checked) {
-      this.marked = false;
-    } else {
-      this.marked = true;
-    }
-  }
+  // toggleVisibility(e) {
+  //   if (e.target.checked) {
+  //     this.marked = false;
+  //   } else {
+  //     this.marked = true;
+  //   }
+  // }
   GoBack() {
     // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
     if (this.role == 'Manager') {
       this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
     }
-    else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    else if (this.role == 'Supervisor') {
       this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewEmployee'] } }]);
     }
   }

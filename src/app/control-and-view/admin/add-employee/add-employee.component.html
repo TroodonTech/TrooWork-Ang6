@@ -30,20 +30,6 @@
     </div>
 
     <div class="form-row col-md-12">
-
-      <div class="col-md-6" *ngIf="showManager">
-        <div class="form-group ">
-          <label>Manager*</label>
-          <select name="userroletype" style=" background-color: #d4f4ff;"
-            class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="ManagerKey">
-            <option value="" placeholder>--Select--</option>
-            <option *ngFor="let u of managerList" [value]="u.ManagerKey">
-              {{u.ManagerName}}
-            </option>
-          </select>
-        </div>
-      </div>
-
       <div class="col-md-6 ">
         <div class="form-group">
         </div>
@@ -55,9 +41,19 @@
             <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="20%" [value]="hiredate" [(ngModel)]="HireDate"></igx-datePicker> -->
             <ng-datepicker [options]="options" position="top-right" [(ngModel)]="HireDate"></ng-datepicker>
           </div>
-          <div class="form-check form-check-inline" style="margin-top: 2.2rem">
+          <!-- <div class="form-check form-check-inline" style="margin-top: 2.2rem">
             <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
             <label class="form-check-label" for="materialInline1">Supervisor</label> &nbsp;&nbsp;
+          </div> -->
+          <div class="form-group">
+            <label>Department*</label><br>
+            <select name="department" style="background-color: #d4f4ff;"
+              class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="DepartmentKey">
+              <option value="">--Select--</option>
+              <option *ngFor="let d of department" [value]="d.DepartmentKey">
+                {{d.DepartmentName}}
+              </option>
+            </select>
           </div>
         </div>
         <div class="col-md-6">
@@ -72,16 +68,17 @@
             </select>
           </div>
 
-          <div class="form-group" style="margin-left: 1.2rem;">
-            <label>Department*</label><br>
-            <select name="department" style="background-color: #d4f4ff;width: 79%;max-width: 100%;"
-              class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="DepartmentKey">
-              <option value="">--Select--</option>
-              <option *ngFor="let d of department" [value]="d.DepartmentKey">
-                {{d.DepartmentName}}
+          <div class="form-group " *ngIf="showManager" style="margin-left: 1.2rem;">
+            <label>Manager*</label>
+            <select name="userroletype" style=" background-color: #d4f4ff;width: 79%;max-width: 100%;"
+              class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="ManagerKey">
+              <option value="" placeholder>--Select--</option>
+              <option *ngFor="let u of managerList" [value]="u.ManagerKey">
+                {{u.ManagerName}}
               </option>
             </select>
           </div>
+
         </div>
       </div>
     </div>
@@ -226,8 +223,8 @@
 <div style="padding-left: 2rem;padding-top:0rem !important; padding-bottom:0rem !important;">
   <!-- <div *ngIf="isemployeecalendar==1">
     <div class="row bg-info col-md-12"> -->
-      <!-- style="width: 121%;max-width: 200%;padding-left: 2rem !important;padding-right: 14rem !important;" -->
-      <!-- <h3 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67;">Weekly
+  <!-- style="width: 121%;max-width: 200%;padding-left: 2rem !important;padding-right: 14rem !important;" -->
+  <!-- <h3 class="text-gray-dark col-md-12" style="margin-top: 1.5rem;margin-bottom: 1.5rem; color: #00cc67;">Weekly
         Schedule</h3>
       <table class="table table-hover table-responsive table-bordered table"
         style="display: inline-table;width: 121%;max-width: 200%;">
@@ -543,7 +540,7 @@
           </select>
         </div>
       </div>-->
-      <!-- <div class="col-md-6">
+  <!-- <div class="col-md-6">
           <div class="form-group">
             <label>Weekend</label><br>
             <select name="sch_exception_weekend" [(ngModel)]="idmaster_exception_weekend" [value]="value"
@@ -555,7 +552,7 @@
             </select>
           </div>
         </div> -->
-<!--
+  <!--
     </div>
   </div> -->
   <br>

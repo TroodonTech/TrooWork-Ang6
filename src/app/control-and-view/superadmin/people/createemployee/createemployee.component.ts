@@ -31,7 +31,7 @@ export class CreateemployeeComponent implements OnInit {
   AlternatePhone: any;
   EmailID: any;
   HireDate: Date;
-  theCheckbox: any;
+  // theCheckbox: any;
   JobTitleKey;
   OrgID;
   DepartmentKey;
@@ -46,7 +46,7 @@ export class CreateemployeeComponent implements OnInit {
   role;
   marked = true;
   temp_res;
-  
+
 
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
@@ -70,7 +70,7 @@ export class CreateemployeeComponent implements OnInit {
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field
-    addStyle: {'font-size':'18px','width':'76%', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
+    addStyle: { 'font-size': '18px', 'width': '76%', 'border': '1px solid #ced4da', 'border-radius': '0.25rem' }, // Optional, value to pass to [ngStyle] on the input field
     fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
@@ -129,12 +129,13 @@ export class CreateemployeeComponent implements OnInit {
     else {
       manKey = -1;
     }
-    if(this.UserRoleTypeKey==3 && this.ManagerKey)
-    {
+    if (this.UserRoleTypeKey == 3 && this.ManagerKey) {
       manKey = this.ManagerKey;
     }
-    else
-    {
+    else if (this.UserRoleTypeKey == 5 && this.ManagerKey) {
+      manKey = this.ManagerKey;
+    }
+    else {
       manKey = -1;
     }
     if (!(this.FirstName)) {
@@ -146,7 +147,7 @@ export class CreateemployeeComponent implements OnInit {
       return;
     }
     if (!(this.Gender)) {
-      this.Gender=null;
+      this.Gender = null;
     }
     if (!(this.PrimaryPhone)) {
       alert("Primary Phone is not provided !");
@@ -167,7 +168,7 @@ export class CreateemployeeComponent implements OnInit {
 
     if (!(this.BirthDate)) {
       // BD = this.convert_DT(new Date());
-      BD='1990-01-1';
+      BD = '1990-01-1';
     }
     else {
       BD = this.convert_DT(this.BirthDate);
@@ -194,13 +195,13 @@ export class CreateemployeeComponent implements OnInit {
           alert("Employee Number already exists");
         }
         else {
-          this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, manKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox, this.JobTitleKey, this.DepartmentKey, this.employeekey)
+          this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, manKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.JobTitleKey, this.DepartmentKey, this.employeekey)
             .subscribe((data: any[]) => {
               this.temp_res = data;
               alert("Employee Created !");
               var empKey = this.temp_res.EmployeeKey;
               // this.router.navigate(['/setUserLoginSuper', empKey, str, this.UserRoleTypeKey, this.OrganizationID]);
-              this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['setUserLoginSuper', empKey, str, this.UserRoleTypeKey, this.OrganizationID] } }]);
+              this.router.navigate(['/SuperadminDashboard', { outlets: { SuperAdminOut: ['setUserLoginSuper', empKey, str, this.UserRoleTypeKey, this.OrganizationID] } }]);
             });
         }
       });
@@ -240,7 +241,7 @@ export class CreateemployeeComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrgID = profile.OrganizationID;
-  
+
     this.PeopleServiceService
       .getUserRoleTypesa(this.OrgID)
       .subscribe((data: People[]) => {
@@ -272,17 +273,17 @@ export class CreateemployeeComponent implements OnInit {
     }
   }
   selectUserType(userType) {
-    if(!(this.OrganizationID)){
-     alert("Please provide Organization!");
-     this.UserRoleTypeKey=null;
+    if (!(this.OrganizationID)) {
+      alert("Please provide Organization!");
+      this.UserRoleTypeKey = null;
       return;
-  }
-//   if(this.UserRoleTypeKey=='Employee'){
-//     this.PeopleServiceService.getManagerForEmployeeForSuperAdmin(this.OrgID).subscribe((data: any[]) => {
-//         this.managerList = data;
-//     this.showManager = true;
-//     });
-// }
+    }
+    //   if(this.UserRoleTypeKey=='Employee'){
+    //     this.PeopleServiceService.getManagerForEmployeeForSuperAdmin(this.OrgID).subscribe((data: any[]) => {
+    //         this.managerList = data;
+    //     this.showManager = true;
+    //     });
+    // }
     if (userType == this.roleTypeKey) {
       this.showManager = true;
       this.PeopleServiceService

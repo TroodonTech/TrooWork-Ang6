@@ -73,9 +73,13 @@ export class SchedulingService {
   }
 
   getAllEmpList(empkey, orgID) {
+    // return this
+    //   .http
+    //   .get(ConectionSettings.Url + '/employeeForManager?empkey=' + empkey + '&OrganizationID=' + orgID);
+
     return this
       .http
-      .get(ConectionSettings.Url + '/employeeForManager?empkey=' + empkey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/employeeForManager_SuType?empkey=' + empkey + '&OrganizationID=' + orgID);
   }
 
   checkScheduleName(scheduleName, empkey, orgID) {
@@ -282,9 +286,12 @@ export class SchedulingService {
 
   //varun code starts
   employeesForScheduler(groupID, empkey, orgID) {
+    // return this
+    //   .http
+    // .get(ConectionSettings.Url + '/employeesForScheduler?groupID=' + groupID + '&empkey=' + empkey + '&OrganizationID=' + orgID);
     return this
       .http
-      .get(ConectionSettings.Url + '/employeesForScheduler?groupID=' + groupID + '&empkey=' + empkey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/employeesForScheduler_SuType?groupID=' + groupID + '&empkey=' + empkey + '&OrganizationID=' + orgID);
   }
   SchedulerEventCreate(obj) {
     const url = ConectionSettings.Url + "/SchedulerEventCreate";
@@ -339,9 +346,13 @@ export class SchedulingService {
       .get(ConectionSettings.Url + '/employeeCalendarDetailsForSchedulerOnlyForView?dateRange=' + dateRange + '&startDate=' + startDate + '&endDate=' + endDate + '&empKey=' + empkey + '&OrganizationID=' + OrgID);
   }
   employeesViewOnlyForScheduler(empkey, orgID) {
+    // return this
+    //   .http
+    //   .get(ConectionSettings.Url + '/employeesViewOnlyForScheduler?empkey=' + empkey + '&OrganizationID=' + orgID);
+
     return this
       .http
-      .get(ConectionSettings.Url + '/employeesViewOnlyForScheduler?empkey=' + empkey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/employeesViewOnlyForScheduler_SuType?empkey=' + empkey + '&OrganizationID=' + orgID);
   }
 
   checkForEmpGrpDuplicate(groupName, orgID) {
@@ -360,9 +371,13 @@ export class SchedulingService {
       .get(ConectionSettings.Url + '/getAllEmployeesForSchedulerReport?OrganizationID=' + OrganizationID);
   }
   getEmployeesofEmpGroup(GroupID, OrganizationID) {
+    // return this
+    //   .http
+    //   .get(ConectionSettings.Url + '/getAllEmployeesofGroupForSchedulerReport?groupID=' + GroupID + '&OrganizationID=' + OrganizationID);
     return this
       .http
-      .get(ConectionSettings.Url + '/getAllEmployeesofGroupForSchedulerReport?groupID=' + GroupID + '&OrganizationID=' + OrganizationID);
+      .get(ConectionSettings.Url + '/getAllEmployeesofGroupForSchedulerReport_SuType?groupID=' + GroupID + '&OrganizationID=' + OrganizationID);
+
   }
   SchedulerEmployeeGroupsForReport(OrganizationID) {
     return this
@@ -371,7 +386,8 @@ export class SchedulingService {
   }
 
   generateSchedulerReport(fromdate, todate, groupID, empKeys, OrganizationID) {
-    const url = ConectionSettings.Url + "/generateSchedulerReport";
+    // const url = ConectionSettings.Url + "/generateSchedulerReport";
+    const url = ConectionSettings.Url + "/generateSchedulerReport_SuType";
     const obj = {
       fromDate: fromdate,
       toDate: todate,
@@ -403,6 +419,24 @@ export class SchedulingService {
     }
     return this.http.post(url, obj);
 
+  }
+
+  getAllEmployeesofEmpGroup(GroupID, OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getAllEmployeesofGroupForSeniorityEdit?groupID=' + GroupID + '&OrganizationID=' + OrganizationID);
+  }
+
+  saveOrderChange(metauser, OrganizationID, empKey, orderVal) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/updateEmployeeSeniorityORder?empKey=' + empKey + '&orderVal=' + orderVal + '&metauser=' + metauser + '&OrganizationID=' + OrganizationID);
+
+  }
+  getAllEmployeesForSchedulerReport(OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getEmployeesForSchedulerReport?OrganizationID=' + OrganizationID);
   }
   // @Author:Rodney ends
 }

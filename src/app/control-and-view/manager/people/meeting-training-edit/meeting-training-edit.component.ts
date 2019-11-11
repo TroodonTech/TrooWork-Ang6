@@ -153,12 +153,12 @@ export class MeetingTrainingEditComponent implements OnInit {
       var time2 = new Date(this.timeValue2);
       var curTime = new Date();
       var timediff = +time2 - +time1;
-      
+
       if (timediff < 0) {
         alert("Start Time can't be after End Time");
         return;
       }
-     
+
     }
 
     if (!ActionKey) {
@@ -180,9 +180,9 @@ export class MeetingTrainingEditComponent implements OnInit {
         var newDate = this.convert_DT(new Date());
       }
       else {
-        
-          newDate = this.convert_DT(this.mtngDate);
-        
+
+        newDate = this.convert_DT(this.mtngDate);
+
       }
 
 
@@ -217,7 +217,8 @@ export class MeetingTrainingEditComponent implements OnInit {
           if (this.role == 'Manager') {
             this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['MeetingTrainingView'] } }]);
           }
-          else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          else if (this.role == 'Supervisor') {
             this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['MeetingTrainingView'] } }]);
           }
         }
@@ -349,7 +350,8 @@ export class MeetingTrainingEditComponent implements OnInit {
     if (this.role == 'Manager') {
       this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['MeetingTrainingView'] } }]);
     }
-    else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    else if (this.role == 'Supervisor') {
       this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['MeetingTrainingView'] } }]);
     }
   }

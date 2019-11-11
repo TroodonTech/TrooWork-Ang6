@@ -44,6 +44,7 @@ export class CreateEmployeeComponent implements OnInit {
   name: String;
   employeekey: Number;
   IsSupervisor: Number;
+  roleTypeKey;
   OrganizationID;
 
   //Author: Prakash Code Starts for Employee Calendar Starts Here
@@ -462,7 +463,8 @@ export class CreateEmployeeComponent implements OnInit {
           if (this.role == 'Manager') {
             this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Settingusernameandpswrdaftremplcreatebyman', empKey, str, this.UserRoleTypeKey] } }]);
           }
-          else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          else if (this.role == 'Supervisor') {
             this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Settingusernameandpswrdaftremplcreatebyman', empKey, str, this.UserRoleTypeKey] } }]);
           }
         });
@@ -481,6 +483,8 @@ export class CreateEmployeeComponent implements OnInit {
 
   }
   ngOnInit() {
+    this.marked = false;
+    
     this.UserRoleTypeKey = '';
     this.Gender = '';
     this.JobTitleKey = '';
@@ -566,14 +570,19 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
     this.role = profile.role;
-    this.IsSupervisor = profile.IsSupervisor;
+    // this.IsSupervisor = profile.IsSupervisor;
 
     // this.isemployeecalendar = profile.isemployeecalendar;//Author: Prakash for Checking Whether the organization uses Calendar or not
 
     this.PeopleServiceService
       .getUserRoleType(this.OrganizationID)
-      .subscribe((data: People[]) => {
+      .subscribe((data: any[]) => {
         this.useroletype = data;
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].UserRoleName == "Employee") {
+            this.roleTypeKey = data[i].UserRoleTypeKey;
+          }
+        }
       });
     this.PeopleServiceService
       .getJobTitleforadmindd(this.employeekey, this.OrganizationID)
@@ -621,10 +630,10 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   toggleVisibility(e) {
-    if (e.target.checked) {
-      this.marked = false;
-    } else {
+    if (e == this.roleTypeKey) {
       this.marked = true;
+    } else {
+      this.marked = false;
     }
   }
 }

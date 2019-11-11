@@ -6,6 +6,7 @@ import { EditBatchWorkComponent } from './edit-batch-work/edit-batch-work.compon
 import { CreateBatchScheduleComponent } from './create-batch-schedule/create-batch-schedule.component';
 import { BatchScheduleRoomComponent } from './batch-schedule-room/batch-schedule-room.component';
 import { EditAssignmentScheduleForReportComponent } from './edit-assignment-schedule-for-report/edit-assignment-schedule-for-report.component';
+import { ViewEmployeesofGroupComponent } from './view-employeesof-group/view-employeesof-group.component';
 // import { ViewshiftComponent } from './viewshift/viewshift.component';
 // import { EditshiftComponent } from './editshift/editshift.component';
 
@@ -15,7 +16,8 @@ import { EditAssignmentScheduleForReportComponent } from './edit-assignment-sche
     CommonModule
   ],
   declarations: [CreateBatchWorkComponent, SchedulingViewComponent, EditBatchWorkComponent, CreateBatchScheduleComponent, BatchScheduleRoomComponent,
-     EditAssignmentScheduleForReportComponent, 
+     EditAssignmentScheduleForReportComponent,
+     ViewEmployeesofGroupComponent, 
     //  ViewshiftComponent, EditshiftComponent
     ]
 })

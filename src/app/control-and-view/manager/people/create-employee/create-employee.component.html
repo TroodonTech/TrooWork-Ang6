@@ -18,7 +18,7 @@
       <div class="form-group">
         <label>User Role Type*</label>
         <select name="userroletype" style="background-color: #d4f4ff;" class="form-control col-sm-9 col-md-9 col-lg-9"
-          [(ngModel)]="UserRoleTypeKey">
+          [(ngModel)]="UserRoleTypeKey" (change)="toggleVisibility($event.target.value)">
           <option value="" placeholder>--Select--</option>
           <option *ngFor="let u of useroletype" [value]="u.UserRoleTypeKey">
             {{u.UserRoleName}}
@@ -67,12 +67,12 @@
         </select>
       </div>
     </div>
-    <div class="col-md-6">
+    <!-- <div class="col-md-6">
       <div class="form-check form-check-inline">
         <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
         <label class="form-check-label" for="materialInline1">Supervisor</label> &nbsp;&nbsp;&nbsp;
       </div>
-    </div>
+    </div> -->
 
   </div>
   <br>

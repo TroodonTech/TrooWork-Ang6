@@ -1,4 +1,5 @@
-<div style="overflow-x: hidden;padding-left: 9rem;padding-right: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;">
+<div
+  style="overflow-x: hidden;padding-left: 9rem;padding-right: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;">
   <div class="row col-md-12 ">
     <h4 style="margin-left: 35%;">EDIT EMPLOYEE INFORMATION</h4>
   </div><br>
@@ -9,14 +10,15 @@
       <div class="col-md-6 ">
         <div class="form-group">
           <label>Organization*</label>
-          <input *ngIf="editempdtails" type="text" name="orgID" [(ngModel)]="editempdtails.Organization" readonly class="form-control col-sm-9 col-md-9 col-lg-9" />
+          <input *ngIf="editempdtails" type="text" name="orgID" [(ngModel)]="editempdtails.Organization" readonly
+            class="form-control col-sm-9 col-md-9 col-lg-9" />
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group ">
           <label style="margin-left: 1rem;">Employee Number*</label>
           <input *ngIf="editempdtails" type="text" name="EmployeeNumber" class="form-control col-sm-9 col-md-9 col-lg-9"
-            maxlength="15"  placeholder="Employee Number" [(ngModel)]="editempdtails.EmployeeNumber"
+            maxlength="15" placeholder="Employee Number" [(ngModel)]="editempdtails.EmployeeNumber"
             style="margin-left: 1rem;width: 75%;max-width: 100%;">
 
         </div>
@@ -36,13 +38,13 @@
           </select>
         </div>
       </div>
-      <div class="col-md-6" *ngIf="showManager">
+      <div class="col-md-6" *ngIf="editempdtails.UserRoleName == 'Employee'">
         <div class="form-group " style="margin-left: 1rem;">
           <label>Manager*</label>
-          <select name="userroletype" style=" background-color: #d4f4ff;width: 77%;max-width: 100%;" class="form-control col-sm-9 col-md-9 col-lg-9"
-            [(ngModel)]="editempdtails.ManagerKey">
+          <select name="userroletype" style=" background-color: #d4f4ff;width: 77%;max-width: 100%;"
+            class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="editempdtails.ManagerKey">
             <option value="" placeholder>--Select--</option>
-            <option *ngFor="let u of manager" [value]="u.ManagerKey">
+            <option *ngFor="let u of managerList" [value]="u.ManagerKey">
               {{u.ManagerName}}
             </option>
           </select>
@@ -56,9 +58,20 @@
           <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="20%" [(ngModel)]="HireDate"></igx-datePicker> -->
           <ng-datepicker [options]="options" position="top-right" [(ngModel)]="HireDate"></ng-datepicker>
         </div>
-        <div class="form-check form-check-inline" style="margin-top: 2.2rem">
+        <!-- <div class="form-check form-check-inline" style="margin-top: 2.2rem">
           <input type="checkbox" [(ngModel)]="editempdtails.IsSupervisor" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
           <label class="form-check-label" for="materialInline1">Supervisor</label> &nbsp;&nbsp;
+        </div> -->
+        <div class="form-group" style="margin-left: -1rem">
+          <label style="margin-left: 1rem;">Employee Status*</label><br>
+          <select name="jobtitle" style="margin-left:0.9rem;background-color: #d4f4ff;width: 73%;max-width: 100%;"
+            [(ngModel)]="editempdtails.EmployeeStatusKey" class="form-control col-sm-9 col-md-9 col-lg-9"
+            (change)="statusChanged(editempdtails.EmployeeStatusKey)">
+            <option value="" placeholder>--Select--</option>
+            <option *ngFor="let s of employeestatus" [value]="s.EmployeeStatusKey">
+              {{s.EmployeeStatus}}
+            </option>
+          </select>
         </div>
       </div>
       <div class="col-md-6">
@@ -85,25 +98,14 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="form-group" style="margin-left: -1rem">
-          <label style="margin-left: 1rem;">Employee Status*</label><br>
-          <select name="jobtitle" style="margin-left:0.9rem;background-color: #d4f4ff;width: 73%;max-width: 100%;"
-            [(ngModel)]="editempdtails.EmployeeStatusKey" class="form-control col-sm-9 col-md-9 col-lg-9" (change)="statusChanged(editempdtails.EmployeeStatusKey)">
-            <option value="" placeholder>--Select--</option>
-            <option *ngFor="let s of employeestatus" [value]="s.EmployeeStatusKey">
-              {{s.EmployeeStatus}}
-            </option>
-          </select>
 
-          <div class="form-group" *ngIf="statusFlag">
-            <label>Remarks*</label>
-            <!-- <textarea class="form-control rounded-1" maxlength="200" [(ngModel)]="remark" rows="8"
+
+        <div class="form-group" *ngIf="statusFlag">
+          <label>Remarks*</label>
+          <!-- <textarea class="form-control rounded-1" maxlength="200" [(ngModel)]="remark" rows="8"
             style="resize: none;width: 100% !important;max-width: 100% !important;"></textarea> -->
-
-            <textarea class="form-control rounded-1  col-sm-9 col-md-9 col-lg-9" maxlength="85" [(ngModel)]="remark"
-            placeholder="Remarks" id="exampleFormControlTextarea1" rows="5" ></textarea>
-         
-          </div>
+          <textarea class="form-control rounded-1  col-sm-9 col-md-9 col-lg-9" maxlength="85" [(ngModel)]="remark"
+            placeholder="Remarks" id="exampleFormControlTextarea1" rows="5"></textarea>
         </div>
       </div>
     </div>
@@ -115,17 +117,20 @@
     <div class="col-md-6">
       <div class="form-group">
         <label>First Name*</label>
-        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9" (keypress)="charValidation($event)"
-          maxlength="19" placeholder="First Name" [(ngModel)]="editempdtails.FirstName" style="width: 76%;max-width: 100%;">
+        <input type="text" name="FirstName" class="form-control  col-sm-9 col-md-9 col-lg-9"
+          (keypress)="charValidation($event)" maxlength="19" placeholder="First Name"
+          [(ngModel)]="editempdtails.FirstName" style="width: 76%;max-width: 100%;">
       </div>
       <div class="form-group">
         <label>Last Name*</label>
-        <input type="text" name="LastName" class="form-control  col-sm-9 col-md-9 col-lg-9" (keypress)="charValidation($event)"
-          maxlength="19" placeholder="Last Name" [(ngModel)]="editempdtails.LastName" style="width: 76%;max-width: 100%;">
+        <input type="text" name="LastName" class="form-control  col-sm-9 col-md-9 col-lg-9"
+          (keypress)="charValidation($event)" maxlength="19" placeholder="Last Name"
+          [(ngModel)]="editempdtails.LastName" style="width: 76%;max-width: 100%;">
       </div>
       <div class="form-group">
         <label>Gender</label><br>
-        <select name="Gender" [(ngModel)]="editempdtails.Gender" class="form-control col-sm-9 col-md-9 col-lg-9" style="background-color: #d4f4ff;width: 76%;max-width: 100%;">
+        <select name="Gender" [(ngModel)]="editempdtails.Gender" class="form-control col-sm-9 col-md-9 col-lg-9"
+          style="background-color: #d4f4ff;width: 76%;max-width: 100%;">
           <option value="">--Select--</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
@@ -136,8 +141,9 @@
     <div class="col-md-6">
       <div class="form-group">
         <label>Middle Name</label>
-        <input type="text" name="MiddleName" class="form-control  col-sm-9 col-md-9 col-lg-9" (keypress)="charValidation($event)"
-          maxlength="19" placeholder="Middle Name" [(ngModel)]="editempdtails.MiddleName" style="width: 76%;max-width: 100%;">
+        <input type="text" name="MiddleName" class="form-control  col-sm-9 col-md-9 col-lg-9"
+          (keypress)="charValidation($event)" maxlength="19" placeholder="Middle Name"
+          [(ngModel)]="editempdtails.MiddleName" style="width: 76%;max-width: 100%;">
       </div>
       <div class="form-group">
         <label>Birth Date</label>
@@ -153,28 +159,29 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Address Line 1</label>
-          <textarea class="form-control rounded-1  col-sm-9 col-md-9 col-lg-9" maxlength="85" [(ngModel)]="editempdtails.AddressLine1"
-            placeholder="Address Line1" id="exampleFormControlTextarea1" rows="5" style="width: 79% !important;max-width: 100%;"></textarea>
+          <textarea class="form-control rounded-1  col-sm-9 col-md-9 col-lg-9" maxlength="85"
+            [(ngModel)]="editempdtails.AddressLine1" placeholder="Address Line1" id="exampleFormControlTextarea1"
+            rows="5" style="width: 79% !important;max-width: 100%;"></textarea>
         </div>
         <div class="form-group">
           <label>City</label>
 
-          <input type="text" name="City" [(ngModel)]="editempdtails.City" style="width: 79%;max-width: 100%;" class="form-control col-sm-9 col-md-9 col-lg-9"
-            maxlength="19" placeholder="City">
+          <input type="text" name="City" [(ngModel)]="editempdtails.City" style="width: 79%;max-width: 100%;"
+            class="form-control col-sm-9 col-md-9 col-lg-9" maxlength="19" placeholder="City">
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label>Address Line 2</label>
-          <textarea class="form-control rounded-1 col-sm-9 col-md-9 col-lg-9" maxlength="85" [(ngModel)]="editempdtails.AddressLine2"
-            placeholder="Address Line2" style="width: 82%  !important;max-width: 100%;" id="exampleFormControlTextarea1"
-            rows="5"></textarea>
+          <textarea class="form-control rounded-1 col-sm-9 col-md-9 col-lg-9" maxlength="85"
+            [(ngModel)]="editempdtails.AddressLine2" placeholder="Address Line2"
+            style="width: 82%  !important;max-width: 100%;" id="exampleFormControlTextarea1" rows="5"></textarea>
         </div>
         <div class="form-group">
           <label>State</label>
 
-          <input type="text" style="width: 82%;max-width: 100%;" name="State" [(ngModel)]="editempdtails.State" class="form-control col-sm-9 col-md-9 col-lg-9"
-            maxlength="19" placeholder="State">
+          <input type="text" style="width: 82%;max-width: 100%;" name="State" [(ngModel)]="editempdtails.State"
+            class="form-control col-sm-9 col-md-9 col-lg-9" maxlength="19" placeholder="State">
         </div>
       </div>
 
@@ -186,9 +193,9 @@
             placeholder="Country"> </div>
         <div class="form-group">
           <label>Primary Phone Number*</label>
-          <input type="text" style="width: 79%;max-width: 100%;" name="PrimaryPhone" [(ngModel)]="editempdtails.PrimaryPhone"
-            minlength=10 (keypress)="numberValid($event)" maxlength="15" class="form-control col-sm-9 col-md-9 col-lg-9"
-            placeholder="Primary Phone Number" #Primaryphone="ngModel">
+          <input type="text" style="width: 79%;max-width: 100%;" name="PrimaryPhone"
+            [(ngModel)]="editempdtails.PrimaryPhone" minlength=10 (keypress)="numberValid($event)" maxlength="15"
+            class="form-control col-sm-9 col-md-9 col-lg-9" placeholder="Primary Phone Number" #Primaryphone="ngModel">
           <div *ngIf="Primaryphone.errors?.minlength" style="color: red;">
             Primary Phone Number must be at least 10 digit long.
           </div>
@@ -198,12 +205,14 @@
         <div class="form-group">
           <label>Zip Code</label>
           <input type="text" style="width: 82%;max-width: 100%;" name="ZipCode" [(ngModel)]="editempdtails.ZipCode"
-            class="form-control col-sm-9 col-md-9 col-lg-9" (keypress)="numberValid($event)" maxlength="10" placeholder="Zip Code">
+            class="form-control col-sm-9 col-md-9 col-lg-9" (keypress)="numberValid($event)" maxlength="10"
+            placeholder="Zip Code">
         </div>
         <div class="form-group">
           <label>Alternative Phone Number</label>
-          <input type="text" style="width: 82%;max-width: 100%;" name="AlternatePhone" [(ngModel)]="editempdtails.AlternatePhone"
-            (keypress)="numberValid($event)" maxlength="15" class="form-control col-sm-9 col-md-9 col-lg-9" placeholder="Alternative Phone Number">
+          <input type="text" style="width: 82%;max-width: 100%;" name="AlternatePhone"
+            [(ngModel)]="editempdtails.AlternatePhone" (keypress)="numberValid($event)" maxlength="15"
+            class="form-control col-sm-9 col-md-9 col-lg-9" placeholder="Alternative Phone Number">
         </div>
 
       </div>
@@ -211,7 +220,8 @@
         <div class="form-group">
           <label>Email</label><br>
           <input type="text" style="width: 79%;max-width: 100%;" name="EmailID" [(ngModel)]="editempdtails.EmailID"
-            maxlength="40" class="form-control col-sm-9 col-md-9 col-lg-9" placeholder="Email" email #prmEmail="ngModel">
+            maxlength="40" class="form-control col-sm-9 col-md-9 col-lg-9" placeholder="Email" email
+            #prmEmail="ngModel">
           <div *ngIf="prmEmail.errors?.email" style="color: red;">
             Email not valid.
           </div>
@@ -220,7 +230,8 @@
 
 
       <div class="row col-md-12" style="margin-left: 35%;">
-        <a style="text-align:center" class="btn btn-success" (click)="editEmployee(editempdtails.EmployeeNumber,editempdtails.UserRoleTypeKey,editempdtails.FirstName,editempdtails.LastName,editempdtails.MiddleName,BirthDate,editempdtails.Gender,editempdtails.AddressLine1,editempdtails.City,editempdtails.AddressLine2,editempdtails.State,editempdtails.Country,editempdtails.PrimaryPhone,editempdtails.ZipCode,editempdtails.AlternatePhone,editempdtails.EmailID,editempdtails.EmployeeStatusKey,HireDate,editempdtails.IsSupervisor,editempdtails.SupervisorKey,editempdtails.JobTitleKey,editempdtails.DepartmentKey)">
+        <a style="text-align:center" class="btn btn-success"
+          (click)="editEmployee(editempdtails.EmployeeNumber,editempdtails.UserRoleTypeKey,editempdtails.FirstName,editempdtails.LastName,editempdtails.MiddleName,BirthDate,editempdtails.Gender,editempdtails.AddressLine1,editempdtails.City,editempdtails.AddressLine2,editempdtails.State,editempdtails.Country,editempdtails.PrimaryPhone,editempdtails.ZipCode,editempdtails.AlternatePhone,editempdtails.EmailID,editempdtails.EmployeeStatusKey,HireDate,editempdtails.JobTitleKey,editempdtails.DepartmentKey)">
           <b> Update</b></a>
         <a class="btn btn-danger" (click)="basicModal.show();deleteEmpPass(empk$); "><b>Delete</b></a>
         <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go
@@ -243,8 +254,8 @@
               Are you sure you want to delete this?
             </div>
             <div class="modal-footer">
-              <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide(); deleteEmployee()"
-                mdbWavesEffect>Yes</button>
+              <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
+                (click)="basicModal.hide(); deleteEmployee()" mdbWavesEffect>Yes</button>
               <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="basicModal.hide()"
                 mdbWavesEffect>No</button>
             </div>

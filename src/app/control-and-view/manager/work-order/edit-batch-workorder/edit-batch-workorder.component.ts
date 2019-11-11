@@ -225,12 +225,12 @@ export class EditBatchWorkorderComponent implements OnInit {
         this.WorkOrderServiceService
           .getEquipmentNameList(this.WOEditList.WorkorderScheduleKey, this.OrganizationID)
           .subscribe((data: any[]) => {
-            var equList=[];
+            var equList = [];
             for (var j = 0; j < data.length; j++) {
               equList.push(data[j].EquipmentName);
             }
-          
-            this.EquipmentNameList =   equList.join(',');
+
+            this.EquipmentNameList = equList.join(',');
           });
         this.Times = this.tConvert(this.WOEditList.WorkorderTime);
         this.WorkOrderServiceService
@@ -575,7 +575,7 @@ export class EditBatchWorkorderComponent implements OnInit {
     else {
       this.RoomTypeKey = "";
       this.RoomKey = "";
-      this.getZoneRoomTypeRoom(this.FloorKey,this.FacilityKey);
+      this.getZoneRoomTypeRoom(this.FloorKey, this.FacilityKey);
     }
   }
   getRoom(roomtype, zone, facility, floor) {//get room based on zone,facility,floor,roomtype
@@ -647,7 +647,8 @@ export class EditBatchWorkorderComponent implements OnInit {
         if (this.role == 'Manager') {
           this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
         }
-        else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        else if (this.role == 'Supervisor') {
           this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewBatchWorkorder'] } }]);
         }
       });
@@ -980,12 +981,12 @@ export class EditBatchWorkorderComponent implements OnInit {
       }
     }
 
-    if( this.GpsSnapShot ==true){
-      this.Gps_SnapShot=1;
-     }
-      else{
-       this.Gps_SnapShot=0;
-     }
+    if (this.GpsSnapShot == true) {
+      this.Gps_SnapShot = 1;
+    }
+    else {
+      this.Gps_SnapShot = 0;
+    }
 
     this.workorderCreation = {
       scheduleKey: this.BatchScheduleNameKey,
@@ -1011,7 +1012,7 @@ export class EditBatchWorkorderComponent implements OnInit {
       repeatinterval: this.rep_interval,
       occursonday: this.occurs_on,
       occurstype: this.occurs_type,
-      IsSnapshot:this.Gps_SnapShot
+      IsSnapshot: this.Gps_SnapShot
     };
     this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {//service for updating wo
       this.deleteWO = {
@@ -1026,7 +1027,8 @@ export class EditBatchWorkorderComponent implements OnInit {
           if (this.role == 'Manager') {
             this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
           }
-          else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          else if (this.role == 'Supervisor') {
             this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewBatchWorkorder'] } }]);
           }
         });
@@ -1346,12 +1348,12 @@ export class EditBatchWorkorderComponent implements OnInit {
         }
       }
     }
-    if( this.GpsSnapShot ==true){
-      this.Gps_SnapShot=1;
-     }
-      else{
-       this.Gps_SnapShot=0;
-     }
+    if (this.GpsSnapShot == true) {
+      this.Gps_SnapShot = 1;
+    }
+    else {
+      this.Gps_SnapShot = 0;
+    }
     this.workorderCreation = {
       scheduleKey: this.BatchScheduleNameKey,
       occursontime: this.workTime,
@@ -1376,7 +1378,7 @@ export class EditBatchWorkorderComponent implements OnInit {
       repeatinterval: this.rep_interval,
       occursonday: this.occurs_on,
       occurstype: this.occurs_type,
-      IsSnapshot:this.Gps_SnapShot
+      IsSnapshot: this.Gps_SnapShot
     };
     this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
       this.deleteWO = {
@@ -1391,7 +1393,8 @@ export class EditBatchWorkorderComponent implements OnInit {
           if (this.role == 'Manager') {
             this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
           }
-          else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          else if (this.role == 'Supervisor') {
             this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewBatchWorkorder'] } }]);
           }
         });
@@ -1430,7 +1433,8 @@ export class EditBatchWorkorderComponent implements OnInit {
     if (this.role == 'Manager') {
       this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
     }
-    else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    else if (this.role == 'Supervisor') {
       this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewBatchWorkorder'] } }]);
     }
   }

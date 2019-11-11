@@ -70,15 +70,16 @@ export class ViewEmployeesofEventComponent implements OnInit {
     this.peopleServ
       .DeleteMeetingTraining(this.eventKey, this.OrganizationID)
       .subscribe(res => {
-       
-        if(this.role=='Manager'){
+
+        if (this.role == 'Manager') {
           this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['MeetingTrainingView'] } }]);
-          }
-          else  if(this.role=='Employee' && this.IsSupervisor==1){
-            this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['MeetingTrainingView'] } }]);
-          }
         }
-        );
+        // else  if(this.role=='Employee' && this.IsSupervisor==1){
+        else if (this.role == 'Supervisor') {
+          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['MeetingTrainingView'] } }]);
+        }
+      }
+      );
 
   }
 

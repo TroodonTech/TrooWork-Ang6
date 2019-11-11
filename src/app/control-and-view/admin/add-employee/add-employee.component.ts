@@ -32,7 +32,7 @@ export class AddEmployeeComponent implements OnInit {
   AlternatePhone: any;
   EmailID: any;
   HireDate: Date;
-  theCheckbox: any;
+  // theCheckbox: any;
   JobTitleKey;
   SupervisorKey;
   DepartmentKey;
@@ -197,7 +197,7 @@ export class AddEmployeeComponent implements OnInit {
   createEmployee() {
 
     var manKey;
-
+    var IsSupervisor;
     if (!(this.EmployeeNumber) || !this.EmployeeNumber.trim()) {
       alert("Employee Number is not provided !");
       return;
@@ -218,6 +218,19 @@ export class AddEmployeeComponent implements OnInit {
     }
     else {
       manKey = -1;
+    }
+    if (this.UserRoleTypeKey == 5 && this.ManagerKey) {
+      manKey = this.ManagerKey;
+    }
+    else {
+      manKey = -1;
+    }
+
+    if (this.UserRoleTypeKey == 5) {
+      IsSupervisor = 1;
+    }
+    else {
+      IsSupervisor = 0;
     }
     if (!(this.FirstName) || !this.FirstName.trim()) {
       alert("First Name is not provided !");
@@ -361,28 +374,28 @@ export class AddEmployeeComponent implements OnInit {
     // }
 
     // if (this.schedularcount == 0) {
-      this.PeopleServiceService.checkEmpNumber(this.EmployeeNumber, this.employeekey, this.OrganizationID)
-        .subscribe((data: any[]) => {
-          if (data[0].count > 0) {
-            alert("Employee Number already exists");
-          }
-          else {
+    this.PeopleServiceService.checkEmpNumber(this.EmployeeNumber, this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        if (data[0].count > 0) {
+          alert("Employee Number already exists");
+        }
+        else {
 
-            var str = "";
-            str = this.FirstName + '' + this.LastName;
-            this.PeopleServiceService.createEmployeebyAdmin(this.EmployeeNumber, manKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender,
-              this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.theCheckbox,
-              this.JobTitleKey, this.DepartmentKey, this.employeekey, this.OrganizationID)
-              // this.start_sun_hour, this.start_sun_min, this.start_sun_format, this.start_mon_hour, this.start_mon_min, this.start_mon_format, this.start_tue_hour, this.start_tue_min, this.start_tue_format, this.start_wed_hour, this.start_wed_min, this.start_wed_format, this.start_thu_hour, this.start_thu_min, this.start_thu_format, this.start_fri_hour, this.start_fri_min, this.start_fri_format, this.start_sat_hour, this.start_sat_min, this.start_sat_format, this.end_sun_hour, this.end_sun_min, this.end_sun_format, this.end_mon_hour, this.end_mon_min, this.end_mon_format, this.end_tue_hour, this.end_tue_min, this.end_tue_format, this.end_wed_hour, this.end_wed_min, this.end_wed_format, this.end_thu_hour, this.end_thu_min, this.end_thu_format, this.end_fri_hour, this.end_fri_min, this.end_fri_format, this.end_sat_hour, this.end_sat_min, this.end_sat_format, this.idscheduler_exception, this.idmaster_exception_weekend, this.idemployeegrouping)
-              .subscribe((data22: any[]) => {
-                this.temp_res = data22;
-                alert("Employee Created !");
-                var empKey = this.temp_res.EmployeeKey;
+          var str = "";
+          str = this.FirstName + '' + this.LastName;
+          this.PeopleServiceService.createEmployeebyAdmin(this.EmployeeNumber, manKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender,
+            this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD,
+            this.JobTitleKey, this.DepartmentKey, this.employeekey, this.OrganizationID, IsSupervisor)
+            // this.start_sun_hour, this.start_sun_min, this.start_sun_format, this.start_mon_hour, this.start_mon_min, this.start_mon_format, this.start_tue_hour, this.start_tue_min, this.start_tue_format, this.start_wed_hour, this.start_wed_min, this.start_wed_format, this.start_thu_hour, this.start_thu_min, this.start_thu_format, this.start_fri_hour, this.start_fri_min, this.start_fri_format, this.start_sat_hour, this.start_sat_min, this.start_sat_format, this.end_sun_hour, this.end_sun_min, this.end_sun_format, this.end_mon_hour, this.end_mon_min, this.end_mon_format, this.end_tue_hour, this.end_tue_min, this.end_tue_format, this.end_wed_hour, this.end_wed_min, this.end_wed_format, this.end_thu_hour, this.end_thu_min, this.end_thu_format, this.end_fri_hour, this.end_fri_min, this.end_fri_format, this.end_sat_hour, this.end_sat_min, this.end_sat_format, this.idscheduler_exception, this.idmaster_exception_weekend, this.idemployeegrouping)
+            .subscribe((data22: any[]) => {
+              this.temp_res = data22;
+              alert("Employee Created !");
+              var empKey = this.temp_res.EmployeeKey;
 
-                this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['setUserLoginAdmin', empKey, str, this.UserRoleTypeKey] } }]);
-              });
-          }
-        });
+              this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['setUserLoginAdmin', empKey, str, this.UserRoleTypeKey] } }]);
+            });
+        }
+      });
     // }
     // else {
     //   alert('Weekly Schedule!');

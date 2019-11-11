@@ -103,7 +103,7 @@ export class SchedulerReportComponent implements OnInit {
       });
     this.Idemployeegrouping = "";
     //employee list
-    this.SchedulingService.getEmployeesForSchedulerReport(this.OrganizationID)
+    this.SchedulingService.getAllEmployeesForSchedulerReport(this.OrganizationID)
       .subscribe((data: any[]) => {
         this.empList = data;
       });

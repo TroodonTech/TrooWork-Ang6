@@ -380,7 +380,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
     else {
       this.RoomTypeKey = "";
       this.RoomKey = "";
-      this.getZoneRoomTypeRoom(this.FloorKey,this.FacilityKey);
+      this.getZoneRoomTypeRoom(this.FloorKey, this.FacilityKey);
     }
   }
   getRoom(roomtype, zone, facility, floor) {//get room based on zone,facility,floor,roomtype
@@ -759,12 +759,12 @@ export class CreateBatchWorkorderComponent implements OnInit {
         }
       }
     }
-    if( this.GpsSnapShot ==true){
-      this.Gps_SnapShot=1;
-     }
-      else{
-       this.Gps_SnapShot=0;
-     }
+    if (this.GpsSnapShot == true) {
+      this.Gps_SnapShot = 1;
+    }
+    else {
+      this.Gps_SnapShot = 0;
+    }
     if (this.newType == true) {//checking for new workorder type
       if (this.newworkordertypetext) {
         this.WorkOrderServiceService
@@ -804,14 +804,15 @@ export class CreateBatchWorkorderComponent implements OnInit {
                     repeatinterval: this.rep_interval,
                     occursonday: this.occurs_on,
                     occurstype: this.occurs_type,
-                    IsSnapshot:this.Gps_SnapShot
+                    IsSnapshot: this.Gps_SnapShot
                   };
                   this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
                     alert("Batch work-order created successfully");
                     if (this.role == 'Manager') {
                       this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
                     }
-                    else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                    // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                    else if (this.role == 'Supervisor') {
                       this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewBatchWorkorder'] } }]);
                     }
                   });
@@ -846,14 +847,15 @@ export class CreateBatchWorkorderComponent implements OnInit {
         repeatinterval: this.rep_interval,
         occursonday: this.occurs_on,
         occurstype: this.occurs_type,
-        IsSnapshot:this.Gps_SnapShot
+        IsSnapshot: this.Gps_SnapShot
       };
       this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
         alert("Batch work-order created successfully");
         if (this.role == 'Manager') {
           this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
         }
-        else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        else if (this.role == 'Supervisor') {
           this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewBatchWorkorder'] } }]);
         }
       });
@@ -930,7 +932,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
         alert("Start date is less than current date");
         return;
       }
-      
+
       if (this.monthlyreccradio1 == false && this.monthlyreccradio2 == false) {
         alert("Select a radio option from monthly reccuring !");
         return;
@@ -1189,12 +1191,12 @@ export class CreateBatchWorkorderComponent implements OnInit {
         }
       }
     }
-    if( this.GpsSnapShot ==true){
-      this.Gps_SnapShot=1;
-     }
-      else{
-       this.Gps_SnapShot=0;
-     }
+    if (this.GpsSnapShot == true) {
+      this.Gps_SnapShot = 1;
+    }
+    else {
+      this.Gps_SnapShot = 0;
+    }
     if (this.newType == true) {
       if (this.newworkordertypetext) {
         this.WorkOrderServiceService
@@ -1234,14 +1236,15 @@ export class CreateBatchWorkorderComponent implements OnInit {
                     repeatinterval: this.rep_interval,
                     occursonday: this.occurs_on,
                     occurstype: this.occurs_type,
-                    IsSnapshot:this.Gps_SnapShot
+                    IsSnapshot: this.Gps_SnapShot
                   };
                   this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
                     alert("Batch work-order created successfully");
                     if (this.role == 'Manager') {
                       this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
                     }
-                    else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                    // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                    else if (this.role == 'Supervisor') {
                       this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewBatchWorkorder'] } }]);
                     }
                   });
@@ -1276,14 +1279,15 @@ export class CreateBatchWorkorderComponent implements OnInit {
         repeatinterval: this.rep_interval,
         occursonday: this.occurs_on,
         occurstype: this.occurs_type,
-        IsSnapshot:this.Gps_SnapShot
+        IsSnapshot: this.Gps_SnapShot
       };
       this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
         alert("Batch work-order created successfully");
         if (this.role == 'Manager') {
           this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewBatchWorkorder'] } }]);
         }
-        else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        else if (this.role == 'Supervisor') {
           this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewBatchWorkorder'] } }]);
         }
       });

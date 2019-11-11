@@ -68,7 +68,8 @@ export class SettingusernameandpswrdaftremplcreatebymanComponent implements OnIn
                 if(this.role=='Manager'){
                   this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
                   }
-                  else  if(this.role=='Employee' && this.IsSupervisor==1){
+                  // else  if(this.role=='Employee' && this.IsSupervisor==1){
+                  else if (this.role == 'Supervisor') {
                     this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewEmployee'] } }]);
                   }
                 

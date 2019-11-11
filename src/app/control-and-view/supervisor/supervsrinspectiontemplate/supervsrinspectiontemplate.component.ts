@@ -184,7 +184,7 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
       console.log('ImageUpload:uploaded:', item, status, response);
       alert('File uploaded successfully');
     };
-    
+
   }
   saveRatings(TemplateQuestionID, ScoreName) {
     if (ScoreName === 'Yes/No' || ScoreName === 'Pass/Fail') {
@@ -333,7 +333,8 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
           if (this.role == 'Manager') {
             this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager', this.inspKey$] } }]);
           }
-          else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          else if (this.role == 'Supervisor') {
             this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewInspectionManager', this.inspKey$] } }]);
           }
         });
@@ -437,7 +438,8 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
           if (this.role == 'Manager') {
             this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager', this.inspKey$] } }]);
           }
-          else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          else if (this.role == 'Supervisor') {
             this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewInspectionManager', this.inspKey$] } }]);
           }
         });

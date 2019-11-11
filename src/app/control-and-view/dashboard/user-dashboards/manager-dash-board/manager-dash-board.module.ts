@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
-import { WorkorderInProgressReportModule } from "../../../manager/reports/workorder-in-progress-report/workorder-in-progress-report.module";
+import { ViewEmployeesofGroupModule } from "../../../manager/scheduling/view-employeesof-group/view-employeesof-group.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -664,6 +664,12 @@ const routes: Routes = [
         path: 'woprogressReport',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/reports/workorder-in-progress-report/workorder-in-progress-report.module#WorkorderInProgressReportModule',
+      },
+      {
+        path: 'ViewShift/ViewGroupEmployees/:employeegroupID/:groupName',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/scheduling/view-employeesof-group/view-employeesof-group.module#ViewEmployeesofGroupModule'
+
       }
     ]
   }

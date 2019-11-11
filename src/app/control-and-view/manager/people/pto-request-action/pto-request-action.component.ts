@@ -102,7 +102,8 @@ export class PtoRequestActionComponent implements OnInit {
   goBack() {
     if (this.role == 'Manager') {
       this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['RequestsFromEmployees'] } }]);
-    } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+      // } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    } else if (this.role == 'Supervisor') {
       this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['RequestsFromEmployees'] } }]);
     }
   }
@@ -120,7 +121,7 @@ export class PtoRequestActionComponent implements OnInit {
 
     if (this.requestdetailsbyID.Status === "Approved") {
 
-      
+
       if (!(this.requestdetailsbyID.ApprovedStartDate)) {
         alert('Approved Start Date is not provided !');
         return;
@@ -173,7 +174,8 @@ export class PtoRequestActionComponent implements OnInit {
 
         if (this.role == 'Manager') {
           this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['RequestsFromEmployees'] } }]);
-        } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          // } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+        } else if (this.role == 'Supervisor') {
           this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['RequestsFromEmployees'] } }]);
         }
 

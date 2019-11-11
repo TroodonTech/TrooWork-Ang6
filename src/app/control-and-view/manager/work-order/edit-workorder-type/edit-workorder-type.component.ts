@@ -60,7 +60,7 @@ export class EditWorkorderTypeComponent implements OnInit {
   }
 
   ngOnInit() {
-  
+
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -74,7 +74,7 @@ export class EditWorkorderTypeComponent implements OnInit {
       .Edit_WOT(this.WOT_Key, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.workorderTypeList = data;
-        this.WorkorderTypeName=data[0].WorkorderTypeName;
+        this.WorkorderTypeName = data[0].WorkorderTypeName;
         this.MetricTypeValue = data[0].MetricTypeValue;
         this.metricType = data[0].MetricType;
         this.metricType1 = data[0].MetricType;
@@ -107,9 +107,8 @@ export class EditWorkorderTypeComponent implements OnInit {
     }
   }
   //function for updating workordertype
-  updateWOT(WOTName, WOTKey,MetricTypeValue1) {
-    if (!this.metricType || this.metricType == "--Select--")
-    {
+  updateWOT(WOTName, WOTKey, MetricTypeValue1) {
+    if (!this.metricType || this.metricType == "--Select--") {
       this.metricType = null;
       alert("Select a metric type !");
     }
@@ -121,60 +120,59 @@ export class EditWorkorderTypeComponent implements OnInit {
     else if (this.metricType != 'Default' && !MetricTypeValue1) {
       MetricTypeValue1 = null;
       alert("MetricTypeValue is not provided !");
-    } 
-    else 
-    {
+    }
+    else {
       this.WorkOrderServiceService
-      .getMetricValues(this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.metricTypeList = data;
-        for (let i of this.metricTypeList) {
-          if (i.MetricType === this.metricType) {
-            this.metricTypeKey = i.MetricTypeKey;
-          }
-        }
-      });
-      if(this.WorkorderTypeName!=WOTName)
-      {
-
-      
-
-      this.update_WO = {
-        WorkorderTypeKey: WOTKey,
-        WorkorderTypeName: WOTName,
-        RoomTypeKey: null,
-        Frequency: null,
-        Repeatable: true,
-        WorkorderTime: null,
-        OrganizationID: this.OrganizationID,
-        metric:this.metricType,
-        MetricType:MetricTypeValue1
-      };
-      this.WorkOrderServiceService//check if wokordertype is already existing
-        .checkforWOT(WOTName, this.employeekey, this.OrganizationID)
+        .getMetricValues(this.OrganizationID)
         .subscribe((data: any[]) => {
-          if (data[0].count != 0) {
-            alert("Work-order type already exists!");
-          }
-          else if (data[0].count == 0) {//add new workordertype
-            this.WorkOrderServiceService
-              .UpdateWOT(this.update_WO)
-              .subscribe((data: any[]) => {
-                this.WorkOrderServiceService
-                  .view_wotype(WOTKey, this.OrganizationID)
-                  .subscribe((data: any[]) => {
-                    alert("Work-order type updated successfully");
-                    // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
-                    if (this.role == 'Manager') {
-                      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
-                    }
-                    else if (this.role == 'Employee' && this.IsSupervisor == 1) {
-                      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['WorkOrderType'] } }]);
-                    }
-                  });
-              });
+          this.metricTypeList = data;
+          for (let i of this.metricTypeList) {
+            if (i.MetricType === this.metricType) {
+              this.metricTypeKey = i.MetricTypeKey;
+            }
           }
         });
+      if (this.WorkorderTypeName != WOTName) {
+
+
+
+        this.update_WO = {
+          WorkorderTypeKey: WOTKey,
+          WorkorderTypeName: WOTName,
+          RoomTypeKey: null,
+          Frequency: null,
+          Repeatable: true,
+          WorkorderTime: null,
+          OrganizationID: this.OrganizationID,
+          metric: this.metricType,
+          MetricType: MetricTypeValue1
+        };
+        this.WorkOrderServiceService//check if wokordertype is already existing
+          .checkforWOT(WOTName, this.employeekey, this.OrganizationID)
+          .subscribe((data: any[]) => {
+            if (data[0].count != 0) {
+              alert("Work-order type already exists!");
+            }
+            else if (data[0].count == 0) {//add new workordertype
+              this.WorkOrderServiceService
+                .UpdateWOT(this.update_WO)
+                .subscribe((data: any[]) => {
+                  this.WorkOrderServiceService
+                    .view_wotype(WOTKey, this.OrganizationID)
+                    .subscribe((data: any[]) => {
+                      alert("Work-order type updated successfully");
+                      // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
+                      if (this.role == 'Manager') {
+                        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
+                      }
+                      // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                      else if (this.role == 'Supervisor') {
+                        this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['WorkOrderType'] } }]);
+                      }
+                    });
+                });
+            }
+          });
       }
       else {
         // if (this.MetricTypeValue == MetricTypeValue1 && this.metricType == this.metricType1) {
@@ -182,36 +180,37 @@ export class EditWorkorderTypeComponent implements OnInit {
         // }
         // else
         // {
-          
-      this.update_WO = {
-        WorkorderTypeKey: WOTKey,
-        WorkorderTypeName: WOTName,
-        RoomTypeKey: null,
-        Frequency: null,
-        Repeatable: true,
-        WorkorderTime: null,
-        OrganizationID: this.OrganizationID,
-        metric:this.metricType,
-        MetricType:MetricTypeValue1
-      };
-      this.WorkOrderServiceService
-      .UpdateWOT(this.update_WO)
-      .subscribe((data: any[]) => {
+
+        this.update_WO = {
+          WorkorderTypeKey: WOTKey,
+          WorkorderTypeName: WOTName,
+          RoomTypeKey: null,
+          Frequency: null,
+          Repeatable: true,
+          WorkorderTime: null,
+          OrganizationID: this.OrganizationID,
+          metric: this.metricType,
+          MetricType: MetricTypeValue1
+        };
         this.WorkOrderServiceService
-          .view_wotype(WOTKey, this.OrganizationID)
+          .UpdateWOT(this.update_WO)
           .subscribe((data: any[]) => {
-            alert("Work-order type updated successfully");
-            // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
-            if (this.role == 'Manager') {
-              this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
-            }
-            else if (this.role == 'Employee' && this.IsSupervisor == 1) {
-              this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['WorkOrderType'] } }]);
-            }
+            this.WorkOrderServiceService
+              .view_wotype(WOTKey, this.OrganizationID)
+              .subscribe((data: any[]) => {
+                alert("Work-order type updated successfully");
+                // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
+                if (this.role == 'Manager') {
+                  this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
+                }
+                // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                else if (this.role == 'Supervisor') {
+                  this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['WorkOrderType'] } }]);
+                }
+              });
           });
-      });
-        }
-      
+      }
+
     }
   }
   goBack() {
@@ -219,7 +218,8 @@ export class EditWorkorderTypeComponent implements OnInit {
     if (this.role == 'Manager') {
       this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);
     }
-    else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+    else if (this.role == 'Supervisor') {
       this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['WorkOrderType'] } }]);
     }
   }

@@ -37,11 +37,11 @@
           </option>
         </select>
       </div>
-      <div class="form-check form-check-inline" style="margin-bottom: 2rem;margin-top: 2rem">
+      <!-- <div class="form-check form-check-inline" style="margin-bottom: 2rem;margin-top: 2rem">
         <input type="checkbox" [(ngModel)]="editempdtails.IsSupervisor" data-md-icheck
           (change)="toggleVisibility($event)" />&nbsp;
         <label class="form-check-label" for="materialInline1">Supervisor</label> &nbsp;&nbsp;
-      </div>
+      </div> -->
 
     </div>
     <div class="col-md-6">
@@ -55,7 +55,7 @@
           </option>
         </select>
       </div>
-      <div class="form-group" *ngIf="marked && !(editempdtails.IsSupervisor==true)">
+      <div class="form-group" *ngIf="marked && (editempdtails.UserRoleName=='Employee')">
         <label>Supervisor</label><br>
         <select name="supervisor" style="background-color: #d4f4ff;" [(ngModel)]="editempdtails.SupervisorKey"
           class="form-control col-sm-9 col-md-9 col-lg-9">
@@ -540,7 +540,7 @@
   <div class="row bg-info col-md-12">
     <div class="row col-md-12" style="margin-left: 35%;">
       <a style="text-align:center" class="btn btn-success"
-        (click)="editEmployee(editempdtails.EmployeeNumber,editempdtails.UserRoleTypeKey,editempdtails.FirstName,editempdtails.LastName,editempdtails.MiddleName,BirthDate,editempdtails.Gender,editempdtails.AddressLine1,editempdtails.City,editempdtails.AddressLine2,editempdtails.State,editempdtails.Country,editempdtails.PrimaryPhone,editempdtails.ZipCode,editempdtails.AlternatePhone,editempdtails.EmailID,editempdtails.EmployeeStatusKey,HireDate,editempdtails.IsSupervisor,editempdtails.SupervisorKey,editempdtails.JobTitleKey,editempdtails.DepartmentKey,editempdtails.start_sun_hour,editempdtails.start_sun_min,editempdtails.start_sun_format,editempdtails.start_mon_hour,editempdtails.start_mon_min,editempdtails.start_mon_format,editempdtails.start_tue_hour,editempdtails.start_tue_min,editempdtails.start_tue_format,editempdtails.start_wed_hour,editempdtails.start_wed_min,editempdtails.start_wed_format,editempdtails.start_thu_hour,editempdtails.start_thu_min,editempdtails.start_thu_format,editempdtails.start_fri_hour,editempdtails.start_fri_min,editempdtails.start_fri_format,editempdtails.start_sat_hour,editempdtails.start_sat_min,editempdtails.start_sat_format,editempdtails.end_sun_hour,editempdtails.end_sun_min,editempdtails.end_sun_format,editempdtails.end_mon_hour,editempdtails.end_mon_min,editempdtails.end_mon_format,editempdtails.end_tue_hour,editempdtails.end_tue_min,editempdtails.end_tue_format,editempdtails.end_wed_hour,editempdtails.end_wed_min,editempdtails.end_wed_format,editempdtails.end_thu_hour,editempdtails.end_thu_min,editempdtails.end_thu_format,editempdtails.end_fri_hour,editempdtails.end_fri_min,editempdtails.end_fri_format,editempdtails.end_sat_hour,editempdtails.end_sat_min,editempdtails.end_sat_format,idscheduler_exception,idmaster_exception_weekend,idemployeegrouping)">
+        (click)="editEmployee(editempdtails.EmployeeNumber,editempdtails.UserRoleTypeKey,editempdtails.FirstName,editempdtails.LastName,editempdtails.MiddleName,BirthDate,editempdtails.Gender,editempdtails.AddressLine1,editempdtails.City,editempdtails.AddressLine2,editempdtails.State,editempdtails.Country,editempdtails.PrimaryPhone,editempdtails.ZipCode,editempdtails.AlternatePhone,editempdtails.EmailID,editempdtails.EmployeeStatusKey,HireDate,editempdtails.JobTitleKey,editempdtails.SupervisorKey,editempdtails.DepartmentKey)">
         Update</a>
       <a class="btn btn-danger" (click)="basicModal.show();deleteEmpPass(empk$); ">Delete</a>
       <a (click)='GoBack()' class="btn btn-warning" style="color:white !important"><b>Go

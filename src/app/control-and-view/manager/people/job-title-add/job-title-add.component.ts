@@ -36,21 +36,19 @@ export class JobTitleAddComponent implements OnInit {
   constructor(private peopleServiceService: PeopleServiceService, private router: Router) { }
 
   addNewJobtitle(JobtitleName, JobTitleDescription) {
-   if(!JobtitleName)
-   {
-    alert('Job title is not provided !');
-    return;
-   }
-   if(!JobTitleDescription)
-   {
-    alert('Job title description is not provided !');
-    return;
-   }
-    if(JobtitleName && !JobtitleName.trim()){
+    if (!JobtitleName) {
       alert('Job title is not provided !');
       return;
     }
-    if(JobTitleDescription && !JobTitleDescription.trim()){
+    if (!JobTitleDescription) {
+      alert('Job title description is not provided !');
+      return;
+    }
+    if (JobtitleName && !JobtitleName.trim()) {
+      alert('Job title is not provided !');
+      return;
+    }
+    if (JobTitleDescription && !JobTitleDescription.trim()) {
       alert('Job Title Description is not provided !');
       return;
     }
@@ -64,12 +62,13 @@ export class JobTitleAddComponent implements OnInit {
             .subscribe((data: any[]) => {
               alert('Job title successfully created !');
               // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['JobTitileView'] } }]);
-              if(this.role=='Manager'){
+              if (this.role == 'Manager') {
                 this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['JobTitileView'] } }]);
-                }
-                else  if(this.role=='Employee' && this.IsSupervisor==1){
-                  this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['JobTitileView'] } }]);
-                }
+              }
+              // else  if(this.role=='Employee' && this.IsSupervisor==1){
+              else if (this.role == 'Supervisor') {
+                this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['JobTitileView'] } }]);
+              }
             });
         }
       });
@@ -86,13 +85,14 @@ export class JobTitleAddComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
   }
-  goBack(){
+  goBack() {
     // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['JobTitileView'] } }]);
-    if(this.role=='Manager'){
+    if (this.role == 'Manager') {
       this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['JobTitileView'] } }]);
-      }
-      else  if(this.role=='Employee' && this.IsSupervisor==1){
-        this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['JobTitileView'] } }]);
-      }
+    }
+    // else  if(this.role=='Employee' && this.IsSupervisor==1){
+    else if (this.role == 'Supervisor') {
+      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['JobTitileView'] } }]);
+    }
   }
 }

@@ -9,9 +9,12 @@ export class WorkOrderServiceService {
 
   constructor(private http: HttpClient) { }
   getallEmployee(emp_key, org_id) {
+    // return this
+    //   .http
+    //   .get(ConectionSettings.Url + '/employeeForManager?empkey=' + emp_key + '&OrganizationID=' + org_id);
     return this
       .http
-      .get(ConectionSettings.Url + '/employeeForManager?empkey=' + emp_key + '&OrganizationID=' + org_id);
+      .get(ConectionSettings.Url + '/employeeForManager_SuType?empkey=' + emp_key + '&OrganizationID=' + org_id);
   }
   getallFacility(emp_key, org_id) {
     return this
@@ -101,9 +104,13 @@ export class WorkOrderServiceService {
       .get(ConectionSettings.Url + '/checkforcheckForWorkOrderType?WorkorderTypeName=' + WOTName + '&employeekey=' + emp_key + '&OrganizationID=' + org_id);
   }
   getworkorder(on_date, emp_key, page_no, iems_perpage, org_id) {
+    // return this
+    //   .http
+    //   .get(ConectionSettings.Url + '/viewworkorder?viewdate=' + on_date + '&employeekey=' + emp_key + '&pageno=' + page_no + '&itemsPerPage=' + iems_perpage + '&OrganizationID=' + org_id);
     return this
       .http
-      .get(ConectionSettings.Url + '/viewworkorder?viewdate=' + on_date + '&employeekey=' + emp_key + '&pageno=' + page_no + '&itemsPerPage=' + iems_perpage + '&OrganizationID=' + org_id);
+      .get(ConectionSettings.Url + '/viewworkorder_SuType?viewdate=' + on_date + '&employeekey=' + emp_key + '&pageno=' + page_no + '&itemsPerPage=' + iems_perpage + '&OrganizationID=' + org_id);
+
   }
   getBatchworkorder(on_date, emp_key, page_no, iems_perpage, org_id) {
     return this
@@ -163,9 +170,8 @@ export class WorkOrderServiceService {
       .http
       .post(url, obj);
   }
-  view_wotype(WOTKey,OrganizationID)
-  {
-    
+  view_wotype(WOTKey, OrganizationID) {
+
     return this
       .http
       .get(ConectionSettings.Url + '/editviewWorkOrderType?WorkorderTypeKey=' + WOTKey + '&OrganizationID=' + OrganizationID);
@@ -288,14 +294,22 @@ export class WorkOrderServiceService {
       .get(ConectionSettings.Url + '/roomtypeByFacility_Floor?fkey=' + facikey + '&floorkey=' + flkey + '&OrganizationID=' + orgid);
   }
   getWOdetailsForEmployee(page, count, curr_date, empk, orgid) {
+    // return this
+    //   .http
+    //   .get(ConectionSettings.Url + '/viewworkorder?viewdate=' + curr_date + '&employeekey=' + empk + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + orgid);
     return this
       .http
-      .get(ConectionSettings.Url + '/viewworkorder?viewdate=' + curr_date + '&employeekey=' + empk + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + orgid);
+      .get(ConectionSettings.Url + '/viewworkorder_SuType?viewdate=' + curr_date + '&employeekey=' + empk + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + orgid);
+
   }
   getworkOrderTablewithOnDateOnly(page, count, date1, tosrvempky, orgid) {
+    // return this
+    //   .http
+    //   .get(ConectionSettings.Url + '/viewworkorder?viewdate=' + date1 + '&employeekey=' + tosrvempky + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + orgid);
     return this
       .http
-      .get(ConectionSettings.Url + '/viewworkorder?viewdate=' + date1 + '&employeekey=' + tosrvempky + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + orgid);
+      .get(ConectionSettings.Url + '/viewworkorder_SuType?viewdate=' + date1 + '&employeekey=' + tosrvempky + '&pageno=' + page + '&itemsPerPage=' + count + '&OrganizationID=' + orgid);
+
   }
   getworkOrderTablewithOnDateandToDateFilter(date1, date2, tosrvempky, orgid, FacKey, Flrky, RmTypKy, ZnKy) {
     const url = ConectionSettings.Url + '/workorderEmployeeByallFilters';

@@ -180,7 +180,8 @@ export class CreateComponent implements OnInit {
 
             if (this.role == 'Manager') {
               this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
-            } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+            // } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+            }else if (this.role == 'Supervisor') {
               this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Scheduler'] } }]);
             }
           });
@@ -196,7 +197,8 @@ export class CreateComponent implements OnInit {
 
                 if (this.role == 'Manager') {
                   this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
-                } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                // } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                }else if (this.role == 'Supervisor') {
                   this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Scheduler'] } }]);
                 }
               });
@@ -211,7 +213,8 @@ export class CreateComponent implements OnInit {
 
                   if (this.role == 'Manager') {
                     this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
-                  } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                  // } else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+                  }else if (this.role == 'Supervisor') {
                     this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Scheduler'] } }]);
                   }
 
