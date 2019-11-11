@@ -448,7 +448,14 @@ export class CreateBatchScheduleComponent implements OnInit {
       this.roomTempList[j].snapshot = 1;
     }
   }
-
+  selectAllcreateworkorder() {
+    for (var j = 0; j < this.roomList.length; j++) {
+      this.roomList[j].CreateWO = 1;
+    }
+    for (var j = 0; j < this.roomTempList.length; j++) {
+      this.roomTempList[j].CreateWO = 1;
+    }
+  }
 
   createBatchReport() {
 
@@ -510,6 +517,7 @@ export class CreateBatchScheduleComponent implements OnInit {
         var photoObj1 = [];
         var keepObj1 = [];
         var snapObj1 = [];
+        var createwoObj1 = [];
         var roomsString1;
         var roomList1 = [];
         var Frequency1;
@@ -526,6 +534,7 @@ export class CreateBatchScheduleComponent implements OnInit {
         var Snapshot1;
         var workordertkey1;
         var workorderroomstring1;
+        var CreateWO1;
         var q = this.time1.getHours();
         var q1 = this.time1.getMinutes();
         var newTime = q + ":" + q1;
@@ -634,6 +643,15 @@ export class CreateBatchScheduleComponent implements OnInit {
             snapObj1.push(this.roomList[j].snapshot);
           }
 
+          if (this.roomList[j].CreateWO === true || this.roomList[j].CreateWO == 1) {
+            this.roomList[j].CreateWO = true;
+            createwoObj1.push(this.roomList[j].CreateWO);
+          }
+          else {
+            this.roomList[j].CreateWO = false;
+            createwoObj1.push(this.roomList[j].CreateWO);
+          }
+
         }
         roomsString1 = roomList1.join(',');
         Frequency1 = FrequencyObj1.join(',');
@@ -650,6 +668,7 @@ export class CreateBatchScheduleComponent implements OnInit {
         Snapshot1 = snapObj1.join(',');
         workordertkey1 = workorderkeyobj1.join(',');
         workorderroomstring1 = workorderroomobj1.join(',');
+        CreateWO1 = createwoObj1.join(',');
         this.scheduleUpdate = {
           workorderroomidlist: workorderroomstring1,
           roomList: roomsString1,
@@ -672,7 +691,8 @@ export class CreateBatchScheduleComponent implements OnInit {
           OrganizationID: this.OrganizationID,
           fromdate: this.startDT,
           todate: this.endDT,
-          scheduleTime: newTime
+          scheduleTime: newTime,
+          CreateWO:CreateWO1
         }
         this.scheduleService
           .setUpdateScheduleReport(this.scheduleUpdate).subscribe(res => {
@@ -714,6 +734,8 @@ export class CreateBatchScheduleComponent implements OnInit {
         var Snapshot2;
         var WOrkordertkey2;
         var TEmproomidobj2;
+        var createwoObj2 = [];
+        var CreateWO2;
         var q = this.time1.getHours();
         var q1 = this.time1.getMinutes();
         var newTime = q + ":" + q1;
@@ -826,6 +848,15 @@ export class CreateBatchScheduleComponent implements OnInit {
             this.roomTempList[j].snapshot = false;
             snapObj2.push(this.roomTempList[j].snapshot);
           }
+
+          if (this.roomTempList[j].CreateWO === true || this.roomTempList[j].CreateWO == 1) {
+            this.roomTempList[j].CreateWO = true;
+            createwoObj2.push(this.roomTempList[j].CreateWO);
+          }
+          else {
+            this.roomTempList[j].CreateWO = false;
+            createwoObj2.push(this.roomTempList[j].CreateWO);
+          }
         }
         roomsString2 = roomList2.join(',');
         FRequency2 = FrequencyObj2.join(',');
@@ -842,6 +873,7 @@ export class CreateBatchScheduleComponent implements OnInit {
         Snapshot2 = snapObj2.join(',');
         WOrkordertkey2 = workorderkeyobj2.join(',');
         TEmproomidobj2 = temproomobj2.join(',');
+        CreateWO2=createwoObj2.join(',');
         this.scheduleInsert = {
           temproomidlist: TEmproomidobj2,
           roomList: roomsString2,
@@ -864,7 +896,8 @@ export class CreateBatchScheduleComponent implements OnInit {
           OrganizationID: this.OrganizationID,
           fromdate: this.startDT,
           todate: this.endDT,
-          scheduleTime: newTime
+          scheduleTime: newTime,
+          CreateWO:CreateWO2
         }
 
 

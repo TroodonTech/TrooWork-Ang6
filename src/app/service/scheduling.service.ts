@@ -41,7 +41,8 @@ export class SchedulingService {
   getAllWorkOrders(empkey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allWorkordertype?empkey=' + empkey + '&OrganizationID=' + orgID);
+      // .get(ConectionSettings.Url + '/allWorkordertype?empkey=' + empkey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/allWorkordertype_SuType?employeekey=' + empkey + '&OrganizationID=' + orgID);
   }
   getallworkorderType(emp_key, org_id) {
     return this

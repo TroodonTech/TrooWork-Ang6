@@ -16,16 +16,18 @@ export class WorkOrderServiceService {
       .http
       .get(ConectionSettings.Url + '/employeeForManager_SuType?empkey=' + emp_key + '&OrganizationID=' + org_id);
   }
-  getallFacility(emp_key, org_id) {
+  getallFacility(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allfacility?empkey=' + emp_key + '&OrganizationID=' + org_id);
+      // .get(ConectionSettings.Url + '/allfacility?empkey=' + emp_key + '&OrganizationID=' + org_id);
+      .get(ConectionSettings.Url + '/allfacility_SuType?empkey=' + empKey + '&OrganizationID=' + orgID);
   }
   getallPriority(org_id) {
 
     return this
       .http
-      .get(ConectionSettings.Url + '/allpriority?OrganizationID=' + org_id);
+      // .get(ConectionSettings.Url + '/allpriority?OrganizationID=' + org_id);
+      .get(ConectionSettings.Url + '/allpriority_SuType?OrganizationID=' + org_id);
   }
   addQuickWorkOrder(obj) {
     const url = ConectionSettings.Url + '/addQuickworkorder';
@@ -33,10 +35,11 @@ export class WorkOrderServiceService {
       .http
       .post(url, obj);
   }
-  getallEmployeeName(emp_key, org_id) {
+  getallEmployeeName(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allemployees?empkey=' + emp_key + '&OrganizationID=' + org_id);
+      // .get(ConectionSettings.Url + '/allemployees?empkey=' + emp_key + '&OrganizationID=' + org_id);
+      .get(ConectionSettings.Url + '/allemployees_SuType?empkey=' + empKey + '&OrganizationID=' + orgID);
   }
   getallScheduleName(emp_key, org_id) {
     return this
@@ -272,10 +275,11 @@ export class WorkOrderServiceService {
 
   // ****Pooja's code starts here****
 
-  getallBuildingsForEmployee(empk, orgid) {
+  getallBuildingsForEmployee(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allfacility?empkey=' + empk + '&OrganizationID=' + orgid);
+      // .get(ConectionSettings.Url + '/allfacility?empkey=' + empk + '&OrganizationID=' + orgid);
+      .get(ConectionSettings.Url + '/allfacility_SuType?empkey=' + empKey + '&OrganizationID=' + orgID);
   }
   getallFloorNames(key, orgid) {
     return this
@@ -403,7 +407,8 @@ export class WorkOrderServiceService {
   }
 
   setCancelWorkorder(wokey, reason, date1, time1, empkey, orgID) {
-    const url = ConectionSettings.Url + '/cancelWorkOrder';
+    // const url = ConectionSettings.Url + '/cancelWorkOrder';
+    const url = ConectionSettings.Url + '/cancelWorkOrder_SuType';
     const obj = {
       workOrderKey: wokey,
       Reason: reason,
@@ -412,6 +417,13 @@ export class WorkOrderServiceService {
       empKey: empkey,
       OrganizationID: orgID
     };
+    return this
+      .http
+      .post(url, obj);
+  }
+  workorderViewsEmpByAll(obj) {
+    const url = ConectionSettings.Url + '/workorderViewsEmpByAll';
+ 
     return this
       .http
       .post(url, obj);

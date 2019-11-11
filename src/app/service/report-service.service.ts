@@ -12,7 +12,8 @@ export class ReportServiceService {
   getallsupervisor(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      // .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/supervisorname_SuType?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
   getinspectionreport(fromdate, todate, SupervisorKey, orgID) {
 
@@ -28,12 +29,14 @@ export class ReportServiceService {
   getallemployee(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allemployees?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      // .get(ConectionSettings.Url + '/allemployees?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/allemployees_SuType?empkey=' + empKey + '&OrganizationID=' + orgID);
   }
   getallworkordertype(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allWorkordertype?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      // .get(ConectionSettings.Url + '/allWorkordertype?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/allWorkordertype_SuType?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
   getpievalues(currentdate, empKey, orgID) {
     return this
@@ -92,13 +95,15 @@ export class ReportServiceService {
   getBarcodeReport(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allfacility?empkey=' + empKey + '&OrganizationID=' + orgID);
+      // .get(ConectionSettings.Url + '/allfacility?empkey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/allfacility_SuType?empkey=' + empKey + '&OrganizationID=' + orgID);
   }
 
   getEquipmentType(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allequiptype?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      // .get(ConectionSettings.Url + '/allequiptype?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/allequiptype_SuType?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
 
   getEquipment(empKey, orgID) {

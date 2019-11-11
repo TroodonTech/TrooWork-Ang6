@@ -15,17 +15,20 @@ export class InspectionService {
   getAuditorName(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      // .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/supervisorname_SuType?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
   getEmployeeName(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allemployees?empkey=' + empKey + '&OrganizationID=' + orgID);
+      // .get(ConectionSettings.Url + '/allemployees?empkey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/allemployees_SuType?empkey=' + empKey + '&OrganizationID=' + orgID);
   }
   getBuildingName(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allfacility?empkey=' + empKey + '&OrganizationID=' + orgID);
+      // .get(ConectionSettings.Url + '/allfacility?empkey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/allfacility_SuType?empkey=' + empKey + '&OrganizationID=' + orgID);
   }
   getallFloorNames(key, orgID) {
     return this
@@ -50,7 +53,8 @@ export class InspectionService {
   getScoreTypeList(orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/scoringtype?OrganizationID=' + orgID);
+      // .get(ConectionSettings.Url + '/scoringtype?OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/scoringtype_SuType?OrganizationID=' + orgID);
   }
   createInspectionTemplate(ScoreTypeKey, InspTempName, QustArry, empKey, orgID) {
     const url = ConectionSettings.Url + '/addTemplatequestion';
@@ -225,7 +229,8 @@ export class InspectionService {
   scoringtype(OrganizationID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/scoringtype?OrganizationID=' + OrganizationID);
+      // .get(ConectionSettings.Url + '/scoringtype?OrganizationID=' + OrganizationID);
+      .get(ConectionSettings.Url + '/scoringtype_SuType?OrganizationID=' + OrganizationID);
 
   }
   checkforInspectionOnTemplate(templateid, OrganizationID) {

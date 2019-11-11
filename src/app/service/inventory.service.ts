@@ -120,10 +120,11 @@ export class InventoryService {
       .http
       .get(ConectionSettings.Url + '/checkForNewFloor?FacilityKey=' + FacilityKey + '&FloorName=' + FloorName + '&employeekey=' + employeekey + '&OrganizationID=' + OrganizationID);
   }
-  getallBuildingList(empKey, OrgID) {
+  getallBuildingList(empKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allfacility?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      // .get(ConectionSettings.Url + '/allfacility?empkey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/allfacility_SuType?empkey=' + empKey + '&OrganizationID=' + orgID);
   }
   CheckNewBuilding(FacilityName, type, employeekey, OrganizationID) {
     return this
@@ -454,7 +455,8 @@ export class InventoryService {
   getAllEquipmentType(empKey, OrgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/allequiptype?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      // .get(ConectionSettings.Url + '/allequiptype?employeekey=' + empKey + '&OrganizationID=' + OrgID);
+      .get(ConectionSettings.Url + '/allequiptype_SuType?employeekey=' + empKey + '&OrganizationID=' + OrgID);
   }
 
   checkForNewEquipment(EquipmentTypeKey, EquipmentName, empKey, OrgID) {

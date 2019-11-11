@@ -6,26 +6,28 @@
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
     <table class="table table-responsive table-hover table-bordered table" style="display: inline-table">
       <thead class="tableHead">
+        <th> Workorder Type </th>
+        <th> Room </th>
+        <th> Date </th>
         <th> Employee </th>
         <th> Building </th>
         <th> Floor </th>
         <th> Zone </th>
-        <th> Room </th>
-        <th> Workorder Type </th>
         <th> Status </th>
       </thead>
       <tbody>
         <tr *ngFor="let x of woList">
+          <td>{{ x.WorkorderTypeName }}</td>
+          <td>{{ x.RoomName }}</td>
+          <td>{{ x.WorkorderTime }}</td>
           <td>{{ x.LastName }},{{ x.FirstName }}</td>
           <td>{{ x.FacilityName }}</td>
           <td>{{ x.FloorName }}</td>
           <td>{{ x.ZoneName }}</td>
-          <td>{{ x.RoomName }}</td>
-          <td>{{ x.WorkorderTypeName }}</td>
           <td>{{ x.WorkorderStatus }}</td>
         </tr>
         <tr *ngIf="woList?.length == 0">
-          <td colspan="6" class="no-data-available">No records found</td>
+          <td colspan="8" class="no-data-available">No records found</td>
         </tr>
       </tbody>
     </table>
