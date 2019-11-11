@@ -991,7 +991,8 @@ export class PeopleServiceService {
   getAllEmployeeNames(OrganizationID, toServeremployeekey) {
     return this
       .http
-      .get(ConectionSettings.Url + '/getAllEmployeeNames?OrganizationID=' + OrganizationID + '&employeekey=' + toServeremployeekey);
+      // .get(ConectionSettings.Url + '/getAllEmployeeNames?OrganizationID=' + OrganizationID + '&employeekey=' + toServeremployeekey);
+      .get(ConectionSettings.Url + '/getAllEmployeeNames_SuType?OrganizationID=' + OrganizationID + '&employeekey=' + toServeremployeekey);
   }
   submitTradeRequest(curr_date, toServeremployeekey, OrganizationID, EmployeeKey, startdate, enddate, comments) {
     const url = ConectionSettings.Url + "/saveTradeRequest";

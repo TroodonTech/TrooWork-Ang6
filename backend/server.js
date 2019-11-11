@@ -18518,6 +18518,33 @@ app.get(securedpath + '/getManagerForEmployeeForSuperAdmin_SuType', function (re
     });
 });
 
+app.get(securedpath + '/getAllEmployeeNames_SuType', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var employeekey = url.parse(req.url, true).query['employeekey'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @OrganizationID=?; set @employeekey=?; call usp_getAllEmployeeNames_SuType(@OrganizationID,@employeekey)', [OrganizationID, employeekey], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+
+                    res.end(JSON.stringify(rows[2]));
+
+
+                }
+            });
+        }
+        connection.release();
+    });
+});
 // ^^^^^^^ supervisor api changes By Varun ends ^^^^^^^^^^^.
 
 //Author: Prakash Code Starts for Employee Calendar Starts Here
