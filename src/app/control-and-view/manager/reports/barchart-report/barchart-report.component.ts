@@ -267,7 +267,7 @@ export class BarchartReportComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.ReportServiceService
-      .getallemployee(this.EmployeeKey, this.OrganizationID)
+      .getallemployee(this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.employeeoption = data;
       });
