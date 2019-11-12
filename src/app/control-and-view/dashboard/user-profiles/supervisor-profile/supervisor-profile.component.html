@@ -67,10 +67,10 @@
                 <div>
                   <span class="col-md-6">Position:</span>
 
-                  <span style="margin-left: 8.2rem;" *ngIf="profile.IsSupervisor === 1 && profile.UserRoleName==='Employee'">
+                  <span style="margin-left: 8.2rem;" *ngIf="profile.UserRoleName==='Supervisor'">
                     Supervisor
                   </span>
-                  <span style="margin-left: 8.2rem;" *ngIf="profile.IsSupervisor === 0 && profile.UserRoleName==='Employee'">
+                  <span style="margin-left: 8.2rem;" *ngIf="profile.UserRoleName==='Employee'">
                     Employee
                   </span>
                   <span style="margin-left: 8.2rem;" *ngIf="profile.UserRoleName==='Manager'">

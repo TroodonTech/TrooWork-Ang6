@@ -17733,7 +17733,7 @@ app.get(securedpath + '/getEmployeesForSchedulerReport', function (req, res) {//
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @OrganizationID=?;call usp_getEmployeesForSchedulerReport(@OrganizationID)', [OrganizationID], function (err, rows) {
+            connection.query('set @OrganizationID=?;call usp_getEmployeesForSchedulerReport_SuType(@OrganizationID)', [OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL in allemployees" + err);
                 }

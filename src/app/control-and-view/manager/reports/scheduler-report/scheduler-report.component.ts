@@ -169,6 +169,7 @@ export class SchedulerReportComponent implements OnInit {
 
     // List for viewing employees and groups in table
     this.empListForTable = [];
+    debugger;
     if (!(this.Idemployeegrouping) && this.EmployeeKey.length == 0) {
       this.empListForTable = this.empList;
     } else if (!(this.Idemployeegrouping) && this.EmployeeKey.length > 0) {

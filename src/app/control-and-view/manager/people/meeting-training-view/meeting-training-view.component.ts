@@ -154,7 +154,7 @@ export class MeetingTrainingViewComponent implements OnInit {
       this.DepartmentKey = null;
     }
     if (!(this.EventType)) {
-      this.EventType = null;
+      this.EventType = "0";
     }
 
     this.peopleServ
@@ -244,7 +244,7 @@ export class MeetingTrainingViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.DepartmentKey = "";
-    this.EventType = "";
+    this.EventType = "0";
 
     this.searchform = this.formBuilder.group({
       SearchMeetingTraining: ['', Validators.required]
