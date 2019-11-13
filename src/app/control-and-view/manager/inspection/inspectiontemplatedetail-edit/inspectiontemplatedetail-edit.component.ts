@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { InspectionService } from '../../../../service/inspection.service';
 import { Inspection } from '../../../../model-class/Inspection';
 import { Router } from '@angular/router';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-inspectiontemplatedetail-edit',
   templateUrl: './inspectiontemplatedetail-edit.component.html',
@@ -39,17 +39,17 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
   fieldArray;
   scores;
   TemplateEditDetails;
-  newAttribute= [];
+  newAttribute = [];
   temparray = [];
   insertObj;
 
-  constructor(private route: ActivatedRoute, private inspectionService: InspectionService, private router: Router,private _location: Location) {
+  constructor(private route: ActivatedRoute, private inspectionService: InspectionService, private router: Router, private _location: Location) {
     this.route.params.subscribe(params => this.tempID = params.TemplateID);
   }
 
   customTrackBy(index: number, obj: any): any {
     return index;
-}
+  }
   ngOnInit() {
     //token starts....
     var token = localStorage.getItem('token');
@@ -86,14 +86,19 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
     this.temparray.push(tempKeys);
   }
   deleteFieldValue(TemplateQuestionID) {
-    this.inspectionService
-      .deleteSelectedTemplateQuestion(TemplateQuestionID, this.OrganizationID).subscribe(() => {
-        this.inspectionService
-          .getTemplateQuestionsEditDetails(this.tempID, this.OrganizationID).subscribe((data: any[]) => {
-            this.fieldArray = data;
-          });
+    if (this.fieldArray.length > 1) {
+      this.inspectionService
+        .deleteSelectedTemplateQuestion(TemplateQuestionID, this.OrganizationID).subscribe(() => {
+          this.inspectionService
+            .getTemplateQuestionsEditDetails(this.tempID, this.OrganizationID).subscribe((data: any[]) => {
+              this.fieldArray = data;
+            });
 
-      });
+        });
+    } else {
+      alert("Atleast one question is needed in the template.");
+      return false;
+    }
   }
   deleteNewFieldValue(index) {
     this.newAttribute.splice(index, 1);
@@ -149,9 +154,9 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
     // else{
     //   alert("Template Name already exists !");
     // }
-  // });
+    // });
   }
-  goBack(){
+  goBack() {
     this._location.back();
   }
 }

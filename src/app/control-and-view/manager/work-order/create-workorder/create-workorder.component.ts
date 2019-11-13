@@ -839,6 +839,9 @@ export class CreateWorkorderComponent implements OnInit {
                       this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewWorkOrder'] } }]);
                     });
                   });
+              }else{
+                alert(" New Workorder type entered already exists.");
+                return;
               }
             });
         }

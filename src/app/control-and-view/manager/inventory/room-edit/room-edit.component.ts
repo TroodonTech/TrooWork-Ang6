@@ -64,17 +64,19 @@ export class RoomEditComponent implements OnInit {
   }
 
   selectFloorfromBuildings(facKey) {
+    if (facKey) {
     this.facKey = facKey;
-    this.floorTypeKey = "";
-    this.floorKey = "";
-    this.zoneKey = "";
-    this.roomTypeKey = "";
-    this.inventoryService
-      .getallFloorList(facKey, this.OrganizationID)
-      .subscribe((data: Inventory[]) => {
-        this.floor = data;
-        this.room.FloorKey='';
-      });
+      this.floorTypeKey = "";
+      this.floorKey = "";
+      this.zoneKey = "";
+      this.roomTypeKey = "";
+      this.inventoryService
+        .getallFloorList(facKey, this.OrganizationID)
+        .subscribe((data: Inventory[]) => {
+          this.floor = data;
+          this.room.FloorKey = '';
+        });
+    }
   }
 
   selectZonefromFloor(flrKey) {
@@ -86,7 +88,7 @@ export class RoomEditComponent implements OnInit {
       .getallZoneList(this.facKey, flrKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.zone = data;
-        this.room.ZoneKey='';
+        this.room.ZoneKey = '';
       });
   }
 
@@ -146,7 +148,7 @@ export class RoomEditComponent implements OnInit {
           }
           else if (this.temp_room != RoomName) {
             this.inventoryService
-              .checkRoomName(this.facKey,this.floorKey,RoomName, this.OrganizationID)
+              .checkRoomName(this.facKey, this.floorKey, RoomName, this.OrganizationID)
               .subscribe((data: Inventory[]) => {
                 if (data[0].count > 0) {
                   alert("Room Name already exists !");
@@ -229,7 +231,7 @@ export class RoomEditComponent implements OnInit {
   goback() {
     this._location.back();
   }
-  zoneChange(){
-    this.roomTypeKey='';
+  zoneChange() {
+    this.roomTypeKey = '';
   }
 }
