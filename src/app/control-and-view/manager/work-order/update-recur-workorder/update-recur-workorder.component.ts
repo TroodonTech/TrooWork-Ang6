@@ -209,6 +209,12 @@ export class UpdateRecurWorkorderComponent implements OnInit {
         else{
           this.keepActive=false;
         }
+        if(this.WOEditList.IsSnapshot==1){
+          this.GpsSnapShot=true;
+        }
+        else{
+          this.GpsSnapShot=false;
+        }
         this.Times = this.tConvert(this.WOEditList.WorkorderTimes);
         this.WorkOrderServiceService//for getting all building names
           .getallFloor(this.WOEditList.FacilityKey, this.OrganizationID)

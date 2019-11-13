@@ -313,6 +313,12 @@ export class EditBatchWorkorderComponent implements OnInit {
         else {
           this.isBarcodeRequired = false;
         }
+        if(this.WOEditList.IsSnapshot==1){
+          this.GpsSnapShot=true;
+        }
+        else{
+          this.GpsSnapShot=false;
+        }
         if (this.WOEditList.IntervalType == 'd') {
 
           this.dailyrecurring = true;

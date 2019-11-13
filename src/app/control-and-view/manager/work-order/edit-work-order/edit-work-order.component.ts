@@ -155,7 +155,7 @@ export class EditWorkOrderComponent implements OnInit {
 
     this.WorkOrderServiceService
       .getWO_edit(this.WO_Key, this.OrganizationID)
-      .subscribe((data: any[]) => {//service for getting edited work order details
+      .subscribe((data: any[]) => {//service for getting edited work order detail
         this.WOEditList = data[0];
         this.loading=false;
         if(this.WOEditList.KeepActive==1){
@@ -163,6 +163,12 @@ export class EditWorkOrderComponent implements OnInit {
         }
         else{
           this.keepActive=false;
+        }
+        if(this.WOEditList.IsSnapshot==1){
+          this.GpsSnapShot=true;
+        }
+        else{
+          this.GpsSnapShot=false;
         }
         this.WorkOrderServiceService
           .getallFloor(this.WOEditList.FacilityKey, this.OrganizationID)
