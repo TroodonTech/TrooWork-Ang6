@@ -37,7 +37,7 @@
               <button type="button" style="text-align:center" class="btn btn-success" [disabled]="fileCheck" (click)="ImgUpload();"><b>UPLOAD</b></button>
             </div>
             <div class='buttonDiv'>
-              <button style="margin-top: 1rem;width: 12rem;" class="btn btn-primary" [routerLink]="['changePasswordManager',profile.EmployeeKey,profile.UserRoleName,profile.IsSupervisor]"
+              <button style="margin-top: 1rem;width: 12rem;" class="btn btn-primary" [routerLink]="['changePasswordAdmin',profile.EmployeeKey,profile.UserRoleName,profile.IsSupervisor]"
                 routerLinkActive="active">
                 <!-- ng-click="changePassword(,, )" -->
                 <span><b>CHANGE PASSWORD</b></span></button>

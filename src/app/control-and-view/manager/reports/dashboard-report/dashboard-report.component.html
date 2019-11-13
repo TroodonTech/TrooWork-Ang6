@@ -4,12 +4,14 @@
     <h4 style="margin-left: 42%;">DASHBOARD REPORT</h4>
   </div>
 
-  <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem" class="row bg-info col-md-12">
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem"
+    class="row bg-info col-md-12">
     <div class="col-md-6">
       <h3 style="text-align: right"></h3>
       <div class="form-group" style="width: 85%;">
         <label>Employee</label>
-        <select [(ngModel)]="EmployeeKey" style="background-color: #d4f4ff;" class="form-control" (change)="dashboardreportbyfilter()">
+        <select [(ngModel)]="EmployeeKey" style="background-color: #d4f4ff;" class="form-control"
+          (change)="dashboardreportbyfilter()">
           <option value="">--Select--</option>
           <option *ngFor="let e of employeeoption" [value]="e.EmployeeKey">
             {{e.EmployeeText}}
@@ -18,7 +20,8 @@
       </div>
       <div class="form-group" style="width: 68%;">
         <label>From Date</label>
-        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="fromdate" (ngModelChange)="dashboardreportbyfilter()"></ng-datepicker>
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="fromdate"
+          (ngModelChange)="dashboardreportbyfilter()"></ng-datepicker>
         <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [(ngModel)]="fromdate" (onSelection)="dashboardreportbyfilter()"></igx-datePicker> -->
       </div>
     </div>
@@ -26,14 +29,15 @@
       <h3 style="text-align: right"></h3>
       <div class="form-group" style="width: 85%;">
         <label>Workorder Type</label>
-        <ng-multiselect-dropdown (change)="dashboardreportbyfilter()" [placeholder]="'Select'" [data]="workordertypeoption"
-          [(ngModel)]="WorkorderTypeKey" [settings]="dropdownSettings" (onSelect)="dashboardreportbyfilter()"
-          (onSelectAll)="dashboardreportbyfilter()">
+        <ng-multiselect-dropdown [placeholder]="'Select'" [data]="workordertypeoption" [(ngModel)]="WorkorderTypeKey"
+          [settings]="dropdownSettings" (onSelect)="dashboardreportbyfilter()" (onDeSelect)="dashboardreportbyfilter()"
+          (onSelectAll)="dashboardreportbyfilter()" (onDeSelectAll)="dashboardreportbyfilter()">
         </ng-multiselect-dropdown>
       </div>
       <div class="form-group" style="width: 68%;">
         <label>To Date</label>
-        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate" (ngModelChange)="dashboardreportbyfilter()"></ng-datepicker>
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate"
+          (ngModelChange)="dashboardreportbyfilter()"></ng-datepicker>
         <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date" [(ngModel)]="todate"
           (onSelection)="dashboardreportbyfilter()"></igx-datePicker> -->
       </div>
@@ -43,18 +47,21 @@
 <div class="col-md-12">
   <!-- <div style="text-align:right" id="content" #content> -->
   <div *ngIf="((reporttable?.length> 0)&&(!loading))">
-    <input type="button" style="margin-left: 45%;" class="btn btn-success" value="CONVERT TO PDF" (click)="captureScreen()" />
+    <input type="button" style="margin-left: 45%;" class="btn btn-success" value="CONVERT TO PDF"
+      (click)="captureScreen()" />
   </div>
   <!-- </div> -->
 </div>
-<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12" *ngIf="((reporttable?.length> 0)&&(!loading))">
+<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12"
+  *ngIf="((reporttable?.length> 0)&&(!loading))">
   <div id="part1" class="col-md-6" *ngIf="reporttable?.length> 0" style="border: 0px !important;">
 
     <div id="{{elementId1}}" style="width: 800px; height: 400px;"></div>
   </div>
   <div class="col-md-6">
     <div style="margin-left:1.5rem; margin-right: 1.5rem;   margin-top: 40px; margin-bottom: 100px;"></div>
-    <table id="contentToConvert" *ngIf='reporttable' class="table table-hover table-responsive table-bordered table" style="border: none">
+    <table id="contentToConvert" *ngIf='reporttable' class="table table-hover table-responsive table-bordered table"
+      style="border: none">
       <thead class="tableHead">
         <tr>
           <th> Employee Name </th>
@@ -82,6 +89,7 @@
   </div>
 </div>
 
-<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12" *ngIf="((reporttable?.length== 0)&&(!loading))">
+<div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row col-md-12"
+  *ngIf="((reporttable?.length== 0)&&(!loading))">
   <span style="margin-left: 35rem;"><b>No Records Found</b></span>
 </div>
