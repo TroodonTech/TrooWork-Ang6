@@ -150,15 +150,22 @@ export class MeetingTrainingViewComponent implements OnInit {
         return;
       }
     }
+    var dept, eventTyp;
     if (!(this.DepartmentKey)) {
-      this.DepartmentKey = null;
+      dept = null;
+    }
+    else {
+      dept = this.DepartmentKey;
     }
     if (!(this.EventType)) {
-      this.EventType = "0";
+      eventTyp = null;
+    }
+    else{
+      eventTyp = this.EventType;
     }
 
     this.peopleServ
-      .viewMtngTrainingbyFilter(dateFrom, date2, JobTitleString, EmployeeKeyString, this.employeekey, this.OrganizationID, this.DepartmentKey, this.EventType)
+      .viewMtngTrainingbyFilter(dateFrom, date2, JobTitleString, EmployeeKeyString, this.employeekey, this.OrganizationID, dept, eventTyp)
       .subscribe((data: People[]) => {
         this.meetingTraining = data;
       });
@@ -195,7 +202,19 @@ export class MeetingTrainingViewComponent implements OnInit {
         JobTitleString = jobtitleList.join(',');
       }
     }
-
+    var dept, eventTyp;
+    if (!(this.DepartmentKey)) {
+      dept = null;
+    }
+    else {
+      dept = this.DepartmentKey;
+    }
+    if (!(this.EventType)) {
+      eventTyp = null;
+    }
+    else{
+      eventTyp = this.EventType;
+    }
     var EmployeeKeyString;
     if (this.EmployeeKey.length == 0) {
       EmployeeKeyString = null;
@@ -224,7 +243,7 @@ export class MeetingTrainingViewComponent implements OnInit {
         this.loading = true;
       }
       this.peopleServ
-        .viewMtngTrainingbyFilter(dateFrom, date2, JobTitleString, EmployeeKeyString, this.employeekey, this.OrganizationID, this.DepartmentKey, this.EventType)
+        .viewMtngTrainingbyFilter(dateFrom, date2, JobTitleString, EmployeeKeyString, this.employeekey, this.OrganizationID, dept, eventTyp)
         .subscribe((data: People[]) => {
           this.meetingTraining = data;
           this.loading = false;
@@ -244,7 +263,7 @@ export class MeetingTrainingViewComponent implements OnInit {
     this.OrganizationID = profile.OrganizationID;
 
     this.DepartmentKey = "";
-    this.EventType = "0";
+    this.EventType = "";
 
     this.searchform = this.formBuilder.group({
       SearchMeetingTraining: ['', Validators.required]

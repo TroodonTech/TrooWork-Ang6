@@ -47,7 +47,7 @@
           <label for="people">Event Name</label>
           <select name="eventtype" style="background-color: #d4f4ff;margin-left: 0.1rem;width: 75%" class="form-control"
             [(ngModel)]="EventType" (change)="filterMtngTrainingList()">
-            <option value="0">--Select--</option>
+            <option value="">--Select--</option>
             <option *ngFor="let b of event" [value]="b.ActionKey">
               {{b.ActionType}} - {{b.Action}}
             </option>
