@@ -47,11 +47,22 @@
           </div> -->
           <div class="form-group">
             <label>Department*</label><br>
-            <select name="department" style="background-color: #d4f4ff;"
-              class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="DepartmentKey">
+            <select name="department" style="background-color: #d4f4ff;" class="form-control col-sm-9 col-md-9 col-lg-9"
+              [(ngModel)]="DepartmentKey">
               <option value="">--Select--</option>
               <option *ngFor="let d of department" [value]="d.DepartmentKey">
                 {{d.DepartmentName}}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group" *ngIf="supermark">
+            <label>Supervisor*</label><br>
+            <select name="supervisor" style="background-color: #d4f4ff;width: 76%;max-width: 100%;"
+              [(ngModel)]="SupervisorKey" class="form-control col-sm-9 col-md-9 col-lg-9">
+              <option value="">--Select--</option>
+              <option *ngFor="let s of supervisor" [value]="s.SupervisorKey">
+                {{s.SupervisorText}}
               </option>
             </select>
           </div>

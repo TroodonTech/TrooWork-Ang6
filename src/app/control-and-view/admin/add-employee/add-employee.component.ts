@@ -40,7 +40,8 @@ export class AddEmployeeComponent implements OnInit {
   managerList;
   ManagerKey;
   roleTypeKey = 0;
-
+  roleTypeKey1;
+  supermark;
   role: String;
   name: String;
   employeekey;
@@ -196,7 +197,7 @@ export class AddEmployeeComponent implements OnInit {
 
   createEmployee() {
 
-    var manKey;
+    var manKey; var superKey;
     var IsSupervisor;
     if (!(this.EmployeeNumber) || !this.EmployeeNumber.trim()) {
       alert("Employee Number is not provided !");
@@ -213,7 +214,22 @@ export class AddEmployeeComponent implements OnInit {
     else {
       manKey = -1;
     }
-    
+
+    if (this.supermark === true && !(this.SupervisorKey)) {
+      alert("Supervisor is not provided !");
+      return;
+    }
+    else {
+      superKey = -1;
+    }
+    if (this.UserRoleTypeKey == 3 && this.SupervisorKey) {
+      superKey = this.SupervisorKey;
+    }
+    else {
+      superKey = "";
+    }
+
+
     if (this.UserRoleTypeKey == 3 && this.ManagerKey) {
       manKey = this.ManagerKey;
     }
@@ -383,7 +399,7 @@ export class AddEmployeeComponent implements OnInit {
           str = this.FirstName + '' + this.LastName;
           this.PeopleServiceService.createEmployeebyAdmin(this.EmployeeNumber, manKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender,
             this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD,
-            this.JobTitleKey, this.DepartmentKey, this.employeekey, this.OrganizationID, IsSupervisor)
+            this.JobTitleKey, this.DepartmentKey, this.employeekey, this.OrganizationID, IsSupervisor,superKey)
             // this.start_sun_hour, this.start_sun_min, this.start_sun_format, this.start_mon_hour, this.start_mon_min, this.start_mon_format, this.start_tue_hour, this.start_tue_min, this.start_tue_format, this.start_wed_hour, this.start_wed_min, this.start_wed_format, this.start_thu_hour, this.start_thu_min, this.start_thu_format, this.start_fri_hour, this.start_fri_min, this.start_fri_format, this.start_sat_hour, this.start_sat_min, this.start_sat_format, this.end_sun_hour, this.end_sun_min, this.end_sun_format, this.end_mon_hour, this.end_mon_min, this.end_mon_format, this.end_tue_hour, this.end_tue_min, this.end_tue_format, this.end_wed_hour, this.end_wed_min, this.end_wed_format, this.end_thu_hour, this.end_thu_min, this.end_thu_format, this.end_fri_hour, this.end_fri_min, this.end_fri_format, this.end_sat_hour, this.end_sat_min, this.end_sat_format, this.idscheduler_exception, this.idmaster_exception_weekend, this.idemployeegrouping)
             .subscribe((data22: any[]) => {
               this.temp_res = data22;
@@ -496,6 +512,9 @@ export class AddEmployeeComponent implements OnInit {
           if (data[i].UserRoleName == "Employee") {
             this.roleTypeKey = data[i].UserRoleTypeKey;
           }
+          if (data[i].UserRoleName == "Supervisor") {
+            this.roleTypeKey1 = data[i].UserRoleTypeKey;
+          }
         }
 
       });
@@ -560,17 +579,32 @@ export class AddEmployeeComponent implements OnInit {
     }
   }
   selectUserType(userType) {
-    userType;
-    if (userType == this.roleTypeKey) {
+    if (userType == this.roleTypeKey1) {
       this.showManager = true;
+      this.supermark = false;
       this.PeopleServiceService
         .getmanagersForEmp(this.employeekey, this.OrganizationID)
         .subscribe((data: any[]) => {
           this.managerList = data;
         });
       console.log(this.showManager);
+    } else if (userType == this.roleTypeKey) {
+      this.showManager = true;
+      this.supermark = true;
+      this.PeopleServiceService
+        .getmanagersForEmp(this.employeekey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.managerList = data;
+        });
+      this.PeopleServiceService
+        .getSuperVisor(this.employeekey, this.OrganizationID)
+        .subscribe((data: People[]) => {
+          this.supervisor = data;
+        });
+      console.log(this.showManager); console.log(this.supermark);
     } else {
       this.showManager = false;
+      this.supermark = false;
       console.log(this.showManager);
     }
   }

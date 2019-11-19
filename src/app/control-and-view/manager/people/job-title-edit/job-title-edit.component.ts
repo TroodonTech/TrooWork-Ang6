@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class JobTitleEditComponent implements OnInit {
   JobTitle_Key$: object;
-  JobtitleDetails: People[];
+  JobtitleDetails;
   role: String;
   name: String;
   employeekey: Number;
@@ -49,26 +49,45 @@ export class JobTitleEditComponent implements OnInit {
       return;
     }
     else {
-      this.peopleServiceService.CheckNewJobtitle(JobTitle, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-        if (data[0].count > 0) {
-          alert("Job title already present !");
-          return;
-        }
-        else {
-          this.peopleServiceService.updateEditJobtitle(this.JobTitle_Key$, JobTitle, JobTitleDescription, this.employeekey, this.OrganizationID)
-            .subscribe((data: any[]) => {
-              alert('Job title  successfully updated !');
-              // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['JobTitileView'] } }]);
-              if (this.role == 'Manager') {
-                this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['JobTitileView'] } }]);
-              }
-              // else  if(this.role=='Employee' && this.IsSupervisor==1){
-              else if (this.role == 'Supervisor') {
-                this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['JobTitileView'] } }]);
-              }
-            });
-        }
-      });
+      debugger;
+      if (JobTitle !== this.JobtitleDetails[0].JobTitle) {
+        alert("inside if");
+        this.peopleServiceService.CheckNewJobtitle(JobTitle, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+          if (data[0].count > 0) {
+            alert("Job title already present !");
+            return;
+          }
+          else {
+            this.peopleServiceService.updateEditJobtitle(this.JobTitle_Key$, JobTitle, JobTitleDescription, this.employeekey, this.OrganizationID)
+              .subscribe((data: any[]) => {
+                alert('Job title  successfully updated !');
+                // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['JobTitileView'] } }]);
+                if (this.role == 'Manager') {
+                  this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['JobTitileView'] } }]);
+                }
+                // else  if(this.role=='Employee' && this.IsSupervisor==1){
+                else if (this.role == 'Supervisor') {
+                  this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['JobTitileView'] } }]);
+                }
+              });
+          }
+        });
+      } else {
+        alert("inside else");
+        this.peopleServiceService.updateEditJobtitle(this.JobTitle_Key$, JobTitle, JobTitleDescription, this.employeekey, this.OrganizationID)
+          .subscribe((data: any[]) => {
+            alert('Job title  successfully updated !');
+            // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['JobTitileView'] } }]);
+            if (this.role == 'Manager') {
+              this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['JobTitileView'] } }]);
+            }
+            // else  if(this.role=='Employee' && this.IsSupervisor==1){
+            else if (this.role == 'Supervisor') {
+              this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['JobTitileView'] } }]);
+            }
+          });
+      }
+
     }
   }
 
@@ -82,7 +101,7 @@ export class JobTitleEditComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    this.peopleServiceService.getEditJobtitleDetails(this.JobTitle_Key$, this.OrganizationID).subscribe((data: People[]) => {
+    this.peopleServiceService.getEditJobtitleDetails(this.JobTitle_Key$, this.OrganizationID).subscribe((data: any[]) => {
       this.JobtitleDetails = data;
 
     });

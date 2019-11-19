@@ -57,15 +57,6 @@
     <div class="form-row col-md-12">
       <div class="col-md-6">
         <div class="form-group">
-          <label>Hire Date*</label>
-          <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="20%" [value]="hiredate" [(ngModel)]="HireDate"></igx-datePicker> -->
-          <ng-datepicker [options]="options" position="top-right" [(ngModel)]="HireDate"></ng-datepicker>
-        </div>
-        <!-- <div class="form-check form-check-inline" style="margin-top: 2.2rem">
-          <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
-          <label class="form-check-label" for="materialInline1">Supervisor</label> &nbsp;&nbsp;
-        </div> -->
-        <div class="form-group">
           <label>Department</label><br>
           <select name="department" style="background-color: #d4f4ff;width: 76%;max-width: 100%;"
             class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="DepartmentKey">
@@ -75,6 +66,16 @@
             </option>
           </select>
         </div>
+
+        <div class="form-group">
+          <label>Hire Date*</label>
+          <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="20%" [value]="hiredate" [(ngModel)]="HireDate"></igx-datePicker> -->
+          <ng-datepicker [options]="options" position="top-right" [(ngModel)]="HireDate"></ng-datepicker>
+        </div>
+        <!-- <div class="form-check form-check-inline" style="margin-top: 2.2rem">
+          <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
+          <label class="form-check-label" for="materialInline1">Supervisor</label> &nbsp;&nbsp;
+        </div> -->
       </div>
       <div class="col-md-6">
         <div class="form-group">
@@ -87,7 +88,16 @@
             </option>
           </select>
         </div>
-
+        <div class="form-group" *ngIf="supermark">
+          <label style="margin-left: 1rem;">Supervisor</label><br>
+          <select name="supervisor" style="margin-left:0.9rem;background-color: #d4f4ff;width: 76%;max-width: 100%;"
+            [(ngModel)]="SupervisorKey" class="form-control col-sm-9 col-md-9 col-lg-9">
+            <option value="">--Select--</option>
+            <option *ngFor="let s of supervisor" [value]="s.SupervisorKey">
+              {{s.SupervisorText}}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
   </div>

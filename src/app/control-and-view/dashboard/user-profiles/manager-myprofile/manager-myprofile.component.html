@@ -7,15 +7,15 @@
         <h4 class="refer"><strong>{{profile.FirstName}} {{profile.MiddleName}} {{profile.LastName}}
             : Profile</strong></h4>
         <div style="margin-left: 10%;">
-          <div *ngIf="profile.IsSupervisor === 1 && profile.UserRoleName==='Employee'">
+          <!-- <div *ngIf="profile.IsSupervisor === 1 && profile.UserRoleName==='Employee'">
             <h4 class="refer"><strong>Supervisor</strong></h4>
           </div>
           <div *ngIf="profile.IsSupervisor === 0 && profile.UserRoleName==='Employee'">
             <h4 class="refer"><strong>Employee</strong></h4>
           </div>
-          <div *ngIf="profile.UserRoleName!=='Employee'">
+          <div *ngIf="profile.UserRoleName!=='Employee'"> -->
             <h4 class="refer"><strong>{{profile.UserRoleName}}</strong></h4>
-          </div>
+          <!-- </div> -->
         </div>
       </div>
      
