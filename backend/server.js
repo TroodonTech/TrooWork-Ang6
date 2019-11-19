@@ -17776,7 +17776,30 @@ app.get(securedpath + '/mob_supervisorname', function (req, res) {
         connection.release();
     });
 });
+app.get(securedpath + '/getUserRoletypeForManager', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
 
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set @OrganizationID=?;call usp_getUserRoletypeForManager(@OrganizationID)", [ OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(JSON.stringify(rows[1]));
+                    res.end(JSON.stringify(rows[1]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 app.get(securedpath + '/supervisorname_SuType', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     var managerID = url.parse(req.url, true).query['employeekey'];
