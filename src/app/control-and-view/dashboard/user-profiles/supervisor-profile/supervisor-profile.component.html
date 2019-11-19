@@ -1,43 +1,44 @@
-
 <div class="container">
   <div class="container-fluid">
-   
+
     <div *ngFor="let profile of profile">
       <div style="margin-left: 45%;">
         <h4 class="refer"><strong>{{profile.FirstName}} {{profile.MiddleName}} {{profile.LastName}}
             : Profile</strong></h4>
         <div style="margin-left: 10%;">
-          <div *ngIf="profile.IsSupervisor === 1 && profile.UserRoleName==='Employee'">
+          <!-- <div *ngIf="profile.IsSupervisor === 1 && profile.UserRoleName==='Employee'">
             <h4 class="refer"><strong>Supervisor</strong></h4>
           </div>
           <div *ngIf="profile.IsSupervisor === 0 && profile.UserRoleName==='Employee'">
             <h4 class="refer"><strong>Employee</strong></h4>
           </div>
-          <div *ngIf="profile.UserRoleName!=='Employee'">
-            <h4 class="refer"><strong>{{profile.UserRoleName}}</strong></h4>
-          </div>
+          <div *ngIf="profile.UserRoleName!=='Employee'"> -->
+          <h4 class="refer"><strong>{{profile.UserRoleName}}</strong></h4>
+          <!-- </div> -->
         </div>
       </div>
-     
+
       <div class="form-group">
         <div>
-            <section class="imageSection">
-                <div *ngIf="image==null">{{image}}
-                  <img src="assets/img/userIcon.jpg" style="width: 12rem;" class="img-responsive">
-                </div>
-                <div *ngIf="image!==null">
-                  <img src="./imageupload/{{image}}" style="width: 12rem;" class="img-responsive">
-                </div>
-                <div style="margin-bottom: 1rem;margin-top: 2rem">
-                  <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
-                </div>
-                <div>
-            <!-- <div class="row col-md-12" style="margin-left: 45%"> -->
-                 
-              <button type="button" style="text-align:center" class="btn btn-success" [disabled]="fileCheck" (click)="ImgUpload();"><b>UPLOAD</b></button>
+          <section class="imageSection">
+            <div *ngIf="image==null">{{image}}
+              <img src="assets/img/userIcon.jpg" style="width: 12rem;" class="img-responsive">
+            </div>
+            <div *ngIf="image!==null">
+              <img src="./imageupload/{{image}}" style="width: 12rem;" class="img-responsive">
+            </div>
+            <div style="margin-bottom: 1rem;margin-top: 2rem">
+              <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+            </div>
+            <div>
+              <!-- <div class="row col-md-12" style="margin-left: 45%"> -->
+
+              <button type="button" style="text-align:center" class="btn btn-success" [disabled]="fileCheck"
+                (click)="ImgUpload();"><b>UPLOAD</b></button>
             </div>
             <div class='buttonDiv'>
-              <button style="margin-top: 1rem;width: 12rem;" class="btn btn-primary" [routerLink]="['changePasswordSupervisor',profile.EmployeeKey,profile.UserRoleName,profile.IsSupervisor]"
+              <button style="margin-top: 1rem;width: 12rem;" class="btn btn-primary"
+                [routerLink]="['changePasswordSupervisor',profile.EmployeeKey,profile.UserRoleName,profile.IsSupervisor]"
                 routerLinkActive="active">
                 <span><b>CHANGE PASSWORD</b></span></button>
             </div>

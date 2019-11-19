@@ -35,6 +35,9 @@ export class EditemployeeComponent implements OnInit {
   showManager;
   statusFlag;
   remark;
+  supermark;
+  supervisor;
+  roleTypeKey1;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -75,7 +78,7 @@ export class EditemployeeComponent implements OnInit {
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field
-    addStyle: {'font-size':'18px','width':'75%', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
+    addStyle: { 'font-size': '18px', 'width': '77%', 'border': '1px solid #ced4da', 'border-radius': '0.25rem' }, // Optional, value to pass to [ngStyle] on the input field
     fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
@@ -92,7 +95,7 @@ export class EditemployeeComponent implements OnInit {
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field
-    addStyle: {'font-size':'18px','width':'76%', 'border': '1px solid #ced4da','border-radius': '0.25rem'}, // Optional, value to pass to [ngStyle] on the input field
+    addStyle: { 'font-size': '18px', 'width': '76%', 'border': '1px solid #ced4da', 'border-radius': '0.25rem' }, // Optional, value to pass to [ngStyle] on the input field
     fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
@@ -115,92 +118,121 @@ export class EditemployeeComponent implements OnInit {
 
   }
   deleteEmployee() {
-   
-
     this.PeopleServiceService
-      .DeleteEmployeeDetailsbySuperadmin(this.delete_EmpKey, this.OrganizationID, this.employeekey).subscribe(res =>  this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['Viewemployee'] } }])
+      .DeleteEmployeeDetailsbySuperadmin(this.delete_EmpKey, this.OrganizationID, this.employeekey).subscribe(res => this.router.navigate(['/SuperadminDashboard', { outlets: { SuperAdminOut: ['Viewemployee'] } }])
       );
   }
   deleteEmpPass(empk$) {
     this.delete_EmpKey = empk$;
-   
   }
-  editEmployee(OrganizationID, UserRoleTypeKey, EmployeeNumber, ManagerKey, FirstName, LastName, MiddleName, BD, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD,JobTitleKey, DepartmentKey, Gender) {
-    if (!(EmployeeNumber) ) {
+  editEmployee(OrganizationID, UserRoleTypeKey, EmployeeNumber, ManagerKey, FirstName, LastName, MiddleName, BD, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, JobTitleKey, DepartmentKey, Gender, SupervisorKey) {
+    var manKey;
+    var superKey;
+
+    if (!(EmployeeNumber)) {
       alert("Employee Number is not provided !");
       return;
     }
-    if (!(UserRoleTypeKey ) ) {
+    if (!(UserRoleTypeKey)) {
       alert("User Role Type is not provided !");
       return;
     }
 
-    if (!(FirstName ) ) {
+    if (!(FirstName)) {
       alert("First Name is not provided !");
       return;
     }
-    if (!(LastName ) ) {
+    if (!(LastName)) {
       alert("Last Name is not provided !");
       return;
     }
     if (!(Gender)) {
-      Gender=null;
+      Gender = null;
     }
-    if (!(EmployeeStatusKey) ) {
+    if (!(EmployeeStatusKey)) {
       alert("Employee Status is not provided !");
       return;
     }
-    if (!(PrimaryPhone) ) {
+    if (!(PrimaryPhone)) {
       alert("Primary Phone is not provided !");
       return;
     }
-  
-    if((EmployeeStatusKey!=1) && !(this.remark))
-    {
+
+    if ((EmployeeStatusKey != 1) && !(this.remark)) {
       alert("Remarks are not provided !");
       return;
     }
-    if (!(HD) ) {
+    if (!(HD)) {
       alert("Hire Date is not provided !");
       return;
     }
-    if (!(JobTitleKey ) ) {
+    if (!(JobTitleKey)) {
       alert("Job Title is not provided !");
       return;
     }
-    if (!(DepartmentKey) ) {
+    if (!(DepartmentKey)) {
       alert("Department is not provided !");
       return;
     }
+
+    if (this.showManager === true && !(ManagerKey)) {
+      alert("Manager is not provided !");
+      return;
+    }
+    else {
+      manKey = -1;
+    }
+    if (UserRoleTypeKey == 3 && ManagerKey) {
+      manKey = ManagerKey;
+    }
+    else if (UserRoleTypeKey == 5 && ManagerKey) {
+      manKey = ManagerKey;
+    }
+    else {
+      manKey = -1;
+    }
+
+    if (this.supermark === true && !(SupervisorKey)) {
+      alert("Supervisor is not provided !");
+      return;
+    }
+    else {
+      superKey = -1;
+    }
+    if (UserRoleTypeKey == 3 && SupervisorKey) {
+      superKey = SupervisorKey;
+    }
+    else {
+      superKey = "";
+    }
     var birthdt;
-    var currentDate=this.convert_DT(new Date());
-   
-    if (!(this.BirthDate) ) {
+    var currentDate = this.convert_DT(new Date());
+
+    if (!(this.BirthDate)) {
       birthdt = this.convert_DT(new Date());
     }
     else {
       birthdt = this.convert_DT(this.BirthDate);
     }
-    var hiredt= this.convert_DT(HD)
-    if(birthdt > currentDate){
+    var hiredt = this.convert_DT(HD)
+    if (birthdt > currentDate) {
       alert("Wrong Birth Date !");
       return;
     }
-    if(hiredt >currentDate){
+    if (hiredt > currentDate) {
       alert("Wrong Hire Date !");
       return;
     }
-    if( HD <BD){
+    if (HD < BD) {
       alert("Hire Date must be greater than birth date !");
       return;
     }
-   
 
-    this.PeopleServiceService.UpdateEmployeeDetailsbySa(this.managerKey, this.empk$, this.OrganizationID, UserRoleTypeKey, EmployeeNumber, FirstName, LastName, MiddleName, birthdt, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt,  JobTitleKey, DepartmentKey, Gender,this.remark)
-    .subscribe((data: any[]) => {
-      alert("Successfully Updated !");
-      this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['Viewemployee'] } }]);
-        });
+    this.PeopleServiceService.UpdateEmployeeDetailsbySa(this.employeekey, manKey, superKey, this.empk$, OrganizationID, UserRoleTypeKey, EmployeeNumber, FirstName, LastName, MiddleName, birthdt, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, JobTitleKey, DepartmentKey, Gender, this.remark)
+      .subscribe((data: any[]) => {
+        alert("Successfully Updated !");
+        this.router.navigate(['/SuperadminDashboard', { outlets: { SuperAdminOut: ['Viewemployee'] } }]);
+      });
 
   }
   numberValid(event: any) {
@@ -219,17 +251,32 @@ export class EditemployeeComponent implements OnInit {
     }
   }
 
-  selectUserType(userType) {
-    if (userType == this.roleTypeKey) {
+  selectUserType(userType, orgID) {
+    if (userType == this.roleTypeKey1) {
       this.showManager = true;
+      this.supermark = false;
       this.PeopleServiceService
-        .getmanagersForEmp(this.employeekey, this.OrganizationID)
+        .getManagerForEmployeeForSuperAdmin(orgID)
         .subscribe((data: any[]) => {
           this.managerList = data;
         });
       console.log(this.showManager);
+    } else if (userType == this.roleTypeKey) {
+      this.showManager = true;
+      this.supermark = true;
+      this.PeopleServiceService
+        .getManagerForEmployeeForSuperAdmin(orgID)
+        .subscribe((data: any[]) => {
+          this.managerList = data;
+        });
+      this.PeopleServiceService
+        .getSuperVisor(this.employeekey, orgID)
+        .subscribe((data: People[]) => {
+          this.supervisor = data;
+        });
     } else {
       this.showManager = false;
+      this.supermark = false;
       console.log(this.showManager);
     }
   }
@@ -250,68 +297,96 @@ export class EditemployeeComponent implements OnInit {
       this.useroletype = this.editempdtailsbysa.UserRoleName;
       if (this.useroletype == "Employee") {
         this.showManager = true;
+        this.supermark = true;
+        this.PeopleServiceService
+          .getManagerForEmployeeForSuperAdmin(this.editempdtailsbysa.OrganizationID)
+          .subscribe((data: People[]) => {
+            this.manager = data;
+          });
+        this.PeopleServiceService
+          .getSuperVisor(this.employeekey, this.editempdtailsbysa.OrganizationID)
+          .subscribe((data: People[]) => {
+            this.supervisor = data;
+          });
+      } else if (this.useroletype == "Supervisor") {
+        this.showManager = true;
+        this.PeopleServiceService
+          .getManagerForEmployeeForSuperAdmin(this.editempdtailsbysa.OrganizationID)
+          .subscribe((data: People[]) => {
+
+            this.manager = data;
+          });
       }
-      if(this.editempdtailsbysa.EmployeeStatusKey!=1 && this.editempdtailsbysa.EmployeeStatusKey!="")
-      {
-        this.statusFlag=true;
-        this.remark=this.editempdtailsbysa.Remark;
+      if (this.editempdtailsbysa.EmployeeStatusKey != 1 && this.editempdtailsbysa.EmployeeStatusKey != "") {
+        this.statusFlag = true;
+        this.remark = this.editempdtailsbysa.Remark;
       }
+
+      this.PeopleServiceService
+        .getDepartmentforddinSuperadmin(this.employeekey, this.editempdtailsbysa.OrganizationID)
+        .subscribe((data: People[]) => {
+
+          this.department = data;
+        });
+      this.PeopleServiceService
+        .getjobTitleforDropdowninSuperadmin(this.editempdtailsbysa.OrganizationID)
+        .subscribe((data: People[]) => {
+
+          this.jobtitle = data;
+        });
+      this.PeopleServiceService
+        .getManagerForEmployeeForSuperAdmin(this.editempdtailsbysa.OrganizationID)
+        .subscribe((data: People[]) => {
+
+          this.manager = data;
+        });
     });
 
     this.PeopleServiceService
       .getOrganizationDDforSuprAdmin(this.OrganizationID)
       .subscribe((data: People[]) => {
-       
+
         this.organization = data;
       });
     this.PeopleServiceService
-      .getUserRoleTypesa(this.OrganizationID)       
+      .getUserRoleTypesa(this.OrganizationID)
       .subscribe((data: any[]) => {
         this.useroletyp = data;
         for (var i = 0; i < data.length; i++) {
           if (data[i].UserRoleName == "Employee") {
             this.roleTypeKey = data[i].UserRoleTypeKey;
           }
+          if (data[i].UserRoleName == "Supervisor") {
+            this.roleTypeKey1 = data[i].UserRoleTypeKey;
+          }
         }
       });
-    this.PeopleServiceService
-      .getvaluesForManagerDropdowninSA(this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        
-        this.manager = data;
-      });
-    this.PeopleServiceService
-      .getDepartmentforddinSuperadmin(this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-     
-        this.department = data;
-      });
+
     this.PeopleServiceService
       .getEmployeeStatusListforDropdowninSuperadmin(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
-   
+
         this.employeestatus = data;
       });
-    this.PeopleServiceService
-      .getjobTitleforDropdowninSuperadmin(this.OrganizationID)
-      .subscribe((data: People[]) => {
-       
-        this.jobtitle = data;
-      });
   }
-  goBack(){
-    this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['Viewemployee'] } }]);
+  goBack() {
+    this.router.navigate(['/SuperadminDashboard', { outlets: { SuperAdminOut: ['Viewemployee'] } }]);
   }
-  statusChanged(statusKey)
-  {
-    if(statusKey!=1 && statusKey!="")
-    {
-      this.statusFlag=true;
+  statusChanged(statusKey) {
+    if (statusKey != 1 && statusKey != "") {
+      this.statusFlag = true;
     }
-    else
-    {
-      this.statusFlag=false;
+    else {
+      this.statusFlag = false;
     }
+  }
 
+  OrganizationChanged(orgID) {
+    this.PeopleServiceService.getJobTitleforadmindd(this.employeekey, orgID).subscribe((data: People[]) => {
+      this.jobtitle = data;
+    });
+    this.PeopleServiceService.getDepartment(this.employeekey, orgID).subscribe((data: People[]) => {
+      this.department = data;
+    });
   }
 }

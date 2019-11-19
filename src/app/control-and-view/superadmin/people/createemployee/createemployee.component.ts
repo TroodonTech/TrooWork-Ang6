@@ -37,6 +37,7 @@ export class CreateemployeeComponent implements OnInit {
   DepartmentKey;
   useroletype;
   roleTypeKey;
+  roleTypeKey1;
   managerList;
   showManager;
   IsSupervisor;
@@ -45,9 +46,10 @@ export class CreateemployeeComponent implements OnInit {
   name;
   role;
   marked = true;
+  supermark;
   temp_res;
-
-
+  supervisor;
+  SupervisorKey;
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
 
@@ -109,6 +111,7 @@ export class CreateemployeeComponent implements OnInit {
   createEmployee() {
 
     var manKey;
+    var superKey;
     var IsSupervisor;
     if (!(this.OrganizationID)) {
       alert("Organization is not provided !");
@@ -122,6 +125,7 @@ export class CreateemployeeComponent implements OnInit {
       alert("User Role Type is not provided !");
       return;
     }
+
     if (this.showManager === true && !(this.ManagerKey)) {
       alert("Manager is not provided !");
       return;
@@ -137,6 +141,20 @@ export class CreateemployeeComponent implements OnInit {
     }
     else {
       manKey = -1;
+    }
+
+    if (this.supermark === true && !(this.SupervisorKey)) {
+      alert("Supervisor is not provided !");
+      return;
+    }
+    else {
+      superKey = -1;
+    }
+    if (this.UserRoleTypeKey == 3 && this.SupervisorKey) {
+      superKey = this.SupervisorKey;
+    }
+    else {
+      superKey = "";
     }
 
     if (this.UserRoleTypeKey == 5) {
@@ -203,7 +221,7 @@ export class CreateemployeeComponent implements OnInit {
           alert("Employee Number already exists");
         }
         else {
-          this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, manKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.JobTitleKey, this.DepartmentKey, this.employeekey,IsSupervisor)
+          this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, manKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.JobTitleKey, this.DepartmentKey, this.employeekey, IsSupervisor,superKey)
             .subscribe((data: any[]) => {
               this.temp_res = data;
               alert("Employee Created !");
@@ -239,7 +257,7 @@ export class CreateemployeeComponent implements OnInit {
     this.DepartmentKey = '';
     this.UserRoleTypeKey = '';
     this.ManagerKey = '';
-
+    this.SupervisorKey = '';
 
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -269,6 +287,9 @@ export class CreateemployeeComponent implements OnInit {
           if (data[i].UserRoleName == "Employee") {
             this.roleTypeKey = data[i].UserRoleTypeKey;
           }
+          if (data[i].UserRoleName == "Supervisor") {
+            this.roleTypeKey1 = data[i].UserRoleTypeKey;
+          }
         }
 
       });
@@ -292,16 +313,32 @@ export class CreateemployeeComponent implements OnInit {
     //     this.showManager = true;
     //     });
     // }
-    if (userType == this.roleTypeKey) {
+    if (userType == this.roleTypeKey1) {
       this.showManager = true;
+      this.supermark = false;
       this.PeopleServiceService
         .getManagerForEmployeeForSuperAdmin(this.OrganizationID)
         .subscribe((data: any[]) => {
           this.managerList = data;
         });
       console.log(this.showManager);
+    } else if (userType == this.roleTypeKey) {
+      this.showManager = true;
+      this.supermark = true;
+      this.PeopleServiceService
+        .getManagerForEmployeeForSuperAdmin(this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.managerList = data;
+        });
+      this.PeopleServiceService
+        .getSuperVisor(this.employeekey, this.OrganizationID)
+        .subscribe((data: People[]) => {
+          this.supervisor = data;
+        });
+      console.log(this.showManager); console.log(this.supermark);
     } else {
       this.showManager = false;
+      this.supermark = false;
       console.log(this.showManager);
     }
   }

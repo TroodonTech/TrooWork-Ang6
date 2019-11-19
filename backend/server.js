@@ -1903,7 +1903,7 @@ app.get(securedpath + '/editviewWorkOrderType', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @WorkorderTypeKey=?;set @OrganizationID=?;call usp_editviewWorkOrderType(@WorkorderTypeKey,@OrganizationID)', [WorkorderTypeKey, OrganizationID], function (err, rows) {
+            connection.query('set @WorkorderTypeKey=?;set @OrganizationID=?;call m.(@WorkorderTypeKey,@OrganizationID)', [WorkorderTypeKey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -18959,7 +18959,7 @@ app.options('/update_employee_info_SuType', supportCrossOriginScript);
 app.post(securedpath + '/update_employee_info_SuType', supportCrossOriginScript, function (req, response) {
 
     var employeekey = req.body.EmployeeKey;
-    var metaupdatedby = req.body.managerKey;
+    var metaupdatedby = req.body.updatedBY;
 
     var employeenumber = req.body.EmployeeNumber;
     var firstname = req.body.FirstName;

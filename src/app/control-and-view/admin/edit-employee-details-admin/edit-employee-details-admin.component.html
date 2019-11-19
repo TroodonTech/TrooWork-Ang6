@@ -8,29 +8,24 @@
       Information</h4>
     <div class="form-row col-md-12">
       <div class="col-md-6 ">
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label>Organization*</label>
           <input *ngIf="editempdtails" type="text" name="orgID" [(ngModel)]="editempdtails.Organization" readonly
             class="form-control col-sm-9 col-md-9 col-lg-9" />
+        </div> -->
+        <div class="form-group ">
+          <label>Employee Number*</label>
+          <input *ngIf="editempdtails" type="text" name="EmployeeNumber" class="form-control col-sm-9 col-md-9 col-lg-9"
+            maxlength="15" placeholder="Employee Number" [(ngModel)]="editempdtails.EmployeeNumber"
+            style="width: 75%;max-width: 100%;">
         </div>
       </div>
       <div class="col-md-6">
-        <div class="form-group ">
-          <label style="margin-left: 1rem;">Employee Number*</label>
-          <input *ngIf="editempdtails" type="text" name="EmployeeNumber" class="form-control col-sm-9 col-md-9 col-lg-9"
-            maxlength="15" placeholder="Employee Number" [(ngModel)]="editempdtails.EmployeeNumber"
-            style="margin-left: 1rem;width: 75%;max-width: 100%;">
-
-        </div>
-      </div>
-    </div>
-
-    <div class="form-row col-md-12">
-      <div class="col-md-6 ">
         <div class="form-group">
-          <label>User Role Type*</label>
-          <select name="userroletype" style="background-color: #d4f4ff;" class="form-control col-sm-9 col-md-9 col-lg-9"
-            [(ngModel)]="editempdtails.UserRoleTypeKey" (change)="selectUserType($event.target.value)">
+          <label style="margin-left: 1rem;">User Role Type*</label>
+          <select name="userroletype" style="margin-left:0.9rem;background-color: #d4f4ff;"
+            class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="editempdtails.UserRoleTypeKey"
+            (change)="selectUserType($event.target.value)">
             <option value="" placeholder>--Select--</option>
             <option *ngFor="let u of useroletyp" [value]="u.UserRoleTypeKey">
               {{u.UserRoleName}}
@@ -38,7 +33,43 @@
           </select>
         </div>
       </div>
-      <div class="col-md-6" *ngIf="editempdtails.UserRoleName == 'Employee'">
+    </div>
+
+    <div class="form-row col-md-12">
+      <div class="col-md-6 ">
+        <div class="form-group">
+          <label>Hire Date*</label>
+          <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="20%" [(ngModel)]="HireDate"></igx-datePicker> -->
+          <ng-datepicker [options]="options" position="top-right" [(ngModel)]="HireDate"></ng-datepicker>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label style="margin-left: 1rem;">Job Title</label><br>
+          <select name="jobtitle" style="margin-left:0.9rem;background-color: #d4f4ff;width: 75%;max-width: 100%;"
+            [(ngModel)]="editempdtails.JobTitleKey" class="form-control col-sm-9 col-md-9 col-lg-9">
+            <option value="" placeholder>--Select--</option>
+            <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
+              {{j.JobTitleText}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-row col-md-12">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Department</label><br>
+          <select name="department" style="background-color: #d4f4ff;width: 75%;max-width: 100%;"
+            class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="editempdtails.DepartmentKey">
+            <option value="">--Select--</option>
+            <option *ngFor="let d of department" [value]="d.DepartmentKey">
+              {{d.DepartmentName}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6" *ngIf="showManager">
         <div class="form-group " style="margin-left: 1rem;">
           <label>Manager*</label>
           <select name="userroletype" style=" background-color: #d4f4ff;width: 77%;max-width: 100%;"
@@ -53,15 +84,20 @@
     </div>
     <div class="form-row col-md-12">
       <div class="col-md-6">
-        <div class="form-group">
-          <label>Hire Date*</label>
-          <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" item-width="20%" [(ngModel)]="HireDate"></igx-datePicker> -->
-          <ng-datepicker [options]="options" position="top-right" [(ngModel)]="HireDate"></ng-datepicker>
+        <div class="form-group" *ngIf="supermark">
+          <label>Supervisor*</label><br>
+          <select name="supervisor" style="background-color: #d4f4ff;width: 76%;max-width: 100%;"
+            [(ngModel)]="editempdtails.SupervisorKey" class="form-control col-sm-9 col-md-9 col-lg-9">
+            <option value="">--Select--</option>
+            <option *ngFor="let s of supervisor" [value]="s.SupervisorKey">
+              {{s.SupervisorText}}
+            </option>
+          </select>
         </div>
-        <!-- <div class="form-check form-check-inline" style="margin-top: 2.2rem">
-          <input type="checkbox" [(ngModel)]="editempdtails.IsSupervisor" data-md-icheck (change)="toggleVisibility($event)" />&nbsp;
-          <label class="form-check-label" for="materialInline1">Supervisor</label> &nbsp;&nbsp;
-        </div> -->
+      </div>
+    </div>
+    <div class="form-row col-md-12">
+      <div class="col-md-6">
         <div class="form-group" style="margin-left: -1rem">
           <label style="margin-left: 1rem;">Employee Status*</label><br>
           <select name="jobtitle" style="margin-left:0.9rem;background-color: #d4f4ff;width: 73%;max-width: 100%;"
@@ -74,32 +110,8 @@
           </select>
         </div>
       </div>
+
       <div class="col-md-6">
-        <div class="form-group">
-          <label style="margin-left: 1rem;">Job Title</label><br>
-          <select name="jobtitle" style="margin-left:0.9rem;background-color: #d4f4ff;width: 75%;max-width: 100%;"
-            [(ngModel)]="editempdtails.JobTitleKey" class="form-control col-sm-9 col-md-9 col-lg-9">
-            <option value="" placeholder>--Select--</option>
-            <option *ngFor="let j of jobtitle" [value]="j.JobTitleKey">
-              {{j.JobTitleText}}
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label style="margin-left: 1rem;">Department</label><br>
-          <select name="department" style="margin-left:0.9rem;background-color: #d4f4ff;width: 75%;max-width: 100%;"
-            class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="editempdtails.DepartmentKey">
-            <option value="">--Select--</option>
-            <option *ngFor="let d of department" [value]="d.DepartmentKey">
-              {{d.DepartmentName}}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-6">
-
-
         <div class="form-group" *ngIf="statusFlag">
           <label>Remarks*</label>
           <!-- <textarea class="form-control rounded-1" maxlength="200" [(ngModel)]="remark" rows="8"
@@ -109,6 +121,7 @@
         </div>
       </div>
     </div>
+
   </div>
   <br>
   <div class="row bg-info col-md-12">
@@ -231,7 +244,7 @@
 
       <div class="row col-md-12" style="margin-left: 35%;">
         <a style="text-align:center" class="btn btn-success"
-          (click)="editEmployee(editempdtails.EmployeeNumber,editempdtails.UserRoleTypeKey,editempdtails.FirstName,editempdtails.LastName,editempdtails.MiddleName,BirthDate,editempdtails.Gender,editempdtails.AddressLine1,editempdtails.City,editempdtails.AddressLine2,editempdtails.State,editempdtails.Country,editempdtails.PrimaryPhone,editempdtails.ZipCode,editempdtails.AlternatePhone,editempdtails.EmailID,editempdtails.EmployeeStatusKey,HireDate,editempdtails.JobTitleKey,editempdtails.DepartmentKey)">
+          (click)="editEmployee(editempdtails.EmployeeNumber,editempdtails.UserRoleTypeKey,editempdtails.FirstName,editempdtails.LastName,editempdtails.MiddleName,BirthDate,editempdtails.Gender,editempdtails.AddressLine1,editempdtails.City,editempdtails.AddressLine2,editempdtails.State,editempdtails.Country,editempdtails.PrimaryPhone,editempdtails.ZipCode,editempdtails.AlternatePhone,editempdtails.EmailID,editempdtails.EmployeeStatusKey,HireDate,editempdtails.JobTitleKey,editempdtails.DepartmentKey,editempdtails.ManagerKey,editempdtails.SupervisorKey)">
           <b> Update</b></a>
         <a class="btn btn-danger" (click)="basicModal.show();deleteEmpPass(empk$); "><b>Delete</b></a>
         <a (click)='goBack()' class="btn btn-warning" style="color:white !important"><b>Go
