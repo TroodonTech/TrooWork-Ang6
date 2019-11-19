@@ -15,6 +15,11 @@ export class ReportServiceService {
       // .get(ConectionSettings.Url + '/supervisorname?employeekey=' + empKey + '&OrganizationID=' + orgID);
       .get(ConectionSettings.Url + '/supervisorname_SuType?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
+  getallAuditors(empKey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getallAuditors?employeekey=' + empKey + '&OrganizationID=' + orgID);
+  }
   getinspectionreport(fromdate, todate, SupervisorKey, orgID) {
 
     return this

@@ -130,7 +130,7 @@ export class InspectionReportComponent implements OnInit {
 
 
     this.ReportServiceService//service for getting supervisor names
-      .getallsupervisor(this.employeekey, this.OrganizationID)
+      .getallAuditors(this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.supervisoroptions = data;
       });
