@@ -195,9 +195,12 @@ export class DashboardReportComponent implements OnInit {
 
     var dateTemp_1 = this.convert_DT(new Date());
     var dateTemp_2 = this.convert_DT(new Date());
-    this.ReportServiceService
-      .getallemployee(this.employeekey, this.OrganizationID)
-      .subscribe((data: Reports[]) => {
+    // this.ReportServiceService
+    //   .getallemployee(this.employeekey, this.OrganizationID)
+    //   .subscribe((data: Reports[]) => {
+    //     this.employeeoption = data;
+    //   });
+      this.ReportServiceService.getEmployee(this.employeekey, this.OrganizationID).subscribe((data: Reports[]) => {
         this.employeeoption = data;
       });
     this.ReportServiceService

@@ -33,7 +33,8 @@ export class EditEmployeedetailsComponent implements OnInit {
   empNum;
   statusFlag;
   remark;
-
+  userRoleType;
+  userRoleTypes;
   //Author: Prakash Code Starts for Employee Calendar Starts Here
 
   // schedularcount = 0;
@@ -476,6 +477,17 @@ export class EditEmployeedetailsComponent implements OnInit {
       });
 
     this.PeopleServiceService
+      .getUserRoletypeForManager(this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.userRoleType = data;
+      });
+      this.PeopleServiceService
+      .getUserRoleType(this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.userRoleTypes = data;
+
+      });
+      this.PeopleServiceService
       .getallemployeegrouping(this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeegrouping = data;

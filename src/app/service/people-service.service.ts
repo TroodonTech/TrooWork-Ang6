@@ -1187,6 +1187,11 @@ export class PeopleServiceService {
       .get(ConectionSettings.Url + '/getallemployeegrouping?OrganizationID=' + OrgID);
 
   }
+  getUserRoletypeForManager(OrgID){
+    return this
+    .http
+    .get(ConectionSettings.Url + '/getUserRoletypeForManager?OrganizationID=' + OrgID);
+  } 
   getweeklyschedulebyEmployeeGroupid(employeegroupid) {
     return this
       .http
