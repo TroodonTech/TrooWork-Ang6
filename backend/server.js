@@ -1903,7 +1903,7 @@ app.get(securedpath + '/editviewWorkOrderType', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @WorkorderTypeKey=?;set @OrganizationID=?;call m.(@WorkorderTypeKey,@OrganizationID)', [WorkorderTypeKey, OrganizationID], function (err, rows) {
+            connection.query('set @WorkorderTypeKey=?;set @OrganizationID=?;call usp_editviewWorkOrderType(@WorkorderTypeKey,@OrganizationID)', [WorkorderTypeKey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
