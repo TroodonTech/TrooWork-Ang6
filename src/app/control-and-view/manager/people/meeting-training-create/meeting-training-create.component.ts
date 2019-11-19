@@ -185,12 +185,12 @@ export class MeetingTrainingCreateComponent implements OnInit {
       var time2 = new Date(this.time2);
       var curTime = new Date();
       var timediff = +time2 - +time1;
-      
+
       if (timediff < 0) {
         alert("Start Time can't be after End Time");
         return;
       }
-      
+
     }
 
     if (!this.EventType) {
@@ -215,7 +215,7 @@ export class MeetingTrainingCreateComponent implements OnInit {
       else {
         newDate = this.convert_DT(this.mtngDate);
       }
-      
+
 
       var EmployeeKeyString;
       if (this.Employee.length == 0) {
@@ -387,27 +387,35 @@ export class MeetingTrainingCreateComponent implements OnInit {
     else {
       eventDescription = null;
     }
+    this.peopleServ.checkEventDuplicate(eventType, eventName, this.OrganizationID).subscribe((data: any[]) => {
+      if (data[0].count == 0) {
+        this.addnewEvent = {
+          ActionKey: null,
+          EmployeeKey: this.employeekey,
+          EventDescription: this.Description,
+          EventName: this.Event_Name,
+          EventType: this.Event_Type,
+          OrganizationID: this.OrganizationID,
+          eventDescription: this.Description,
+          eventName: this.Event_Name,
+          eventType: this.Event_Type
+        };
 
-    this.addnewEvent = {
-      ActionKey: null,
-      EmployeeKey: this.employeekey,
-      EventDescription: this.Description,
-      EventName: this.Event_Name,
-      EventType: this.Event_Type,
-      OrganizationID: this.OrganizationID,
-      eventDescription: this.Description,
-      eventName: this.Event_Name,
-      eventType: this.Event_Type
-    };
-    this.peopleServ
-      .addMeetinTraingByNewEvent(this.addnewEvent)
-      .subscribe((data: People[]) => {
-        this.event = data;
-        alert("New Event is Successfully created")
-        this.Event_Name = null;
-        this.Event_Type = null;
-        this.Description = null;
-      });
+        this.peopleServ
+          .addMeetinTraingByNewEvent(this.addnewEvent)
+          .subscribe((data: People[]) => {
+            this.event = data;
+            alert("New Event is Successfully created")
+            this.Event_Name = null;
+            this.Event_Type = null;
+            this.Description = null;
+          });
+      } else {
+        alert("Entered event already exists...!!!");
+        return false;
+      }
+    });
+
   }
 
 }

@@ -38,7 +38,7 @@
       <div class="col-md-8" style="text-align:left">
         <input type="text" *ngIf="workorderTypeList && metricType=='Default'" maxlength="40"
           style="background-color: #D4F4FF !important;" class="form-control" [disabled]="metricType=='Default'"
-          placeholder="Metric Value" (keypress)="numberValid($event)" [(ngModel)]="workorderTypeList[0].MetricDefaultValue">
+          placeholder="Metric Value" (keypress)="numberValid($event)" [(ngModel)]="workorderTypeList[0].MetricTypeValue">
 
         <input type="text" *ngIf="workorderTypeList && metricType!='Default'" maxlength="40"
           style="background-color: #D4F4FF !important;" class="form-control" placeholder="Metric Value"

@@ -1,4 +1,5 @@
-<div style="overflow-x: hidden;padding-left: 9rem;padding-right: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;">
+<div
+  style="overflow-x: hidden;padding-left: 9rem;padding-right: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;">
   <div class="row col-md-12 ">
     <br>
     <h4 style="margin-left: 35%;">EDIT MEETING/TRAINING/EVENT</h4>
@@ -39,8 +40,8 @@
       <div class="col-md-6">
         <div class="form-group " style="margin-left: 1rem;margin-top: 5.4rem">
           <label>Venue*</label>
-          <input type="text" style="background-color: #D4F4FF !important;width: 102%" maxlength="40" class="form-control"
-            [(ngModel)]="mtngDetails.Venue">
+          <input type="text" style="background-color: #D4F4FF !important;width: 102%" maxlength="40"
+            class="form-control" [(ngModel)]="mtngDetails.Venue">
         </div>
       </div>
     </div>
@@ -90,13 +91,6 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="Employee">Employee* </label>
-        <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="Employee" [settings]="dropdownSettings1">
-        </ng-multiselect-dropdown>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
         <label for="Employee">Department </label>
         <select style="background-color: #D4F4FF !important;" class="form-control " [(ngModel)]="DepartmentKey"
           (change)="selectEmp()">
@@ -109,8 +103,17 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
+        <label for="Employee">Employee* </label>
+        <ng-multiselect-dropdown [placeholder]="'Selectemployee'" [data]="empList" [(ngModel)]="Employee"
+          [settings]="dropdownSettings1">
+        </ng-multiselect-dropdown>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
         <label>Notes</label>
-        <textarea class="form-control rounded-1" [(ngModel)]="mtngDetails.MeetingNotes" rows="5" style="resize: none;width: 100%;"></textarea>
+        <textarea class="form-control rounded-1" [(ngModel)]="mtngDetails.MeetingNotes" rows="5"
+          style="resize: none;width: 100%;"></textarea>
       </div>
     </div>
     <div class="row col-md-12" style="margin-left: 30rem;">
