@@ -285,6 +285,11 @@ export class PeopleServiceService {
       .http
       .get(ConectionSettings.Url + '/JobtitleForSuperAdmin?OrganizationID=' + OrgID);
   }
+  getAllJobTitle(OrgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getAllJobTitle?OrganizationID=' + OrgID);
+  }
   getJobTitleforadmindd(employeekey, OrganizationID) {
     return this
       .http
