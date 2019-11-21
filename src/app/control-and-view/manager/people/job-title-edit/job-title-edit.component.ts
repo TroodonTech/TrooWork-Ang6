@@ -17,7 +17,7 @@ export class JobTitleEditComponent implements OnInit {
   employeekey: Number;
   IsSupervisor: Number;
   OrganizationID: Number;
-
+  JT;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -49,9 +49,7 @@ export class JobTitleEditComponent implements OnInit {
       return;
     }
     else {
-      debugger;
-      if (JobTitle !== this.JobtitleDetails[0].JobTitle) {
-        alert("inside if");
+      if (JobTitle !== this.JT) {
         this.peopleServiceService.CheckNewJobtitle(JobTitle, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
           if (data[0].count > 0) {
             alert("Job title already present !");
@@ -73,7 +71,6 @@ export class JobTitleEditComponent implements OnInit {
           }
         });
       } else {
-        alert("inside else");
         this.peopleServiceService.updateEditJobtitle(this.JobTitle_Key$, JobTitle, JobTitleDescription, this.employeekey, this.OrganizationID)
           .subscribe((data: any[]) => {
             alert('Job title  successfully updated !');
@@ -103,7 +100,7 @@ export class JobTitleEditComponent implements OnInit {
 
     this.peopleServiceService.getEditJobtitleDetails(this.JobTitle_Key$, this.OrganizationID).subscribe((data: any[]) => {
       this.JobtitleDetails = data;
-
+this.JT=this.JobtitleDetails[0].JobTitle;
     });
   }
   goBack() {

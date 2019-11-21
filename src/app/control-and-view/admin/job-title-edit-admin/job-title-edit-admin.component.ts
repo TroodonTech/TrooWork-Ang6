@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class JobTitleEditAdminComponent implements OnInit {
   JobTitle_Key$: object;
   JobtitleDetails: People[];
-
+  JT;
   role: String;
   name: String;
   employeekey: Number;
@@ -41,37 +41,45 @@ export class JobTitleEditAdminComponent implements OnInit {
     this.route.params.subscribe(params => this.JobTitle_Key$ = params.JobTitle_Key);
   }
   updateJobTitle(JobTitle, JobTitleDescription) {
-    if(JobTitle &&!JobTitle.trim()){
+    if (JobTitle && !JobTitle.trim()) {
       alert('Job title is not provided !');
       return;
     }
-    if(JobTitleDescription && !JobTitleDescription.trim()){
+    if (JobTitleDescription && !JobTitleDescription.trim()) {
       alert('Job Title Description is not provided !');
       return;
     }
-    if(!JobTitle){
+    if (!JobTitle) {
       alert('Job title is not provided !');
       return;
     }
-    if( !JobTitleDescription){
+    if (!JobTitleDescription) {
       alert('Job Title Description is not provided !');
       return;
     }
     else {
-      this.peopleServiceService.CheckNewJobtitle(JobTitle,this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-        if (data[0].count > 0) {
-          alert("Job title already present !");
-          return;
-        }
-        else{
-    this.peopleServiceService.updateEditJobtitle(this.JobTitle_Key$, JobTitle, JobTitleDescription, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-      alert('Job title  successfully updated !');
-    this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['JobTitleViewAdmin'] } }]);
-  });
-}
-});
+      debugger;
+      if (JobTitle !== this.JT) {
+        this.peopleServiceService.CheckNewJobtitle(JobTitle, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+          if (data[0].count > 0) {
+            alert("Job title already present !");
+            return;
+          }
+          else {
+            this.peopleServiceService.updateEditJobtitle(this.JobTitle_Key$, JobTitle, JobTitleDescription, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+              alert('Job title  successfully updated !');
+              this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['JobTitleViewAdmin'] } }]);
+            });
+          }
+        });
+      } else {
+        this.peopleServiceService.updateEditJobtitle(this.JobTitle_Key$, JobTitle, JobTitleDescription, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+          alert('Job title  successfully updated !');
+          this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['JobTitleViewAdmin'] } }]);
+        });
+      }
+    }
   }
-}
 
   ngOnInit() {
     var token = localStorage.getItem('token');
@@ -85,10 +93,10 @@ export class JobTitleEditAdminComponent implements OnInit {
 
     this.peopleServiceService.getEditJobtitleDetails(this.JobTitle_Key$, this.OrganizationID).subscribe((data: People[]) => {
       this.JobtitleDetails = data;
-
+      this.JT = this.JobtitleDetails[0].JobTitle;
     });
   }
-  goBack(){
+  goBack() {
     this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['JobTitleViewAdmin'] } }]);
   }
 }

@@ -108,7 +108,6 @@ export class ViewEmployeesofGroupComponent implements OnInit {
       // alert(i);
       this.scheduleServ.saveOrderChange(this.employeekey, this.OrganizationID, this.empList[i].EmployeeKey, this.empList[i].GroupSeniorityOrder)
         .subscribe(res => {
-          // debugger;
           // count = count + 1;
           // alert("Updated... count." + count + "...empKey..." + this.empList[i].EmployeeKey + "...GroupSeniorityOrder..." + this.empList[i].GroupSeniorityOrder);
         });
