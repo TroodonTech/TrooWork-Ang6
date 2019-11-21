@@ -35,6 +35,7 @@ export class EditEmployeedetailsComponent implements OnInit {
   remark;
   userRoleType;
   userRoleTypes;
+  managerList;
   //Author: Prakash Code Starts for Employee Calendar Starts Here
 
   // schedularcount = 0;
@@ -130,10 +131,12 @@ export class EditEmployeedetailsComponent implements OnInit {
     }
   }
 
-  editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, JobTitleKey, SupervisorKey, DepartmentKey) {
+  editEmployee(EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, BD, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, HD, JobTitleKey, SupervisorKey, DepartmentKey, managerKey) {
     // start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend,idemployeegrouping
     // this.schedularcount = 0;
-    var mankey;
+    var manKey;
+    var superKey;
+
     if (!(this.editempdtails.EmployeeNumber) || !EmployeeNumber.trim()) {
       alert("Employee Number is not provided !");
       return;
@@ -202,14 +205,18 @@ export class EditEmployeedetailsComponent implements OnInit {
       return;
     }
 
-    if (this.editempdtails.UserRoleTypeKey == 3 && !(this.editempdtails.ManagerKey)) {
-      mankey = this.employeekey;
+    if (!(managerKey)) {
+      alert("Manager is not provided !");
+      return;
     }
-    else if (this.editempdtails.UserRoleTypeKey == 5 && !(this.editempdtails.ManagerKey)) {
-      mankey = this.employeekey;
+    if (this.editempdtails.UserRoleTypeKey == 3 && !(managerKey)) {
+      manKey = this.employeekey;
+    }
+    else if (this.editempdtails.UserRoleTypeKey == 5 && !(managerKey)) {
+      manKey = this.employeekey;
     }
     else {
-      mankey = this.editempdtails.ManagerKey;
+      manKey = managerKey;
     }
 
     //Author: Prakash Code Starts for Employee Calendar Starts Here
@@ -304,7 +311,7 @@ export class EditEmployeedetailsComponent implements OnInit {
     // }
     // if (this.schedularcount == 0) {
     if (this.empNum == this.editempdtails.EmployeeNumber) {
-      this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, this.employeekey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, SupervisorKey, JobTitleKey, DepartmentKey, this.remark).subscribe((data: People[]) => {
+      this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, manKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, SupervisorKey, JobTitleKey, DepartmentKey, this.remark).subscribe((data: People[]) => {
         // start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend, idemployeegrouping
         alert("Updated Successfully!");
         // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewEmployee'] } }]);
@@ -321,7 +328,7 @@ export class EditEmployeedetailsComponent implements OnInit {
       this.PeopleServiceService.CheckForEmployeenumber(this.editempdtails.EmployeeNumber, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
         if (data[0].count == 0) {
           var hiredt = this.convert_DT(this.BirthDate);
-          this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, mankey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, SupervisorKey, JobTitleKey, DepartmentKey, this.remark)
+          this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, manKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, SupervisorKey, JobTitleKey, DepartmentKey, this.remark)
             //  start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend, idemployeegrouping
             .subscribe((data: People[]) => {
               alert("Updated Successfully!");
@@ -481,16 +488,22 @@ export class EditEmployeedetailsComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.userRoleType = data;
       });
-      this.PeopleServiceService
+    this.PeopleServiceService
       .getUserRoleType(this.OrganizationID)
       .subscribe((data: any[]) => {
         this.userRoleTypes = data;
 
       });
-      this.PeopleServiceService
+    this.PeopleServiceService
       .getallemployeegrouping(this.OrganizationID)
       .subscribe((data: People[]) => {
         this.employeegrouping = data;
+      });
+
+    this.PeopleServiceService
+      .getmanagersForEmp(this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.managerList = data;
       });
     //Author: Prakash Code Starts for Employee Calendar Starts Here
 
@@ -543,6 +556,14 @@ export class EditEmployeedetailsComponent implements OnInit {
     else {
       this.statusFlag = false;
     }
+  }
 
+  selectUserType(ut) {
+    if (ut == 3) {
+      this.marked = true;
+    } else {
+      this.marked = false;
+    }
+    // console.log(this.marked);
   }
 }

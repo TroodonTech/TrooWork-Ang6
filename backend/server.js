@@ -20036,6 +20036,35 @@ app.get(securedpath + '/checkForNewEventType', function (req, res) {
         connection.release();
     });
 });
+
+app.get(securedpath + '/checkForDuplicateEventType', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var ActionType = url.parse(req.url, true).query['ActionType'];
+    var Action = url.parse(req.url, true).query['Action'];
+    var ActionKey = url.parse(req.url, true).query['ActionKey'];
+    var ActionTypeKey = url.parse(req.url, true).query['ActionTypeKey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @ActionType=?;set @Action=?; set @ActionKey=?;set @ActionTypeKey=?; set @OrganizationID=?; call checkForDuplicateEventType(@ActionType,@Action,@ActionKey,@ActionTypeKey,@OrganizationID)', [ActionType, Action, ActionKey, ActionTypeKey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("getallWorkorderStatus " + JSON.stringify(rows[5]));
+                    res.end(JSON.stringify(rows[5]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 /*
 Supervisor as usertype is added. Creating new api for backward compatibility
 Coding by Rodney ends....

@@ -1331,4 +1331,11 @@ export class PeopleServiceService {
       .get(ConectionSettings.Url + '/checkForNewEventType?eventType=' + eventType + '&eventName=' + eventName + '&OrganizationID=' + orgID);
 
   }
+  checkEventDuplicateForEdit(ActionType, Action, ActionKey, ActionTypeKey, OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/checkForDuplicateEventType?ActionType=' + ActionType + '&Action=' + Action + '&ActionTypeKey=' + ActionTypeKey +
+        '&ActionKey=' + ActionKey + '&OrganizationID=' + OrganizationID);
+
+  }
 }
