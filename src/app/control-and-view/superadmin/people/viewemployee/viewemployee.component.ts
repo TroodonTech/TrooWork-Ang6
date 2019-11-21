@@ -71,27 +71,34 @@ export class ViewemployeeComponent implements OnInit {
     }, 100)
   }
   getempdettablewithselectedddvsa() {
-    if(!(this.ManagerKey))
-    {
-      this.ManagerKey=null;
+    this.pageNo=1;
+    if (!(this.ManagerKey)) {
+      this.ManagerKey = null;
     }
-    if(!(this.JobTitleKey))
-    {
-      this.JobTitleKey=null;
+    if (!(this.JobTitleKey)) {
+      this.JobTitleKey = null;
     }
+    this.loading = true;
     this.PeopleServiceService
-      .getAllEmployeeDetailswithjobtitledropdownsa(this.OrganizationID, this.employeekey, this.JobTitleKey, this.ManagerKey, this.page, this.count)
+      .getAllEmployeeDetailswithjobtitledropdownsa(this.OrganizationID, this.employeekey, this.JobTitleKey, this.ManagerKey, this.pageNo, this.count)
       .subscribe((data: People[]) => {
         this.employeedetailstable = data;
-        this.showHide2 = false;
-        this.showHide1 = false;
+        this.loading = false;
+        if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
+          this.showHide2 = true;
+          this.showHide1 = false;
+        }
+        else if (this.employeedetailstable[0].totalItems <= this.itemsPerPage) {
+          this.showHide2 = false;
+          this.showHide1 = false;
+        }
       });
 
   }
 
   searchEmployeeDetails(SearchValue) {
 
-    var value=SearchValue.trim();
+    var value = SearchValue.trim();
 
     if (value.length >= 3) {
       this.PeopleServiceService
@@ -102,15 +109,14 @@ export class ViewemployeeComponent implements OnInit {
           this.showHide1 = false;
         });
     } else if (value.length == 0) {
-      if((value.length == 0) &&(SearchValue.length == 0) )
-      {
-     this.loading = true;
+      if ((value.length == 0) && (SearchValue.length == 0)) {
+        this.loading = true;
       }
       this.PeopleServiceService
         .searchResultOfEmployeedetailsTable(value, this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: People[]) => {
           this.employeedetailstable = data;
-         this.loading = false;
+          this.loading = false;
           if (this.employeedetailstable[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -133,11 +139,11 @@ export class ViewemployeeComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    this.ManagerKey="";
-    this.JobTitleKey="";
+    this.ManagerKey = "";
+    this.JobTitleKey = "";
 
     this.PeopleServiceService
-      .getJobTitle(this.OrganizationID)
+      .getAllJobTitle(this.OrganizationID)
       .subscribe((data: People[]) => {
         this.jobtitle = data;
       });
@@ -170,38 +176,86 @@ export class ViewemployeeComponent implements OnInit {
   previousPage() {
     this.loading = true;
     this.pageNo = +this.pageNo - 1;
-    this.PeopleServiceService
-      .getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.employeedetailstable = data;
-        this.loading = false;
-        if (this.pageNo == 1) {
-          this.showHide2 = true;
-          this.showHide1 = false;
-        } else {
-          this.showHide2 = true;
-          this.showHide1 = true;
-        }
-      });
+    if (this.JobTitleKey || this.ManagerKey) {
+      if (!(this.ManagerKey)) {
+        this.ManagerKey = null;
+      }
+      if (!(this.JobTitleKey)) {
+        this.JobTitleKey = null;
+      }
+      this.loading = true;
+      this.PeopleServiceService
+        .getAllEmployeeDetailswithjobtitledropdownsa(this.OrganizationID, this.employeekey, this.JobTitleKey, this.ManagerKey, this.pageNo, this.count)
+        .subscribe((data: People[]) => {
+          this.employeedetailstable = data;
+          this.loading = false;
+          if (this.pageNo == 1) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          } else {
+            this.showHide2 = true;
+            this.showHide1 = true;
+          }
+        });
+        }else {
+            this.PeopleServiceService
+              .getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+              .subscribe((data: People[]) => {
+                this.employeedetailstable = data;
+                this.loading = false;
+                if (this.pageNo == 1) {
+                  this.showHide2 = true;
+                  this.showHide1 = false;
+                } else {
+                  this.showHide2 = true;
+                  this.showHide1 = true;
+                }
+              });
+          }
   }
-  nextPage() {
-    this.loading = true;
-    this.pageNo = +this.pageNo + 1;
-    this.PeopleServiceService
-      .getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.employeedetailstable = data;
-        this.loading = false;
-        this.pagination = + this.employeedetailstable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
-        if (this.pagination > 1) {
-          this.showHide2 = true;
-          this.showHide1 = true;
+    nextPage() {
+      this.loading = true;
+      this.pageNo = +this.pageNo + 1;
+      if (this.JobTitleKey || this.ManagerKey) {
+        if (!(this.ManagerKey)) {
+          this.ManagerKey = null;
         }
-        else {
-          this.showHide2 = false;
-          this.showHide1 = true;
+        if (!(this.JobTitleKey)) {
+          this.JobTitleKey = null;
         }
-      });
-  }
+        this.loading = true;
+        this.PeopleServiceService
+          .getAllEmployeeDetailswithjobtitledropdownsa(this.OrganizationID, this.employeekey, this.JobTitleKey, this.ManagerKey, this.pageNo, this.count)
+          .subscribe((data: People[]) => {
+            this.employeedetailstable = data;
+            this.loading = false;
+            this.pagination = + this.employeedetailstable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+            if (this.pagination > 1) {
+              this.showHide2 = true;
+              this.showHide1 = true;
+            }
+            else {
+              this.showHide2 = false;
+              this.showHide1 = true;
+            }
+          });
+      } else {
+        this.PeopleServiceService
+          .getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+          .subscribe((data: People[]) => {
+            this.employeedetailstable = data;
+            this.loading = false;
+            this.pagination = + this.employeedetailstable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+            if (this.pagination > 1) {
+              this.showHide2 = true;
+              this.showHide1 = true;
+            }
+            else {
+              this.showHide2 = false;
+              this.showHide1 = true;
+            }
+          });
+      }
+    }
 
-}
+  }
