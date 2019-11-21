@@ -73,7 +73,7 @@ export class ReviewReportComponent implements OnInit {
   inspectionreport: FormGroup;
   viewReport;
   public reportarray: Array<any> = [{
-    // Template: '', Date: '', Location: '', Auditor: '', Employee: '', Status: ''
+    Date: '', Room: '', Question: '', StarRating: ''
   }
   ];
   constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private excelService: ExcelserviceService) {
@@ -82,29 +82,23 @@ export class ReviewReportComponent implements OnInit {
       SupervisorText: ['', Validators.required]
     });
   }
-  //function for exporting to excel 
-  // exportToExcel(): void {
-  //   for (var i = 0; i < this.viewReport.length; i++) {
-  //     var temp_name = (this.viewReport[i].TemplateName);
-  //     var ins_date = (this.viewReport[i].InspectionDate);
-  //     var locationname = this.viewReport[i].FacilityName.concat('-', this.viewReport[i].RoomId);
-  //     var auditorname = this.viewReport[i].LastName.concat(',', this.viewReport[i].FirstName);
-  //     var employeename = (this.viewReport[i].EmployeeName);
-  //     if (this.viewReport[i].InspectionCompletedBy !== null) {
-  //       var cur_status1 = 'Inspection Completed';
-  //       this.reportarray.push({ template: temp_name, Date: ins_date, Location: locationname, Auditor: auditorname, Employee: employeename, Status: cur_status1 })
-  //     }
-  //     else {
-  //       var cur_status2 = 'Inspection not Completed';
-  //       this.reportarray.push({ Template: temp_name, Date: ins_date, Location: locationname, Auditor: auditorname, Employee: employeename, Status: cur_status2 })
-  //     }
-  //   }
-  //   var blob = new Blob([document.getElementById('exportable1').innerHTML], {
-  //     type: EXCEL_TYPE
-  //   });
-  //   FileSaver.saveAs(blob, "inspection_Report.xls");
-  //   // this.excelService.exportAsExcelFile(this.reportarray, 'Inspection_Report');
-  // }
+
+  // function for exporting to excel 
+  exportToExcel(): void {
+    for (var i = 0; i < this.viewReport.length; i++) {
+      var date1 = (this.viewReport[i].ReviewDate);
+      var room = (this.viewReport[i].RoomName);
+      var question = this.viewReport[i].Question;
+      var rating = this.viewReport[i].ReviewValue;
+
+      this.reportarray.push({ Date: date1, Room: room, Question: question, StarRating: rating })
+
+    }
+    var blob = new Blob([document.getElementById('exportable1').innerHTML], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(blob, "Feedback_Report.xls");
+  }
 
   ngOnInit() {
     this.SupervisorKey = ""
