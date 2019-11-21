@@ -200,7 +200,7 @@ export class DashboardReportComponent implements OnInit {
     //   .subscribe((data: Reports[]) => {
     //     this.employeeoption = data;
     //   });
-      this.ReportServiceService.getEmployee(this.employeekey, this.OrganizationID).subscribe((data: Reports[]) => {
+      this.ReportServiceService.getallemployee(this.employeekey, this.OrganizationID).subscribe((data: Reports[]) => {
         this.employeeoption = data;
       });
     this.ReportServiceService
