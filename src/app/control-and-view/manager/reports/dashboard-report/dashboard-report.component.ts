@@ -348,6 +348,11 @@ export class DashboardReportComponent implements OnInit {
   ngOnDestroy() {//unsubscribing from calling filter function after regular interval
     this.subscription.unsubscribe();
   }
+  shiftcheck(){
+    if(this.ShiftType==='Normal'){
+      this.ShiftValue='All';
+    }
+  }
 }
 
 
