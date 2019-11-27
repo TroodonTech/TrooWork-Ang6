@@ -1071,6 +1071,7 @@ export class EditAssignmentScheduleForReportComponent implements OnInit {
         this.roomTempList = data;
         for (var j = 0; j < this.roomTempList.length; j++) {
           this.roomTempList[j].dailyFrequency = 1;
+          this.roomTempList[j].CreateWO=1;
         }
         this.metricCal();
       });

@@ -338,6 +338,7 @@ export class CreateBatchScheduleComponent implements OnInit {
         for (var j = 0; j < this.roomTempList.length; j++) {
           this.roomTempList[j].dailyFrequency = 1;
           this.roomTempList[j].KeepActive = 0;
+          this.roomTempList[j].CreateWO=1;
           // this.roomTempList[j].snapshot = 0;
         }
         this.metricCal();
