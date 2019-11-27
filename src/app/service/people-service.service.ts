@@ -508,14 +508,14 @@ export class PeopleServiceService {
       .get(ConectionSettings.Url + '/empDetails_SuType?SearchKey=' + empk + '&OrganizationID=' + orgid);
 
   }
-  selectEmpWithJobTSprvsrAndDept(employeekey, OrganizationID, JobTitle, Supervisor, DepartmentKey) {
+  selectEmpWithJobTSprvsrAndDept(employeekey, OrganizationID, JobTitle, Mang, DepartmentKey) {
     // const uri = ConectionSettings.Url + '/empSelectWithFilterInMeetCreate';
     const uri = ConectionSettings.Url + '/empSelectWithFilterInMeetCreate_SuType';
     const obj = {
       emKey: employeekey,
       OrgID: OrganizationID,
       JobT: JobTitle,
-      Sup: Supervisor,
+      Mang: Mang,
       DeptKey: DepartmentKey
     };
     return this.http.post(uri, obj);

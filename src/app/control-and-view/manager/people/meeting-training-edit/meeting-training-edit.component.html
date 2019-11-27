@@ -1,4 +1,4 @@
-<div
+<div *ngIf='mtngDetails'
   style="overflow-x: hidden;padding-left: 9rem;padding-right: 9rem; padding-top:0rem !important; padding-bottom:0rem !important;">
   <div class="row col-md-12 ">
     <br>
@@ -83,9 +83,9 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="floorname">Supervisor </label>
-        <ng-multiselect-dropdown [placeholder]="'Select Supervisor'" [data]="supervisor" [(ngModel)]="Supervisor"
-          [settings]="dropdownSettings2" (onSelect)="selectEmp()" (onSelectAll)="selectEmp()">
+        <label for="floorname">Manager  </label>
+        <ng-multiselect-dropdown [placeholder]="'Select Manager'" [data]="managerList" [(ngModel)]="Manager"
+          [settings]="dropdownSettings2" (onSelect)="selectEmp()" (onDeSelect)="selectEmp()" (onDeSelectAll)="selectEmp()" (onSelectAll)="selectEmp()">
         </ng-multiselect-dropdown>
       </div>
     </div>

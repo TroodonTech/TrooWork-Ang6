@@ -26,6 +26,9 @@ export class DashboardReportComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
   subscription: Subscription;
+  ShiftType='Normal';
+  shiftlist;
+  ShiftValue='All'
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -203,6 +206,9 @@ export class DashboardReportComponent implements OnInit {
       this.ReportServiceService.getallemployee(this.employeekey, this.OrganizationID).subscribe((data: Reports[]) => {
         this.employeeoption = data;
       });
+      this.ReportServiceService.getShiftNameList(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+        this.shiftlist = data;
+      });
     this.ReportServiceService
       .getallworkordertype(this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
@@ -220,14 +226,14 @@ export class DashboardReportComponent implements OnInit {
     this.em_Key = null;
     this.Workorder_TypeKey = null;
     this.ReportServiceService//service for fetching table values
-      .getdashboardreport(dateTemp_1, dateTemp_2, this.em_Key, this.Workorder_TypeKey, this.employeekey, this.OrganizationID)
+      .getdashboardreport(dateTemp_1, dateTemp_2, this.em_Key, this.Workorder_TypeKey, this.employeekey, this.OrganizationID,this.ShiftType,this.ShiftValue)
       .subscribe((data: Reports[]) => {
         this.reporttable = data;
         this.loading = false;
       });
 
     this.ReportServiceService//service for fetching pie chart values
-      .getpievalues(dateTemp_1, this.employeekey, this.OrganizationID)
+      .getpievalues(dateTemp_1, this.employeekey, this.OrganizationID,this.ShiftType,this.ShiftValue)
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
         this.sampledata1 = [['WorkorderStatus', 'count']];
@@ -308,13 +314,13 @@ export class DashboardReportComponent implements OnInit {
     }
     this.loading = true;
     this.ReportServiceService//service for fetching values for table
-      .getdashboardreport(date1, date2, this.em_Key, workordertypeString, this.employeekey, this.OrganizationID)
+      .getdashboardreport(date1, date2, this.em_Key, workordertypeString, this.employeekey, this.OrganizationID,this.ShiftType,this.ShiftValue)
       .subscribe((data: Reports[]) => {
         this.reporttable = data;
         this.loading = false;
       });
     this.ReportServiceService//service for fetching values for piechart
-      .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.OrganizationID, this.employeekey)
+      .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.OrganizationID, this.employeekey,this.ShiftType,this.ShiftValue)
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
         this.sampledata2 = [['WorkorderStatus', 'count']];//converting array to json format for piechart

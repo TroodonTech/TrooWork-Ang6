@@ -87,17 +87,27 @@ export class CreateWorkorderTypeComponent implements OnInit {
   //function for creating new workordertype
   addWOT(MetricType, WorkOrderTypeName, MetricTypeValue) {
 
-    if (!WorkOrderTypeName) {
+    if (!WorkOrderTypeName || !WorkOrderTypeName.trim()) {
       alert("Please enter work-order type!");
-    } else if (!WorkOrderTypeName.trim()) {
-      alert("Please enter work-order type!");
+      return;
     }
-    else if (!MetricType) {
+    if (!MetricType || !MetricType.trim()) {
       alert("Enter MetricType!");
-    } else if (!MetricTypeValue) {
+      return;
+    } 
+     if (MetricType != 'Default' &&(!MetricTypeValue || !MetricTypeValue.trim())) {
       alert("Enter MetricTypeValue!");
+      return;
     }
-    else {
+    if(MetricType){
+      MetricType=MetricType.trim();
+    }
+    if(WorkOrderTypeName){
+      WorkOrderTypeName=WorkOrderTypeName.trim();
+    }
+    if(MetricType != 'Default' && MetricTypeValue){
+      MetricTypeValue=MetricTypeValue.trim();
+    }
       this.add_WOT = {
         WorkorderTypeName: WorkOrderTypeName,
         RoomTypeKey: null,
@@ -134,7 +144,7 @@ export class CreateWorkorderTypeComponent implements OnInit {
               });
           }
         });
-    }
+    
   }
   goBack() {
     // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);

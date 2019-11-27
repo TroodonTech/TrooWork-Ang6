@@ -76,6 +76,9 @@ export class DocumentsUploadComponent implements OnInit {
       alert("Please choose Document Folder");
       return;
     }
+    if(this.DescName){
+      this.DescName=this.DescName.trim();
+    }
     this.addUrl = '?formtypeId=' + this.FormtypeId + '&formDesc=' + this.DescName + '&empkey=' + this.employeekey + '&OrganizationID=' + this.OrganizationID;
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;

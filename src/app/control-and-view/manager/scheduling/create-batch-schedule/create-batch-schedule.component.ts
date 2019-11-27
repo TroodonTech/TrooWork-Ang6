@@ -669,6 +669,9 @@ export class CreateBatchScheduleComponent implements OnInit {
         workordertkey1 = workorderkeyobj1.join(',');
         workorderroomstring1 = workorderroomobj1.join(',');
         CreateWO1 = createwoObj1.join(',');
+        if(this.WorkorderNotes){
+          this.WorkorderNotes=this.WorkorderNotes.trim();
+        }
         this.scheduleUpdate = {
           workorderroomidlist: workorderroomstring1,
           roomList: roomsString1,
@@ -874,6 +877,9 @@ export class CreateBatchScheduleComponent implements OnInit {
         WOrkordertkey2 = workorderkeyobj2.join(',');
         TEmproomidobj2 = temproomobj2.join(',');
         CreateWO2=createwoObj2.join(',');
+        if(this.WorkorderNotes){
+          this.WorkorderNotes=this.WorkorderNotes.trim();
+        }
         this.scheduleInsert = {
           temproomidlist: TEmproomidobj2,
           roomList: roomsString2,

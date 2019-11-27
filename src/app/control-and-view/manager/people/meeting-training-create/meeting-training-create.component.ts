@@ -18,7 +18,8 @@ export class MeetingTrainingCreateComponent implements OnInit {
   supervisor: People[];
   dropdownSettings1 = {};
   dropdownSettings2 = {};
-
+  managerList;
+  Manager;
   EventType;
   eventHost: String;
   Venue: String;
@@ -132,23 +133,24 @@ export class MeetingTrainingCreateComponent implements OnInit {
   }
   //Pooja's code for selecting employees with jobtitle,Supervisor and department filter starts
   selectEmp() {
+    var Mang;
     if (!(this.JobTitle)) {
       this.JobTitle = null;
     }
-    if (this.Supervisor.length == 0) {
-      var sup = null;
+    if (this.Manager.length == 0) {
+      Mang = null;
     }
     else {
-      var SupervisorList = [];
-      var SupervisorListObj = this.Supervisor;
+      var ManagerList = [];
+      var ManagerListObj = this.Manager;
 
-      if (SupervisorListObj.length > 0) {
-        if (SupervisorListObj) {
-          for (var j = 0; j < SupervisorListObj.length; j++) {
-            SupervisorList.push(SupervisorListObj[j].SupervisorKey);
+      if (ManagerListObj.length > 0) {
+        if (ManagerListObj) {
+          for (var j = 0; j < ManagerListObj.length; j++) {
+            ManagerList.push(ManagerListObj[j].ManagerKey);
           }
         }
-        sup = SupervisorList.join(',');
+        Mang = ManagerList.join(',');
       }
     }
     if (!(this.DepartmentKey)) {
@@ -156,7 +158,7 @@ export class MeetingTrainingCreateComponent implements OnInit {
     }
 
 
-    this.peopleServ.selectEmpWithJobTSprvsrAndDept(this.employeekey, this.OrganizationID, this.JobTitle, sup, this.DepartmentKey)
+    this.peopleServ.selectEmpWithJobTSprvsrAndDept(this.employeekey, this.OrganizationID, this.JobTitle, Mang, this.DepartmentKey)
       .subscribe((data: any[]) => {
         this.empList = data;
       });
@@ -175,9 +177,11 @@ export class MeetingTrainingCreateComponent implements OnInit {
     ;
     if (!this.time1) {
       alert("Start Time is not provided");
+      return;
     }
-    else if (!this.time2) {
+    if (!this.time2) {
       alert("End Time is not provided");
+      return;
     }
 
     else {
@@ -193,98 +197,114 @@ export class MeetingTrainingCreateComponent implements OnInit {
 
     }
 
-    if (!this.EventType) {
+    if (!this.EventType || !this.EventType.trim()) {
       alert("Select  meeting/training/event to continue");
+      return;
     }
-    else if (!this.eventHost) {
+    if (!this.eventHost || !this.eventHost.trim()) {
       alert("Eventhost is not provided");
+      return;
     }
-    else if (!this.Venue) {
+    if (!this.Venue || !this.Venue.trim()) {
       alert("Venue is not provided");
+      return;
     }
 
-    else if (this.Employee.length == 0) {
+    if (this.eventHost) {
+      this.eventHost=this.eventHost.trim();
+    }
+    if (this.Venue) {
+      this.Venue=this.Venue.trim();
+    }
+    if (this.Employee.length == 0) {
       alert("Employee is not selected");
+      return;
+    }
+
+    var curDate = this.convert_DT(new Date());
+
+    if (!this.mtngDate) {
+      var newDate = this.convert_DT(new Date());
     }
     else {
-      var curDate = this.convert_DT(new Date());
-
-      if (!this.mtngDate) {
-        var newDate = this.convert_DT(new Date());
-      }
-      else {
-        newDate = this.convert_DT(this.mtngDate);
-      }
-
-
-      var EmployeeKeyString;
-      if (this.Employee.length == 0) {
-        EmployeeKeyString = null;
-      }
-      else {
-        var employeeKeList = [];
-        var employeeKeListObj = this.Employee;
-        if (employeeKeListObj.length > 0) {
-          if (employeeKeListObj) {
-            for (var j = 0; j < employeeKeListObj.length; j++) {
-              employeeKeList.push(employeeKeListObj[j].EmployeeKey);
-            }
-          }
-          EmployeeKeyString = employeeKeList.join(',');
-        }
-      }
-      var q = this.time1.getHours();
-      var q1 = this.time1.getMinutes();
-      var newTime = q + ":" + q1;
-
-      var q2 = this.time2.getHours();
-      var q3 = this.time2.getMinutes();
-      var newTime1 = q2 + ":" + q3;
-
-      this.peopleServ
-        .addMeetingTraining(this.EventType, this.eventHost, this.Venue, newTime, newTime1, this.Notes, EmployeeKeyString, newDate, this.employeekey, this.OrganizationID)
-        .subscribe((data: People[]) => {
-          alert('Meeting/Training is successfully created !');
-          this.EventType = null;
-          this.eventHost = null;
-          this.Venue = null;
-          this.mtngDate = null;
-          this.time1 = null;
-          this.time2 = null;
-          this.Notes = null;
-          this.JobTitle = null;
-          this.Supervisor = [];
-          this.Employee = [];
-
-          this.superVsrKey = 0;
-          this.jobTleKey = 0;
-          this.DepartmentKey = null;
-
-          this.peopleServ
-            .getJobTitleList(this.employeekey, this.OrganizationID)
-            .subscribe((data: People[]) => {
-              this.jobTitle = data;
-            });
-
-          this.peopleServ
-            .getallEmployeesList(this.employeekey, this.OrganizationID)
-            .subscribe((data: People[]) => {
-              this.empList = data;
-            });
-
-          this.peopleServ
-            .getSupervisorList(this.employeekey, this.OrganizationID)
-            .subscribe((data: People[]) => {
-              this.supervisor = data;
-            });
-
-          this.peopleServ
-            .getallEventList(this.employeekey, this.OrganizationID)
-            .subscribe((data: People[]) => {
-              this.event = data;
-            });
-        });
+      newDate = this.convert_DT(this.mtngDate);
     }
+
+
+    var EmployeeKeyString;
+    if (this.Employee.length == 0) {
+      EmployeeKeyString = null;
+    }
+    else {
+      var employeeKeList = [];
+      var employeeKeListObj = this.Employee;
+      if (employeeKeListObj.length > 0) {
+        if (employeeKeListObj) {
+          for (var j = 0; j < employeeKeListObj.length; j++) {
+            employeeKeList.push(employeeKeListObj[j].EmployeeKey);
+          }
+        }
+        EmployeeKeyString = employeeKeList.join(',');
+      }
+    }
+    var q = this.time1.getHours();
+    var q1 = this.time1.getMinutes();
+    var newTime = q + ":" + q1;
+
+    var q2 = this.time2.getHours();
+    var q3 = this.time2.getMinutes();
+    var newTime1 = q2 + ":" + q3;
+    if (this.Notes) {
+      this.Notes = this.Notes.trim()
+    }
+    this.peopleServ
+      .addMeetingTraining(this.EventType, this.eventHost, this.Venue, newTime, newTime1, this.Notes, EmployeeKeyString, newDate, this.employeekey, this.OrganizationID)
+      .subscribe((data: People[]) => {
+        alert('Meeting/Training is successfully created !');
+        this.EventType = null;
+        this.eventHost = null;
+        this.Venue = null;
+        this.mtngDate = null;
+        this.time1 = null;
+        this.time2 = null;
+        this.Notes = null;
+        this.JobTitle = null;
+        this.Supervisor = [];
+        this.Employee = [];
+
+        this.superVsrKey = 0;
+        this.jobTleKey = 0;
+        this.DepartmentKey = null;
+
+        this.peopleServ
+          .getJobTitleList(this.employeekey, this.OrganizationID)
+          .subscribe((data: People[]) => {
+            this.jobTitle = data;
+          });
+
+        this.peopleServ
+          .getallEmployeesList(this.employeekey, this.OrganizationID)
+          .subscribe((data: People[]) => {
+            this.empList = data;
+          });
+
+        // this.peopleServ
+        //   .getSupervisorList(this.employeekey, this.OrganizationID)
+        //   .subscribe((data: People[]) => {
+        //     this.supervisor = data;
+        //   });
+        this.peopleServ
+        .getmanagersForEmp(this.employeekey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.managerList = data;
+        });
+        this.peopleServ
+          .getallEventList(this.employeekey, this.OrganizationID)
+          .subscribe((data: People[]) => {
+            this.event = data;
+          });
+      });
+
 
   }
 
@@ -315,11 +335,16 @@ export class MeetingTrainingCreateComponent implements OnInit {
         this.empList = data;
       });
 
+    // this.peopleServ
+    //   .getSupervisorList(this.employeekey, this.OrganizationID)
+    //   .subscribe((data: People[]) => {
+    //     this.supervisor = data;
+    //   });
     this.peopleServ
-      .getSupervisorList(this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.supervisor = data;
-      });
+    .getmanagersForEmp(this.employeekey, this.OrganizationID)
+    .subscribe((data: any[]) => {
+      this.managerList = data;
+    });
     // Pooja's code for Department dropdown starts
     this.peopleServ
       .getDepartment(this.employeekey, this.OrganizationID)
@@ -335,8 +360,8 @@ export class MeetingTrainingCreateComponent implements OnInit {
     // Pooja's code for Supervisor Multiselect dropdown starts
     this.dropdownSettings2 = {
       singleSelection: false,
-      idField: 'SupervisorKey',
-      textField: 'SupervisorText',
+      idField: 'ManagerKey',
+      textField: 'ManagerName',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 5,
@@ -363,8 +388,8 @@ export class MeetingTrainingCreateComponent implements OnInit {
   }
   addNewMeeting() {
     var eventType;
-    if (this.Event_Type) {
-      eventType = this.Event_Type;
+    if (this.Event_Type || this.Event_Type.trim()) {
+      eventType = this.Event_Type.trim();
     }
     else {
       eventType = null;
@@ -372,8 +397,8 @@ export class MeetingTrainingCreateComponent implements OnInit {
       return;
     }
     var eventName;
-    if (this.Event_Name) {
-      eventName = this.Event_Name;
+    if (this.Event_Name || this.Event_Name.trim()) {
+      eventName = this.Event_Name.trim();
     }
     else {
       eventName = null;
@@ -381,8 +406,8 @@ export class MeetingTrainingCreateComponent implements OnInit {
       return;
     }
     var eventDescription;
-    if (this.Description) {
-      eventDescription = this.Description;
+    if (this.Description || this.Description.trim()) {
+      eventDescription = this.Description.trim();
     }
     else {
       eventDescription = null;
@@ -392,13 +417,13 @@ export class MeetingTrainingCreateComponent implements OnInit {
         this.addnewEvent = {
           ActionKey: null,
           EmployeeKey: this.employeekey,
-          EventDescription: this.Description,
-          EventName: this.Event_Name,
-          EventType: this.Event_Type,
+          EventDescription: eventDescription,
+          EventName: eventName,
+          EventType: eventType,
           OrganizationID: this.OrganizationID,
-          eventDescription: this.Description,
-          eventName: this.Event_Name,
-          eventType: this.Event_Type
+          eventDescription: eventDescription,
+          eventName: eventName,
+          eventType: eventType
         };
 
         this.peopleServ

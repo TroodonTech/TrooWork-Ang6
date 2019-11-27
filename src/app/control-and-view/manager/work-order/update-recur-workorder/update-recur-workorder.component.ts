@@ -752,7 +752,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
       this.wot = null;
     }
     if (this.WorkorderNotes) {
-      this.notes = this.WorkorderNotes;
+      this.notes = this.WorkorderNotes.trim();
     } else {
       this.notes = null;
     }
@@ -1159,7 +1159,7 @@ export class UpdateRecurWorkorderComponent implements OnInit {
 
     }
     if (this.WorkorderNotes) {
-      this.notes = this.WorkorderNotes;
+      this.notes = this.WorkorderNotes.trim();
     } else {
       this.notes = null;
     }

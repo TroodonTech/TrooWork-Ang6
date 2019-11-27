@@ -536,7 +536,7 @@ export class CreateWorkorderComponent implements OnInit {
         this.wot = null;
       }
       if (this.workorderNotes) {
-        this.notes = this.workorderNotes;
+        this.notes = this.workorderNotes.trim();
       } else {
         this.notes = null;
       }
@@ -1012,7 +1012,7 @@ export class CreateWorkorderComponent implements OnInit {
         this.wot = null;
       }
       if (this.workorderNotes) {
-        this.notes = this.workorderNotes;
+        this.notes = this.workorderNotes.trim();
       } else {
         this.notes = null;
       }
@@ -1377,7 +1377,7 @@ export class CreateWorkorderComponent implements OnInit {
       this.wot = null;
     }
     if (this.workorderNotes) {
-      this.notes = this.workorderNotes;
+      this.notes = this.workorderNotes.trim();
     } else {
       this.notes = null;
     }
@@ -1771,7 +1771,7 @@ export class CreateWorkorderComponent implements OnInit {
       this.wot = null;
     }
     if (this.workorderNotes) {
-      this.notes = this.workorderNotes;
+      this.notes = this.workorderNotes.trim();
     } else {
       this.notes = null;
     }

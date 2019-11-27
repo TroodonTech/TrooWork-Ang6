@@ -477,7 +477,7 @@ export class EditWorkOrderComponent implements OnInit {
 
       }
       if (this.WorkorderNotes) {
-        this.notes = this.WorkorderNotes;
+        this.notes = this.WorkorderNotes.trim();
       } else {
         this.notes = null;
       }
@@ -728,7 +728,7 @@ export class EditWorkOrderComponent implements OnInit {
 
       }
       if (this.WorkorderNotes) {
-        this.notes = this.WorkorderNotes;
+        this.notes = this.WorkorderNotes.trim();
       } else {
         this.notes = null;
       }

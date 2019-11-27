@@ -83,6 +83,9 @@ export class InspectiontemplateCreateComponent implements OnInit {
                 alert("Question " + index + " is not provided !");
                 return;
         }
+        if(this.fieldArray[i]){
+          this.fieldArray[i]=this.fieldArray[i].trim();
+        }
       arr.push(this.fieldArray[i]);
     }
     this.fieldArray;

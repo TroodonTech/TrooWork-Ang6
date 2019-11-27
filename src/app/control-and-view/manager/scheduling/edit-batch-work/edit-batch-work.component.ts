@@ -58,20 +58,30 @@ export class EditBatchWorkComponent implements OnInit {
   }
 
   updateScheduleName() {
-    if (!this.scheduleDetails.BatchSchduleName) {
+    if (!this.scheduleDetails.BatchSchduleName || !this.scheduleDetails.ScheduleDescription.trim()) {
       alert("Assignment Name is not provided !");
-    } else if (!this.scheduleDetails.ScheduleDescription) {
+      return;
+    }  if (!this.scheduleDetails.ScheduleDescription || !this.scheduleDetails.ScheduleDescription.trim()) {
       alert("Assignment Description is not provided !");
-    } else if (!this.empKey) {
+      return;
+    }  if (!this.empKey) {
       alert("Employee Name is not provided !");
+      return;
     }
-    else if (!this.BatchScheduleTime) {
+     if (!this.BatchScheduleTime) {
       alert("Start Time is not provided !");
+      return;
     }
-    else if (!this.BatchScheduleEndTime) {
+     if (!this.BatchScheduleEndTime) {
       alert("End Time is not provided !");
+      return;
     } 
-    else {
+if(this.scheduleDetails.BatchSchduleName){
+  this.scheduleDetails.BatchSchduleName=this.scheduleDetails.BatchSchduleName.trim();
+}
+if(this.scheduleDetails.ScheduleDescription){
+  this.scheduleDetails.ScheduleDescription=this.scheduleDetails.ScheduleDescription.trim();
+}
 
       var q = this.BatchScheduleEndTime.getHours();
       var q1 = this.BatchScheduleEndTime.getMinutes();
@@ -108,7 +118,7 @@ export class EditBatchWorkComponent implements OnInit {
             this._location.back();
           });
       }
-    }
+    
   }
   ngOnInit() {
 

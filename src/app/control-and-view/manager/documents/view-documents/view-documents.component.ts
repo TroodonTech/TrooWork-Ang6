@@ -87,11 +87,13 @@ export class ViewDocumentsComponent implements OnInit {
             this.viewFolderDescriptionTable = data;
           });
       }
-      this.documentService
-        .getFileDetailsTablewithDropdown(this.FormtypeId, this.employeekey, this.OrganizationID).subscribe((data: Documents[]) => {
-          this.searchFlag = true;
-          this.viewFolderDescriptionTable = data;
-        });
+      else {
+        this.documentService
+          .getFileDetailsTablewithDropdown(this.FormtypeId, this.employeekey, this.OrganizationID).subscribe((data: Documents[]) => {
+            this.searchFlag = true;
+            this.viewFolderDescriptionTable = data;
+          });
+      }
     }
   }
   showFileDetailsTablebydropdown(formtype) {

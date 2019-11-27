@@ -215,23 +215,12 @@ export class AddEmployeeComponent implements OnInit {
       manKey = -1;
     }
 
-    if (this.supermark === true && !(this.SupervisorKey)) {
-      alert("Supervisor is not provided !");
-      return;
-    }
-    else {
-      superKey = -1;
-    }
-    if (this.UserRoleTypeKey == 3 && this.SupervisorKey) {
-      superKey = this.SupervisorKey;
-    }
-    else {
-      superKey = "";
-    }
+   
 
 
     if (this.UserRoleTypeKey == 3 && this.ManagerKey) {
       manKey = this.ManagerKey;
+      superKey = this.ManagerKey;
     }
     else if (this.UserRoleTypeKey == 5 && this.ManagerKey) {
       manKey = this.ManagerKey;

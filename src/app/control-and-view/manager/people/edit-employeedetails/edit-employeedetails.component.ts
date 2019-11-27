@@ -209,6 +209,9 @@ export class EditEmployeedetailsComponent implements OnInit {
       alert("Manager is not provided !");
       return;
     }
+    if(!SupervisorKey && this.editempdtails.UserRoleTypeKey == 3){
+      SupervisorKey=this.employeekey;
+    }
     if (this.editempdtails.UserRoleTypeKey == 3 && !(managerKey)) {
       manKey = this.employeekey;
     }

@@ -3,14 +3,14 @@ import { DocumentserviceService } from '../../../../service/documentservice.serv
 import { Documents } from '../../../../model-class/Documents';
 import { Router } from '@angular/router';
 
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-newdocumentfolder-create',
   templateUrl: './newdocumentfolder-create.component.html',
   styleUrls: ['./newdocumentfolder-create.component.scss']
 })
 export class NewdocumentfolderCreateComponent implements OnInit {
- 
+
   DocFolderName: any;
 
   role: String;
@@ -36,33 +36,34 @@ export class NewdocumentfolderCreateComponent implements OnInit {
     return window.atob(output);
   }
 
-  constructor(private documentService: DocumentserviceService,private router: Router,private _location: Location) { }
+  constructor(private documentService: DocumentserviceService, private router: Router, private _location: Location) { }
 
   addDocFold() {
-    if(this.DocFolderName && !this.DocFolderName.trim()){
+    if (this.DocFolderName && !this.DocFolderName.trim()) {
       alert("Please Enter Document Folder Name!");
       return;
     }
-    if(!this.DocFolderName){
+    if (!this.DocFolderName) {
       alert("Document Folder Name not provided");
       return;
     }
+    if(this.DocFolderName){
+      this.DocFolderName=this.DocFolderName.trim();
+    }
     //  else
-    this.documentService.checkforForms(this.DocFolderName,this.employeekey,this.OrganizationID).subscribe((data: any[]) =>{
-      if(data[0].count==0)
-     {
-    this.documentService.CreateNewDocumentFolder(this.DocFolderName, this.employeekey,this.OrganizationID).subscribe((data: Documents[]) => {
-      alert("Successfully Added");
-      this._location.back();
+    this.documentService.checkforForms(this.DocFolderName, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+      if (data[0].count == 0) {
+        this.documentService.CreateNewDocumentFolder(this.DocFolderName, this.employeekey, this.OrganizationID).subscribe((data: Documents[]) => {
+          alert("Successfully Added");
+          this._location.back();
+        });
+      }
+      else {
+        alert("Document Folder Name already exists");
+        return;
+      }
     });
-   }
-   else
-   {
-     alert("Document Folder Name already exists");
-     return;
-   }
-  });
-}
+  }
   ngOnInit() {
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -75,7 +76,7 @@ export class NewdocumentfolderCreateComponent implements OnInit {
 
   }
 
-  goBack(){
+  goBack() {
     this._location.back();
   }
 

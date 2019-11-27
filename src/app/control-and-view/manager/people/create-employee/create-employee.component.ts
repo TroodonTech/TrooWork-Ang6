@@ -214,6 +214,7 @@ export class CreateEmployeeComponent implements OnInit {
 
     if (this.UserRoleTypeKey == 3) {
       managerkey = this.employeekey;
+      this.SupervisorKey=this.employeekey;
     } else if (this.UserRoleTypeKey == 5) {
       managerkey = this.employeekey;
     }

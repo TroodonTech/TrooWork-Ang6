@@ -52,6 +52,13 @@ export class JobTitleAddComponent implements OnInit {
       alert('Job Title Description is not provided !');
       return;
     }
+    if(JobtitleName){
+      JobtitleName=JobtitleName.trim()
+    }
+    if(JobTitleDescription){
+      JobTitleDescription=JobTitleDescription.trim()
+    }
+
     this.peopleServiceService.checkfor_jobtitle(JobtitleName, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         if (data[0].count != 0) {
