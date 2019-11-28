@@ -23,7 +23,7 @@ export class RoomTypeCreateComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
 
-  
+
   numberValid(event: any) {
     const pattern = /[0-9\+\-\ ]/;
 
@@ -32,7 +32,7 @@ export class RoomTypeCreateComponent implements OnInit {
       event.preventDefault();
     }
   }
-  
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -74,6 +74,8 @@ export class RoomTypeCreateComponent implements OnInit {
   }
 
   addRoomType(MetricType, RoomTypeName, MetricTypeValue) {
+    RoomTypeName = RoomTypeName.trim();
+
     this.inventoryService
       .checkRoomType(RoomTypeName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         if (data.length > 0) {

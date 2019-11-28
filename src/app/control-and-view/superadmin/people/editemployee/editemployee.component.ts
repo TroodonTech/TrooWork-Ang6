@@ -129,7 +129,7 @@ export class EditemployeeComponent implements OnInit {
     var manKey;
     var superKey;
 
-    if (!(EmployeeNumber)) {
+    if (!(EmployeeNumber) || !(EmployeeNumber.trim())) {
       alert("Employee Number is not provided !");
       return;
     }
@@ -138,11 +138,11 @@ export class EditemployeeComponent implements OnInit {
       return;
     }
 
-    if (!(FirstName)) {
+    if (!(FirstName) || !(FirstName.trim())) {
       alert("First Name is not provided !");
       return;
     }
-    if (!(LastName)) {
+    if (!(LastName) || !(LastName.trim())) {
       alert("Last Name is not provided !");
       return;
     }
@@ -153,7 +153,7 @@ export class EditemployeeComponent implements OnInit {
       alert("Employee Status is not provided !");
       return;
     }
-    if (!(PrimaryPhone)) {
+    if (!(PrimaryPhone) || !(PrimaryPhone.trim())) {
       alert("Primary Phone is not provided !");
       return;
     }
@@ -217,7 +217,39 @@ export class EditemployeeComponent implements OnInit {
       return;
     }
 
-    this.PeopleServiceService.UpdateEmployeeDetailsbySa(this.employeekey, manKey, superKey, this.empk$, OrganizationID, UserRoleTypeKey, EmployeeNumber, FirstName, LastName, MiddleName, birthdt, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, JobTitleKey, DepartmentKey, Gender, this.remark)
+    EmployeeNumber = EmployeeNumber.trim();
+    FirstName = FirstName.trim();
+    LastName = LastName.trim();
+    PrimaryPhone = PrimaryPhone.trim();
+    if (MiddleName) {
+      MiddleName = MiddleName.trim();
+    }
+    if (AddressLine1) {
+      AddressLine1 = AddressLine1.trim();
+    }
+    if (AddressLine2) {
+      AddressLine2 = AddressLine2.trim();
+    }
+    if (City) {
+      City = City.trim();
+    }
+    if (State) {
+      State = State.trim();
+    }
+    if (Country) {
+      Country = Country.trim();
+    }
+    if (ZipCode) {
+      ZipCode = ZipCode.trim();
+    }
+    if (AlternatePhone) {
+      AlternatePhone = AlternatePhone.trim();
+    }
+
+    this.PeopleServiceService.UpdateEmployeeDetailsbySa(this.employeekey, manKey, superKey, this.empk$, OrganizationID,
+      UserRoleTypeKey, EmployeeNumber, FirstName, LastName, MiddleName, birthdt, AddressLine1, City, AddressLine2,
+      State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, JobTitleKey,
+      DepartmentKey, Gender, this.remark)
       .subscribe((data: any[]) => {
         alert("Successfully Updated !");
         this.router.navigate(['/SuperadminDashboard', { outlets: { SuperAdminOut: ['Viewemployee'] } }]);

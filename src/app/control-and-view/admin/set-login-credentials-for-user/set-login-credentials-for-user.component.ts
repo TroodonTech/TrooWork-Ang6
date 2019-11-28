@@ -50,7 +50,7 @@ export class SetLoginCredentialsForUserComponent implements OnInit {
   }
 
   setUsernamePassword() {
-    if (!this.username) {
+    if (!(this.username) || !(this.username.trim())) {
       alert("User Name can't be empty");
     } else {
       this.peopleService.checkUserName(this.username, this.empKey$, this.OrganizationID)

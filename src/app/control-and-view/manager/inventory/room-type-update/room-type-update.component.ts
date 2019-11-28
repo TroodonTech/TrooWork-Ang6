@@ -77,11 +77,9 @@ export class RoomTypeUpdateComponent implements OnInit {
       }
     }
   }
-  updateRoomType(RoomTypeName, MetricTypeValue1) 
-  {
+  updateRoomType(RoomTypeName, MetricTypeValue1) {
 
-    if (!this.metricType || this.metricType == "--Select--")
-    {
+    if (!this.metricType || this.metricType == "--Select--") {
       this.metricType = null;
       alert("Select a metric type !");
     }
@@ -98,6 +96,7 @@ export class RoomTypeUpdateComponent implements OnInit {
     //   alert("MetricTypeValue is not provided !");
     // }
     else {
+      RoomTypeName = RoomTypeName.trim();
       this.inventoryService
         .getMetricValues(this.OrganizationID)
         .subscribe((data: Inventory[]) => {
@@ -109,19 +108,19 @@ export class RoomTypeUpdateComponent implements OnInit {
           }
         });
       // if (this.roomtypeval != RoomTypeName) {
-        this.inventoryService.CheckRoomType(RoomTypeName, 'roomtype', this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-          if (data.length > 0) {
-            alert("Room Type already present !");
-            return;
-          }
-          else {
-            this.inventoryService.updateRoomType(this.rTypeKey$, this.metricTypeKey, this.metricType, RoomTypeName, MetricTypeValue1, this.employeekey, this.OrganizationID)
-              .subscribe(res => {
-                alert("RoomType updated successfully");
-                this._location.back();
-              });
-          }
-        });
+      this.inventoryService.CheckRoomType(RoomTypeName, 'roomtype', this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+        if (data.length > 0) {
+          alert("Room Type already present !");
+          return;
+        }
+        else {
+          this.inventoryService.updateRoomType(this.rTypeKey$, this.metricTypeKey, this.metricType, RoomTypeName, MetricTypeValue1, this.employeekey, this.OrganizationID)
+            .subscribe(res => {
+              alert("RoomType updated successfully");
+              this._location.back();
+            });
+        }
+      });
       // }
       // else {
       //   if (this.MetricTypeValue == MetricTypeValue1 && this.metricType == this.metricType1) {
@@ -153,9 +152,9 @@ export class RoomTypeUpdateComponent implements OnInit {
         this.roomTypeList = data[0];
         this.roomtypeval = data[0].RoomTypeName;
         // this.MetricTypeValue = data[0].MetricTypeValue;
-        this.MetricTypeValue ='1';
+        this.MetricTypeValue = '1';
         // this.metricType = data[0].MetricType;
-        this.metricType ='default';
+        this.metricType = 'default';
         this.metricType1 = data[0].MetricType;
         this.inventoryService
           .getMetricValues(this.OrganizationID)

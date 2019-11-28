@@ -45,6 +45,8 @@ export class EquipmentTypeCreateComponent implements OnInit {
     } else if (!this.EquipmentTypeDescription || !this.EquipmentTypeDescription.trim()) {
       alert("Please provide a Equipment Type Description");
     } else {
+      this.EquipmentTypeName = this.EquipmentTypeName.trim();
+      this.EquipmentTypeDescription = this.EquipmentTypeDescription.trim();
       this.inventoryServ.checkForNewEquipmentType(this.EquipmentTypeName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         this.dept = data;
         if (this.dept[0].count > 0) {

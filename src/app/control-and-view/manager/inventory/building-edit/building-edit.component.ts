@@ -50,11 +50,12 @@ export class BuildingEditComponent implements OnInit {
 
     var type = 'facility';
 
-    if (!FacilityName || !FacilityName.trim()) {
+    if (!(FacilityName) || !(FacilityName.trim())) {
       alert("Please Enter Building Name!");
       return;
     }
     else {
+      FacilityName=FacilityName.trim();
       this.inventoryService.CheckNewBuilding(FacilityName, type, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
         if (data.length > 0) {
           alert("Building already present !");

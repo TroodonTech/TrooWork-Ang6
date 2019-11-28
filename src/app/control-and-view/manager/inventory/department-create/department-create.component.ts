@@ -39,11 +39,12 @@ export class DepartmentCreateComponent implements OnInit {
   constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router, private _location: Location) { }
 
   addDepartment(DepartmentName) {
-    if (!DepartmentName || !DepartmentName.trim()) {
+    if (!(DepartmentName) || !(DepartmentName.trim())) {
       alert("Please provide a Department Name");
       return;
     }
     else {
+      DepartmentName=DepartmentName.trim();
       this.inventoryServ.checkForNewDepartment(DepartmentName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         this.dept = data;
         if (data.length > 0) {

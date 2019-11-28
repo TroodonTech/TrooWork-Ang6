@@ -47,18 +47,18 @@ export class CreatebuildingComponent implements OnInit {
     });
   }
   addBuilding(newbuildingName) {
-    if (!newbuildingName || !newbuildingName.trim()) {
+    if (!(newbuildingName) || !(newbuildingName.trim())) {
       alert("Please Enter Building Name!");
       return;
     }
 
+    newbuildingName = newbuildingName.trim();
     this.CreatebuildingService.checkNewBuilding(this.BuildingName, 'facility', this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
       if (data.length > 0) {
         alert("Building name already present !");
         return;
       }
       else {
-        newbuildingName = newbuildingName.trim();
         this.CreatebuildingService.createBuildings(newbuildingName, this.employeekey, this.OrganizationID)
           .subscribe((data: Inventory[]) => {
             alert("Building created successfully");

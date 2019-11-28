@@ -65,7 +65,7 @@ export class RoomEditComponent implements OnInit {
 
   selectFloorfromBuildings(facKey) {
     if (facKey) {
-    this.facKey = facKey;
+      this.facKey = facKey;
       this.floorTypeKey = "";
       this.floorKey = "";
       this.zoneKey = "";
@@ -106,21 +106,6 @@ export class RoomEditComponent implements OnInit {
   }
 
   updateRoom(RoomName, SquareFoot, Barcode) {
-    this.update_Room = {
-      FacilityKey: this.facKey,
-      FloorKey: this.floorKey,
-      FloorTypeKey: this.floorTypeKey,
-      ZoneKey: this.zoneKey,
-      RoomTypeKey: this.roomTypeKey,
-      RoomKey: this.roomKey$,
-      area: SquareFoot,
-      RoomName: RoomName,
-      Barcode: Barcode,
-      employeekey: this.employeekey,
-      OrganizationID: this.OrganizationID
-
-    };
-
     if (!this.facKey) {
       alert("Building name is not provided !");
     } else if (!this.floorKey) {
@@ -139,6 +124,23 @@ export class RoomEditComponent implements OnInit {
       alert("Barcode is not provided !");
     }
     else {
+      SquareFoot = SquareFoot.trim();
+      Barcode = Barcode.trim();
+      RoomName = RoomName.trim();
+
+      this.update_Room = {
+        FacilityKey: this.facKey,
+        FloorKey: this.floorKey,
+        FloorTypeKey: this.floorTypeKey,
+        ZoneKey: this.zoneKey,
+        RoomTypeKey: this.roomTypeKey,
+        RoomKey: this.roomKey$,
+        area: SquareFoot,
+        RoomName: RoomName,
+        Barcode: Barcode,
+        employeekey: this.employeekey,
+        OrganizationID: this.OrganizationID
+      };
       this.inventoryService
         .checkUniqueBarcode_Updation(Barcode, this.roomKey$, this.employeekey, this.OrganizationID)
         .subscribe((data: any[]) => {

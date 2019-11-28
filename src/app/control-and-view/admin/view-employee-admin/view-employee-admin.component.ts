@@ -68,7 +68,7 @@ export class ViewEmployeeAdminComponent implements OnInit {
   getempdettablewithselectedJobtitle() {
 
     if (!(this.JobTitleKey) && !(this.ManagerKey)) {
-      this.pageNo=1;
+      this.pageNo = 1;
       this.PeopleServiceService
         .getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: People[]) => {
@@ -206,7 +206,7 @@ export class ViewEmployeeAdminComponent implements OnInit {
   previousPage() {
     this.loading = true;
     this.pageNo = +this.pageNo - 1;
-    if(this.JobTitleKey || this.ManagerKey){
+    if (this.JobTitleKey || this.ManagerKey) {
       if (!(this.JobTitleKey)) {
         this.JobTitleKey = null;
       }
@@ -228,26 +228,26 @@ export class ViewEmployeeAdminComponent implements OnInit {
           }
         });
     }
-    else{
-    this.PeopleServiceService
-      .getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.employeedetailstable = data;
-        this.loading = false;
-        if (this.pageNo == 1) {
-          this.showHide2 = true;
-          this.showHide1 = false;
-        } else {
-          this.showHide2 = true;
-          this.showHide1 = true;
-        }
-      });
+    else {
+      this.PeopleServiceService
+        .getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+        .subscribe((data: People[]) => {
+          this.employeedetailstable = data;
+          this.loading = false;
+          if (this.pageNo == 1) {
+            this.showHide2 = true;
+            this.showHide1 = false;
+          } else {
+            this.showHide2 = true;
+            this.showHide1 = true;
+          }
+        });
     }
   }
   nextPage() {
     this.loading = true;
     this.pageNo = +this.pageNo + 1;
-    if(this.JobTitleKey || this.ManagerKey){
+    if (this.JobTitleKey || this.ManagerKey) {
       if (!(this.JobTitleKey)) {
         this.JobTitleKey = null;
       }
@@ -271,22 +271,22 @@ export class ViewEmployeeAdminComponent implements OnInit {
           }
         });
     }
-    else{
-    this.PeopleServiceService
-      .getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.employeedetailstable = data;
-        this.loading = false;
-        this.pagination = + this.employeedetailstable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
-        if (this.pagination > 1) {
-          this.showHide2 = true;
-          this.showHide1 = true;
-        }
-        else {
-          this.showHide2 = false;
-          this.showHide1 = true;
-        }
-      });
+    else {
+      this.PeopleServiceService
+        .getAllEmployeeDetails(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
+        .subscribe((data: People[]) => {
+          this.employeedetailstable = data;
+          this.loading = false;
+          this.pagination = + this.employeedetailstable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+          if (this.pagination > 1) {
+            this.showHide2 = true;
+            this.showHide1 = true;
+          }
+          else {
+            this.showHide2 = false;
+            this.showHide1 = true;
+          }
+        });
     }
   }
 

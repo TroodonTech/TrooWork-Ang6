@@ -39,29 +39,28 @@ export class CreateDepartmentComponent implements OnInit {
   constructor(private fb: FormBuilder, private inventoryServ: InventoryService, private router: Router) { }
 
   addDepartment(DepartmentName) {
-  
-    if (!DepartmentName) {
-     alert("Please provide a Department Name");
-    }
-    else if (!DepartmentName.trim()) {
+
+    if (!(DepartmentName) || !(DepartmentName.trim())) {
       alert("Please provide a Department Name");
     }
-     else {
+
+    else {
+      DepartmentName = DepartmentName.trim();
       this.inventoryServ.checkForNewDepartment(DepartmentName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         this.dept = data;
         if (data.length > 0) {
           alert("Department already present");
         }
         else if (data.length == 0) {
-          this.inventoryServ.addDepartment(DepartmentName, this.employeekey, this.OrganizationID).subscribe(res =>{ 
+          this.inventoryServ.addDepartment(DepartmentName, this.employeekey, this.OrganizationID).subscribe(res => {
             alert("Department created successfully");
             this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewDepartment'] } }]);
-        });
+          });
         }
       });
     }
   }
-  goBack(){
+  goBack() {
     this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewDepartment'] } }]);
   }
   ngOnInit() {

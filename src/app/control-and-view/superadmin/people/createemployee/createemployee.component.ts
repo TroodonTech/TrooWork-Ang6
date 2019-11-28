@@ -13,7 +13,7 @@ export class CreateemployeeComponent implements OnInit {
   jobtitle: People[];
   organization: People[];
   department: People[];
-  EmployeeNumber: Number;
+  EmployeeNumber;
   OrganizationID;
   UserRoleTypeKey;
   FirstName: String;
@@ -117,7 +117,7 @@ export class CreateemployeeComponent implements OnInit {
       alert("Organization is not provided !");
       return;
     }
-    if (!(this.EmployeeNumber)) {
+    if (!(this.EmployeeNumber) || !(this.EmployeeNumber.trim())) {
       alert("Employee Number is not provided !");
       return;
     }
@@ -153,18 +153,18 @@ export class CreateemployeeComponent implements OnInit {
       IsSupervisor = 0;
     }
 
-    if (!(this.FirstName)) {
+    if (!(this.FirstName) || !(this.FirstName.trim())) {
       alert("First Name is not provided !");
       return;
     }
-    if (!(this.LastName)) {
+    if (!(this.LastName) || !(this.LastName.trim())) {
       alert("Last Name is not provided !");
       return;
     }
     if (!(this.Gender)) {
       this.Gender = null;
     }
-    if (!(this.PrimaryPhone)) {
+    if (!(this.PrimaryPhone) || !(this.PrimaryPhone.trim())) {
       alert("Primary Phone is not provided !");
       return;
     }
@@ -210,7 +210,36 @@ export class CreateemployeeComponent implements OnInit {
           alert("Employee Number already exists");
         }
         else {
-          this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, manKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.JobTitleKey, this.DepartmentKey, this.employeekey, IsSupervisor,superKey)
+          this.EmployeeNumber = this.EmployeeNumber.trim();
+          this.FirstName = this.FirstName.trim();
+          this.LastName = this.LastName.trim();
+          this.PrimaryPhone = this.PrimaryPhone.trim();
+          if (this.MiddleName) {
+            this.MiddleName = this.MiddleName.trim();
+          }
+          if (this.AddressLine1) {
+            this.AddressLine1 = this.AddressLine1.trim();
+          }
+          if (this.AddressLine2) {
+            this.AddressLine2 = this.AddressLine2.trim();
+          }
+          if (this.City) {
+            this.City = this.City.trim();
+          }
+          if (this.State) {
+            this.State = this.State.trim();
+          }
+          if (this.Country) {
+            this.Country = this.Country.trim();
+          }
+          if (this.ZipCode) {
+            this.ZipCode = this.ZipCode.trim();
+          }
+          if (this.AlternatePhone) {
+            this.AlternatePhone = this.AlternatePhone.trim();
+          }
+
+          this.PeopleServiceService.createEmployeebySuperAdmin(this.OrganizationID, manKey, this.EmployeeNumber, this.UserRoleTypeKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.JobTitleKey, this.DepartmentKey, this.employeekey, IsSupervisor, superKey)
             .subscribe((data: any[]) => {
               this.temp_res = data;
               alert("Employee Created !");

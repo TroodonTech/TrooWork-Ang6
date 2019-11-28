@@ -39,27 +39,24 @@ export class EditDepartmentComponent implements OnInit {
   }
 
   updateDepartment(DepartmentName) {
-    if(DepartmentName && !DepartmentName.trim()){
-      alert("Please Enter Department Name!");
-      return;
-    }
-    if (!DepartmentName) {
+    if (!(DepartmentName) || !(DepartmentName.trim())) {
       alert("Please provide a Department Name");
     } else {
+      DepartmentName = DepartmentName.trim();
       this.inventoryService.checkForNewDepartment(DepartmentName, this.employeekey, this.OrganizationID).subscribe((data: Array<any>) => {
         if (data.length > 0) {
           alert("Department already present");
         }
         else {
-          this.inventoryService.UpdateDepartment(DepartmentName, this.deptKey$, this.employeekey, this.OrganizationID).subscribe(res =>{
+          this.inventoryService.UpdateDepartment(DepartmentName, this.deptKey$, this.employeekey, this.OrganizationID).subscribe(res => {
             alert("Department updated successfully");
             this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewDepartment'] } }]);
-            });
+          });
         }
       });
     }
   }
-  goBack(){
+  goBack() {
     this.router.navigate(['AdminDashboard', { outlets: { AdminOut: ['ViewDepartment'] } }]);
   }
   ngOnInit() {

@@ -24,7 +24,7 @@ export class CreateOrganizationComponent implements OnInit {
   employeekey;
   OrgID;
 
-  constructor(private organizationService: OrganizationService,private router: Router) { }
+  constructor(private organizationService: OrganizationService, private router: Router) { }
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -43,33 +43,43 @@ export class CreateOrganizationComponent implements OnInit {
   }
 
   createOrg() {
-    
-    if(this.OrgName &&!(this.OrgName.trim())){
+
+    if (!(this.OrgName) || !(this.OrgName.trim())) {
       alert('Organization Name is not provided !');
       return;
     }
-    if(this.tenID && !(this.tenID.trim() ) ){
+    if (!(this.tenID) || !(this.tenID.trim())) {
       alert('Tenant ID is not provided !');
       return;
     }
-    if(!(this.OrgName)){
-      alert('Organization Name is not provided !');
-      return;
+
+    this.OrgName = this.OrgName.trim();
+    this.tenID = this.tenID.trim();
+    if (this.OrgDesc) {
+      this.OrgDesc = this.OrgDesc.trim();
+    } if (this.Location) {
+      this.Location = this.Location.trim();
+    } if (this.State) {
+      this.State = this.State.trim();
+    } if (this.Country) {
+      this.Country = this.Country.trim();
+    } if (this.TenName) {
+      this.TenName = this.TenName.trim();
     }
-    if( ! (this.tenID) ){
-      alert('Tenant ID is not provided !');
-      return;
-    }
-    this.OrgName=this.OrgName.trim();
-    this.tenID=this.tenID.trim()
+    // this.Location = this.Location.trim();
+    // this.State = this.State.trim();
+    // this.Country = this.Country.trim();
+    // this.TenName = this.TenName.trim();
+
     this.updatedby = this.employeekey;
+
     this.organizationService.checkForTenantId(this.tenID).subscribe((data: any[]) => {
       if (data[0].count == 0) {
         this.organizationService.createOrganization(this.OrgName, this.OrgDesc, this.Location, this.State, this.Country, this.updatedby, this.TenName, this.OrgEmail, this.tenID).subscribe((data: any[]) => {
           alert('Organization Successfully Created !');
-          this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['ViewOrganization'] } }]);
+          this.router.navigate(['/SuperadminDashboard', { outlets: { SuperAdminOut: ['ViewOrganization'] } }]);
         });
-        }
+      }
       else {
         alert("Tenant ID is already present !")
         return;

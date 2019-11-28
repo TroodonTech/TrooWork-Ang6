@@ -29,7 +29,7 @@ export class UserWorkRequestComponent implements OnInit {
   ngOnInit() {
   }
   Submit() {
-    if (!this.comments) {
+    if (!(this.comments) || !(this.comments.trim())) {
       alert("comment not provided !");
       return;
     }
@@ -46,7 +46,7 @@ export class UserWorkRequestComponent implements OnInit {
     //  this.Timetemp= new Date().getHours() + ':' + new Date().getMinutes();
     var p = "";
     p = today_DT + " " + h + ":" + mi + ":" + s;
-
+    this.comments = this.comments.trim();
     let reviewAdd = {
       Facility_Key: this.Facility_Key,
       Floor_Key: this.Floor_Key,
@@ -56,7 +56,7 @@ export class UserWorkRequestComponent implements OnInit {
       Comments: this.comments,
       Datetime: p
     };
-    
+
     this.reviewservice.UserWorkRequest(reviewAdd).subscribe((data: any[]) => {
       this.router.navigate(['thankYou', 'workRequest']);
     });

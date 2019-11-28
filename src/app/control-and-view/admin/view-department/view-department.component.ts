@@ -113,7 +113,7 @@ export class ViewDepartmentComponent implements OnInit {
         .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
           this.departments = data;
-          this.loading=false;
+          this.loading = false;
           if (this.departments[0].totalItems > this.itemsPerPage) {
             this.showHide2 = true;
             this.showHide1 = false;
@@ -159,12 +159,12 @@ export class ViewDepartmentComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
-    this.loading=true;
+    this.loading = true;
     this.inventoryService
       .getDepartmentList(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
         this.departments = data;
-        this.loading=false;
+        this.loading = false;
         if (this.departments[0].totalItems > this.itemsPerPage) {
           this.showHide2 = true;
           this.showHide1 = false;
