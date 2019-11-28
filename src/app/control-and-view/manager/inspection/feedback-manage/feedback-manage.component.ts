@@ -22,6 +22,7 @@ export class FeedbackManageComponent implements OnInit {
   temparray = [];
   insertObj;
   TemplateQuestionID;
+  loading=false;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -95,13 +96,17 @@ export class FeedbackManageComponent implements OnInit {
 
   savetemplate() {
 
-    var temp_insertArry = this.newAttribute;
+    var temp_insertArry = [];
+    temp_insertArry = this.newAttribute;
     
     if (this.tempID == 0) {
       this.inspectionService.createMasterReviewTempalte(this.toServeremployeekey, this.OrganizationID).subscribe((data: any[]) => {
         this.tempID = data[0].idreviewtemplate;
         var count = 0;
         for (var j = 0; j < temp_insertArry.length; j++) {
+          if(temp_insertArry[j]){
+            temp_insertArry[j]=temp_insertArry[j].trim();
+          }
           this.insertObj = {
             templateid: this.tempID,
             question: temp_insertArry[j],
@@ -109,12 +114,7 @@ export class FeedbackManageComponent implements OnInit {
             OrganizationID: this.OrganizationID
           };
           count = j + 1;
-          this.inspectionService
-            .insertFeedbackQuestion(this.insertObj).subscribe((data: any[]) => {
-              if (count == this.newAttribute.length) {
-                this.alertme();
-              }
-            });
+
         }
       })
     } else {
@@ -122,6 +122,9 @@ export class FeedbackManageComponent implements OnInit {
       var count1 = 0;
       for (var j = 0; j < temp_insertArry.length; j++) {
         if (temp_insertArry[j].trim()) {
+          if(temp_insertArry[j]){
+            temp_insertArry[j]=temp_insertArry[j].trim();
+          }
           this.insertObj = {
             templateid: this.tempID,
             question: temp_insertArry[j],
@@ -129,12 +132,7 @@ export class FeedbackManageComponent implements OnInit {
             OrganizationID: this.OrganizationID
           };
           count = j + 1;
-          this.inspectionService
-            .insertFeedbackQuestion(this.insertObj).subscribe((data: any[]) => {
-              if (count == this.newAttribute.length) {
-                this.alertme();
-              }
-            });
+
         } else {
           count1 = count1 + 1;
           // 
@@ -143,14 +141,24 @@ export class FeedbackManageComponent implements OnInit {
       if (count1 > 0) {
         alert("Don't leave question area empty");
       }
+      else{
+        this.inspectionService
+        .insertFeedbackQuestion(this.insertObj).subscribe((data: any[]) => {
+          if (count == this.newAttribute.length) {
+            this.alertme();
+          }
+        });
+      }
     }
   }
 
   alertme() {
     alert("Questions added successfully");
     this.newAttribute = [];
+    this.loading=true;
     this.inspectionService
       .getFeedbackTemplateQuestionsEditDetails(this.OrganizationID).subscribe((data: any[]) => {
+        this.loading=false;
         this.fieldArray = data;
       });
   }

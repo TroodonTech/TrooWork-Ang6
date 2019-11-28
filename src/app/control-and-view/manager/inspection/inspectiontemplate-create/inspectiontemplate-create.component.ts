@@ -68,10 +68,10 @@ export class InspectiontemplateCreateComponent implements OnInit {
               return;
       }
       if (InspTempName) {
-        templatename = this.InspTempName;
+        InspTempName = this.InspTempName.trim();
         }
         else {
-        templatename = null;
+          InspTempName = null;
             alert("Inspection Template Name is not provided !");
                 return;
         }

@@ -115,6 +115,14 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
         if (this.temparray[j] === temp_updateArry[i].TemplateQuestionID) {
           temp_TemplateQuestionID = temp_updateArry[i].TemplateQuestionID;
           temp_Question = temp_updateArry[i].Question;
+          if(temp_Question){
+            temp_Question=temp_Question.trim();
+          }
+          else{
+ 
+                    alert("Question  is not provided !");
+                    return;
+          }
         }
       }
       this.insertObj = {
@@ -131,6 +139,15 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
     }
     for (var j = 0; j < temp_insertArry.length; j++) {
 
+      if(temp_insertArry[j]){
+        temp_insertArry[j]=temp_insertArry[j].trim();
+      }
+      else{
+      
+                alert("Question  is not provided !");
+                return;
+      }
+
       this.insertObj = {
         templateid: this.tempID,
         questionid: temp_insertArry[j],
@@ -142,6 +159,13 @@ export class InspectiontemplatedetailEditComponent implements OnInit {
         .insertEditedTemplateQuestion(this.insertObj).subscribe(() => {
 
         });
+    }
+    if(!this.TemplateEditDetails.TemplateName && !this.TemplateEditDetails.TemplateName.trim()){
+      alert("Template Name Not provided !");
+      return;
+    }
+    if(this.TemplateEditDetails.TemplateName){
+      this.TemplateEditDetails.TemplateName=this.TemplateEditDetails.TemplateName.trim();
     }
     // this.inspectionService.checkforTemplate(this.TemplateEditDetails.TemplateName,this.OrganizationID).subscribe(res => {
     //   if (res[0].count == 0){

@@ -205,6 +205,13 @@ export class InspectiontemplateEditComponent implements OnInit {
   }
   submiteditInspectionTemplate(TemplateName, TemplateID, ScoreTypeKey) {
 
+    if(!TemplateName && !TemplateName.trim()){
+      alert("Template Name Not provided !");
+      return;
+    }
+    if(TemplateName){
+      TemplateName=TemplateName.trim();
+    }
     this.inspectionService
       .updateEditInspection(TemplateName, TemplateID, ScoreTypeKey, this.OrganizationID).subscribe(() => {
         this.inspectionService
