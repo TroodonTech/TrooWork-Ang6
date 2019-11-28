@@ -124,10 +124,10 @@ export class RoomEditComponent implements OnInit {
       alert("Barcode is not provided !");
     }
     else {
-      SquareFoot = SquareFoot.trim();
-      Barcode = Barcode.trim();
-      RoomName = RoomName.trim();
-
+      if (RoomName) {
+        RoomName = RoomName.trim();
+      }
+    
       this.update_Room = {
         FacilityKey: this.facKey,
         FloorKey: this.floorKey,

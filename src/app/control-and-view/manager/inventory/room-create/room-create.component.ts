@@ -99,19 +99,20 @@ export class RoomCreateComponent implements OnInit {
     } else if (!RoomTypeKey) {
       RoomTypeKey = null;
       alert("RoomType is not provided !");
-    } else if (!RoomName || !RoomName.trim()) {
+    } else if (!RoomName || !(RoomName.trim())) {
       RoomName = null;
       alert("Room name is not provided !");
-    } else if (!SquareFoot || !SquareFoot.trim()) {
+    } else if (!SquareFoot ) {
       SquareFoot = null;
       alert("SquareFoot is not provided !");
-    } else if (!Barcode || !Barcode.trim()) {
+    } else if (!Barcode ) {
       Barcode = null;
       alert("Barcode is not provided !");
     } else {
-      RoomName = RoomName.trim();
-      SquareFoot = SquareFoot.trim();
-      Barcode = Barcode.trim();
+      if (RoomName) {
+        RoomName = RoomName.trim();
+      }
+     
       this.inventoryService
         .checkNewRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {

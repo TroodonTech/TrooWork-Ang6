@@ -99,7 +99,7 @@
           <th> Percentage Completed </th>
           <th> WorkOrder Type</th>
           <th>Total WorkOrder</th>
-          <th>Cancelled WorkOrder</th>
+          <!-- <th>Cancelled WorkOrder</th> -->
           <th> Quantity Left</th>
         </tr>
       </thead>
@@ -109,7 +109,7 @@
           <td>{{((x.CompletedCount + x.CancelCount)/x.totalCount)*100|number:'1.0-0'}}% </td>
           <td>{{x.WorkorderTypeName}}</td>
           <td>{{x.totalCount}} </td>
-          <td>{{x.CancelCount}} </td>
+          <!-- <td>{{x.CancelCount}} </td> -->
           <td>{{x.totalCount-(x.CompletedCount + x.CancelCount)}}</td>
         </tr>
         <tr *ngIf="reporttable?.length == 0">

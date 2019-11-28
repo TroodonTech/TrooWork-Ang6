@@ -87,7 +87,6 @@ export class EquipmentCreateComponent implements OnInit {
       alert("Floor is not provided");
     } else {
       EquipmentName = EquipmentName.trim();
-      Barcode = Barcode.trim();
       EquipmentDescription = EquipmentDescription.trim();
       this.inventoryService.checkForNewEquipment(EquipmentTypeKey, EquipmentName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         this.dept = data;

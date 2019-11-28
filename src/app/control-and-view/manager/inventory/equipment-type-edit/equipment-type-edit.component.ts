@@ -53,6 +53,13 @@ export class EquipmentTypeEditComponent implements OnInit {
         this.equipType = data;
         if (this.equipType[0].count == 1) {
           alert("Equipment Type already present");
+          this.inventoryService.getEquipmentTypeListEdit(this.equipTypeKey$, this.OrganizationID).subscribe((data: Array<any>) => {
+            console.log(this.equipTypeKey$);
+      
+            this.equipType = data[0];
+            return;
+          });
+          
         }
         else {
           this.inventoryService.UpdateEquipmentType(equipType, equipTypeDesc, equipTypeKey, this.employeekey, this.OrganizationID).subscribe(res => {
