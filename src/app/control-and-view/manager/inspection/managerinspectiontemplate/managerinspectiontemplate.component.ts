@@ -252,6 +252,9 @@ export class ManagerinspectiontemplateComponent implements OnInit {
         for (j = 0; j < noteIndexList.length; j++) {
           if (noteIndexList[j] === questionid) {
             notes = this.Scoringtype.inspectionNotes[questionid];
+            if(notes){
+              notes=notes.trim();
+            }
             break;
           }
 
@@ -352,6 +355,9 @@ export class ManagerinspectiontemplateComponent implements OnInit {
         for (j = 0; j < noteIndexList.length; j++) {
           if (noteIndexList[j] === questionid) {
             notes = this.Scoringtype.inspectionNotes[questionid];
+            if(notes){
+              notes=notes.trim();
+            }
             break;
           }
         }

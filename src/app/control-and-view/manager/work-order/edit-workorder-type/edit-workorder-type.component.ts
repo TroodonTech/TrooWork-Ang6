@@ -111,17 +111,23 @@ export class EditWorkorderTypeComponent implements OnInit {
     if (!this.metricType || this.metricType == "--Select--") {
       this.metricType = null;
       alert("Select a metric type !");
+      return;
     }
-    else if (!WOTName) {
+    if (!WOTName || !WOTName.trim()) {
       alert("Please enter work-order type!");
-    } else if (!WOTName.trim()) {
-      alert("Please enter work-order type!");
+      return;
     }
-    else if (this.metricType != 'Default' && !MetricTypeValue1) {
+    if (this.metricType != 'Default' && (!MetricTypeValue1 || !MetricTypeValue1.trim())) {
       MetricTypeValue1 = null;
       alert("MetricTypeValue is not provided !");
+      return;
     }
-    else {
+    if(WOTName){
+      WOTName=WOTName.trim();
+    }
+    if( this.metricType != 'Default' && MetricTypeValue1){
+      MetricTypeValue1=MetricTypeValue1.trim();
+    }
       this.WorkOrderServiceService
         .getMetricValues(this.OrganizationID)
         .subscribe((data: any[]) => {
@@ -211,7 +217,7 @@ export class EditWorkorderTypeComponent implements OnInit {
           });
       }
 
-    }
+    
   }
   goBack() {
     // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['WorkOrderType'] } }]);

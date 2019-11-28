@@ -1,5 +1,5 @@
  
-<div  style="padding-left: 9rem;padding-right: 9rem;overflow-x: hidden">
+<div *ngIf="viewEmpInspectionDetails"  style="padding-left: 9rem;padding-right: 9rem;overflow-x: hidden">
   <div style="text-align:center">
     <h5 style="text-align:center"><b>{{viewEmpInspectionDetails[0].TemplateName}}</b></h5>
     <h5><span style="color: red">{{viewEmpInspectionDetails[0].FacilityName}} </span> - <span style="color: blue">{{viewEmpInspectionDetails[0].FloorName}}</span>

@@ -53,29 +53,39 @@ export class CreateBatchWorkComponent implements OnInit {
 
   createScheduleName() {
     
-    if (this.scheduleName && !this.scheduleName.trim()) {
+    if (!this.scheduleName && !this.scheduleName.trim()) {
       alert("Please provide a Assignment Name");
       return;
     }
-    else if (this.scheduleDescription && !this.scheduleDescription.trim()) {
+     if (!this.scheduleDescription && !this.scheduleDescription.trim()) {
       alert("Assignment Description is not provided!");
       return;
     }
-    else if (!this.scheduleName) {
+     if (!this.scheduleName) {
       alert("Assignment Name is not provided !");
-    } else if (!this.scheduleDescription) {
+      return;
+    }  if (!this.scheduleDescription) {
       alert("Assignment Description is not provided!");
+      return;
     }
-    else if (!this.empKey) {
+     if (!this.empKey) {
       alert("Employee Name is not provided !");
+      return;
     }
-    else if (!this.StartTime) {
+     if (!this.StartTime) {
       alert("Start Time is not provided !");
+      return;
     }
-    else if (!this.EndTime) {
+     if (!this.EndTime) {
       alert("End Time is not provided !");
+      return;
     }
-    else {
+    if(this.scheduleName){
+      this.scheduleName=this.scheduleName.trim();
+    }
+    if(this.scheduleDescription){
+      this.scheduleDescription=this.scheduleDescription.trim();
+    }
       var q = this.EndTime.getHours();
       var q1 = this.EndTime.getMinutes();
       var endTime = q + ":" + q1;
@@ -98,7 +108,7 @@ export class CreateBatchWorkComponent implements OnInit {
               });
           }
         });
-    }
+    
   }
   ngOnInit() {
 

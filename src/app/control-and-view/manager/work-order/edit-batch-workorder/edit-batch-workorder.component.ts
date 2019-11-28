@@ -774,7 +774,7 @@ export class EditBatchWorkorderComponent implements OnInit {
       this.wot = null;
     }
     if (this.WorkorderNotes) {
-      this.notes = this.WorkorderNotes;
+      this.notes = this.WorkorderNotes.trim();
     } else {
       this.notes = null;
     }
@@ -1153,7 +1153,7 @@ export class EditBatchWorkorderComponent implements OnInit {
 
     }
     if (this.WorkorderNotes) {
-      this.notes = this.WorkorderNotes;
+      this.notes = this.WorkorderNotes.trim();
     } else {
       this.notes = null;
     }

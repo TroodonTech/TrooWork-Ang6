@@ -45,11 +45,14 @@ export class ResetPassWordComponent implements OnInit {
   }
 
   resetUserPassword(username, password, userLoginId) {
-    if (!(username)) {
+    if (!(username) || !username.trim()) {
       alert("Please Enter User Name!");
       return;
     }
     else {
+      if(username){
+        username=username.trim();
+      }
       this.peopleService.resetUserPassword(username, password, this.empKey$, userLoginId, this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
         this.response = data[0];
         this.build = data;

@@ -549,7 +549,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
       this.wot = null;
     }
     if (this.workorderNotes) {
-      this.notes = this.workorderNotes;
+      this.notes = this.workorderNotes.trim();
     } else {
       this.notes = null;
     }
@@ -992,7 +992,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
 
     }
     if (this.workorderNotes) {
-      this.notes = this.workorderNotes;
+      this.notes = this.workorderNotes.trim();
     } else {
       this.notes = null;
     }

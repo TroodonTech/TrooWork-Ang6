@@ -3,8 +3,38 @@
   <div class="row col-md-12 ">
     <h4 style="margin-left: 42%;">DASHBOARD REPORT</h4>
   </div>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-top: 1rem"
+  class="row bg-info col-md-12">
+  <div class="col-md-6">
+    <div class="form-group" >
+        <div class="form-group" style="width: 85%;">
+            <label>Shift Type</label><br>
+            <select name="ShiftType" [(ngModel)]="ShiftType" class="form-control " [value]="value" (change)="shiftcheck();dashboardreportbyfilter()"
+              style="background-color: #d4f4ff;">
+              <option value="Normal">Normal</option>
+              <option value="Shift">Shift</option>
+            </select>
+          </div>
 
-  <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem"
+    </div>
+  </div>
+  <div *ngIf="ShiftType==='Shift'" class="col-md-6">
+      <div class="form-group" >
+          <div class="form-group" style="width: 85%;">
+              <label>Shift</label><br>
+              <select name="ShiftType" [(ngModel)]="ShiftValue" class="form-control " [value]="value" (change)="dashboardreportbyfilter()"
+                style="background-color: #d4f4ff;">
+                <option value="All">All</option>
+                <option *ngFor="let e of shiftlist" [value]="e.Master_shiftID">
+                    {{e.ShiftName}}
+                  </option>
+              </select>
+            </div>
+  
+      </div>
+    </div>
+</div>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;"
     class="row bg-info col-md-12">
     <div class="col-md-6">
       <h3 style="text-align: right"></h3>
@@ -19,7 +49,8 @@
         </select>
       </div>
       <div class="form-group" style="width: 68%;">
-        <label>From Date</label>
+        <label  *ngIf="ShiftType!='Shift'">From Date</label>
+        <label  *ngIf="ShiftType==='Shift'"> Date</label>
         <ng-datepicker [options]="options" position="top-right" [(ngModel)]="fromdate"
           (ngModelChange)="dashboardreportbyfilter()"></ng-datepicker>
         <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [(ngModel)]="fromdate" (onSelection)="dashboardreportbyfilter()"></igx-datePicker> -->
@@ -34,7 +65,7 @@
           (onSelectAll)="dashboardreportbyfilter()" (onDeSelectAll)="dashboardreportbyfilter()">
         </ng-multiselect-dropdown>
       </div>
-      <div class="form-group" style="width: 68%;">
+      <div  *ngIf="ShiftType!='Shift'" class="form-group" style="width: 68%;">
         <label>To Date</label>
         <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate"
           (ngModelChange)="dashboardreportbyfilter()"></ng-datepicker>

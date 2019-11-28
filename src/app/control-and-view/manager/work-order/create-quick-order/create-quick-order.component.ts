@@ -100,7 +100,7 @@ export class CreateQuickOrderComponent implements OnInit {
     this.is_BarcodeRequired = 0;
 
     if (this.WorkorderNotes) {
-      this.notes = this.WorkorderNotes;
+      this.notes = this.WorkorderNotes.trim();
     } else {
       this.notes = null;
     }

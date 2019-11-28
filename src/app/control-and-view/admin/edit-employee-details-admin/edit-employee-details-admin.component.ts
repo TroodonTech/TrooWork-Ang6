@@ -169,6 +169,7 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     }
     if (UserRoleTypeKey == 3 && ManagerKey) {
       manKey = ManagerKey;
+      superKey = ManagerKey;
     }
     else if (UserRoleTypeKey == 5 && ManagerKey) {
       manKey = ManagerKey;
@@ -177,19 +178,7 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       manKey = -1;
     }
 
-    if (this.supermark === true && !(SupervisorKey)) {
-      alert("Supervisor is not provided !");
-      return;
-    }
-    else {
-      superKey = -1;
-    }
-    if (UserRoleTypeKey == 3 && SupervisorKey) {
-      superKey = SupervisorKey;
-    }
-    else {
-      superKey = "";
-    }
+    
 
     var birthdt;
     var currentDate = this.convert_DT(new Date());

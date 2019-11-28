@@ -43,12 +43,12 @@ export class ReportServiceService {
       // .get(ConectionSettings.Url + '/allWorkordertype?employeekey=' + empKey + '&OrganizationID=' + orgID);
       .get(ConectionSettings.Url + '/allWorkordertype_SuType?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
-  getpievalues(currentdate, empKey, orgID) {
+  getpievalues(currentdate, empKey, orgID,ShiftType,ShiftValue) {
     return this
       .http
-      .get(ConectionSettings.Url + '/valuesForPie?date=' + currentdate + '&empkey=' + empKey + '&userkey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/valuesForPie?date=' + currentdate + '&empkey=' + empKey + '&userkey=' + empKey + '&OrganizationID=' + orgID+"&ShiftType="+ShiftType+"&ShiftValue="+ShiftValue);
   }
-  getdashboardreport(dateTemp_1, dateTemp_2, em_Key, Workorder_TypeKey, empKey, orgID) {
+  getdashboardreport(dateTemp_1, dateTemp_2, em_Key, Workorder_TypeKey, empKey, orgID,ShiftType,ShiftValue) {
     const url = ConectionSettings.Url + '/getEmployeeForPie';
     const obj = {
       Date: dateTemp_1,
@@ -56,13 +56,15 @@ export class ReportServiceService {
       EmployeeKey: em_Key,
       WorkorderTypeKey: Workorder_TypeKey,
       managerKey: empKey,
-      OrganizationID: orgID
+      OrganizationID: orgID,
+      ShiftType:ShiftType,
+      ShiftValue:ShiftValue
     };
     return this
       .http
       .post(url, obj);
   }
-  getvaluesfilterbypie(dateTemp_1, dateTemp_2, em_Key, Workorder_TypeKey, org_id, Manager) {
+  getvaluesfilterbypie(dateTemp_1, dateTemp_2, em_Key, Workorder_TypeKey, org_id, Manager,ShiftType,ShiftValue) {
     const url = ConectionSettings.Url + '/workorderByfilterPie';
     const obj = {
       manager: Manager,
@@ -70,7 +72,9 @@ export class ReportServiceService {
       workorderDate2: dateTemp_2,
       employeeKey: em_Key,
       workorderTypeKey: Workorder_TypeKey,
-      OrganizationID: org_id
+      OrganizationID: org_id,
+      ShiftType:ShiftType,
+      ShiftValue:ShiftValue
     };
     return this
       .http
@@ -364,4 +368,9 @@ export class ReportServiceService {
       .get(ConectionSettings.Url + '/getReviewDetailsForReport?fromDate=' + from + '&toDate=' + to+ '&OrganizationID=' + orgID);
   }
   //Review Report - @Rodney ends....
+  getShiftNameList(EmployeeKey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getShiftNameList?employeeKey=' + EmployeeKey+ '&OrganizationID=' + orgID);
+  }
 }

@@ -119,39 +119,49 @@ export class EventViewComponent implements OnInit {
 
     if (!ActionType || !ActionType.trim()) {
       alert("Please enter an event type");
+      return;
     }
-    else if (!Action || !Action.trim()) {
+    if (!Action || !Action.trim()) {
       alert("Please enter an event name");
+      return;
     }
-    else {
-      this.peopleServ.checkEventDuplicateForEdit(ActionType, Action, ActionKey, ActionTypeKey, this.OrganizationID).subscribe((data: any[]) => {
-        if (data[0].count == 0) {
-          this.peopleServ.UpdateEventType(ActionType, Action, Description, ActionKey, ActionTypeKey, this.employeekey, this.OrganizationID).
-            subscribe(() => {
-              alert('Successfully Updated !');
-              this.peopleServ
-                .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
-                .subscribe((data: People[]) => {
-                  this.eventType = data;
-                  this.editQuestions = -1;
-                });
-            });
-        }
-        else {
-          alert("Entered event already exists...!!!");
-          return false;
-        }
-      });
-      // }
-      // else {
-      //   this.peopleServ
-      //     .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
-      //     .subscribe((data: People[]) => {
-      //       this.eventType = data;
-      //       this.editQuestions = -1;
-      //     });
-      // }
+    if (ActionType) {
+      ActionType = ActionType.trim();
     }
+    if (Action) {
+      Action = Action.trim();
+    }
+    if (Description) {
+      Description = Description.trim();
+    }
+    this.peopleServ.checkEventDuplicateForEdit(ActionType, Action, ActionKey, ActionTypeKey, this.OrganizationID).subscribe((data: any[]) => {
+      if (data[0].count == 0) {
+        this.peopleServ.UpdateEventType(ActionType, Action, Description, ActionKey, ActionTypeKey, this.employeekey, this.OrganizationID).
+          subscribe(() => {
+            alert('Successfully Updated !');
+            this.peopleServ
+              .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
+              .subscribe((data: People[]) => {
+                this.eventType = data;
+                this.editQuestions = -1;
+              });
+          });
+      }
+      else {
+        alert("Entered event already exists...!!!");
+        return false;
+      }
+    });
+    // }
+    // else {
+    //   this.peopleServ
+    //     .getEventTypeList(this.page, this.count, this.employeekey, this.OrganizationID)
+    //     .subscribe((data: People[]) => {
+    //       this.eventType = data;
+    //       this.editQuestions = -1;
+    //     });
+    // }
+
   }
 
 }
