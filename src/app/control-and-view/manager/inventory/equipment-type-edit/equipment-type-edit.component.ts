@@ -47,6 +47,8 @@ export class EquipmentTypeEditComponent implements OnInit {
     } else if (!equipTypeDesc || !equipTypeDesc.trim()) {
       alert("Please provide a Equipment Type Description");
     } else {
+      equipType = equipType.trim();
+      equipTypeDesc = equipTypeDesc.trim();
       this.inventoryService.checkForNewEquipmentType(equipType, this.employeekey, this.OrganizationID).subscribe((data: Array<any>) => {
         this.equipType = data;
         if (this.equipType[0].count == 1) {

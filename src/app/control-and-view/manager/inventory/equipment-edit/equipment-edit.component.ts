@@ -51,7 +51,7 @@ export class EquipmentEditComponent implements OnInit {
 
   selectFloorfromBuildings(facKey) {
     this.FacKey = facKey;
-    this.FloorKey="";
+    this.FloorKey = "";
     this.inventoryService
       .getallFloorList(facKey, this.OrganizationID)
       .subscribe((data: Inventory[]) => {
@@ -65,11 +65,11 @@ export class EquipmentEditComponent implements OnInit {
     this.FloorKey = floorKey;
   }
   updateEquipment(EquipmentName, EquipmentDescription, EquipmentBarcode) {
-    if (!EquipmentName || !EquipmentName.trim()) {
+    if (!(EquipmentName) || !(EquipmentName.trim())) {
       alert("Please Enter Equipment Name!");
       return;
     }
-    if (!EquipmentBarcode ) {
+    if (!EquipmentBarcode) {
       alert("Please Enter Equipment Barcode!");
       return;
     }
@@ -84,6 +84,9 @@ export class EquipmentEditComponent implements OnInit {
     } else if (!this.FloorKey) {
       alert("Floor is not provided");
     } else {
+      EquipmentName = EquipmentName.trim();
+      EquipmentDescription = EquipmentDescription.trim();
+      
       if (this.equipName != EquipmentName) {
         this.inventoryService.checkForNewEquipment(this.equipTypeKey, EquipmentName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
           this.dept = data;

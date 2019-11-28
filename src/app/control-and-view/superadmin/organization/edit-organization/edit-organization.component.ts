@@ -36,41 +36,46 @@ export class EditOrganizationComponent implements OnInit {
   }
 
   updateOrg(OName, ODesc, state, tid, loc, country, tename, email) {
-      
-      if(OName &&!(OName.trim())){
-        alert('Organization Name is not provided !');
-        return;
-      }
-      if(tid && !(tid.trim() ) ){
-        alert('Tenant ID is not provided !');
-        return;
-      }
-      if(!(OName)){
-        alert('Organization Name is not provided !');
-        return;
-      }
-      if( ! (tid) ){
-        alert('Tenant ID is not provided !');
-        return;
-      }
-    
 
-    
+    if (!(OName) || !(OName.trim())) {
+      alert('Organization Name is not provided !');
+      return;
+    }
+    if (!(tid) || !(tid.trim())) {
+      alert('Tenant ID is not provided !');
+      return;
+    }
+    OName = OName.trim();
+    tid = tid.trim();
+    if (ODesc) {
+      ODesc = ODesc.trim();
+    } if (loc) {
+      loc = loc.trim();
+    } if (state) {
+      state = state.trim();
+    } if (country) {
+      country = country.trim();
+    } if (tename) {
+      tename = tename.trim();
+    }
+
+
+
     this.updatedby = this.employeekey;
     if (tid == this.temp_TenantID) {
       this.organizationService.UpdateOrganizationDetails(OName, ODesc, state, tid, loc, country, tename, email, this.updatedby, this.OrgId$).subscribe((data: any[]) => {
-        alert("Organization Updated !"); 
-        this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['ViewOrganization'] } }]);
-        });
+        alert("Organization Updated !");
+        this.router.navigate(['/SuperadminDashboard', { outlets: { SuperAdminOut: ['ViewOrganization'] } }]);
+      });
     }
     else {
       this.organizationService.checkForTenantId(tid).subscribe((data: any[]) => {
         if (data[0].count == 0) {
           this.organizationService.UpdateOrganizationDetails(OName, ODesc, state, tid, loc, country, tename, email, this.updatedby, this.OrgId$).subscribe((data: any[]) => {
-            alert("Organization Updated !"); 
-            this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['ViewOrganization'] } }]);
+            alert("Organization Updated !");
+            this.router.navigate(['/SuperadminDashboard', { outlets: { SuperAdminOut: ['ViewOrganization'] } }]);
 
-            });
+          });
         }
         else {
           alert("Tenant ID is already present !");
@@ -78,7 +83,7 @@ export class EditOrganizationComponent implements OnInit {
         }
 
       });
-     }
+    }
   }
   ngOnInit() {
     var token = localStorage.getItem('token');
@@ -93,7 +98,7 @@ export class EditOrganizationComponent implements OnInit {
 
     });
   }
-  goBack(){
-    this.router.navigate(['/SuperadminDashboard',{ outlets: { SuperAdminOut: ['ViewOrganization'] } }]);
+  goBack() {
+    this.router.navigate(['/SuperadminDashboard', { outlets: { SuperAdminOut: ['ViewOrganization'] } }]);
   }
 }

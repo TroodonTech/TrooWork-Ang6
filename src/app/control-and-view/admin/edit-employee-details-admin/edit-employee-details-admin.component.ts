@@ -220,6 +220,35 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
     //   manKey = -1;
     // }
 
+    EmployeeNumber = EmployeeNumber.trim();
+    FirstName = FirstName.trim();
+    LastName = LastName.trim();
+    PrimaryPhone = PrimaryPhone.trim();
+    if (MiddleName) {
+      MiddleName = MiddleName.trim();
+    }
+    if (AddressLine1) {
+      AddressLine1 = AddressLine1.trim();
+    }
+    if (AddressLine2) {
+      AddressLine2 = AddressLine2.trim();
+    }
+    if (City) {
+      City = City.trim();
+    }
+    if (State) {
+      State = State.trim();
+    }
+    if (Country) {
+      Country = Country.trim();
+    }
+    if (ZipCode) {
+      ZipCode = ZipCode.trim();
+    }
+    if (AlternatePhone) {
+      AlternatePhone = AlternatePhone.trim();
+    }
+
     this.PeopleServiceService.UpdateEmployeeDetailsbyManager(this.employeekey, manKey, this.empk$, this.OrganizationID, EmployeeNumber, UserRoleTypeKey, FirstName, LastName, MiddleName, birthdt, Gender, AddressLine1, City, AddressLine2, State, Country, PrimaryPhone, ZipCode, AlternatePhone, EmailID, EmployeeStatusKey, hiredt, superKey, JobTitleKey, DepartmentKey, this.remark)
       // , start_sun_hour, start_sun_min, start_sun_format, start_mon_hour, start_mon_min, start_mon_format, start_tue_hour, start_tue_min, start_tue_format, start_wed_hour, start_wed_min, start_wed_format, start_thu_hour, start_thu_min, start_thu_format, start_fri_hour, start_fri_min, start_fri_format, start_sat_hour, start_sat_min, start_sat_format, end_sun_hour, end_sun_min, end_sun_format, end_mon_hour, end_mon_min, end_mon_format, end_tue_hour, end_tue_min, end_tue_format, end_wed_hour, end_wed_min, end_wed_format, end_thu_hour, end_thu_min, end_thu_format, end_fri_hour, end_fri_min, end_fri_format, end_sat_hour, end_sat_min, end_sat_format, idscheduler_exception, idmaster_exception_weekend,idemployeegrouping)
       .subscribe((data: Array<any>) => {

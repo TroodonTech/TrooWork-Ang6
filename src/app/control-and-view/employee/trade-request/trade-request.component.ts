@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
 })
 export class TradeRequestComponent implements OnInit {
 
-    ////////Author :  Aswathy//////
+  ////////Author :  Aswathy//////
 
   role: String;
   name: String;
@@ -104,7 +104,11 @@ export class TradeRequestComponent implements OnInit {
       alert("End Date can't be less than start date...!");
       return;
     }
-
+    if (this.requestcomments) {
+      this.requestcomments = this.requestcomments.trim();
+    } else {
+      this.requestcomments = "";
+    }
     this.PeopleServiceService
       .submitTradeRequest(this.curr_date, this.toServeremployeekey, this.OrganizationID, this.EmployeeKey, this.convert_DT(this.startdate),
         this.convert_DT(this.enddate), this.requestcomments).subscribe((data: any[]) => {

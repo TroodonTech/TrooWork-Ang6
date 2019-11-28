@@ -71,70 +71,69 @@ export class ViewmeetingortrainingeventComponent implements OnInit {
     }, 100)
   }
 
-    //functions for pagination
+  //functions for pagination
 
-    // nextPage() {
-    //   this.loading = true;// loading
-    //   this.pageNo = +this.pageNo + 1;
-    //   var curr_date = this.convert_DT(new Date());
-    //   this.PeopleServiceService
-    //   .getMeetingTrainingViewforemployee(this.page, this.count, curr_date, this.toServeremployeekey, this.OrganizationID)
-    //   .subscribe((data: People[]) => {
-    //     this.viewmeeting = data;
-    //        this.loading = false;// loading
-    //       this.pagination = +this.viewmeeting[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
-    //       if (this.pagination > 1) {
-    //         this.showHide2 = true;
-    //         this.showHide1 = true;
-    //       }
-    //       else {
-    //         this.showHide2 = false;
-    //         this.showHide1 = true;
-    //       }
-    //     });
-    // }
-    // previousPage() {
-    // this.loading = false;// loading
-    //   var curr_date = this.convert_DT(new Date());
-    //   this.pageNo = +this.pageNo - 1;
-    //   this.PeopleServiceService
-    //   .getMeetingTrainingViewforemployee(this.page, this.count, curr_date, this.toServeremployeekey, this.OrganizationID)
-    //   .subscribe((data: People[]) => {
-    //     this.viewmeeting = data;
-    //       this.loading = false;// loading
-    //       if (this.pageNo == 1) {
-    //         this.showHide2 = true;
-    //         this.showHide1 = false;
-    //       } else {
-    //         this.showHide2 = true;
-    //         this.showHide1 = true;
-    //       }
-    //     });
-    // }
-  
-    //functions for pagination 
+  // nextPage() {
+  //   this.loading = true;// loading
+  //   this.pageNo = +this.pageNo + 1;
+  //   var curr_date = this.convert_DT(new Date());
+  //   this.PeopleServiceService
+  //   .getMeetingTrainingViewforemployee(this.page, this.count, curr_date, this.toServeremployeekey, this.OrganizationID)
+  //   .subscribe((data: People[]) => {
+  //     this.viewmeeting = data;
+  //        this.loading = false;// loading
+  //       this.pagination = +this.viewmeeting[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
+  //       if (this.pagination > 1) {
+  //         this.showHide2 = true;
+  //         this.showHide1 = true;
+  //       }
+  //       else {
+  //         this.showHide2 = false;
+  //         this.showHide1 = true;
+  //       }
+  //     });
+  // }
+  // previousPage() {
+  // this.loading = false;// loading
+  //   var curr_date = this.convert_DT(new Date());
+  //   this.pageNo = +this.pageNo - 1;
+  //   this.PeopleServiceService
+  //   .getMeetingTrainingViewforemployee(this.page, this.count, curr_date, this.toServeremployeekey, this.OrganizationID)
+  //   .subscribe((data: People[]) => {
+  //     this.viewmeeting = data;
+  //       this.loading = false;// loading
+  //       if (this.pageNo == 1) {
+  //         this.showHide2 = true;
+  //         this.showHide1 = false;
+  //       } else {
+  //         this.showHide2 = true;
+  //         this.showHide1 = true;
+  //       }
+  //     });
+  // }
+
+  //functions for pagination 
 
   searchMeeting(SearchValue) {
-    var value=SearchValue.trim();
+    var value = SearchValue.trim();
     var curr_date = this.convert_DT(new Date());
-    if (value.length >= 3){
-    this.PeopleServiceService
-      .SearchMeetingviewforemployee(value, this.toServeremployeekey, this.OrganizationID, curr_date).subscribe((data: People[]) => {
-        this.viewmeeting = data;
-      
-      });
-    }
-    else if (value.length == 0){
-      if((value.length == 0) &&(SearchValue.length == 0) )
-    {
-   this.loading = true;
-    }
+    if (value.length >= 3) {
       this.PeopleServiceService
-      .getMeetingTrainingViewforemployees(curr_date, this.toServeremployeekey, this.OrganizationID)
-      .subscribe((data: People[]) => {
-        this.viewmeeting = data;
-        this.loading = false;// loading
-      });
+        .SearchMeetingviewforemployee(value, this.toServeremployeekey, this.OrganizationID, curr_date).subscribe((data: People[]) => {
+          this.viewmeeting = data;
+
+        });
+    }
+    else if (value.length == 0) {
+      if ((value.length == 0) && (SearchValue.length == 0)) {
+        this.loading = true;
+      }
+      this.PeopleServiceService
+        .getMeetingTrainingViewforemployees(curr_date, this.toServeremployeekey, this.OrganizationID)
+        .subscribe((data: People[]) => {
+          this.viewmeeting = data;
+          this.loading = false;// loading
+        });
     }
 
   };

@@ -246,7 +246,7 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
         questionid = questionidList[i];
         for (j = 0; j < noteIndexList.length; j++) {
           if (noteIndexList[j] === questionid) {
-            notes = this.Scoringtype.inspectionNotes[questionid];
+            notes = this.Scoringtype.inspectionNotes[questionid].trim();
             break;
           }
 
@@ -355,7 +355,7 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
         questionid = questionidList[i];
         for (j = 0; j < noteIndexList.length; j++) {
           if (noteIndexList[j] === questionid) {
-            notes = this.Scoringtype.inspectionNotes[questionid];
+            notes = this.Scoringtype.inspectionNotes[questionid].trim();
             break;
           }
         }

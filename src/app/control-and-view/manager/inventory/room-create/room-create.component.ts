@@ -62,15 +62,15 @@ export class RoomCreateComponent implements OnInit {
 
   selectFloorfromBuildings(facKey) {
     this.FaciKey = facKey;
-    if(facKey){
-    this.inventoryService
-      .getallFloorList(facKey, this.OrganizationID)
-      .subscribe((data: Inventory[]) => {
-        this.floor = data;
-      });
+    if (facKey) {
+      this.inventoryService
+        .getallFloorList(facKey, this.OrganizationID)
+        .subscribe((data: Inventory[]) => {
+          this.floor = data;
+        });
     }
-    else{
-      this.FloorKey='';
+    else {
+      this.FloorKey = '';
     }
   }
 
@@ -105,10 +105,13 @@ export class RoomCreateComponent implements OnInit {
     } else if (!SquareFoot || !SquareFoot.trim()) {
       SquareFoot = null;
       alert("SquareFoot is not provided !");
-    } else if (!Barcode ) {
+    } else if (!Barcode || !Barcode.trim()) {
       Barcode = null;
       alert("Barcode is not provided !");
     } else {
+      RoomName = RoomName.trim();
+      SquareFoot = SquareFoot.trim();
+      Barcode = Barcode.trim();
       this.inventoryService
         .checkNewRoom(FacilityKey, FloorKey, FloorTypeKey, ZoneKey, RoomTypeKey, RoomName, this.employeekey, this.OrganizationID)
         .subscribe((data: Inventory[]) => {
@@ -123,7 +126,7 @@ export class RoomCreateComponent implements OnInit {
                   alert("Barcode already exists! Please enter a unique barcode.");
                 } else {
                   this.inventoryService
-                    .checkRoomName(FacilityKey,FloorKey,RoomName, this.OrganizationID)
+                    .checkRoomName(FacilityKey, FloorKey, RoomName, this.OrganizationID)
                     .subscribe((data: Inventory[]) => {
                       if (data[0].count > 0) {
                         alert("Room Name already exists !");
@@ -202,7 +205,7 @@ export class RoomCreateComponent implements OnInit {
   goBack() {
     this._location.back();
   }
-  zoneChange(){
-    this.RoomTypeKey='';
+  zoneChange() {
+    this.RoomTypeKey = '';
   }
 }

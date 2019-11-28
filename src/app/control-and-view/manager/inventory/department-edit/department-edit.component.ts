@@ -41,9 +41,10 @@ export class DepartmentEditComponent implements OnInit {
 
   updateDepartment(DepartmentName) {
 
-    if (!DepartmentName || !DepartmentName.trim()) {
+    if (!(DepartmentName) || !(DepartmentName.trim())) {
       alert("Please provide a Department Name");
     } else {
+      DepartmentName = DepartmentName.trim();
       this.inventoryService.checkForNewDepartment(DepartmentName, this.employeekey, this.OrganizationID).subscribe((data: Array<any>) => {
         if (data.length > 0) {
           alert("Department already present");

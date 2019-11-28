@@ -199,7 +199,7 @@ export class AddEmployeeComponent implements OnInit {
 
     var manKey; var superKey;
     var IsSupervisor;
-    if (!(this.EmployeeNumber) || !this.EmployeeNumber.trim()) {
+    if (!(this.EmployeeNumber) || !(this.EmployeeNumber.trim())) {
       alert("Employee Number is not provided !");
       return;
     }
@@ -246,18 +246,18 @@ export class AddEmployeeComponent implements OnInit {
     else {
       IsSupervisor = 0;
     }
-    if (!(this.FirstName) || !this.FirstName.trim()) {
+    if (!(this.FirstName) || !(this.FirstName.trim())) {
       alert("First Name is not provided !");
       return;
     }
-    if (!(this.LastName) || !this.LastName.trim()) {
+    if (!(this.LastName) || !(this.LastName.trim())) {
       alert("Last Name is not provided !");
       return;
     }
     if (!(this.Gender)) {
       this.Gender = null;
     }
-    if (!(this.PrimaryPhone) || !this.PrimaryPhone.trim()) {
+    if (!(this.PrimaryPhone) || !(this.PrimaryPhone.trim())) {
       alert("Primary Phone is not provided !");
       return;
     }
@@ -388,6 +388,36 @@ export class AddEmployeeComponent implements OnInit {
     // }
 
     // if (this.schedularcount == 0) {
+
+    this.EmployeeNumber = this.EmployeeNumber.trim();
+    this.FirstName = this.FirstName.trim();
+    this.LastName = this.LastName.trim();
+    this.PrimaryPhone = this.PrimaryPhone.trim();
+    if (this.MiddleName) {
+      this.MiddleName = this.MiddleName.trim();
+    }
+    if (this.AddressLine1) {
+      this.AddressLine1 = this.AddressLine1.trim();
+    }
+    if (this.AddressLine2) {
+      this.AddressLine2 = this.AddressLine2.trim();
+    }
+    if (this.City) {
+      this.City = this.City.trim();
+    }
+    if (this.State) {
+      this.State = this.State.trim();
+    }
+    if (this.Country) {
+      this.Country = this.Country.trim();
+    }
+    if (this.ZipCode) {
+      this.ZipCode = this.ZipCode.trim();
+    }
+    if (this.AlternatePhone) {
+      this.AlternatePhone = this.AlternatePhone.trim();
+    }
+
     this.PeopleServiceService.checkEmpNumber(this.EmployeeNumber, this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         if (data[0].count > 0) {
@@ -397,9 +427,7 @@ export class AddEmployeeComponent implements OnInit {
 
           var str = "";
           str = this.FirstName + '' + this.LastName;
-          this.PeopleServiceService.createEmployeebyAdmin(this.EmployeeNumber, manKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender,
-            this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD,
-            this.JobTitleKey, this.DepartmentKey, this.employeekey, this.OrganizationID, IsSupervisor,superKey)
+          this.PeopleServiceService.createEmployeebyAdmin(this.EmployeeNumber, manKey, this.FirstName, this.LastName, this.MiddleName, BD, this.Gender, this.AddressLine1, this.City, this.AddressLine2, this.State, this.Country, this.PrimaryPhone, this.ZipCode, this.AlternatePhone, this.EmailID, HD, this.JobTitleKey, this.DepartmentKey, this.employeekey, this.OrganizationID, IsSupervisor, superKey)
             // this.start_sun_hour, this.start_sun_min, this.start_sun_format, this.start_mon_hour, this.start_mon_min, this.start_mon_format, this.start_tue_hour, this.start_tue_min, this.start_tue_format, this.start_wed_hour, this.start_wed_min, this.start_wed_format, this.start_thu_hour, this.start_thu_min, this.start_thu_format, this.start_fri_hour, this.start_fri_min, this.start_fri_format, this.start_sat_hour, this.start_sat_min, this.start_sat_format, this.end_sun_hour, this.end_sun_min, this.end_sun_format, this.end_mon_hour, this.end_mon_min, this.end_mon_format, this.end_tue_hour, this.end_tue_min, this.end_tue_format, this.end_wed_hour, this.end_wed_min, this.end_wed_format, this.end_thu_hour, this.end_thu_min, this.end_thu_format, this.end_fri_hour, this.end_fri_min, this.end_fri_format, this.end_sat_hour, this.end_sat_min, this.end_sat_format, this.idscheduler_exception, this.idmaster_exception_weekend, this.idemployeegrouping)
             .subscribe((data22: any[]) => {
               this.temp_res = data22;

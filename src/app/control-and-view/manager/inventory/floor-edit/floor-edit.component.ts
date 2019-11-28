@@ -59,6 +59,9 @@ export class FloorEditComponent implements OnInit {
       return;
     }
     else {
+      FloorName = FloorName.trim();
+      FloorDescription = FloorDescription.trim();
+
       this.inventoryService.CheckNewFloor(FacilityKey, FloorName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         if (data[0].count > 0) {
           alert("Floor already present !");

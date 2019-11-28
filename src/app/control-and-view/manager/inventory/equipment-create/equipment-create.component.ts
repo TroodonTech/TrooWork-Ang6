@@ -50,23 +50,23 @@ export class EquipmentCreateComponent implements OnInit {
 
   selectFloorfromBuildings(facKey) {
     this.FacKey = facKey;
-    if(facKey){
-    this.inventoryService
-      .getallFloorList(facKey, this.OrganizationID)
-      .subscribe((data: Inventory[]) => {
-        this.floors = data;
-      });
+    if (facKey) {
+      this.inventoryService
+        .getallFloorList(facKey, this.OrganizationID)
+        .subscribe((data: Inventory[]) => {
+          this.floors = data;
+        });
     }
-    else{
-      this.FloorKey='';
+    else {
+      this.FloorKey = '';
     }
   }
   floorValueSet(floorKey) {
     this.FloorKey = floorKey;
   }
   addEquipment(EquipmentName, EquipmentDescription, Barcode, EquipmentTypeKey) {
-    
-    if (!EquipmentName || !EquipmentName.trim()) {
+
+    if (!(EquipmentName) || !(EquipmentName.trim())) {
       alert("Please Enter Equipment Name!");
       return;
     }
@@ -80,12 +80,15 @@ export class EquipmentCreateComponent implements OnInit {
       alert("Equipment Name is not provided");
     } else if (!Barcode) {
       alert("Equipment Barcode is not provided");
-    
+
     } else if (!this.FacKey) {
       alert("Building is not provided");
     } else if (!this.FloorKey) {
       alert("Floor is not provided");
     } else {
+      EquipmentName = EquipmentName.trim();
+      Barcode = Barcode.trim();
+      EquipmentDescription = EquipmentDescription.trim();
       this.inventoryService.checkForNewEquipment(EquipmentTypeKey, EquipmentName, this.employeekey, this.OrganizationID).subscribe((data: Inventory[]) => {
         this.dept = data;
         if (this.dept[0].count > 0) {

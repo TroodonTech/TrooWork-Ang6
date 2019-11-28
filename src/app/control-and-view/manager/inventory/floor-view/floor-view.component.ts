@@ -129,9 +129,9 @@ export class FloorViewComponent implements OnInit {
   }
 
   searchFloor(SearchValue) {
-    
-    var value=SearchValue.trim();
-    
+
+    var value = SearchValue.trim();
+
     if (value.length >= 3) {
       this.inventoryService
         .SearchFloor(value, this.OrganizationID).subscribe((data: Inventory[]) => {
@@ -141,9 +141,8 @@ export class FloorViewComponent implements OnInit {
 
         });
     } else if (value.length == 0) {
-      if((value.length == 0) &&(SearchValue.length == 0) )
-      {
-     this.loading = true;
+      if ((value.length == 0) && (SearchValue.length == 0)) {
+        this.loading = true;
       }
       this.inventoryService
         .getFloors(this.pageNo, this.itemsPerPage, this.employeekey, this.OrganizationID)
