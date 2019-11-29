@@ -271,6 +271,7 @@ export class MeetingTrainingCreateComponent implements OnInit {
         this.JobTitle = null;
         this.Supervisor = [];
         this.Employee = [];
+        this.Manager=[];
 
         this.superVsrKey = 0;
         this.jobTleKey = 0;

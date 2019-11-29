@@ -78,7 +78,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="floorname">Manager </label>
-                <ng-multiselect-dropdown [placeholder]="'Select Manager'" [data]="managerList" [(ngModel)]="Manager"
+                <ng-multiselect-dropdown [placeholder]="'Select Manager'" [data]="managerList" [(ngModel)]="Manager" (onDeSelect)="selectEmp()"
                     [settings]="dropdownSettings2" (onSelect)="selectEmp()" (onDeSelectAll)="selectEmp()" (onSelectAll)="selectEmp()">
                 </ng-multiselect-dropdown>
                 <!-- <select style="background-color: #D4F4FF !important;" class="form-control "
