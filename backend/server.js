@@ -20106,7 +20106,7 @@ app.get(securedpath + '/checkForDuplicateEventType', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @ActionType=?;set @Action=?; set @ActionKey=?;set @ActionTypeKey=?; set @OrganizationID=?; call checkForDuplicateEventType(@ActionType,@Action,@ActionKey,@ActionTypeKey,@OrganizationID)', [ActionType, Action, ActionKey, ActionTypeKey, OrganizationID], function (err, rows) {
+            connection.query('set @ActionType=?;set @Action=?; set @ActionKey=?;set @ActionTypeKey=?; set @OrganizationID=?; call usp_checkForDuplicateEventType(@ActionType,@Action,@ActionKey,@ActionTypeKey,@OrganizationID)', [ActionType, Action, ActionKey, ActionTypeKey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
