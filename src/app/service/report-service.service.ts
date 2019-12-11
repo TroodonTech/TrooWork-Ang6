@@ -43,12 +43,12 @@ export class ReportServiceService {
       // .get(ConectionSettings.Url + '/allWorkordertype?employeekey=' + empKey + '&OrganizationID=' + orgID);
       .get(ConectionSettings.Url + '/allWorkordertype_SuType?employeekey=' + empKey + '&OrganizationID=' + orgID);
   }
-  getpievalues(currentdate, empKey, orgID,ShiftType,ShiftValue) {
+  getpievalues(currentdate, empKey, orgID, ShiftType, ShiftValue) {
     return this
       .http
-      .get(ConectionSettings.Url + '/valuesForPie?date=' + currentdate + '&empkey=' + empKey + '&userkey=' + empKey + '&OrganizationID=' + orgID+"&ShiftType="+ShiftType+"&ShiftValue="+ShiftValue);
+      .get(ConectionSettings.Url + '/valuesForPie?date=' + currentdate + '&empkey=' + empKey + '&userkey=' + empKey + '&OrganizationID=' + orgID + "&ShiftType=" + ShiftType + "&ShiftValue=" + ShiftValue);
   }
-  getdashboardreport(dateTemp_1, dateTemp_2, em_Key, Workorder_TypeKey, empKey, orgID,ShiftType,ShiftValue) {
+  getdashboardreport(dateTemp_1, dateTemp_2, em_Key, Workorder_TypeKey, empKey, orgID, ShiftType, ShiftValue) {
     const url = ConectionSettings.Url + '/getEmployeeForPie';
     const obj = {
       Date: dateTemp_1,
@@ -57,14 +57,14 @@ export class ReportServiceService {
       WorkorderTypeKey: Workorder_TypeKey,
       managerKey: empKey,
       OrganizationID: orgID,
-      ShiftType:ShiftType,
-      ShiftValue:ShiftValue
+      ShiftType: ShiftType,
+      ShiftValue: ShiftValue
     };
     return this
       .http
       .post(url, obj);
   }
-  getvaluesfilterbypie(dateTemp_1, dateTemp_2, em_Key, Workorder_TypeKey, org_id, Manager,ShiftType,ShiftValue) {
+  getvaluesfilterbypie(dateTemp_1, dateTemp_2, em_Key, Workorder_TypeKey, org_id, Manager, ShiftType, ShiftValue) {
     const url = ConectionSettings.Url + '/workorderByfilterPie';
     const obj = {
       manager: Manager,
@@ -73,8 +73,8 @@ export class ReportServiceService {
       employeeKey: em_Key,
       workorderTypeKey: Workorder_TypeKey,
       OrganizationID: org_id,
-      ShiftType:ShiftType,
-      ShiftValue:ShiftValue
+      ShiftType: ShiftType,
+      ShiftValue: ShiftValue
     };
     return this
       .http
@@ -237,7 +237,7 @@ export class ReportServiceService {
   }
 
 
-  generateWorkOrderReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, todate, RoomKey, EmployeeKey, WorkorderStatusKey, empKey, orgID,WorkorderType_Key) {
+  generateWorkOrderReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, todate, RoomKey, EmployeeKey, WorkorderStatusKey, empKey, orgID, WorkorderType_Key) {
     const url = ConectionSettings.Url + '/workorderReportByallFilters';
     const obj = {
       OrganizationID: orgID,
@@ -251,7 +251,7 @@ export class ReportServiceService {
       roomKey: RoomKey,
       employeeKey: EmployeeKey,
       workorderStatusKey: WorkorderStatusKey,
-      WorkorderTypeKey:WorkorderType_Key
+      WorkorderTypeKey: WorkorderType_Key
     };
     return this
       .http
@@ -341,16 +341,16 @@ export class ReportServiceService {
 
   }
   // @Author Rodney - For inventory ends
-  getInspectionReportByAllFilter(obj){//new inspection report api ----by varun 
+  getInspectionReportByAllFilter(obj) {//new inspection report api ----by varun 
     const url = ConectionSettings.Url + '/getInspectionReportByAllFilter';
     return this
-    .http
-    .post(url, obj);
+      .http
+      .post(url, obj);
 
   }
   ////Aswathy's code starts here/////
   generateDowntimeReportService(fromdate, EmployeeKey, OrganizationID) {
-    const url = ConectionSettings.Url+'/generatedowntimeReport';
+    const url = ConectionSettings.Url + '/generatedowntimeReport';
     const obj = {
       fromdate: fromdate,
       employeekey: EmployeeKey,
@@ -362,15 +362,20 @@ export class ReportServiceService {
   }
   ////Aswathy's code ends here/////
   //Review Report - @Rodney starts....
-  getReviewReportDetails(from,to, orgID) {
+  getReviewReportDetails(from, to, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/getReviewDetailsForReport?fromDate=' + from + '&toDate=' + to+ '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/getReviewDetailsForReport?fromDate=' + from + '&toDate=' + to + '&OrganizationID=' + orgID);
   }
   //Review Report - @Rodney ends....
   getShiftNameList(EmployeeKey, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/getShiftNameList?employeeKey=' + EmployeeKey+ '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/getShiftNameList?employeeKey=' + EmployeeKey + '&OrganizationID=' + orgID);
+  }
+  getInspectionAuditReportDetails(from, to, template, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getInspectionAuditDetailsForReport?from=' + from + '&to=' + to + '&template=' + template + '&orgID=' + orgID);
   }
 }

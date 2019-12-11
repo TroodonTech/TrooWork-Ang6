@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SchedulingService } from '../../../../service/scheduling.service';
 import { ActivatedRoute, Router } from "@angular/router";
+import { ReportServiceService } from '../../../../service/report-service.service';
 
 import { Location } from '@angular/common';
 @Component({
@@ -26,6 +27,7 @@ export class EditBatchWorkComponent implements OnInit {
   loading: boolean;
   BatchScheduleTime;
   BatchScheduleEndTime;
+  shiftdetails;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -49,7 +51,7 @@ export class EditBatchWorkComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
 
   }
-  constructor(private scheduleService: SchedulingService, private router: Router, private route: ActivatedRoute, private _location: Location) {
+  constructor(private ReportServiceService: ReportServiceService,private scheduleService: SchedulingService, private router: Router, private route: ActivatedRoute, private _location: Location) {
     this.route.params.subscribe(params => this.scheduleNameKey$ = params.scheduleNameKey);
   }
 
@@ -61,64 +63,64 @@ export class EditBatchWorkComponent implements OnInit {
     if (!this.scheduleDetails.BatchSchduleName || !this.scheduleDetails.ScheduleDescription.trim()) {
       alert("Assignment Name is not provided !");
       return;
-    }  if (!this.scheduleDetails.ScheduleDescription || !this.scheduleDetails.ScheduleDescription.trim()) {
+    } if (!this.scheduleDetails.ScheduleDescription || !this.scheduleDetails.ScheduleDescription.trim()) {
       alert("Assignment Description is not provided !");
       return;
-    }  if (!this.empKey) {
+    } if (!this.empKey) {
       alert("Employee Name is not provided !");
       return;
     }
-     if (!this.BatchScheduleTime) {
+    if (!this.BatchScheduleTime) {
       alert("Start Time is not provided !");
       return;
     }
-     if (!this.BatchScheduleEndTime) {
+    if (!this.BatchScheduleEndTime) {
       alert("End Time is not provided !");
       return;
-    } 
-if(this.scheduleDetails.BatchSchduleName){
-  this.scheduleDetails.BatchSchduleName=this.scheduleDetails.BatchSchduleName.trim();
-}
-if(this.scheduleDetails.ScheduleDescription){
-  this.scheduleDetails.ScheduleDescription=this.scheduleDetails.ScheduleDescription.trim();
-}
+    }
+    if (this.scheduleDetails.BatchSchduleName) {
+      this.scheduleDetails.BatchSchduleName = this.scheduleDetails.BatchSchduleName.trim();
+    }
+    if (this.scheduleDetails.ScheduleDescription) {
+      this.scheduleDetails.ScheduleDescription = this.scheduleDetails.ScheduleDescription.trim();
+    }
 
-      var q = this.BatchScheduleEndTime.getHours();
-      var q1 = this.BatchScheduleEndTime.getMinutes();
-      var endTime = q + ":" + q1;
+    var q = this.BatchScheduleEndTime.getHours();
+    var q1 = this.BatchScheduleEndTime.getMinutes();
+    var endTime = q + ":" + q1;
 
-      var q2 = this.BatchScheduleTime.getHours();
-      var q3 = this.BatchScheduleTime.getMinutes();
-      var startTime = q2 + ":" + q3;
+    var q2 = this.BatchScheduleTime.getHours();
+    var q3 = this.BatchScheduleTime.getMinutes();
+    var startTime = q2 + ":" + q3;
 
-      if (this.scheduleDetails.checkBoxValue == true) {
-        var scheduleDT = this.convert_DT(new Date());
-        this.scheduleService
-          .assignChangesForWO(scheduleDT, this.employeekey, this.OrganizationID, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription)
-          .subscribe();
-      }
-      if (this.scheduleDetails.BatchSchduleName != this.schName) {
-        this.scheduleService
-          .checkForNewScheduleName(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName)
-          .subscribe((data: any[]) => {
-            if (data[0].count == 0) {
-              this.scheduleService.updateScheduleNameDetails(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription,startTime,endTime)
-                .subscribe(res => {
-                  alert("Assignment Name updated Successfully");
-                  this._location.back();
-                });
-            } else {
-              alert("Assignment Name already present !");
-            }
-          });
-      } else {
-        this.scheduleService.updateScheduleNameDetails(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription,startTime,endTime)
-          .subscribe(res => {
-            alert("Assignment Name updated Successfully");
-            this._location.back();
-          });
-      }
-    
+    if (this.scheduleDetails.checkBoxValue == true) {
+      var scheduleDT = this.convert_DT(new Date());
+      this.scheduleService
+        .assignChangesForWO(scheduleDT, this.employeekey, this.OrganizationID, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription)
+        .subscribe();
+    }
+    if (this.scheduleDetails.BatchSchduleName != this.schName) {
+      this.scheduleService
+        .checkForNewScheduleName(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName)
+        .subscribe((data: any[]) => {
+          if (data[0].count == 0) {
+            this.scheduleService.updateScheduleNameDetails(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription, startTime, endTime,this.scheduleDetails.Master_shiftID)
+              .subscribe(res => {
+                alert("Assignment Name updated Successfully");
+                this._location.back();
+              });
+          } else {
+            alert("Assignment Name already present !");
+          }
+        });
+    } else {
+      this.scheduleService.updateScheduleNameDetails(this.employeekey, this.OrganizationID, this.scheduleDetails.BatchSchduleName, this.empKey, this.scheduleNameKey$, this.scheduleDetails.ScheduleDescription, startTime, endTime,this.scheduleDetails.Master_shiftID)
+        .subscribe(res => {
+          alert("Assignment Name updated Successfully");
+          this._location.back();
+        });
+    }
+
   }
   ngOnInit() {
 
@@ -155,9 +157,12 @@ if(this.scheduleDetails.ScheduleDescription){
         var timeValue2 = this.scheduleDetails.BatchScheduleEndTime;
         var test2 = timeValue2.split(":");
         this.BatchScheduleEndTime = new Date(cur_time.getFullYear(), cur_time.getMonth(), cur_time.getDate(), test2[0], test2[1], 0);
-        
+
       });
 
+    this.ReportServiceService.getShiftNameList(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+      this.shiftdetails = data;
+    });
   }
   goBack() {
     this._location.back();

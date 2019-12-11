@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
-import { ViewEmployeesofGroupModule } from "../../../manager/scheduling/view-employeesof-group/view-employeesof-group.module";
+import { SchedulerCronjobManualModule } from "../../../manager/scheduling/scheduler-cronjob-manual/scheduler-cronjob-manual.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -669,6 +669,36 @@ const routes: Routes = [
         path: 'ViewShift/ViewGroupEmployees/:employeegroupID/:groupName',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/scheduling/view-employeesof-group/view-employeesof-group.module#ViewEmployeesofGroupModule'
+
+      },
+      {
+        path: 'inspectionAuditReport',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/reports/inspection-audit-report/inspection-audit-report.module#InspectionAuditReportModule'
+
+      },
+      {
+        path: 'viewMasterShifts',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/scheduling/view-master-shifts/view-master-shifts.module#ViewMasterShiftsModule'
+
+      },
+      {
+        path: 'viewMasterShifts/CreateMasterShift',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/scheduling/create-master-shifts/create-master-shifts.module#CreateMasterShiftsModule'
+
+      },
+      {
+        path: 'viewMasterShifts/masterShiftEdit/:masterShiftID',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/scheduling/edit-master-shifts/edit-master-shifts.module#EditMasterShiftsModule'
+
+      },
+      {
+        path: 'ManualSchedulerCronjob',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/scheduling/scheduler-cronjob-manual/scheduler-cronjob-manual.module#SchedulerCronjobManualModule'
 
       }
     ]

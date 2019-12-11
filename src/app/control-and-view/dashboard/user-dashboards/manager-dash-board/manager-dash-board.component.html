@@ -82,6 +82,8 @@
                   Report</b></a>
               <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['reviewReport']}}]"><b>FeedBack
                   Report</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['inspectionAuditReport']}}]"><b>Inspection
+                  Audit Report</b></a>
             </div>
           </li>
           <li class="nav-item dropdown" style="margin-left: -1rem;">
@@ -93,8 +95,8 @@
                   Assignment List</b></a>
               <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['CreateBatchSchedule']}}]"><b>View/Edit
                   Assignment Schedule</b></a>
-              <!-- <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['createshift']}}]"><b>Create Shift</b></a>
-              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ViewShift']}}]"><b>View Shift</b></a> -->
+              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['viewMasterShifts']}}]"><b>Create/Edit
+                  Shifts</b></a>
             </div>
           </li>
           <li *ngIf="scheduleIcon==1" class="nav-item dropdown" style="margin-left: -1rem;">
@@ -117,6 +119,8 @@
                   Group</b></a>
               <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['schedulerReport']}}]"><b>Scheduler
                   Report</b></a>
+              <a class="dropdown-item" [routerLink]="[{outlets:{ManagerOut:['ManualSchedulerCronjob']}}]"><b>Scheduler
+                  CronJob - Manual</b></a>
             </div>
           </li>
           <li class="nav-item dropdown" style="margin-left: -1rem;">

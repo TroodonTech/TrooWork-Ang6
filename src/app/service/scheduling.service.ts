@@ -89,12 +89,13 @@ export class SchedulingService {
       .get(ConectionSettings.Url + '/checkForNewScheduleName?bkey=' + scheduleName + '&employeekey=' + empkey + '&OrganizationID=' + orgID);
   }
 
-  addScheduleName(scheduleName, empKey, scheduleDescription, startTime, endTime, Date, EMPloyeeKey, OrgID) {
+  addScheduleName(scheduleName, MasterShiftID, empKey, scheduleDescription, startTime, endTime, Date, EMPloyeeKey, OrgID) {
 
     const url = ConectionSettings.Url + "/addnewbatchName";
     const obj = {
       BatchSchduleName: scheduleName,
       ScheduleDescription: scheduleDescription,
+      masterShiftID: MasterShiftID,
       EmployeeKey: empKey,
       startTime: startTime,
       endTime: endTime,
@@ -157,7 +158,7 @@ export class SchedulingService {
       .get(ConectionSettings.Url + '/checkForNewScheduleName?bkey=' + BatchSchduleName + '&employeekey=' + EmpKey + '&OrganizationID=' + orgID);
   }
 
-  updateScheduleNameDetails(employeeKey, OrgID, BatchscheduleName, empKey, scheduleNameKey, ScheduleDescription, startTime, endTime) {
+  updateScheduleNameDetails(employeeKey, OrgID, BatchscheduleName, empKey, scheduleNameKey, ScheduleDescription, startTime, endTime, shiftID) {
 
     const url = ConectionSettings.Url + "/updateScheduleName";
     const obj = {
@@ -167,8 +168,9 @@ export class SchedulingService {
       bskey: scheduleNameKey,
       employeekey: employeeKey,
       OrganizationID: OrgID,
-      startTime: startTime
-      , endTime: endTime
+      startTime: startTime,
+      endTime: endTime,
+      shiftKey: shiftID
     }
     return this.http.post(url, obj);
   }
@@ -438,6 +440,73 @@ export class SchedulingService {
     return this
       .http
       .get(ConectionSettings.Url + '/getEmployeesForSchedulerReport?OrganizationID=' + OrganizationID);
+  }
+
+  checkNewShift(shiftName, OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/checkMasterShiftsForDuplicate?shiftName=' + shiftName + '&OrganizationID=' + OrganizationID);
+  }
+  createMasterShifts(newshiftName, employeekey, OrganizationID) {
+    const url = ConectionSettings.Url + "/createMasterShift";
+    const obj = {
+      shiftName: newshiftName,
+      empKey: employeekey,
+      orgID: OrganizationID
+    }
+    return this.http.post(url, obj);
+  }
+
+  removeMasterShifts(shiftkey, empKey, orgID) {
+    const url = ConectionSettings.Url + "/removeMasterShift";
+    const obj = {
+      shiftKey: shiftkey,
+      empKey: empKey,
+      orgID: orgID
+    }
+    return this.http.post(url, obj);
+  }
+
+  getMasterShiftDetails(shiftKey, OrganizationID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getMasterShiftDetailsForEdit?shiftKey=' + shiftKey + '&OrganizationID=' + OrganizationID);
+  }
+
+  udpateMasterShiftDetails(shiftkey, shiftname, empKey, orgID) {
+    const url = ConectionSettings.Url + "/updateMasterShift";
+    const obj = {
+      shiftKey: shiftkey,
+      shiftName: shiftname,
+      empKey: empKey,
+      orgID: orgID
+    }
+    return this.http.post(url, obj);
+  }
+
+  checkForDuplicateMasterShiftName(shiftkey, shiftname, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/checkForDuplicateMasterShiftName?shiftkey=' + shiftkey + '&shiftname=' + shiftname + '&orgID=' + orgID);
+  }
+
+  createSchedulerCronjob(orgID, curDate, empKey) {
+    const url = ConectionSettings.Url + "/createManualSchedulerCronjob";
+    const obj = {
+      curDate: curDate,
+      empKey: empKey,
+      orgID: orgID
+    }
+    return this.http.post(url, obj);
+  }
+
+  deleteSchedulerCronjob(orgID, empKey) {
+    const url = ConectionSettings.Url + "/deleteManualSchedulerCronjob";
+    const obj = {
+      empKey: empKey,
+      orgID: orgID
+    }
+    return this.http.post(url, obj);
   }
   // @Author:Rodney ends
 }

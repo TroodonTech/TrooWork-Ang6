@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SchedulingService } from '../../../../service/scheduling.service';
 import { Router } from "@angular/router";
+import { ReportServiceService } from '../../../../service/report-service.service';
 
 import { Location } from '@angular/common';
 @Component({
@@ -23,6 +24,8 @@ export class CreateBatchWorkComponent implements OnInit {
   employee_Key;
   StartTime;
   EndTime;
+  shiftdetails;
+  MasterShiftID;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -45,70 +48,70 @@ export class CreateBatchWorkComponent implements OnInit {
       day = ("0" + date.getDate()).slice(- 2);
     return [date.getFullYear(), mnth, day].join("-");
   }
-  constructor(private scheduleService: SchedulingService, private router: Router, private _location: Location) { }
+  constructor(private ReportServiceService: ReportServiceService, private scheduleService: SchedulingService, private router: Router, private _location: Location) { }
 
   setEmployeeForbatchSchedule(key) {
     this.empKey = key;
   }
 
   createScheduleName() {
-    
+
     if (!this.scheduleName && !this.scheduleName.trim()) {
       alert("Please provide a Assignment Name");
       return;
     }
-     if (!this.scheduleDescription && !this.scheduleDescription.trim()) {
+    if (!this.scheduleDescription && !this.scheduleDescription.trim()) {
       alert("Assignment Description is not provided!");
       return;
     }
-     if (!this.scheduleName) {
+    if (!this.scheduleName) {
       alert("Assignment Name is not provided !");
       return;
-    }  if (!this.scheduleDescription) {
+    } if (!this.scheduleDescription) {
       alert("Assignment Description is not provided!");
       return;
     }
-     if (!this.empKey) {
+    if (!this.empKey) {
       alert("Employee Name is not provided !");
       return;
     }
-     if (!this.StartTime) {
+    if (!this.StartTime) {
       alert("Start Time is not provided !");
       return;
     }
-     if (!this.EndTime) {
+    if (!this.EndTime) {
       alert("End Time is not provided !");
       return;
     }
-    if(this.scheduleName){
-      this.scheduleName=this.scheduleName.trim();
+    if (this.scheduleName) {
+      this.scheduleName = this.scheduleName.trim();
     }
-    if(this.scheduleDescription){
-      this.scheduleDescription=this.scheduleDescription.trim();
+    if (this.scheduleDescription) {
+      this.scheduleDescription = this.scheduleDescription.trim();
     }
-      var q = this.EndTime.getHours();
-      var q1 = this.EndTime.getMinutes();
-      var endTime = q + ":" + q1;
+    var q = this.EndTime.getHours();
+    var q1 = this.EndTime.getMinutes();
+    var endTime = q + ":" + q1;
 
-      var q2 = this.StartTime.getHours();
-      var q3 = this.StartTime.getMinutes();
-      var today_DT = this.convert_DT(new Date());    
-      var startTime = q2 + ":" + q3;
-      this.scheduleService
-        .checkScheduleName(this.scheduleName, this.employeekey, this.OrganizationID)
-        .subscribe((data: any[]) => {
-          if (data[0].count > 0) {
-            alert("Assignment Name already present");
-          }
-          else if (data[0].count == 0) {
-            this.scheduleService.addScheduleName(this.scheduleName, this.empKey, this.scheduleDescription,startTime,endTime,today_DT, this.employeekey, this.OrganizationID)
-              .subscribe(res => {
-                alert("Assignment Name created successfully.");
-                this._location.back()
-              });
-          }
-        });
-    
+    var q2 = this.StartTime.getHours();
+    var q3 = this.StartTime.getMinutes();
+    var today_DT = this.convert_DT(new Date());
+    var startTime = q2 + ":" + q3;
+    this.scheduleService
+      .checkScheduleName(this.scheduleName, this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        if (data[0].count > 0) {
+          alert("Assignment Name already present");
+        }
+        else if (data[0].count == 0) {
+          this.scheduleService.addScheduleName(this.scheduleName,this.MasterShiftID, this.empKey, this.scheduleDescription, startTime, endTime, today_DT, this.employeekey, this.OrganizationID)
+            .subscribe(res => {
+              alert("Assignment Name created successfully.");
+              this._location.back()
+            });
+        }
+      });
+
   }
   ngOnInit() {
 
@@ -124,11 +127,15 @@ export class CreateBatchWorkComponent implements OnInit {
 
     //token ends
     this.employee_Key = "";
+    this.MasterShiftID="0";
     this.scheduleService
       .getAllEmpList(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.empList = data;
       });
+    this.ReportServiceService.getShiftNameList(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+      this.shiftdetails = data;
+    });
   }
   goBack() {
     this._location.back();

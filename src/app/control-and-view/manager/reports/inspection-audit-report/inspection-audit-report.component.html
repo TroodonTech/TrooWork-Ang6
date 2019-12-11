@@ -1,0 +1,111 @@
+<img *ngIf="loading" src="../../../../../assets/img/loader.gif" style="margin-left: 35rem; width: 20%" />
+<div *ngIf="!loading" style="padding-left: 9rem;padding-right: 9rem;">
+  <div class="row col-md-12 ">
+    <h4 style="margin-left: 42%;margin-top: 3.5%">INSPECTION AUDIT REPORT</h4>
+  </div>
+  <br>
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem;" class="row bg-info col-md-12">
+    <div class="col-md-6">
+      <h3 style="text-align: right"></h3>
+      <div class="form-group">
+        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">From Date</label>
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="fromdate"></ng-datepicker>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 col-md-4 col-lg-4 ">Template Name</label>
+        <select [(ngModel)]="TemplateName" style="background-color: #d4f4ff;" class="form-control">
+          <option value="">--Select--</option>
+          <option *ngFor="let s of templateNameList" [value]="s.TemplateID">
+            {{s.TemplateName}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group" style="margin-top: 0.8rem">
+        <label style="margin-top: 2rem;" class="col-sm-4 col-md-4 col-lg-4 ">To Date</label>
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate"></ng-datepicker>
+      </div>
+    </div>
+
+    <div class="row col-md-12">
+      <div style="margin-left: 45%">
+        <button type="button" class="btn btn-success"
+          (click)=generateInspectionAuditReport(fromdate,todate,TemplateName)><b>GENERATE</b></button>
+      </div>
+    </div>
+    <br>
+
+  </div>
+  <div style="text-align:center;margin-left: 4%" *ngIf="viewinspectionReport?.length> 0">
+    <button type="button" class="btn btn-success" (click)="exportToExcel()"><b>EXPORT TO EXCEL</b></button>
+  </div>
+  <br>
+
+  <div style="margin-left: 1.5rem;margin-right: 1.5rem; width: 100%">
+    <table *ngIf='viewinspectionReport' id="reportexport"
+      class="table table-hover table-responsive table-bordered table" style="display: inline-table">
+      <thead class="tableHead">
+        <th> Question </th>
+        <th> Inspection Year </th>
+        <th> Inspection Month</th>
+        <th> Total Count </th>
+        <th> Pass Count </th>
+        <th> Fail Count </th>
+        <th> Total Percentage(%) </th>
+        <th> Pass Percentage(%) </th>
+        <th> Fail Percentage(%) </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of viewinspectionReport">
+          <td>{{x.Question}}</td>
+          <td>{{x.InspectionYear}}</td>
+          <td>{{x.InspectionMonth}}</td>
+          <td>{{x.TotalCount}}</td>
+          <td>{{x.PassCount}}</td>
+          <td>{{x.FailCount}}</td>
+          <td>{{x.TotalPercentage}}</td>
+          <td>{{x.PassPercentage}}</td>
+          <td>{{x.FailPercentage}}</td>
+        </tr>
+        <tr *ngIf="viewinspectionReport?.length == 0">
+          <td colspan="9" class="no-data-available">No records found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br>
+
+  <div id='exportable1' style="visibility: hidden !important;">
+    <table *ngIf='viewinspectionReport' cellspacing="0" rules="rows" border="1"
+      style="color:Black;background-color:White;border-color:#CCCCCC;border-width:1px;border-style:None;width:100%;border-collapse:collapse;font-size:11pt;text-align:center;">
+      <thead class="tableHead">
+        <th> Question </th>
+        <th> Inspection Year </th>
+        <th> Inspection Month</th>
+        <th> Total Count </th>
+        <th> Pass Count </th>
+        <th> Fail Count </th>
+        <th> Total Percentage(%) </th>
+        <th> Pass Percentage(%) </th>
+        <th> Fail Percentage(%) </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of viewinspectionReport">
+          <td>{{x.Question}}</td>
+          <td>{{x.InspectionYear}}</td>
+          <td>{{x.InspectionMonth}}</td>
+          <td>{{x.TotalCount}}</td>
+          <td>{{x.PassCount}}</td>
+          <td>{{x.FailCount}}</td>
+          <td>{{x.TotalPercentage}}</td>
+          <td>{{x.PassPercentage}}</td>
+          <td>{{x.FailPercentage}}</td>
+        </tr>
+        <tr *ngIf="viewinspectionReport?.length == 0">
+          <td colspan="9" class="no-data-available">No records found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -10,7 +10,8 @@ import { EmployeesDowntimeReportComponent } from './employees-downtime-report/em
 import { InventoryReportComponent } from './inventory-report/inventory-report.component';
 import { SchedulerReportComponent } from './scheduler-report/scheduler-report.component';
 import { ReviewReportComponent } from './review-report/review-report.component';
-import { WorkorderInProgressReportComponent } from './workorder-in-progress-report/workorder-in-progress-report.component'
+import { WorkorderInProgressReportComponent } from './workorder-in-progress-report/workorder-in-progress-report.component';
+import { InspectionAuditReportComponent } from './inspection-audit-report/inspection-audit-report.component'
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { WorkorderInProgressReportComponent } from './workorder-in-progress-repo
   ],
   declarations: [InspectionReportComponent, BarcodeReportComponent,
     DashboardReportComponent, WorkorderReportComponent, BatchWorkOrderReportComponent,
-    BatchScheduleAssignmentReportComponent, EmployeesDowntimeReportComponent, InventoryReportComponent, SchedulerReportComponent, ReviewReportComponent, WorkorderInProgressReportComponent]
+    BatchScheduleAssignmentReportComponent, EmployeesDowntimeReportComponent, InventoryReportComponent, SchedulerReportComponent, ReviewReportComponent, WorkorderInProgressReportComponent, InspectionAuditReportComponent]
 })
 export class ReportsModule { }

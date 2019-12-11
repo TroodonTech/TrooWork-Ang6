@@ -29,19 +29,29 @@
         </option>
       </select>
     </div>
+    <div class="row col-md-12" style="padding-top: 2%;">
+      <h5 style="text-align:right" class="col-md-4"><label for="scheduling">Shift: </label></h5>
+      <select style="background-color: #D4F4FF !important;" class="form-control col-md-8 col-lg-8 col-sm-8"
+        [(ngModel)]="scheduleDetails.Master_shiftID">
+        <option value="0">--Select--</option>
+        <option *ngFor="let b of shiftdetails" [value]="b.Master_shiftID">
+          {{b.ShiftName}}
+        </option>
+      </select>
+    </div>
     <div class="row col-md-12" style="margin-top: 2%">
       <h5 style="text-align:right" class="col-md-4"><label for="scheduling">Start Time*: </label></h5>
       <div style="width: 14%">
-        <p-calendar [inputStyle]="{'width':'300%'}" [(ngModel)]="BatchScheduleTime"
-          [timeOnly]="true" hourFormat="12"></p-calendar>
+        <p-calendar [inputStyle]="{'width':'300%'}" [(ngModel)]="BatchScheduleTime" [timeOnly]="true" hourFormat="12">
+        </p-calendar>
       </div>
     </div>
     <div class="row col-md-12" style="margin-top: 2%">
       <h5 style="text-align:right" class="col-md-4"><label for="scheduling">End Time*: </label></h5>
 
       <div style="width: 14%">
-        <p-calendar [inputStyle]="{'width':'300%'}" [(ngModel)]="BatchScheduleEndTime"
-          [timeOnly]="true" hourFormat="12"></p-calendar>
+        <p-calendar [inputStyle]="{'width':'300%'}" [(ngModel)]="BatchScheduleEndTime" [timeOnly]="true"
+          hourFormat="12"></p-calendar>
       </div>
     </div>
     <br>
