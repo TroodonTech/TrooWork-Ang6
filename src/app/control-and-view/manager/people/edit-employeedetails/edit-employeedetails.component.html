@@ -15,19 +15,19 @@
         </div>
       </div>
 
-      <div class="col-md-6 " *ngIf="editempdtails.UserRoleName !== 'Manager'">
+      <div class="col-md-6 ">
         <div class="form-group">
           <label>User Role Type*</label>
           <select name="userroletype" (change)="selectUserType($event.target.value)" style="background-color: #d4f4ff;"
             class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="editempdtails.UserRoleTypeKey">
             <option value="" placeholder>--Select--</option>
-            <option *ngFor="let u of userRoleType" [value]="u.UserRoleTypeKey">
+            <option *ngFor="let u of userRoleTypes" [value]="u.UserRoleTypeKey">
               {{u.UserRoleName}}
             </option>
           </select>
         </div>
       </div>
-      <div class="col-md-6 " *ngIf="editempdtails.UserRoleName ==='Manager'">
+      <!-- <div class="col-md-6 " *ngIf="editempdtails.UserRoleName ==='Manager'">
         <div class="form-group">
           <label>User Role Type*</label>
           <select name="userroletype" style="background-color: #d4f4ff;" class="form-control col-sm-9 col-md-9 col-lg-9"
@@ -38,7 +38,7 @@
             </option>
           </select>
         </div>
-      </div>
+      </div> -->
       <div class="col-md-6">
         <div class="form-group">
           <label>Hire Date*</label>
@@ -83,7 +83,7 @@
             </option>
           </select>
         </div>
-        <div class="form-group" *ngIf="marked">
+        <!-- <div class="form-group" *ngIf="marked">
           <label>Supervisor</label><br>
           <select name="supervisor" style="background-color: #d4f4ff;" [(ngModel)]="editempdtails.SupervisorKey"
             class="form-control col-sm-9 col-md-9 col-lg-9">
@@ -92,7 +92,7 @@
               {{s.SupervisorText}}
             </option>
           </select>
-        </div>
+        </div> -->
 
       </div>
     </div>
