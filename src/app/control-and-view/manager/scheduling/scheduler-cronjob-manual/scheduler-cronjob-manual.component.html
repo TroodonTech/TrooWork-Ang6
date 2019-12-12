@@ -12,7 +12,7 @@
   </div>
   <div style="text-align:center">
     <button class="btn btn-success" (click)="createCJ()">CREATE </button>
-    <button class="btn btn-danger" (click)="basicModal.show();">DELETE </button>
+    <button class="btn btn-danger" [disabled]="disableFlag" (click)="basicModal.show();">DELETE </button>
 
     <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog" aria-labelledby="myBasicModalLabel"
       aria-hidden="true">

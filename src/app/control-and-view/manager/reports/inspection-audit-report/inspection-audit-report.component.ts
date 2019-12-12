@@ -26,6 +26,8 @@ export class InspectionAuditReportComponent implements OnInit {
   templateNameList;
   TemplateName;
 
+  fromdate;
+  todate;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -50,7 +52,6 @@ export class InspectionAuditReportComponent implements OnInit {
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
   }
-  fromdate: Date;
   // adding properties and methods that will be used by the igxDatePicker
   public date: Date = new Date(Date.now());
   //adding options to ng2 datepicker
@@ -113,6 +114,9 @@ export class InspectionAuditReportComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.templateNameList = data;
       });
+
+    this.fromdate = this.convert_DT(new Date());
+    this.todate = this.convert_DT(new Date());
   }
   //function for genaerating report
   generateInspectionAuditReport(from_date, to_date, TemplateName) {
@@ -123,27 +127,27 @@ export class InspectionAuditReportComponent implements OnInit {
     }
 
     if (!from_date) {
-      var fromdate = new Date();
+      var fromdate1 = new Date();
     }
     else {
-      fromdate = new Date(from_date);
+      fromdate1 = new Date(from_date);
     }
 
     if (!to_date) {
-      var todate = fromdate;
+      var todate1 = fromdate1;
     }
     else {
-      todate = new Date(to_date);
+      todate1 = new Date(to_date);
     }
 
-    if (todate && fromdate > todate) {
-      todate = null;
+    if (todate1 && fromdate1 > todate1) {
+      todate1 = null;
       alert("Please check your Dates !");
       return;
     }
 
-    fromdate = new Date(fromdate.getFullYear(), fromdate.getMonth(), 1);
-    todate = new Date(todate.getFullYear(), todate.getMonth() + 1, 0);
+    fromdate1 = new Date(fromdate1.getFullYear(), fromdate1.getMonth(), 1);
+    todate1 = new Date(todate1.getFullYear(), todate1.getMonth() + 1, 0);
 
     if (TemplateName) {
       Template_Name = TemplateName;
@@ -151,9 +155,11 @@ export class InspectionAuditReportComponent implements OnInit {
 
     this.loading = true;
     this.ReportServiceService
-      .getInspectionAuditReportDetails(this.convert_DT(fromdate), this.convert_DT(todate), Template_Name, this.OrganizationID)
+      .getInspectionAuditReportDetails(this.convert_DT(fromdate1), this.convert_DT(todate1), Template_Name, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.viewinspectionReport = data;
+        this.fromdate = this.convert_DT(fromdate1);
+        this.todate = this.convert_DT(todate1);
         this.loading = false;
       });
   }

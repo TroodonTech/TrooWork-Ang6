@@ -500,13 +500,20 @@ export class SchedulingService {
     return this.http.post(url, obj);
   }
 
-  deleteSchedulerCronjob(orgID, empKey) {
+  deleteSchedulerCronjob(orgID, curDate, empKey) {
     const url = ConectionSettings.Url + "/deleteManualSchedulerCronjob";
     const obj = {
+      curDate: curDate,
       empKey: empKey,
       orgID: orgID
     }
     return this.http.post(url, obj);
+  }
+
+  getCountForDelete(orgID, curDate) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getItemCountsForDeleting?orgID=' + orgID + '&curDate=' + curDate);
   }
   // @Author:Rodney ends
 }

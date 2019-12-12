@@ -14,7 +14,7 @@ export class SchedulerCronjobManualComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
   loading: boolean;
-
+  disableFlag;
   curDate;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -47,15 +47,21 @@ export class SchedulerCronjobManualComponent implements OnInit {
     this.scheduleService.createSchedulerCronjob(this.OrganizationID, this.curDate, this.employeekey)
       .subscribe(res => {
         this.loading = false;
+        this.disableFlag = false;
         alert("Cronjobs created successfully");
       });
   }
 
   deleteCJ() {
     this.loading = true;
-    this.scheduleService.deleteSchedulerCronjob(this.OrganizationID,  this.employeekey)
-      .subscribe(res => {
+    this.scheduleService.deleteSchedulerCronjob(this.OrganizationID, this.curDate, this.employeekey)
+      .subscribe((data: any) => {
         this.loading = false;
+        if (data[0].assignmentmastercount > 0) {
+          this.disableFlag = false;
+        } else if (data[0].assignmentmastercount == 0) {
+          this.disableFlag = true;
+        }
         alert("Cronjobs deleted successfully");
       });
   }
@@ -74,6 +80,14 @@ export class SchedulerCronjobManualComponent implements OnInit {
 
     //token ends
     this.curDate = this.convert_DT(new Date());
+    this.scheduleService.getCountForDelete(this.OrganizationID, this.curDate)
+      .subscribe((data: any) => {
+        if (data[0].count > 0) {
+          this.disableFlag = false;
+        } else if (data[0].count == 0) {
+          this.disableFlag = true;
+        }
+      });
   }
 
 }

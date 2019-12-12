@@ -20329,6 +20329,7 @@ app.post(securedpath + '/createManualSchedulerCronjob', function (req, res) {
 app.post(securedpath + '/deleteManualSchedulerCronjob', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
 
+    var curDate = req.body.curDate;
     var empKey = req.body.empKey;
     var orgID = req.body.orgID;
 
@@ -20336,7 +20337,7 @@ app.post(securedpath + '/deleteManualSchedulerCronjob', function (req, res) {
         if (err) {
             console.log("Failed! Connection with Database spicnspan via connection pool failed");
         } else {
-            connection.query('set @empKey=?;set @orgID=?; call usp_assignmentcronjob_manualdelete(@empKey,@orgID)', [empKey, orgID], function (err, rows) {
+            connection.query('set @curDate=?; set @empKey=?;set @orgID=?; call usp_assignmentcronjob_manualdelete(@curDate,@empKey,@orgID)', [curDate, empKey, orgID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -20348,6 +20349,33 @@ app.post(securedpath + '/deleteManualSchedulerCronjob', function (req, res) {
         connection.release();
     });
 });
+
+
+app.get(securedpath + '/getItemCountsForDeleting', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var orgID = url.parse(req.url, true).query['orgID'];
+    var curDate = url.parse(req.url, true).query['curDate'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @orgID=?;set @curDate=?; call usp_getItemCountsForDeleting(@orgID,@curDate)',[orgID, curDate], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
 // Coding ... @Rodney ends......
 //handle generic exceptions
 //catch all other resource routes that are not defined above
