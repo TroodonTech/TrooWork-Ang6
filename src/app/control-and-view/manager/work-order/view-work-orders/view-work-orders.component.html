@@ -154,7 +154,7 @@
         <th>View</th>
       </thead>
       <tbody>
-        <tr *ngFor="let x of workorderList; let i=index">
+        <tr *ngFor="let x of workorderList; let i=index" >
           <td>{{x.WorkorderTypeName}}</td>
           <td>{{x.WorkorderTime}}</td>
           <td> {{x.WorkorderStatus}}</td>
@@ -177,7 +177,7 @@
           <td>{{x.checkout}}</td>
           <td>{{x.duration}}</td>
           <td>{{x.DelayTime}}</td>
-          <td>
+          <td [style.background]="x.Color">
             <span *ngIf="((x.IsReccurring === 0) && ( x.WorkorderTypeKey !== -1))">
               <a [routerLink]="['EditWorkOrder',x.WorkorderKey]" class="btn btn-success"
                 style="color:white !important;width: 100%" routerLinkActive="active"><b>INSTANCE

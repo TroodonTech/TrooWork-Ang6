@@ -423,7 +423,7 @@ export class WorkOrderServiceService {
   }
   workorderViewsEmpByAll(obj) {
     const url = ConectionSettings.Url + '/workorderViewsEmpByAll';
- 
+
     return this
       .http
       .post(url, obj);
@@ -433,6 +433,35 @@ export class WorkOrderServiceService {
     return this
       .http
       .get(ConectionSettings.Url + '/getWODetailswithStatus?OrganizationID=' + OrgID);
+  }
+
+  getAllIntervalTypes(OrgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getAllIntervalTypes?OrganizationID=' + OrgID);
+  }
+
+  getIntervalTypeDetails(intervalid, OrgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getIntervalTypeDetails?intervalid=' + intervalid + "&OrganizationID=" + OrgID);
+  }
+  updateIntervalDetails(color, intervalid, OrgID) {
+    // debugger;
+    // return this
+    //   .http
+    //   .get(ConectionSettings.Url + '/updateIntervalTypeDetails?intervalid=' + intervalid + "&color=" + color + "&OrganizationID=" + OrgID);
+
+
+    const url = ConectionSettings.Url + '/updateIntervalTypeDetails';
+    const obj = {
+      intervalid: intervalid,
+      color: color,
+      OrganizationID: OrgID
+    };
+    return this
+      .http
+      .post(url, obj);
   }
   // @Rodney ends...
 }

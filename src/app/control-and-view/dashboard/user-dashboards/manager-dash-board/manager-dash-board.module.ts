@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
-import { SchedulerCronjobManualModule } from "../../../manager/scheduling/scheduler-cronjob-manual/scheduler-cronjob-manual.module";
+import { EditIntervalTypeColorModule } from "../../../manager/work-order/edit-interval-type-color/edit-interval-type-color.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -699,6 +699,18 @@ const routes: Routes = [
         path: 'ManualSchedulerCronjob',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/scheduling/scheduler-cronjob-manual/scheduler-cronjob-manual.module#SchedulerCronjobManualModule'
+
+      },
+      {
+        path: 'viewIntervaltype',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/work-order/view-interval-types/view-interval-types.module#ViewIntervalTypesModule'
+
+      },
+      {
+        path: 'viewIntervaltype/EditIntervalTypeColor/:intervalID',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/work-order/edit-interval-type-color/edit-interval-type-color.module#EditIntervalTypeColorModule'
 
       }
     ]

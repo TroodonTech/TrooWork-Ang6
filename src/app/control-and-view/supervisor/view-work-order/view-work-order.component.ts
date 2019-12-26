@@ -305,14 +305,20 @@ export class ViewWorkOrderComponent implements OnInit {
 
   selectFloorfromBuildings(facKey) {
     this.facikey = facKey;
-    this.WorkOrderServiceService
-      .getallFloorNames(facKey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.floorList = data;
-        this.ZoneKey = '';
-        this.FloorKey = '';
-        this.RoomTypeKey = '';
-      });
+    if (facKey) {
+      this.WorkOrderServiceService
+        .getallFloorNames(facKey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.floorList = data;
+          this.ZoneKey = '';
+          this.FloorKey = '';
+          this.RoomTypeKey = '';
+        });
+    } else {
+      this.ZoneKey = '';
+      this.FloorKey = '';
+      this.RoomTypeKey = '';
+    }
   }
 
   selectZoneRoomtypefromFloor(flkey) {

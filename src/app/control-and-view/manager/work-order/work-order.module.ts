@@ -13,12 +13,14 @@ import { EditWorkorderTypeComponent } from './edit-workorder-type/edit-workorder
 import { CreateWorkorderTypeComponent } from './create-workorder-type/create-workorder-type.component';
 import { FilterPipePipe } from './filter-pipe.pipe';
 import { ViewServiceRequestComponent } from './view-service-request/view-service-request.component';
+import { ViewIntervalTypesComponent } from './view-interval-types/view-interval-types.component';
+import { EditIntervalTypeColorComponent } from './edit-interval-type-color/edit-interval-type-color.component';
 
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [CreateQuickOrderComponent, ViewWorkOrdersComponent, CreateWorkorderComponent, EditWorkOrderComponent, UpdateRecurWorkorderComponent, CreateBatchWorkorderComponent, ViewBatchWorkorderComponent, EditBatchWorkorderComponent, WorkOrderTypeComponent, EditWorkorderTypeComponent, CreateWorkorderTypeComponent, FilterPipePipe, ViewServiceRequestComponent]
+  declarations: [CreateQuickOrderComponent, ViewWorkOrdersComponent, CreateWorkorderComponent, EditWorkOrderComponent, UpdateRecurWorkorderComponent, CreateBatchWorkorderComponent, ViewBatchWorkorderComponent, EditBatchWorkorderComponent, WorkOrderTypeComponent, EditWorkorderTypeComponent, CreateWorkorderTypeComponent, FilterPipePipe, ViewServiceRequestComponent, ViewIntervalTypesComponent, EditIntervalTypeColorComponent]
 })
 export class WorkOrderModule { }

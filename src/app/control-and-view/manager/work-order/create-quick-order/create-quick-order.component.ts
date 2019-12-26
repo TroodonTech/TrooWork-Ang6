@@ -79,91 +79,88 @@ export class CreateQuickOrderComponent implements OnInit {
   }
   //function for creating quick work order
   saveQuickWorkOrder() {
-    if(!(this.EmployeeKey))
-    {
+    if (!(this.EmployeeKey)) {
       alert("Please select employee!");
-    }else if(!(this.FacilityKey))
-    {
+    } else if (!(this.FacilityKey)) {
       alert("Please select building!")
     }
-    else if(!(this.WorkorderNotes))
-    {
+    else if (!(this.WorkorderNotes)) {
       alert("Please enter work-order notes!");
-    }else{
-
-    this.wot = - 1;
-    this.startDT = this.convert_DT(new Date());
-    var d = new Date();
-    var datetext = d.toTimeString();
-    datetext = datetext.split(' ')[0];
-    this.workTime = datetext;
-    this.is_BarcodeRequired = 0;
-
-    if (this.WorkorderNotes) {
-      this.notes = this.WorkorderNotes.trim();
     } else {
-      this.notes = null;
+
+      this.wot = - 1;
+      this.startDT = this.convert_DT(new Date());
+      var d = new Date();
+      var datetext = d.toTimeString();
+      datetext = datetext.split(' ')[0];
+      this.workTime = datetext;
+      this.is_BarcodeRequired = 0;
+
+      if (this.WorkorderNotes) {
+        this.notes = this.WorkorderNotes.trim();
+      } else {
+        this.notes = null;
+      }
+
+
+      var facilityString;
+      if (this.FacilityKey) {
+        facilityString = this.FacilityKey;
+      }
+
+      if (this.EmployeeKey) {
+        this.emp_key = this.EmployeeKey;
+      } else {
+        this.emp_key = - 1;
+      }
+
+
+      if (this.PriorityKey) {
+        this.priority = this.PriorityKey;
+      } else {
+        this.priority = - 1;
+      }
+      if (this.isPhotoRequired) {
+        this.is_PhotoRequired = 1;
+      } else {
+        this.is_PhotoRequired = 0;
+      }
+
+      this.createworkorder = {
+
+        workorderkey: - 99,
+        workordertypekey: - 1,
+        equipmentkey: - 1,
+        roomkeys: '-1',
+        facilitykeys: facilityString,
+        floorkeys: '-1',
+        zonekeys: '-1',
+        roomtypekeys: '-1',
+        employeekey: this.emp_key,
+        priority: this.priority,
+        fromdate: this.startDT,
+        todate: this.startDT,
+        intervaltype: '0',
+        repeatinterval: 1,
+        occursonday: null,
+        occursontime: this.workTime,
+        occurstype: null,
+        workordernote: this.notes,
+        isbar: this.is_BarcodeRequired,
+        isphoto: this.is_PhotoRequired,
+        metaupdatedby: this.emp_key,
+        OrganizationID: this.org_id
+
+      };
+
+      this.WorkOrderServiceService
+        .addQuickWorkOrder(this.createworkorder)
+        .subscribe(res => {
+          alert("Work-order created successfully");
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewWorkOrder'] } }]);
+        });
     }
 
-
-    var facilityString;
-    if (this.FacilityKey) {
-      facilityString = this.FacilityKey;
-    }
-
-    if (this.EmployeeKey) {
-      this.emp_key = this.EmployeeKey;
-    } else {
-      this.emp_key = - 1;
-    }
-
-
-    if (this.PriorityKey) {
-      this.priority = this.PriorityKey;
-    } else {
-      this.priority = - 1;
-    }
-    if (this.isPhotoRequired) {
-      this.is_PhotoRequired = 1;
-    } else {
-      this.is_PhotoRequired = 0;
-    }
-
-    this.createworkorder = {
-
-      workorderkey: - 99,
-      workordertypekey: - 1,
-      equipmentkey: - 1,
-      roomkeys: '-1',
-      facilitykeys: facilityString,
-      floorkeys: '-1',
-      zonekeys: '-1',
-      roomtypekeys: '-1',
-      employeekey: this.emp_key,
-      priority: this.priority,
-      fromdate: this.startDT,
-      todate: this.startDT,
-      intervaltype: '0',
-      repeatinterval: 1,
-      occursonday: null,
-      occursontime: this.workTime,
-      occurstype: null,
-      workordernote: this.notes,
-      isbar: this.is_BarcodeRequired,
-      isphoto: this.is_PhotoRequired,
-      metaupdatedby: this.emp_key,
-      OrganizationID: this.org_id
-
-    };
-   
-    this.WorkOrderServiceService
-      .addQuickWorkOrder(this.createworkorder)
-      .subscribe(res => {
-        alert("Work-order created successfully");
-        this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewWorkOrder'] } }]);
-    });
-  }
-    
   }
 
 
@@ -177,9 +174,9 @@ export class CreateQuickOrderComponent implements OnInit {
     this.emp_key = profile.employeekey;
     this.org_id = profile.OrganizationID;
     //setting default dropdown values to select
-    this.FacilityKey="";
-    this.EmployeeKey="";
-    this.PriorityKey="";
+    this.FacilityKey = "";
+    this.EmployeeKey = "";
+    this.PriorityKey = "";
     this.WorkOrderServiceService//service for getting employee names
       .getallEmployee(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {

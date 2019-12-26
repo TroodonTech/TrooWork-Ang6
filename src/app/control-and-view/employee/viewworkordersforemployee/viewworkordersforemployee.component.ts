@@ -303,14 +303,20 @@ export class ViewworkordersforemployeeComponent implements OnInit {
 
   selectFloorfromBuildings(facKey) {
     this.facikey = facKey;
-    this.WorkOrderServiceService
-      .getallFloorNames(facKey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.floorList = data;
-        this.ZoneKey = '';
-        this.FloorKey = '';
-        this.RoomTypeKey = '';
-      });
+    if (facKey) {
+      this.WorkOrderServiceService
+        .getallFloorNames(facKey, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.floorList = data;
+          this.ZoneKey = '';
+          this.FloorKey = '';
+          this.RoomTypeKey = '';
+        });
+    }else{
+    this.ZoneKey = '';
+    this.FloorKey = '';
+    this.RoomTypeKey = '';
+    }
   }
 
   selectZoneRoomtypefromFloor(flkey) {
@@ -659,7 +665,7 @@ export class ViewworkordersforemployeeComponent implements OnInit {
     this.WorkOrderServiceService.workorderViewsEmpByAll(Wo).subscribe((data: any[]) => {
       this.WorkorderDetTable = data;
       this.loading = false;// loading
-      if (data.length>0) {
+      if (data.length > 0) {
         if (this.WorkorderDetTable[0].totalItems > this.itemsPerPage) {
           this.showHide2 = true;
           this.showHide1 = false;
