@@ -16,6 +16,7 @@ export class SchedulerCronjobManualComponent implements OnInit {
   loading: boolean;
   disableFlag;
   curDate;
+  nextschedulerDate;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -43,12 +44,21 @@ export class SchedulerCronjobManualComponent implements OnInit {
   constructor(private scheduleService: SchedulingService) { }
 
   createCJ() {
-    this.loading = true;
-    this.scheduleService.createSchedulerCronjob(this.OrganizationID, this.curDate, this.employeekey)
-      .subscribe(res => {
-        this.loading = false;
-        this.disableFlag = false;
-        alert("Cronjobs created successfully");
+    this.scheduleService.getCountForAssignmentManualcreatecheck(this.curDate, this.OrganizationID)
+      .subscribe((cdata: any) => {
+
+        if (cdata[0].count > 0) {
+          this.loading = true;
+          this.scheduleService.createSchedulerCronjob(this.OrganizationID, this.curDate, this.employeekey)
+            .subscribe(res => {
+              this.loading = false;
+              this.disableFlag = false;
+              alert("Cronjobs created successfully");
+            });
+        }
+        else {
+          alert("Need 8 Weeks of Data to create");
+        }
       });
   }
 
@@ -62,6 +72,17 @@ export class SchedulerCronjobManualComponent implements OnInit {
         } else if (data[0].assignmentmastercount == 0) {
           this.disableFlag = true;
         }
+
+        this.scheduleService.getCountForAssignmentManualCronjob(this.OrganizationID).subscribe((data: any) => {
+          console.log("Assignment Cron: " + data[0].count);
+
+          if (data[0].count > 0) {
+            this.scheduleService.getCountForAssignmentManualCronjobnextdate(this.OrganizationID).subscribe((data: any) => {
+              console.log("Assignment Cron: " + this.convert_DT(data[0].nextdate));
+              this.nextschedulerDate = this.convert_DT(data[0].nextdate);
+            });
+          }
+        });
         alert("Cronjobs deleted successfully");
       });
   }
@@ -80,14 +101,26 @@ export class SchedulerCronjobManualComponent implements OnInit {
 
     //token ends
     this.curDate = this.convert_DT(new Date());
-    this.scheduleService.getCountForDelete(this.OrganizationID, this.curDate)
-      .subscribe((data: any) => {
-        if (data[0].count > 0) {
-          this.disableFlag = false;
-        } else if (data[0].count == 0) {
-          this.disableFlag = true;
-        }
-      });
+    this.nextschedulerDate = this.curDate;
+    this.scheduleService.getCountForDelete(this.OrganizationID, this.curDate).subscribe((data: any) => {
+      if (data[0].count > 0) {
+        this.disableFlag = false;
+      } else if (data[0].count == 0) {
+        this.disableFlag = true;
+      }
+    });
+    this.scheduleService.getCountForAssignmentManualCronjob(this.OrganizationID).subscribe((data: any) => {
+      console.log("Assignment Cron: " + data[0].count);
+
+      if (data[0].count > 0) {
+        this.scheduleService.getCountForAssignmentManualCronjobnextdate(this.OrganizationID).subscribe((data: any) => {
+          console.log("Assignment Cron: " + this.convert_DT(data[0].nextdate));
+          this.nextschedulerDate = this.convert_DT(data[0].nextdate);
+        });
+      }
+
+    });
+
   }
 
 }

@@ -20363,7 +20363,7 @@ app.get(securedpath + '/getItemCountsForDeleting', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @orgID=?;set @curDate=?; call usp_getItemCountsForDeleting(@orgID,@curDate)',[orgID, curDate], function (err, rows) {
+            connection.query('set @orgID=?;set @curDate=?; call usp_getItemCountsForDeleting(@orgID,@curDate)', [orgID, curDate], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -20377,6 +20377,85 @@ app.get(securedpath + '/getItemCountsForDeleting', function (req, res) {
 });
 
 // Coding ... @Rodney ends......
+
+// @Author:Prakash code starts here
+app.get(securedpath + '/getCountForAssignmentManualCronjob', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var orgID = url.parse(req.url, true).query['orgID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @orgID=?; call usp_getCountForAssignmentManualCronjob(@orgID)', [orgID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[1]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/getCountForAssignmentManualCronjobnextdate', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var orgID = url.parse(req.url, true).query['orgID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @orgID=?; call usp_getCountForAssignmentManualCronjobnextdate(@orgID)', [orgID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[1]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/getCountForAssignmentManualcreatecheck', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var curDate = req.body.curDate;
+    var empKey = req.body.empKey;
+    var orgID = req.body.orgID;
+
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @curDate=?; set @orgID=?; call usp_getCountForAssignmentManualcreatecheck(@curDate,@orgID)', [curDate, orgID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+// @Author:Prakash code ends here
+
 //handle generic exceptions
 //catch all other resource routes that are not defined above
 app.get(securedpath + '/*', function (req, res) {

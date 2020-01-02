@@ -516,4 +516,23 @@ export class SchedulingService {
       .get(ConectionSettings.Url + '/getItemCountsForDeleting?orgID=' + orgID + '&curDate=' + curDate);
   }
   // @Author:Rodney ends
+
+  // @Author:Prakash code starts here
+  getCountForAssignmentManualCronjob(orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getCountForAssignmentManualCronjob?orgID=' + orgID);
+  }
+  getCountForAssignmentManualCronjobnextdate(orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getCountForAssignmentManualCronjobnextdate?orgID=' + orgID);
+  }
+  getCountForAssignmentManualcreatecheck(curDate, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getCountForAssignmentManualcreatecheck?orgID=' + orgID + '&curDate=' + curDate);
+  }
+  // @Author:Prakash code ends here
+
 }
