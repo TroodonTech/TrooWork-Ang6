@@ -126,7 +126,7 @@
                         </td>
                         <!-- <td (click)="viewWorkForEdit(w.WorkorderKey)" *ngIf="w.IsReccurring === 0 ">NO</td> -->
                         <td style="word-wrap: break-word">{{w.WorkorderNotes}}</td>
-                        <td>
+                        <td [style.background]="w.Color">
                             <div *ngIf="FinishButton[i] == true && w.WorkorderStatus != 'Cancelled' ">
                                 <button *ngIf="w.WorkorderStatus !== 'Completed'" type="button"
                                     class="btn btn-xs button-brown-{{w.WorkorderStatus !== 'Completed'}}"

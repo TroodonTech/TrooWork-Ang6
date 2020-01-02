@@ -20376,6 +20376,81 @@ app.get(securedpath + '/getItemCountsForDeleting', function (req, res) {
     });
 });
 
+app.get(securedpath + '/getAllIntervalTypes', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var orgID = url.parse(req.url, true).query['OrganizationID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @orgID=?; call usp_getAllIntervalTypes(@orgID)', [orgID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[1]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/getIntervalTypeDetails', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var intervalid = url.parse(req.url, true).query['intervalid'];
+    var orgID = url.parse(req.url, true).query['OrganizationID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @intervalid=?;set @orgID=?; call usp_getIntervalTypeDetails(@intervalid,@orgID)', [intervalid,orgID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.post(securedpath + '/updateIntervalTypeDetails', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    req.body.curDate
+    var intervalid = req.body.intervalid;
+    var color = req.body.color;
+    var orgID = req.body.OrganizationID;
+    
+    console.log("hi......"+ intervalid+ " ... "+color+ " ... "+orgID);
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @intervalid=?; set @color=?; set @orgID=?; call usp_updateIntervalTypeDetails(@intervalid, @color, @orgID)', [intervalid, color, orgID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[3]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 // Coding ... @Rodney ends......
 
 // @Author:Prakash code starts here
