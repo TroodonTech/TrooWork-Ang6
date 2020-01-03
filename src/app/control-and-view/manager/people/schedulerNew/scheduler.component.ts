@@ -42,6 +42,56 @@ import { DatepickerOptions } from 'ng2-datepicker';
   <daypilot-scheduler [config]="config" [events]="events" #scheduler></daypilot-scheduler>
   <create-dialog #create (close)="createClosed($event)"></create-dialog>
   <edit-dialog #edit (close)="editClosed($event)"></edit-dialog>
+
+  <div style="padding-left: 9rem;padding-right: 9rem;margin-top: 3%;margin-bottom: 3%;">
+    <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem"
+        class="row bg-info col-md-12">
+        <div class="row col-md-12 ">
+            <h4 style="margin-left: 42%;margin-bottom:4%">CREATE SCHEDULE</h4>
+        </div>
+        <div class="col-md-6">
+            <h3 style="text-align: right"></h3>
+            <div class="form-group" style="width: 85%;">
+                <label>Next Starting Date *</label>
+                <ng-datepicker [options]="options" position="top-right" [(ngModel)]="nextschedulerDate" *ngIf="disableFlag"
+                    (ngModelChange)="selecteddate();empCalendarActivities();"></ng-datepicker>
+                    <input type="text" class="form-control col-sm-9 col-md-9 col-lg-9" [(ngModel)]="nextschedulerDate" *ngIf="!disableFlag"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3 style="text-align: right"></h3>
+            <div class="form-group" style="width: 85%;">
+                <button class="btn btn-success" (click)="createCJ()">CREATE </button>
+                <button class="btn btn-danger" [disabled]="disableFlag" (click)="basicModal.show();">DELETE </button>
+
+                <div mdbModal #basicModal="mdbModal" class="modal fade" role="dialog"
+                    aria-labelledby="myBasicModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close pull-right" aria-label="Close"
+                                    (click)="basicModal.hide()">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <h4 class="modal-title w-100" id="myModalLabel"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <h5 style="color: red"><b>Are you sure you want to delete ?</b></h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
+                                    (click)="basicModal.hide(); deleteCJ()" mdbWavesEffect>Yes</button>
+                                <button type="button" mdbBtn color="primary" class="relative waves-light"
+                                    (click)="basicModal.hide()" mdbWavesEffect>No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 `,
   styles: [`
    p, body, td { font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 10pt; }
@@ -58,8 +108,8 @@ import { DatepickerOptions } from 'ng2-datepicker';
 })
 export class SchedulerComponent implements AfterViewInit {
   constructor(private ds: DataService, private cdr: ChangeDetectorRef, private SchedulingService: SchedulingService) {
-    this.date=new Date();
-    this.Range='Month';
+    this.date = new Date();
+    this.Range = 'Month';
   }
   @ViewChild("modal") modal: DayPilotModalComponent;
   @ViewChild("scheduler") scheduler: DayPilotSchedulerComponent;
@@ -81,7 +131,13 @@ export class SchedulerComponent implements AfterViewInit {
   MovingToEmpKey;
   MovingToDate;
   MovingFromDate;
-  FromEmp; ToEmp;
+  FromEmp;
+  ToEmp;
+
+  curDate;
+  nextschedulerDate;
+  disableFlag;
+  loading;
 
   convert_DT(str) {
     var date = new Date(str),
@@ -185,16 +241,16 @@ export class SchedulerComponent implements AfterViewInit {
     bubble: new DayPilot.Bubble({
       animation: "fast",
       animated: false,
-    onLoad: function(args) {
-      var ev = args.source;
-      args.async = true;  // notify manually using .loaded()
-            
-      // simulating slow server-side load
-      setTimeout(function() {
-        args.html =  args.source.data.ScheduleName;
-        args.loaded();
-      }, 500);
-    }
+      onLoad: function (args) {
+        var ev = args.source;
+        args.async = true;  // notify manually using .loaded()
+
+        // simulating slow server-side load
+        setTimeout(function () {
+          args.html = args.source.data.ScheduleName;
+          args.loaded();
+        }, 500);
+      }
     }),
     timeRangeSelectedHandling: 'Hold',
     contextMenuResource: this.menu,
@@ -346,7 +402,7 @@ export class SchedulerComponent implements AfterViewInit {
 
 
     // this.ds.getResources().subscribe(result =>{  
-    
+
     //    this.config.resources = result});
 
     var from = this.scheduler.control.visibleStart();
@@ -368,7 +424,6 @@ export class SchedulerComponent implements AfterViewInit {
         if (this.events.length > 0) {
           this.SchedulingService.employeesForScheduler('Manager', this.employeekey, this.OrganizationID)
             .subscribe((data: any[]) => {
-
               this.config.resources = data;
             });
         }
@@ -376,6 +431,27 @@ export class SchedulerComponent implements AfterViewInit {
           alert("Please add employees in schedule Group !")
         }
       });
+
+    this.curDate = this.convert_DT(new Date());
+    this.nextschedulerDate = this.curDate;
+    this.SchedulingService.getCountForDelete(this.OrganizationID, this.curDate).subscribe((data: any) => {
+      if (data[0].count > 0) {
+        this.disableFlag = false;
+      } else if (data[0].count == 0) {
+        this.disableFlag = true;
+      }
+    });
+    this.SchedulingService.getCountForAssignmentManualCronjob(this.OrganizationID).subscribe((data: any) => {
+      console.log("Assignment Cron: " + data[0].count);
+
+      if (data[0].count > 0) {
+        this.SchedulingService.getCountForAssignmentManualCronjobnextdate(this.OrganizationID).subscribe((data: any) => {
+          console.log("Assignment Cron: " + this.convert_DT(data[0].nextdate));
+          this.nextschedulerDate = data[0].nextdate;
+        });
+      }
+
+    });
   }
 
   createClosed(args) {
@@ -497,6 +573,65 @@ export class SchedulerComponent implements AfterViewInit {
       .empCalendarDetails(this.Range, this.convert_DT(this.date), this.OrganizationID)
       .subscribe((data: any[]) => {
         this.events = data;
+      });
+  }
+
+  createCJ() {
+    this.SchedulingService.getCountForAssignmentManualcreatecheck(this.convert_DT(this.nextschedulerDate), this.OrganizationID)
+      .subscribe((cdata: any) => {
+
+        if (cdata[0].count > 0) {
+          this.loading = true;
+          this.SchedulingService.createSchedulerCronjob(this.OrganizationID, this.convert_DT(this.nextschedulerDate), this.employeekey)
+            .subscribe(res => {
+              this.loading = false;
+              this.disableFlag = false;
+              this.SchedulingService.getCountForAssignmentManualCronjob(this.OrganizationID).subscribe((data: any) => {
+                console.log("Assignment Cron: " + data[0].count);
+
+                if (data[0].count > 0) {
+                  this.SchedulingService.getCountForAssignmentManualCronjobnextdate(this.OrganizationID).subscribe((data: any) => {
+                    console.log("Assignment Cron: " + this.convert_DT(data[0].nextdate));
+                    this.nextschedulerDate = data[0].nextdate;
+                  });
+                }
+              });
+              alert("Cronjobs created successfully");
+            });
+        }
+        else {
+          this.curDate = this.convert_DT(new Date());
+          this.nextschedulerDate = this.curDate;
+          alert("Need 8 Weeks of Data to create");
+        }
+      });
+  }
+
+  deleteCJ() {
+    this.loading = true;
+    this.SchedulingService.deleteSchedulerCronjob(this.OrganizationID, this.curDate, this.employeekey)
+      .subscribe((data: any) => {
+        this.loading = false;
+        if (data[0].assignmentmastercount > 0) {
+          this.disableFlag = false;
+        } else if (data[0].assignmentmastercount == 0) {
+          this.disableFlag = true;
+        }
+
+        this.SchedulingService.getCountForAssignmentManualCronjob(this.OrganizationID).subscribe((data: any) => {
+          console.log("Assignment Cron: " + data[0].count);
+
+          if (data[0].count > 0) {
+            this.SchedulingService.getCountForAssignmentManualCronjobnextdate(this.OrganizationID).subscribe((data: any) => {
+              console.log("Assignment Cron: " + this.convert_DT(data[0].nextdate));
+              this.nextschedulerDate =data[0].nextdate;
+            });
+          } else {
+            this.curDate = this.convert_DT(new Date());
+            this.nextschedulerDate = this.curDate;
+          }
+        });
+        alert("Cronjobs deleted successfully");
       });
   }
 

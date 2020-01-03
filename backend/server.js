@@ -20504,10 +20504,10 @@ app.get(securedpath + '/getCountForAssignmentManualCronjobnextdate', function (r
 
 app.get(securedpath + '/getCountForAssignmentManualcreatecheck', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
-
-    var curDate = req.body.curDate;
-    var empKey = req.body.empKey;
-    var orgID = req.body.orgID;
+    
+    var curDate = url.parse(req.url, true).query['curDate'];
+    //var empKey = req.body.empKey;
+    var orgID = url.parse(req.url, true).query['orgID'];
 
 
     pool.getConnection(function (err, connection) {
