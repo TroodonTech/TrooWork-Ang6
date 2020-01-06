@@ -3,15 +3,17 @@
   <div class="row col-md-12 ">
     <h4 style="margin-left: 40%;">EDIT INTERVAL TYPE COLOR</h4>
   </div><br>
-  <div class="row bg-info col-md-12" style="padding-top: 3rem;padding-bottom: 20rem">
+  <div class="row bg-info col-md-12" style="padding-bottom: 15rem">
     <div class="col-md-6 ">
       <div class="form-group">
-        <label>Interval Type: {{interval.IntervalTypeDescription}}</label>
+        <label><h4>Interval Type:</h4></label>
+        <input type="text" [(ngModel)]="interval.IntervalTypeDescription"
+          class="form-control col-lg-9 col-md-9 col-sm-9" />
       </div>
     </div>
     <div class="col-md-6 ">
       <div class="form-group">
-        <label>Colour</label>&nbsp;
+        <label><h4>Colour</h4></label>&nbsp;
         <input [(colorPicker)]="interval.Colour" [style.background]="interval.Colour"
           class="form-control col-sm-9 col-md-9 col-lg-9" />
       </div>

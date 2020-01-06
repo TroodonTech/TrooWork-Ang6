@@ -600,8 +600,8 @@ export class SchedulerComponent implements AfterViewInit {
             });
         }
         else {
-          this.curDate = this.convert_DT(new Date());
-          this.nextschedulerDate = this.curDate;
+          // this.curDate = this.convert_DT(new Date());
+          // this.nextschedulerDate = this.curDate;
           alert("Need 8 Weeks of Data to create");
         }
       });
