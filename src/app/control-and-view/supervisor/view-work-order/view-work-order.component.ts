@@ -58,6 +58,12 @@ export class ViewWorkOrderComponent implements OnInit {
   BarcodeValue;
   showGenerate = false;
   SearchWO;
+  checkflag: boolean;
+  marked;
+  checkValue = [];
+  workorderKey = [];
+  workorderList;
+  deleteWO;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -547,6 +553,7 @@ export class ViewWorkOrderComponent implements OnInit {
 
   ngOnInit() {
     this.showGenerate = false;
+    this.checkflag = false;
     //token starts....
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
@@ -734,6 +741,62 @@ export class ViewWorkOrderComponent implements OnInit {
           this.workorderViewsEmpByAll();
         });
     }
+  }
+
+  toggleVisibility(e) {
+    if (e.target.checked) {
+      this.marked = true;
+    } else {
+      this.marked = false;
+    }
+  }
+
+  checkBoxValueForDelete(index, CheckValue, WorkorderKey) {
+    this.checkValue[index] = CheckValue;
+    this.workorderKey[index] = WorkorderKey;
+    for (var i = 0; i < this.checkValue.length;) {
+      if (this.checkValue[i] == true) {
+        this.checkflag = true;
+        return;
+      }
+      else {
+        if (i == (this.checkValue.length - 1)) {
+          this.checkValue = [];
+          this.checkflag = false;
+          return;
+        }
+        i++;
+      }
+    }
+  }
+
+  deleteWorkOrdersPage() {
+
+    var deleteWorkOrderList = [];
+    var deleteWorkOrderString;
+
+    if (this.checkValue.length > 0) {
+      for (var j = 0; j < this.checkValue.length; j++) {
+        if (this.checkValue[j] === true)
+          deleteWorkOrderList.push(this.workorderKey[j]);
+      }
+      deleteWorkOrderString = deleteWorkOrderList.join(',');
+    }
+    this.deleteWO = {
+      deleteWorkOrderString: deleteWorkOrderString,
+      employeekey: this.toServeremployeekey,
+      OrganizationID: this.OrganizationID
+    };
+    this.WorkOrderServiceService//service for deleting workorders
+      .delete_WO(this.deleteWO)
+      .subscribe((data: any[]) => {
+        this.WorkorderDetTable.workorderCheckValue = false;
+        this.checkValue = [];
+        this.checkflag = false;
+        this.workorderKey = [];
+        alert("Work order deleted successfully");
+        this.workorderViewsEmpByAll();
+      });
   }
   //@Rodney ends
 }
