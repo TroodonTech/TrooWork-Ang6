@@ -69,7 +69,6 @@ export class EditIntervalTypeColorComponent implements OnInit {
   }
   updateIntervalColor() {
 
-    // debugger;
     if (!(this.interval.Colour)) {
       alert("Please select a colour");
       return false;

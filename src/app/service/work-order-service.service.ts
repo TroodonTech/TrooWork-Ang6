@@ -447,11 +447,9 @@ export class WorkOrderServiceService {
       .get(ConectionSettings.Url + '/getIntervalTypeDetails?intervalid=' + intervalid + "&OrganizationID=" + OrgID);
   }
   updateIntervalDetails(color, intervalid, OrgID) {
-    // debugger;
     // return this
     //   .http
     //   .get(ConectionSettings.Url + '/updateIntervalTypeDetails?intervalid=' + intervalid + "&color=" + color + "&OrganizationID=" + OrgID);
-
 
     const url = ConectionSettings.Url + '/updateIntervalTypeDetails';
     const obj = {
