@@ -32,7 +32,8 @@ const routes: Routes = [
     NgDatepickerModule,
     RouterModule.forChild(routes),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDaciakO8dZrELxT9XoQvab6MYmhBSC4i0'
+      // apiKey: 'AIzaSyDaciakO8dZrELxT9XoQvab6MYmhBSC4i0'       old gm api key
+      apiKey: 'AIzaSyBL6NLlMU2vrJk4CRlI0FQa4BEQE_SiQrg'
       /* apiKey is required, unless you are a 
       premium customer, in which case you can 
       use clientId 
