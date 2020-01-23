@@ -66,7 +66,11 @@ export class ViewBatchWorkorderComponent implements OnInit {
   showHide1: boolean;
   showHide2: boolean;
   pagination: Number;
-//token decoding
+
+  checkflag: boolean;
+  workorderschedulerCheckValue;
+  deleteWO;
+  //token decoding
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -103,6 +107,25 @@ export class ViewBatchWorkorderComponent implements OnInit {
 
     }, 100)
 
+  }
+  //for deleting workorder
+  checkBoxValueForDelete(index, CheckValue, WorkorderKey) {
+    this.checkValue[index] = CheckValue;
+    this.workorderKey[index] = WorkorderKey;
+    for (var i = 0; i < this.checkValue.length;) {
+      if (this.checkValue[i] == true) {
+        this.checkflag = true;
+        return;
+      }
+      else {
+        if (i == (this.checkValue.length - 1)) {
+          this.checkValue = [];
+          this.checkflag = false;
+          return;
+        }
+        i++;
+      }
+    }
   }
   //code for pagination
   previousPage() {
@@ -149,6 +172,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
   //
   ngOnInit() {
     this.loading = true;
+    this.checkflag = false;
     var token = localStorage.getItem('token');
     var encodedProfile = token.split('.')[1];
     var profile = JSON.parse(this.url_base64_decode(encodedProfile));
@@ -198,6 +222,9 @@ export class ViewBatchWorkorderComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.workorderList = data;
         this.loading = false;
+        for (var i = 0; i < this.workorderList.length; i++) {
+          this.workorderList[i].workorderCheckValue = false;
+        }
         if (this.workorderList[0].totalItems > this.items_perpage) {
           this.showHide2 = true;
           this.showHide1 = false;
@@ -282,7 +309,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
     else {
       this.RoomTypeKey = "";
       this.RoomKey = "";
-      this.getZoneRoomTypeRoom(this.FloorKey,this.FacilityKey);
+      this.getZoneRoomTypeRoom(this.FloorKey, this.FacilityKey);
     }
   }
   getRoom(roomtype, zone, facility, floor) {//get room based on zone,facility,floor,roomtype
@@ -300,7 +327,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
   }
   //function called to view wo while applying filter
   viewWO_Filter() {
-    if ((this.todate) && (this.convert_DT(this.ondate)> this.convert_DT(this.todate))) {
+    if ((this.todate) && (this.convert_DT(this.ondate) > this.convert_DT(this.todate))) {
       alert("Please check your start date!");
 
     }
@@ -316,6 +343,7 @@ export class ViewBatchWorkorderComponent implements OnInit {
       var wot_key;
       var from_date;
       var to_date;
+      this.loading = true;
       if (!this.FacilityKey) {
         fac_key = null;
 
@@ -412,6 +440,9 @@ export class ViewBatchWorkorderComponent implements OnInit {
         .getBatchWoFilter(this.viewWorkOrder)
         .subscribe((data: any[]) => {
           this.workorderList = data;
+          this.showHide2 = false;
+          this.showHide1 = false;
+          this.loading = false;
 
         });
     }
@@ -552,5 +583,34 @@ export class ViewBatchWorkorderComponent implements OnInit {
           }
         });
     }
+  }
+  //function for deleting multiple batchworkorders checked
+  deletebatchWorkOrdersPage() {
+
+    var deletebatchWorkOrderList = [];
+    var deletebatchWorkOrderString;
+
+    if (this.checkValue.length > 0) {
+      for (var j = 0; j < this.checkValue.length; j++) {
+        if (this.checkValue[j] === true)
+          deletebatchWorkOrderList.push(this.workorderKey[j]);
+      }
+      deletebatchWorkOrderString = deletebatchWorkOrderList.join(',');
+    }
+    this.deleteWO = {
+      deletebatchWorkOrderString: deletebatchWorkOrderString,
+      employeekey: this.employeekey,
+      OrganizationID: this.OrganizationID
+    };
+    this.WorkOrderServiceService//service for deleting workorders
+      .delete_batchWO(this.deleteWO)
+      .subscribe((data: any[]) => {
+        this.workorderList.workorderCheckValue = false;
+        this.checkValue = [];
+        this.checkflag = false;
+        this.workorderKey = [];
+        alert("Batch Work order deleted successfully");
+        this.viewWO_Filter();
+      });
   }
 }

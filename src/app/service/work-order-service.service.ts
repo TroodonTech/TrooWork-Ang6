@@ -462,4 +462,12 @@ export class WorkOrderServiceService {
       .post(url, obj);
   }
   // @Rodney ends...
+  // Prakash Code Starts here
+  delete_batchWO(obj) {
+    const url = ConectionSettings.Url + '/deletebatchWorkOrders';
+    return this
+      .http
+      .post(url, obj);
+  }
+  // Prakash Code Ends here
 }
