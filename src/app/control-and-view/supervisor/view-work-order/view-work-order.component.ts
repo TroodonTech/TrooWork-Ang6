@@ -65,6 +65,11 @@ export class ViewWorkOrderComponent implements OnInit {
   workorderList;
   deleteWO;
 
+  EmployeeOption: workorder[];
+  scheduleList: workorder[];
+  BatchScheduleNameKey;
+  EmployeeKey;
+
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -139,6 +144,8 @@ export class ViewWorkOrderComponent implements OnInit {
   previousPage() {
     this.pageNo = +this.pageNo - 1;
     var fromDate, FacilityKey, ZoneKey, toDate, FloorKey, RoomTypeKey, SearchWO, startDate, endDate;
+    var scheduleName, empKey;
+    
     if (this.WorkorderDate) {
       fromDate = this.WorkorderDate;
     }
@@ -182,6 +189,21 @@ export class ViewWorkOrderComponent implements OnInit {
     else {
       SearchWO = null;
     }
+
+    
+    if (this.BatchScheduleNameKey) {
+      scheduleName = this.BatchScheduleNameKey;
+    }
+    else {
+      scheduleName = null;
+    }
+    if (this.EmployeeKey) {
+      empKey = this.EmployeeKey;
+    }
+    else {
+      empKey = null;
+    }
+
     startDate = this.convert_DT(fromDate);
     endDate = this.convert_DT(toDate);
 
@@ -196,10 +218,13 @@ export class ViewWorkOrderComponent implements OnInit {
       pageNo: this.pageNo,
       itemsPerPage: this.itemsPerPage,
       empKey: this.toServeremployeekey,
-      OrganizationID: this.OrganizationID
+      OrganizationID: this.OrganizationID,
+      schedulename: scheduleName,
+      employee: empKey,
     }
     this.loading = true;
-    this.WorkOrderServiceService.workorderViewsEmpByAll(Wo)
+    // this.WorkOrderServiceService.workorderViewsEmpByAll(Wo)
+    this.WorkOrderServiceService.workorderViewsSupervisorByAll(Wo)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
         if (this.pageNo == 1) {
@@ -216,6 +241,8 @@ export class ViewWorkOrderComponent implements OnInit {
   nextPage() {
     this.pageNo = +this.pageNo + 1;
     var fromDate, FacilityKey, ZoneKey, toDate, FloorKey, RoomTypeKey, SearchWO, startDate, endDate;
+    var scheduleName, empKey;
+    
     if (this.WorkorderDate) {
       fromDate = this.WorkorderDate;
     }
@@ -259,6 +286,21 @@ export class ViewWorkOrderComponent implements OnInit {
     else {
       SearchWO = null;
     }
+
+     if (this.BatchScheduleNameKey) {
+      scheduleName = this.BatchScheduleNameKey;
+    }
+    else {
+      scheduleName = null;
+    }
+    if (this.EmployeeKey) {
+      empKey = this.EmployeeKey;
+    }
+    else {
+      empKey = null;
+    }
+
+
     startDate = this.convert_DT(fromDate);
     endDate = this.convert_DT(toDate);
 
@@ -273,10 +315,12 @@ export class ViewWorkOrderComponent implements OnInit {
       pageNo: this.pageNo,
       itemsPerPage: this.itemsPerPage,
       empKey: this.toServeremployeekey,
-      OrganizationID: this.OrganizationID
+      OrganizationID: this.OrganizationID,
+      schedulename: scheduleName,
+      employee: empKey,
     }
     this.loading = true;
-    this.WorkOrderServiceService.workorderViewsEmpByAll(Wo)
+    this.WorkOrderServiceService.workorderViewsSupervisorByAll(Wo)
       .subscribe((data: any[]) => {
         this.WorkorderDetTable = data;
         this.pagination = +this.WorkorderDetTable[0].totalItems / (+this.pageNo * (+this.itemsPerPage));
@@ -598,6 +642,18 @@ export class ViewWorkOrderComponent implements OnInit {
         this.facilityList = data;
       });
 
+    this.WorkOrderServiceService//service for getting all schedule names
+      .getallScheduleName(this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.scheduleList = data;
+        this.BatchScheduleNameKey = "";
+      });
+    this.WorkOrderServiceService//service for getting employee names
+      .getallEmployeeName(this.toServeremployeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.EmployeeOption = data;
+        this.EmployeeKey = "";
+      });
     this.searchform = this.formBuilder.group({
       SearchWO: ['', Validators.required]
     });
@@ -617,6 +673,8 @@ export class ViewWorkOrderComponent implements OnInit {
   }
   workorderViewsEmpByAll() {
     var fromDate, FacilityKey, ZoneKey, toDate, FloorKey, RoomTypeKey, SearchWO, startDate, endDate, isFiltered;
+    var scheduleName, empKey;
+
     if (this.WorkorderDate) {
       fromDate = this.WorkorderDate;
     }
@@ -663,6 +721,20 @@ export class ViewWorkOrderComponent implements OnInit {
     else {
       SearchWO = null;
     }
+
+    if (this.BatchScheduleNameKey) {
+      scheduleName = this.BatchScheduleNameKey;
+    }
+    else {
+      scheduleName = null;
+    }
+    if (this.EmployeeKey) {
+      empKey = this.EmployeeKey;
+    }
+    else {
+      empKey = null;
+    }
+
     if (this.showGenerate) {
       isFiltered = 1;
     }
@@ -687,10 +759,12 @@ export class ViewWorkOrderComponent implements OnInit {
       itemsPerPage: this.itemsPerPage,
       empKey: this.toServeremployeekey,
       OrganizationID: this.OrganizationID,
+      schedulename: scheduleName,
+      employee: empKey,
       isFiltered: isFiltered
     }
     this.loading = true;
-    this.WorkOrderServiceService.workorderViewsEmpByAll(Wo).subscribe((data: any[]) => {
+    this.WorkOrderServiceService.workorderViewsSupervisorByAll(Wo).subscribe((data: any[]) => {
       this.WorkorderDetTable = data;
       this.loading = false;// loading
       if (data.length > 0) {

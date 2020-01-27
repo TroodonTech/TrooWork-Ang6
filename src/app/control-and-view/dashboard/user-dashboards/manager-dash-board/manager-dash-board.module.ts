@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
-// import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
-import { EditIntervalTypeColorModule } from "../../../manager/work-order/edit-interval-type-color/edit-interval-type-color.module";
+import { ViewRemainingWorkordersDetailsModule } from "../../../manager/reports/view-remaining-workorders-details/view-remaining-workorders-details.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -712,7 +711,14 @@ const routes: Routes = [
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/work-order/edit-interval-type-color/edit-interval-type-color.module#EditIntervalTypeColorModule'
 
+      },
+      {
+        path: 'viewWORemainingDetails/:fromdt/:todt/:empKey/:wotypeKey/:empName/:wotypeName',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/reports/view-remaining-workorders-details/view-remaining-workorders-details.module#ViewRemainingWorkordersDetailsModule'
+
       }
+
     ]
   }
 ];

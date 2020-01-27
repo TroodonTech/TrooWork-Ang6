@@ -428,6 +428,15 @@ export class WorkOrderServiceService {
       .http
       .post(url, obj);
   }
+
+
+  workorderViewsSupervisorByAll(obj) {
+    const url = ConectionSettings.Url + '/workorderViewSupervisorByAll';
+
+    return this
+      .http
+      .post(url, obj);
+  }
   // @Rodney starts...
   getallWorkorderDetailswithStatus(OrgID) {
     return this
@@ -460,6 +469,19 @@ export class WorkOrderServiceService {
     return this
       .http
       .post(url, obj);
+  }
+
+  getWoFilter_pagination(viewWorkOrder) {
+    const url = ConectionSettings.Url + '/workorderByallFilters_pagination';
+    return this
+      .http
+      .post(url, viewWorkOrder);
+  }
+
+  getRemainingWODetails(from, to, empKey, wotypeKey, org) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getRemainingWODetails?from=' + from + "&to=" + to + "&empKey=" + empKey + "&wotypeKey=" + wotypeKey + "&org=" + org);
   }
   // @Rodney ends...
 }

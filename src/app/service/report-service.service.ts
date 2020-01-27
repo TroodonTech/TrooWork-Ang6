@@ -373,9 +373,9 @@ export class ReportServiceService {
       .http
       .get(ConectionSettings.Url + '/getShiftNameList?employeeKey=' + EmployeeKey + '&OrganizationID=' + orgID);
   }
-  getInspectionAuditReportDetails(from, to, template, orgID) {
+  getInspectionAuditReportDetails(from, to, template, Employee, orgID) {
     return this
       .http
-      .get(ConectionSettings.Url + '/getInspectionAuditDetailsForReport?from=' + from + '&to=' + to + '&template=' + template + '&orgID=' + orgID);
+      .get(ConectionSettings.Url + '/getInspectionAuditDetailsForReport?from=' + from + '&to=' + to + '&template=' + template + '&employeeKey=' + Employee + '&orgID=' + orgID);
   }
 }

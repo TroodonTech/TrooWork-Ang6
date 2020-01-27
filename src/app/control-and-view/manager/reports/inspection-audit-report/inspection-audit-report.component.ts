@@ -22,10 +22,11 @@ export class InspectionAuditReportComponent implements OnInit {
   OrganizationID: Number;
   SupervisorKey;
   loading: boolean;// loading
-
+  employeeList;
   templateNameList;
   TemplateName;
-
+  Employee;
+  empNameForview;
   fromdate;
   todate;
   url_base64_decode(str) {
@@ -71,31 +72,7 @@ export class InspectionAuditReportComponent implements OnInit {
   };
   viewinspectionReport;
   public reportarray: Array<any> = [{}];
-  constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private excelService: ExcelserviceService, private inspectionService: InspectionService) {
-
-  }
-  //function for exporting to excel 
-  // exportToExcel(): void {
-  //   for (var i = 0; i < this.viewinspectionReport.length; i++) {
-  //     var temp_name = (this.viewinspectionReport[i].TemplateName);
-  //     var ins_date = (this.viewinspectionReport[i].InspectionDate);
-  //     var locationname = this.viewinspectionReport[i].FacilityName.concat('-', this.viewinspectionReport[i].RoomId);
-  //     var auditorname = this.viewinspectionReport[i].LastName.concat(',', this.viewinspectionReport[i].FirstName);
-  //     var employeename = (this.viewinspectionReport[i].EmployeeName);
-  //     if (this.viewinspectionReport[i].InspectionCompletedBy !== null) {
-  //       var cur_status1 = 'Inspection Completed';
-  //       this.reportarray.push({ template: temp_name, Date: ins_date, Location: locationname, Auditor: auditorname, Employee: employeename, Status: cur_status1 })
-  //     }
-  //     else {
-  //       var cur_status2 = 'Inspection not Completed';
-  //       this.reportarray.push({ Template: temp_name, Date: ins_date, Location: locationname, Auditor: auditorname, Employee: employeename, Status: cur_status2 })
-  //     }
-  //   }
-  //   var blob = new Blob([document.getElementById('exportable1').innerHTML], {
-  //     type: EXCEL_TYPE
-  //   });
-  //   FileSaver.saveAs(blob, "inspection_Report.xls");
-  // }
+  constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private excelService: ExcelserviceService, private inspectionService: InspectionService) { }
 
   ngOnInit() {
     this.TemplateName = '';
@@ -117,9 +94,17 @@ export class InspectionAuditReportComponent implements OnInit {
 
     this.fromdate = this.convert_DT(new Date());
     this.todate = this.convert_DT(new Date());
+
+    this.inspectionService
+      .getEmployeeNameForAuditReport(this.employeekey, this.OrganizationID)
+      .subscribe((data: any[]) => {
+        this.employeeList = data;
+        this.Employee = 0;
+      });
   }
+
   //function for genaerating report
-  generateInspectionAuditReport(from_date, to_date, TemplateName) {
+  generateInspectionAuditReport(from_date, to_date, TemplateName, Employee) {
     var Template_Name;
     if (!TemplateName) {
       alert("Please select a Template Name");
@@ -155,11 +140,12 @@ export class InspectionAuditReportComponent implements OnInit {
 
     this.loading = true;
     this.ReportServiceService
-      .getInspectionAuditReportDetails(this.convert_DT(fromdate1), this.convert_DT(todate1), Template_Name, this.OrganizationID)
-      .subscribe((data: Reports[]) => {
+      .getInspectionAuditReportDetails(this.convert_DT(fromdate1), this.convert_DT(todate1), Template_Name, Employee, this.OrganizationID)
+      .subscribe((data: any[]) => {
         this.viewinspectionReport = data;
         this.fromdate = this.convert_DT(fromdate1);
         this.todate = this.convert_DT(todate1);
+        this.empNameForview = data[0].EmployeeName;
         this.loading = false;
       });
   }

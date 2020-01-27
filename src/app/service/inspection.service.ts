@@ -362,6 +362,14 @@ export class InspectionService {
       .http
       .post(url, obj);
   }
+
+  getEmployeeNameForAuditReport(empKey, orgID) {
+    return this
+      .http
+      // .get(ConectionSettings.Url + '/allemployees?empkey=' + empKey + '&OrganizationID=' + orgID);
+      .get(ConectionSettings.Url + '/allemployeesForAuditReport_SuType?empkey=' + empKey + '&OrganizationID=' + orgID);
+  }
+
   // @Rodney ends
 }
 

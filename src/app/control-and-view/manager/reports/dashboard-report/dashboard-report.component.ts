@@ -10,6 +10,9 @@ import html2canvas from 'html2canvas';//for pdf
 import { DatepickerOptions } from 'ng2-datepicker';
 import 'jspdf-autotable';//for pdf
 import { interval, Subscription } from 'rxjs';//for calling function on regular interval
+import { Router } from '@angular/router';
+import { DataService } from './data.service';
+
 @Component({
   selector: 'app-dashboard-report',
   templateUrl: './dashboard-report.component.html',
@@ -26,9 +29,9 @@ export class DashboardReportComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
   subscription: Subscription;
-  ShiftType='Normal';
+  ShiftType = 'Normal';
   shiftlist;
-  ShiftValue='All'
+  ShiftValue = 'All'
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -148,7 +151,7 @@ export class DashboardReportComponent implements OnInit {
       doc.save('table.pdf');
     });
   }
- 
+
   //code for exporting to pdf ends//
   employeeoption: Reports[];
   dashboardreport: FormGroup;
@@ -176,7 +179,7 @@ export class DashboardReportComponent implements OnInit {
   todate: Date;
   WorkorderTypeKey = [];
   showElement: boolean;
-  constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private _pieChartService: GooglePieChartService) {
+  constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private _pieChartService: GooglePieChartService, private ds: DataService, private router: Router) {
     this.dashboardreport = fb.group({
       EmployeeKey: ['', Validators.required],
       EmployeeText: ['', Validators.required]
@@ -196,19 +199,58 @@ export class DashboardReportComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
 
-    var dateTemp_1 = this.convert_DT(new Date());
-    var dateTemp_2 = this.convert_DT(new Date());
-    // this.ReportServiceService
-    //   .getallemployee(this.employeekey, this.OrganizationID)
-    //   .subscribe((data: Reports[]) => {
-    //     this.employeeoption = data;
-    //   });
-      this.ReportServiceService.getallemployee(this.employeekey, this.OrganizationID).subscribe((data: Reports[]) => {
-        this.employeeoption = data;
-      });
-      this.ReportServiceService.getShiftNameList(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-        this.shiftlist = data;
-      });
+    var from = this.ds.getFromDate();
+    var to = this.ds.getToDate();
+    var employees = this.ds.getEmployees();
+    var workordertypes = this.ds.getWorkorderTypes();
+
+    this.ds.setEmp(null);
+    this.ds.setEmployees(null);
+    this.ds.setFromDate(null);
+    this.ds.setToDate(null);
+    this.ds.setWOType(null);
+    this.ds.setWOTypeName(null);
+    this.ds.setWorkorderTypes(null);
+    this.ds.setempName(null);
+
+    var dateTemp_1;
+    var dateTemp_2;
+
+    if (from) {
+      dateTemp_1 = from;
+    } else {
+      dateTemp_1 = this.convert_DT(new Date());
+    }
+    console.log("dateTemp_1... " + dateTemp_1);
+    if (to) {
+      dateTemp_2 = to;
+    } else {
+      dateTemp_2 = this.convert_DT(new Date());
+    }
+    console.log("dateTemp_2... " + dateTemp_2);
+    if (employees) {
+      this.em_Key = employees;
+    } else {
+      this.em_Key = null;
+    }
+    console.log("em_Key... " + this.em_Key);
+
+    if (workordertypes) {
+      this.Workorder_TypeKey = workordertypes;
+      if (workordertypes.length == 0) {
+        this.Workorder_TypeKey = null;
+      }
+    } else if (!(workordertypes)) {
+      this.Workorder_TypeKey = null;
+    }
+    console.log("Workorder_TypeKey... " + this.Workorder_TypeKey);
+
+    this.ReportServiceService.getallemployee(this.employeekey, this.OrganizationID).subscribe((data: Reports[]) => {
+      this.employeeoption = data;
+    });
+    this.ReportServiceService.getShiftNameList(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+      this.shiftlist = data;
+    });
     this.ReportServiceService
       .getallworkordertype(this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
@@ -223,17 +265,18 @@ export class DashboardReportComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true
     };//
-    this.em_Key = null;
-    this.Workorder_TypeKey = null;
+
+
     this.ReportServiceService//service for fetching table values
-      .getdashboardreport(dateTemp_1, dateTemp_2, this.em_Key, this.Workorder_TypeKey, this.employeekey, this.OrganizationID,this.ShiftType,this.ShiftValue)
+      .getdashboardreport(dateTemp_1, dateTemp_2, this.em_Key, this.Workorder_TypeKey, this.employeekey, this.OrganizationID, this.ShiftType, this.ShiftValue)
       .subscribe((data: Reports[]) => {
         this.reporttable = data;
         this.loading = false;
       });
 
     this.ReportServiceService//service for fetching pie chart values
-      .getpievalues(dateTemp_1, this.employeekey, this.OrganizationID,this.ShiftType,this.ShiftValue)
+      // .getpievalues(dateTemp_1, this.employeekey, this.OrganizationID, this.ShiftType, this.ShiftValue)
+      .getvaluesfilterbypie(dateTemp_1, dateTemp_2, this.em_Key, this.Workorder_TypeKey, this.OrganizationID, this.employeekey, this.ShiftType, this.ShiftValue)
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
         this.sampledata1 = [['WorkorderStatus', 'count']];
@@ -253,7 +296,6 @@ export class DashboardReportComponent implements OnInit {
             this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);//drawing piechart on pageload by calling piechart service
           }
         }, 1000)
-
       });
 
     const source = interval(900000);  //sudina-code for calling filter function after regular interval
@@ -269,7 +311,7 @@ export class DashboardReportComponent implements OnInit {
   dashboardreportbyfilter() {
     this.pievalues = [];
     this.reporttable = [];
-    
+
     if (!this.EmployeeKey) {
       this.em_Key = null;
     }
@@ -314,13 +356,13 @@ export class DashboardReportComponent implements OnInit {
     }
     this.loading = true;
     this.ReportServiceService//service for fetching values for table
-      .getdashboardreport(date1, date2, this.em_Key, workordertypeString, this.employeekey, this.OrganizationID,this.ShiftType,this.ShiftValue)
+      .getdashboardreport(date1, date2, this.em_Key, workordertypeString, this.employeekey, this.OrganizationID, this.ShiftType, this.ShiftValue)
       .subscribe((data: Reports[]) => {
         this.reporttable = data;
         this.loading = false;
       });
     this.ReportServiceService//service for fetching values for piechart
-      .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.OrganizationID, this.employeekey,this.ShiftType,this.ShiftValue)
+      .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.OrganizationID, this.employeekey, this.ShiftType, this.ShiftValue)
       .subscribe((data: Reports[]) => {
         this.pievalues = data;
         this.sampledata2 = [['WorkorderStatus', 'count']];//converting array to json format for piechart
@@ -348,10 +390,24 @@ export class DashboardReportComponent implements OnInit {
   ngOnDestroy() {//unsubscribing from calling filter function after regular interval
     this.subscription.unsubscribe();
   }
-  shiftcheck(){
-    if(this.ShiftType==='Normal'){
-      this.ShiftValue='All';
+  shiftcheck() {
+    if (this.ShiftType === 'Normal') {
+      this.ShiftValue = 'All';
     }
+  }
+
+  viewWODetails(empkey, WOTypeKey, empName, woTypeName) {
+    this.ds.setFromDate(this.convert_DT(this.fromdate));
+    this.ds.setToDate(this.convert_DT(this.todate));
+    this.ds.setEmployees(this.EmployeeKey);
+    this.ds.setWorkorderTypes(this.WorkorderTypeKey);
+    this.ds.setEmp(empkey);
+    this.ds.setWOType(WOTypeKey);
+    this.ds.setWOTypeName(woTypeName);
+    this.ds.setempName(empName);
+    // console.log(this.ds.getEmp());
+    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['viewWORemainingDetails', this.convert_DT(this.fromdate), this.convert_DT(this.todate), empkey, WOTypeKey, empName, woTypeName] } }]);
+    // this.router.navigate(['viewWORemainingDetails', this.fromdate, this.todate, empkey, WOTypeKey, woTypeName, empName]);
   }
 }
 

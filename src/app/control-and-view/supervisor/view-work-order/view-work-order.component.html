@@ -36,6 +36,19 @@
                     </option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label>Employee</label><br>
+                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control"
+                    [(ngModel)]="EmployeeKey" (change)="filterApplied();" required>
+                    <option value="">--Select--</option>
+                    <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">
+                        {{e.EmployeeText}}
+                    </option>
+                </select>
+            </div>
+
+
         </div>
         <div class="col-md-6">
             <h3 style="text-align: right"></h3>
@@ -67,6 +80,18 @@
                     </option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label>Schedule Name</label><br>
+                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control"
+                    [(ngModel)]="BatchScheduleNameKey" (change)="filterApplied();" required>
+                    <option value="">--Select--</option>
+                    <option *ngFor="let b of scheduleList" [value]="b.BatchScheduleNameKey">
+                        {{b.ScheduleName}}
+                    </option>
+                </select>
+            </div>
+
         </div>
         <div class="col-md-12">
             <form [formGroup]="searchform">
@@ -173,7 +198,7 @@
 
                     </tr>
                     <tr *ngIf="WorkorderDetTable?.length == 0">
-                        <td colspan="9" class="no-data-available">No records found</td>
+                        <td colspan="10" class="no-data-available">No records found</td>
                     </tr>
                 </tbody>
             </table>
