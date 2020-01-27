@@ -484,4 +484,12 @@ export class WorkOrderServiceService {
       .get(ConectionSettings.Url + '/getRemainingWODetails?from=' + from + "&to=" + to + "&empKey=" + empKey + "&wotypeKey=" + wotypeKey + "&org=" + org);
   }
   // @Rodney ends...
+  // Prakash Code Starts here
+  delete_batchWO(obj) {
+    const url = ConectionSettings.Url + '/deletebatchWorkOrders';
+    return this
+      .http
+      .post(url, obj);
+  }
+  // Prakash Code Ends here
 }

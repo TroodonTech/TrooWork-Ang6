@@ -20674,6 +20674,33 @@ app.get(securedpath + '/getCountForAssignmentManualcreatecheck', function (req, 
         connection.release();
     });
 });
+
+app.post(securedpath + '/deletebatchWorkOrders', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var newWOObj = {};
+    newWOObj = req.body;
+    var deletebatchWorkOrderString = newWOObj.deletebatchWorkOrderString;
+    var employeekey = newWOObj.employeekey;
+    var OrganizationID = newWOObj.OrganizationID;
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        } else {
+            connection.query('set @deletebatchWorkOrderString=?; set @employeekey=?;set @OrganizationID=?;  call usp_deletebatchWorkOrders(@deletebatchWorkOrderString,@employeekey,@OrganizationID)', [deletebatchWorkOrderString, employeekey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("deleteWorkOrders...from server.." + JSON.stringify(rows[3]));
+                    res.end(JSON.stringify(rows[3]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 // @Author:Prakash code ends here
 
 //handle generic exceptions
