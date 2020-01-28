@@ -143,9 +143,11 @@ export class InspectionAuditReportComponent implements OnInit {
       .getInspectionAuditReportDetails(this.convert_DT(fromdate1), this.convert_DT(todate1), Template_Name, Employee, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.viewinspectionReport = data;
-        this.fromdate = this.convert_DT(fromdate1);
-        this.todate = this.convert_DT(todate1);
-        this.empNameForview = data[0].EmployeeName;
+        if (data.length > 0) {
+          this.fromdate = this.convert_DT(fromdate1);
+          this.todate = this.convert_DT(todate1);
+          this.empNameForview = data[0].EmployeeName;
+        }
         this.loading = false;
       });
   }

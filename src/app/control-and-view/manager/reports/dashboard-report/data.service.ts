@@ -12,7 +12,8 @@ export class DataService {
   workorderTypes;
   emp;
   wOType;
-
+  shifttype;
+  shiftvalue;
   empname;
   wotypeName;
   setFromDate(from) {
@@ -39,6 +40,14 @@ export class DataService {
   setempName(empName) {
     this.empname = empName;
   }
+  setshiftType(shifttype) {
+    this.shifttype = shifttype;
+  }
+  setshiftValue(shiftvalue) {
+    this.shiftvalue = shiftvalue;
+  }
+
+
 
   getFromDate() {
     let temp = this.fromDate;
@@ -72,6 +81,13 @@ export class DataService {
     let temp = this.empname;
     return temp;
   }
-
+  getshiftType() {
+    let temp = this.shifttype;
+    return temp;
+  }
+  getshiftValue() {
+    let temp = this.shiftvalue;
+    return temp;
+  }
 }
 

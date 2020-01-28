@@ -203,6 +203,8 @@ export class DashboardReportComponent implements OnInit {
     var to = this.ds.getToDate();
     var employees = this.ds.getEmployees();
     var workordertypes = this.ds.getWorkorderTypes();
+    var shiftType1 = this.ds.getshiftType();
+    var shiftvalue1 = this.ds.getshiftValue();
 
     this.ds.setEmp(null);
     this.ds.setEmployees(null);
@@ -212,6 +214,8 @@ export class DashboardReportComponent implements OnInit {
     this.ds.setWOTypeName(null);
     this.ds.setWorkorderTypes(null);
     this.ds.setempName(null);
+    this.ds.setshiftType(null);
+    this.ds.setshiftValue(null);
 
     var dateTemp_1;
     var dateTemp_2;
@@ -221,29 +225,41 @@ export class DashboardReportComponent implements OnInit {
     } else {
       dateTemp_1 = this.convert_DT(new Date());
     }
-    console.log("dateTemp_1... " + dateTemp_1);
+
     if (to) {
       dateTemp_2 = to;
     } else {
       dateTemp_2 = this.convert_DT(new Date());
     }
-    console.log("dateTemp_2... " + dateTemp_2);
+
     if (employees) {
       this.em_Key = employees;
     } else {
       this.em_Key = null;
     }
-    console.log("em_Key... " + this.em_Key);
 
-    if (workordertypes) {
-      this.Workorder_TypeKey = workordertypes;
-      if (workordertypes.length == 0) {
-        this.Workorder_TypeKey = null;
-      }
-    } else if (!(workordertypes)) {
-      this.Workorder_TypeKey = null;
+    if (shiftType1) {
+      this.ShiftType = shiftType1;
+    } else {
+      this.ShiftType = "Normal";
     }
-    console.log("Workorder_TypeKey... " + this.Workorder_TypeKey);
+
+    if (shiftvalue1) {
+      this.ShiftValue = shiftvalue1;
+    } else {
+      this.ShiftValue = "All";
+    }
+
+    this.fromdate = dateTemp_1;
+    if (this.fromdate != dateTemp_2) {
+      this.todate = dateTemp_2;
+    }
+    if (this.em_Key != null) {
+      this.EmployeeKey = this.em_Key;
+    }
+    else {
+      this.EmployeeKey = "";
+    }
 
     this.ReportServiceService.getallemployee(this.employeekey, this.OrganizationID).subscribe((data: Reports[]) => {
       this.employeeoption = data;
@@ -251,11 +267,35 @@ export class DashboardReportComponent implements OnInit {
     this.ReportServiceService.getShiftNameList(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
       this.shiftlist = data;
     });
+
     this.ReportServiceService
       .getallworkordertype(this.employeekey, this.OrganizationID)
       .subscribe((data: Reports[]) => {
         this.workordertypeoption = data;
       });
+
+    if (workordertypes) {
+      if (workordertypes.length == 0) {
+        this.Workorder_TypeKey = null;
+      } else {
+        var workordertypeList1 = [];
+        var workordertypeListObj1 = workordertypes;
+        var workordertypeString1;
+        if (workordertypeListObj1.length > 0) {
+          if (workordertypeListObj1) {
+            for (var j = 0; j < workordertypeListObj1.length; j++) {
+              workordertypeList1.push(workordertypeListObj1[j].WorkorderTypeKey);
+            }
+          }
+          this.Workorder_TypeKey = workordertypeList1.join(',');
+          this.WorkorderTypeKey = workordertypes;
+        }
+
+      }
+    } else if (!(workordertypes)) {
+      this.Workorder_TypeKey = null;
+    }
+
     this.dropdownSettings = {//for multiselect dropdown
       singleSelection: false,
       idField: 'WorkorderTypeKey',
@@ -397,6 +437,9 @@ export class DashboardReportComponent implements OnInit {
   }
 
   viewWODetails(empkey, WOTypeKey, empName, woTypeName) {
+    if (!this.todate) {
+      this.todate = this.fromdate;
+    }
     this.ds.setFromDate(this.convert_DT(this.fromdate));
     this.ds.setToDate(this.convert_DT(this.todate));
     this.ds.setEmployees(this.EmployeeKey);
@@ -405,6 +448,9 @@ export class DashboardReportComponent implements OnInit {
     this.ds.setWOType(WOTypeKey);
     this.ds.setWOTypeName(woTypeName);
     this.ds.setempName(empName);
+
+    this.ds.setshiftType(this.ShiftType);
+    this.ds.setshiftValue(this.ShiftValue);
     // console.log(this.ds.getEmp());
     this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['viewWORemainingDetails', this.convert_DT(this.fromdate), this.convert_DT(this.todate), empkey, WOTypeKey, empName, woTypeName] } }]);
     // this.router.navigate(['viewWORemainingDetails', this.fromdate, this.todate, empkey, WOTypeKey, woTypeName, empName]);
