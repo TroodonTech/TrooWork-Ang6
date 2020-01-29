@@ -451,9 +451,13 @@ export class DashboardReportComponent implements OnInit {
 
     this.ds.setshiftType(this.ShiftType);
     this.ds.setshiftValue(this.ShiftValue);
-    // console.log(this.ds.getEmp());
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['viewWORemainingDetails', this.convert_DT(this.fromdate), this.convert_DT(this.todate), empkey, WOTypeKey, empName, woTypeName] } }]);
-    // this.router.navigate(['viewWORemainingDetails', this.fromdate, this.todate, empkey, WOTypeKey, woTypeName, empName]);
+
+    if (this.role == 'Manager') {
+      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['viewWORemainingDetails', this.convert_DT(this.fromdate), this.convert_DT(this.todate), empkey, WOTypeKey, empName, woTypeName] } }]);
+    }
+    else if (this.role == 'Supervisor') {
+      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['viewWORemainingDetails', this.convert_DT(this.fromdate), this.convert_DT(this.todate), empkey, WOTypeKey, empName, woTypeName] } }]);
+    }
   }
 }
 

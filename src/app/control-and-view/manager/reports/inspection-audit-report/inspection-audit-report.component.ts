@@ -138,6 +138,15 @@ export class InspectionAuditReportComponent implements OnInit {
       Template_Name = TemplateName;
     }
 
+    if (Employee == 0) {
+      this.empNameForview = "All"
+    } else {
+      for (var i = 0; i < this.employeeList.length; i++) {
+        if (this.employeeList[i].EmployeeKey == parseInt(Employee)) {
+          this.empNameForview = this.employeeList[i].EmployeeText;
+        }
+      }
+    }
     this.loading = true;
     this.ReportServiceService
       .getInspectionAuditReportDetails(this.convert_DT(fromdate1), this.convert_DT(todate1), Template_Name, Employee, this.OrganizationID)
@@ -146,12 +155,14 @@ export class InspectionAuditReportComponent implements OnInit {
         if (data.length > 0) {
           this.fromdate = this.convert_DT(fromdate1);
           this.todate = this.convert_DT(todate1);
-          this.empNameForview = data[0].EmployeeName;
+          // this.empNameForview = data[0].EmployeeName;
         }
         this.loading = false;
       });
   }
-
+  check(emp) {
+    alert(emp);
+  }
   exportToExcel(): void {
     for (var i = 0; i < this.viewinspectionReport.length; i++) {
       var question = (this.viewinspectionReport[i].Question);

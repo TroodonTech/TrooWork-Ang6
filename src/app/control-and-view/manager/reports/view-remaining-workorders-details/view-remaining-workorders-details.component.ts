@@ -67,6 +67,11 @@ export class ViewRemainingWorkordersDetailsComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['DashboardReport'] } }]);
+    if (this.role == 'Manager') {
+      this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['DashboardReport'] } }]);
+    }
+    else if (this.role == 'Supervisor') {
+      this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['DashboardReport'] } }]);
+    }
   }
 }
