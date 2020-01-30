@@ -713,6 +713,8 @@ export class ViewWorkOrdersComponent implements OnInit {
         SearchWO = null;
       }
 
+      this.pageno=1;
+
       this.viewWorkOrder = {
         manager: this.emp_key,
         workorderStatusKey: WOS_key,

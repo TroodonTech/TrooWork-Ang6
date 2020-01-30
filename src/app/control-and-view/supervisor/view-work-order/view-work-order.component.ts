@@ -747,6 +747,8 @@ export class ViewWorkOrderComponent implements OnInit {
       alert("Please Check Dates !");
       return;
     }
+
+    this.pageNo=1;
     let Wo = {
       startDate: startDate,
       endDate: endDate,
