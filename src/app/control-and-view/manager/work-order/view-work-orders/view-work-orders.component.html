@@ -10,7 +10,7 @@
       <div class="form-group">
         <label>Building*</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FacilityKey"
-          (change)="getFloorDisp($event.target.value);viewWO_Filter();" required>
+          (change)="getFloorDisp($event.target.value);" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of facilitylist" [value]="b.FacilityKey">
             {{b.FacilityText}}
@@ -20,8 +20,7 @@
       <div class="form-group">
         <label>Floor*</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="FloorKey"
-          [disabled]="!FacilityKey" (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey);viewWO_Filter();"
-          required>
+          [disabled]="!FacilityKey" (change)="getZoneRoomTypeRoom($event.target.value,FacilityKey);" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of FloorList" [value]="b.FloorKey">
             {{b.FloorName}}
@@ -31,8 +30,7 @@
       <div class="form-group">
         <label>Zone</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="ZoneKey"
-          [disabled]="!FloorKey" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);viewWO_Filter();"
-          required>
+          [disabled]="!FloorKey" (change)="getRoomTypeRoom($event.target.value,FacilityKey,FloorKey);" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of zonelist" [value]="b.ZoneKey">
             {{b.ZoneName}}
@@ -42,8 +40,7 @@
       <div class="form-group">
         <label>Room Type</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomTypeKey"
-          [disabled]="!FloorKey" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);viewWO_Filter();"
-          required>
+          [disabled]="!FloorKey" (change)="getRoom($event.target.value,ZoneKey,FacilityKey,FloorKey);" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of RoomTypeList" [value]="b.RoomTypeKey">
             {{b.RoomTypeName}}
@@ -53,7 +50,7 @@
       <div class="form-group">
         <label>Room</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="RoomKey"
-          [disabled]="!FloorKey" (change)="viewWO_Filter();" required>
+          [disabled]="!FloorKey" required>
           <option value="">--Select--</option>
           <option *ngFor="let b of RoomList" [value]="b.RoomKey">
             {{b.RoomName}}
@@ -63,7 +60,7 @@
       <div class="form-group">
         <label>Schedule Name</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="BatchScheduleNameKey"
-          (change)="viewWO_Filter();" required>
+          required>
           <option value="">--Select--</option>
           <option *ngFor="let b of scheduleList" [value]="b.BatchScheduleNameKey">
             {{b.ScheduleName}}
@@ -76,21 +73,21 @@
       <div class="form-group">
         <label>On Date</label><br>
         <!-- <igx-datePicker cancelButtonLabel="CANCEL" todayButtonLabel="TODAY" [labelVisibility]="none" [value]="date"
-          [(ngModel)]="ondate" (onSelection)="viewWO_Filter();"></igx-datePicker> -->
-        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="ondate" (ngModelChange)="viewWO_Filter()">
+          [(ngModel)]="ondate" (onSelection)=""></igx-datePicker> -->
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="ondate">
         </ng-datepicker>
       </div>
       <div class="form-group">
         <label>To Date</label><br>
         <!-- <igx-datePicker style="margin-top: -0.7rem" cancelButtonLabel="CANCEL" todayButtonLabel="TODAY"
-          [labelVisibility]="none" [value]="date" [(ngModel)]="todate" (onSelection)="viewWO_Filter();"></igx-datePicker> -->
-        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate" (ngModelChange)="viewWO_Filter()">
+          [labelVisibility]="none" [value]="date" [(ngModel)]="todate" (onSelection)=""></igx-datePicker> -->
+        <ng-datepicker [options]="options" position="top-right" [(ngModel)]="todate">
         </ng-datepicker>
       </div>
       <div class="form-group">
         <label>Work Status</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="WorkorderStatusKey"
-          (change)="viewWO_Filter();" required>
+          required>
           <option value="">--Select--</option>
           <option *ngFor="let e of workStatusList" [value]="e.WorkorderStatusKey">
             {{e.WorkorderStatus}}
@@ -98,9 +95,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label>Employee*</label><br>
-        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="EmployeeKey"
-          (change)="viewWO_Filter();" required>
+        <label>Employee</label><br>
+        <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="EmployeeKey" required>
           <option value="">--Select--</option>
           <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">
             {{e.EmployeeText}}
@@ -110,7 +106,7 @@
       <div class="form-group">
         <label>Workorder Type</label><br>
         <select style="background-color: #D4F4FF !important;" class="form-control" [(ngModel)]="WorkorderTypeKey"
-          (change)="viewWO_Filter();" required>
+          required>
           <option value="">--Select--</option>
           <option *ngFor="let e of workorderTypeList" [value]="e.WorkorderTypeKey">
             {{e.WorkorderTypeText}}
@@ -118,17 +114,25 @@
         </select>
       </div>
     </div>
-  </div><br>
-  <div class="col-md-12">
-    <form [formGroup]="searchform">
-      <div class="active-pink-3 active-pink-4 mb-4" style="margin-left: -2rem;margin-right: 1.5rem;">
-        <input class="form-control" name="searchWO" maxlength="20" type="text" specialIsAlphaNumeric minlength="3"
-          formControlName="SearchWo" placeholder="Search WorkOrder Type,Employee,Room" aria-label="Search"
-          [(ngModel)]="SearchWo" (input)="searchworkType_emp_room($event.target.value);" style="width: 101.8%;">
-        <div *ngIf="searchform.controls.SearchWo.errors?.minlength">Minimum 3 characters required.</div>
+
+    <div class="col-md-12">
+      <form [formGroup]="searchform">
+        <div class="active-pink-3 active-pink-4 mb-4" style="margin-right: 1.5rem;">
+          <input class="form-control" name="searchWO" maxlength="20" type="text" specialIsAlphaNumeric minlength="3"
+            formControlName="SearchWo" placeholder="Search WorkOrder Type,Employee,Room" aria-label="Search"
+            [(ngModel)]="SearchWo" style="width: 101.8%;">
+          <div *ngIf="searchform.controls.SearchWo.errors?.minlength">Minimum 3 characters required.</div>
+        </div>
+      </form>
+    </div>
+
+    <div class="row col-md-12">
+      <div style="margin-left: 45%;margin-bottom: 2%;">
+        <button type="button" class="btn btn-success" (click)=genFlagActivate();viewWO_Filter();><b>GENERATE</b></button>
       </div>
-    </form>
-  </div>
+    </div>
+  </div><br>
+
   <br>
   <div style="width: 100%;height: 100%;">
     <table *ngIf='workorderList' class="table table-hover table-responsive table-bordered table"
@@ -154,7 +158,7 @@
         <th>View</th>
       </thead>
       <tbody>
-        <tr *ngFor="let x of workorderList; let i=index" >
+        <tr *ngFor="let x of workorderList; let i=index">
           <td>{{x.WorkorderTypeName}}</td>
           <td>{{x.WorkorderTime}}</td>
           <td> {{x.WorkorderStatus}}</td>

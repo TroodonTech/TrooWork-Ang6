@@ -8,17 +8,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IgxDatePickerModule } from 'igniteui-angular';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 // import { AngularMultiSelectModule } from '../../../../extra-files/MultiSelect2/multiselect.component';
-import { NgDatepickerModule} from 'ng2-datepicker';
+import { NgDatepickerModule } from 'ng2-datepicker';
 import { BrowserModule } from '@angular/platform-browser'
 import { DashboardReportComponent } from './dashboard-report.component';
 import { ManagerDashBoardModule } from '../../../dashboard/user-dashboards/manager-dash-board/manager-dash-board.module';
+import { DataService } from './data.service';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardReportComponent
   }
-  
+
 ];
 
 
@@ -35,6 +36,7 @@ const routes: Routes = [
     // AngularMultiSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DashboardReportComponent]
+  declarations: [DashboardReportComponent],
+  providers: [DataService]
 })
 export class DashboardReportModule { }

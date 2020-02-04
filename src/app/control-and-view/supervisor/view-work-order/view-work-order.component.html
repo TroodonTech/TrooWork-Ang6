@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
                 <label>Building</label><br>
-                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control"
+                <select style="background-color: #D4F4FF !important;" class="form-control"
                     [(ngModel)]="FacilityKey" (change)="selectFloorfromBuildings($event.target.value);filterApplied();"
                     required>
                     <option value="">--Select--</option>
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label>Zone</label><br>
-                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control"
+                <select style="background-color: #D4F4FF !important;" class="form-control"
                     [(ngModel)]="ZoneKey" [disabled]="!FloorKey" (change)="filterApplied();selectedZone()" required>
                     <option value="">--Select--</option>
                     <option *ngFor="let b of zoneList" [value]="b.ZoneKey">
@@ -36,6 +36,19 @@
                     </option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label>Employee</label><br>
+                <select style="background-color: #D4F4FF !important;" class="form-control"
+                    [(ngModel)]="EmployeeKey" (change)="filterApplied();" required>
+                    <option value="">--Select--</option>
+                    <option *ngFor="let e of EmployeeOption" [value]="e.EmployeeKey">
+                        {{e.EmployeeText}}
+                    </option>
+                </select>
+            </div>
+
+
         </div>
         <div class="col-md-6">
             <h3 style="text-align: right"></h3>
@@ -48,7 +61,7 @@
             </div>
             <div class="form-group">
                 <label>Floor</label><br>
-                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control"
+                <select style="background-color: #D4F4FF !important;" class="form-control"
                     [(ngModel)]="FloorKey" [disabled]="!FacilityKey"
                     (change)="selectZoneRoomtypefromFloor($event.target.value,FacilityKey);filterApplied();" required>
                     <option value="">--Select--</option>
@@ -59,7 +72,7 @@
             </div>
             <div class="form-group">
                 <label>Room Type</label><br>
-                <select style="background-color: #D4F4FF !important;width: 75%" class="form-control"
+                <select style="background-color: #D4F4FF !important;" class="form-control"
                     [(ngModel)]="RoomTypeKey" [disabled]="!FloorKey" (change)="filterApplied();" required>
                     <option value="">--Select--</option>
                     <option *ngFor="let b of roomtypeList" [value]="b.RoomTypeKey">
@@ -67,6 +80,18 @@
                     </option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label>Schedule Name</label><br>
+                <select style="background-color: #D4F4FF !important;" class="form-control"
+                    [(ngModel)]="BatchScheduleNameKey" (change)="filterApplied();" required>
+                    <option value="">--Select--</option>
+                    <option *ngFor="let b of scheduleList" [value]="b.BatchScheduleNameKey">
+                        {{b.ScheduleName}}
+                    </option>
+                </select>
+            </div>
+
         </div>
         <div class="col-md-12">
             <form [formGroup]="searchform">
@@ -75,7 +100,7 @@
                     <input class="form-control" name="searchwo" maxlength="20" specialIsAlphaNumeric minlength="3"
                         type="text" placeholder="Search Workorder Type Name,Employee,Room,Notes" aria-label="Search"
                         [(ngModel)]="SearchWO" formControlName="SearchWO" (input)="filterApplied();"
-                        style="width: 90%;">
+                        style="width: 102%;">
                     <div *ngIf="searchform.controls.SearchWO.errors?.minlength">Minimum 3 characters required.</div>
                 </div>
             </form>

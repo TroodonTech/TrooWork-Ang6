@@ -348,6 +348,12 @@ const routes: Routes = [
         outlet: 'Superout',
         loadChildren: '../../../manager/work-order/view-service-request/view-service-request.module#ViewServiceRequestModule',
       },
+      {
+        path: 'viewWORemainingDetails/:fromdt/:todt/:empKey/:wotypeKey/:empName/:wotypeName',
+        outlet: 'Superout',
+        loadChildren: '../../../manager/reports/view-remaining-workorders-details/view-remaining-workorders-details.module#ViewRemainingWorkordersDetailsModule'
+
+      }
     ]
   }
 ];
