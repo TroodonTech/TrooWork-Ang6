@@ -109,9 +109,17 @@
           <td>{{x.totalCount}} </td>
           <!-- <td>{{x.CancelCount}} </td> -->
           <td>
-            <a (click)="viewWODetails(x.empkey,x.Workorder_TypeKey,x.EmployeeName,x.WorkorderTypeName)"
+            <!-- <a id="tooltip" (click)="viewWODetails(x.empkey,x.Workorder_TypeKey,x.EmployeeName,x.WorkorderTypeName)"
+            style="color: red !important;"
               *ngIf="(x.totalCount-(x.CompletedCount + x.CancelCount))>0">
               {{x.totalCount-(x.CompletedCount + x.CancelCount)}}
+              <span class="tooltiptext">Click to see WorkOrder </span>
+            </a> -->
+            <a (click)="viewWODetails(x.empkey,x.Workorder_TypeKey,x.EmployeeName,x.WorkorderTypeName)"
+              style="color: red !important;" *ngIf="(x.totalCount-(x.CompletedCount + x.CancelCount))>0">
+              <abbr title="Click to see pending workorder details">
+                {{x.totalCount-(x.CompletedCount + x.CancelCount)}}
+              </abbr>
             </a>
             <span
               *ngIf="(x.totalCount-(x.CompletedCount + x.CancelCount))==0">{{x.totalCount-(x.CompletedCount + x.CancelCount)}}</span>

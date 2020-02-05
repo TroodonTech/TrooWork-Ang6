@@ -42,7 +42,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
   <daypilot-scheduler [config]="config" [events]="events" #scheduler></daypilot-scheduler>
   <create-dialog #create (close)="createClosed($event)"></create-dialog>
   <edit-dialog #edit (close)="editClosed($event)"></edit-dialog>
-
+  <!--
   <div style="padding-left: 9rem;padding-right: 9rem;margin-top: 3%;margin-bottom: 3%;">
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem"
         class="row bg-info col-md-12">
@@ -89,7 +89,7 @@ import { DatepickerOptions } from 'ng2-datepicker';
             </div>
         </div>
     </div>
-</div>
+</div> -->
 `,
   styles: [`
    p, body, td { font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 10pt; }
@@ -278,24 +278,24 @@ export class SchedulerComponent implements AfterViewInit {
     onTimeRangeSelected: args => {
       var checkDate = this.convert_DT(args.start.value)
       var empKey = args.resource;
-      this.SchedulingService
-        .scheduleEventCheckForCreate(checkDate, empKey, this.OrganizationID)
-        .subscribe((data: any[]) => {
+      // this.SchedulingService
+      //   .scheduleEventCheckForCreate(checkDate, empKey, this.OrganizationID)
+      //   .subscribe((data: any[]) => {
 
-          if (data[0].count == 0) {
-            var confirmBox = confirm("Employee not working. Do you want to Create Schedule ?");
-            if (confirmBox == true) {
-              this.ds.setData(this.Range, this.date);
-              this.create.show(args);
-            }
+      //     if (data[0].count == 0) {
+      //       var confirmBox = confirm("Employee not working. Do you want to Create Schedule ?");
+      //       if (confirmBox == true) {
+      //         this.ds.setData(this.Range, this.date);
+      //         this.create.show(args);
+      //       }
 
-          }
-          else {
-            this.ds.setData(this.Range, this.date);
-            this.create.show(args);
-          }
+      //     }
+      //     else {
+      this.ds.setData(this.Range, this.date);
+      this.create.show(args);
+      // }
 
-        });
+      // });
     },
     onEventMoved: args => {
 
@@ -322,37 +322,37 @@ export class SchedulerComponent implements AfterViewInit {
       };
 
 
-      this.SchedulingService.SchedulerTimeRangeCheck(args.e.data.ScheduleNameKey, this.convert_DT(this.MovingToDate), this.MovingToEmpKey, this.OrganizationID).subscribe(data => {
-        if (data[0].count > 0) {
-          this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
-            this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
-              this.empCalendarActivities();
-              // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
+      // this.SchedulingService.SchedulerTimeRangeCheck(args.e.data.ScheduleNameKey, this.convert_DT(this.MovingToDate), this.MovingToEmpKey, this.OrganizationID).subscribe(data => {
+      //   if (data[0].count > 0) {
+      this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
+        this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
+          this.empCalendarActivities();
+          // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
 
-            });
-          });
-
-        }
-        else {
-          var confirmBox = confirm("Employee not working in this time range. Do you want to Update Schedule ?");
-          if (confirmBox == true) {
-            this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
-              this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
-                this.empCalendarActivities();
-                // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
-
-              });
-            });
-          }
-          else {
-            args.preventDefault();
-            this.empCalendarActivities();
-            // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);    
-          }
-
-        }
-
+        });
       });
+
+      // }
+      // else {
+      //   var confirmBox = confirm("Employee not working in this time range. Do you want to Update Schedule ?");
+      //   if (confirmBox == true) {
+      //     this.SchedulingService.SchedulerEventCreate(obj).subscribe(data => {
+      //       this.SchedulingService.SchedulerEventDelete(args.e.data.Assignment_CalenderID, this.employeekey, this.OrganizationID).subscribe(data => {
+      //         this.empCalendarActivities();
+      //         // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);
+
+      //       });
+      //     });
+      //   }
+      //   else {
+      //     args.preventDefault();
+      //     this.empCalendarActivities();
+      //     // alert("Moved: " + this.FromEmp + " " + this.MovingFromDate + " to " + this.ToEmp + " " + this.MovingToDate);    
+      //   }
+
+      // }
+
+      // });
 
 
 
@@ -432,21 +432,31 @@ export class SchedulerComponent implements AfterViewInit {
 
     this.curDate = this.convert_DT(new Date());
     // this.nextschedulerDate = this.curDate;
-    this.SchedulingService.getCountForDelete(this.OrganizationID, this.curDate).subscribe((data: any) => {
-      if (data[0].count > 0) {
-        this.disableFlag = false;
-      } else if (data[0].count == 0) {
-        this.disableFlag = true;
-      }
-    });
+
+
+
+    //commenting now as it's part of create schedule
+    // this.SchedulingService.getCountForDelete(this.OrganizationID, this.curDate).subscribe((data: any) => {
+    //   if (data[0].count > 0) {
+    //     this.disableFlag = false;
+    //   } else if (data[0].count == 0) {
+    //     this.disableFlag = true;
+    //   }
+    // });
+
+
     // this.SchedulingService.getCountForAssignmentManualCronjob(this.OrganizationID).subscribe((data: any) => {
     //   console.log("Assignment Cron: " + data[0].count);
 
     //   if (data[0].count > 0) {
-    this.SchedulingService.getCountForAssignmentManualCronjobnextdate(this.OrganizationID).subscribe((data: any) => {
-      console.log("Assignment Cron: " + this.convert_DT(data[0].nextdate));
-      this.nextschedulerDate = data[0].nextdate;
-    });
+
+    //commenting now as it's part of create schedule
+    // this.SchedulingService.getCountForAssignmentManualCronjobnextdate(this.OrganizationID).subscribe((data: any) => {
+    //   console.log("Assignment Cron: " + this.convert_DT(data[0].nextdate));
+    //   this.nextschedulerDate = data[0].nextdate;
+    // });
+
+
     // }
 
     // });
@@ -573,65 +583,65 @@ export class SchedulerComponent implements AfterViewInit {
         this.events = data;
       });
   }
+  //commenting now as it's part of create schedule
+  // createCJ() {
+  //   this.SchedulingService.getCountForAssignmentManualcreatecheck(this.convert_DT(this.nextschedulerDate), this.OrganizationID)
+  //     .subscribe((cdata: any) => {
 
-  createCJ() {
-    this.SchedulingService.getCountForAssignmentManualcreatecheck(this.convert_DT(this.nextschedulerDate), this.OrganizationID)
-      .subscribe((cdata: any) => {
+  //       if (cdata[0].count > 0) {
+  //         this.loading = true;
+  //         this.SchedulingService.createSchedulerCronjob(this.OrganizationID, this.convert_DT(this.nextschedulerDate), this.employeekey)
+  //           .subscribe(res => {
+  //             this.loading = false;
+  //             this.disableFlag = false;
+  //             // this.SchedulingService.getCountForAssignmentManualCronjob(this.OrganizationID).subscribe((data: any) => {
+  //             //   console.log("Assignment Cron: " + data[0].count);
 
-        if (cdata[0].count > 0) {
-          this.loading = true;
-          this.SchedulingService.createSchedulerCronjob(this.OrganizationID, this.convert_DT(this.nextschedulerDate), this.employeekey)
-            .subscribe(res => {
-              this.loading = false;
-              this.disableFlag = false;
-              // this.SchedulingService.getCountForAssignmentManualCronjob(this.OrganizationID).subscribe((data: any) => {
-              //   console.log("Assignment Cron: " + data[0].count);
+  //             //   if (data[0].count > 0) {
+  //             this.SchedulingService.getCountForAssignmentManualCronjobnextdate(this.OrganizationID).subscribe((data: any) => {
+  //               console.log("Assignment Cron: " + this.convert_DT(data[0].nextdate));
+  //               this.nextschedulerDate = data[0].nextdate;
+  //             });
+  //             //   }
+  //             // });
+  //             alert("Cronjobs created successfully");
+  //           });
+  //       }
+  //       else {
+  //         // this.curDate = this.convert_DT(new Date());
+  //         // this.nextschedulerDate = this.curDate;
+  //         alert("Need 8 Weeks of Data to create");
+  //       }
+  //     });
+  // }
 
-              //   if (data[0].count > 0) {
-              this.SchedulingService.getCountForAssignmentManualCronjobnextdate(this.OrganizationID).subscribe((data: any) => {
-                console.log("Assignment Cron: " + this.convert_DT(data[0].nextdate));
-                this.nextschedulerDate = data[0].nextdate;
-              });
-              //   }
-              // });
-              alert("Cronjobs created successfully");
-            });
-        }
-        else {
-          // this.curDate = this.convert_DT(new Date());
-          // this.nextschedulerDate = this.curDate;
-          alert("Need 8 Weeks of Data to create");
-        }
-      });
-  }
+  // deleteCJ() {
+  //   this.loading = true;
+  //   this.SchedulingService.deleteSchedulerCronjob(this.OrganizationID, this.curDate, this.employeekey)
+  //     .subscribe((data: any) => {
+  //       this.loading = false;
+  //       if (data[0].assignmentmastercount > 0) {
+  //         this.disableFlag = false;
+  //       } else if (data[0].assignmentmastercount == 0) {
+  //         this.disableFlag = true;
+  //       }
 
-  deleteCJ() {
-    this.loading = true;
-    this.SchedulingService.deleteSchedulerCronjob(this.OrganizationID, this.curDate, this.employeekey)
-      .subscribe((data: any) => {
-        this.loading = false;
-        if (data[0].assignmentmastercount > 0) {
-          this.disableFlag = false;
-        } else if (data[0].assignmentmastercount == 0) {
-          this.disableFlag = true;
-        }
+  //       // this.SchedulingService.getCountForAssignmentManualCronjob(this.OrganizationID).subscribe((data: any) => {
+  //       //   console.log("Assignment Cron: " + data[0].count);
 
-        // this.SchedulingService.getCountForAssignmentManualCronjob(this.OrganizationID).subscribe((data: any) => {
-        //   console.log("Assignment Cron: " + data[0].count);
-
-        //   if (data[0].count > 0) {
-        this.SchedulingService.getCountForAssignmentManualCronjobnextdate(this.OrganizationID).subscribe((data: any) => {
-          console.log("Assignment Cron: " + this.convert_DT(data[0].nextdate));
-          this.nextschedulerDate = data[0].nextdate;
-        });
-        //   } else {
-        //     this.curDate = this.convert_DT(new Date());
-        //     this.nextschedulerDate = this.curDate;
-        //   }
-        // });
-        alert("Cronjobs deleted successfully");
-      });
-  }
+  //       //   if (data[0].count > 0) {
+  //       this.SchedulingService.getCountForAssignmentManualCronjobnextdate(this.OrganizationID).subscribe((data: any) => {
+  //         console.log("Assignment Cron: " + this.convert_DT(data[0].nextdate));
+  //         this.nextschedulerDate = data[0].nextdate;
+  //       });
+  //       //   } else {
+  //       //     this.curDate = this.convert_DT(new Date());
+  //       //     this.nextschedulerDate = this.curDate;
+  //       //   }
+  //       // });
+  //       alert("Cronjobs deleted successfully");
+  //     });
+  // }
 
 }
 
