@@ -116,7 +116,7 @@
               <span class="tooltiptext">Click to see WorkOrder </span>
             </a> -->
             <a (click)="viewWODetails(x.empkey,x.Workorder_TypeKey,x.EmployeeName,x.WorkorderTypeName)"
-              style="color: red !important;" *ngIf="(x.totalCount-(x.CompletedCount + x.CancelCount))>0">
+              style="color: blue !important;" *ngIf="(x.totalCount-(x.CompletedCount + x.CancelCount))>0">
               <abbr title="Click to see pending workorder details">
                 {{x.totalCount-(x.CompletedCount + x.CancelCount)}}
               </abbr>
