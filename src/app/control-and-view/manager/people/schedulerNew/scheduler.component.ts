@@ -42,6 +42,9 @@ import { DatepickerOptions } from 'ng2-datepicker';
   <daypilot-scheduler [config]="config" [events]="events" #scheduler></daypilot-scheduler>
   <create-dialog #create (close)="createClosed($event)"></create-dialog>
   <edit-dialog #edit (close)="editClosed($event)"></edit-dialog>
+  <div style="margin-bottom: 1%;">
+  <p style="visibility: hidden;">HI</p>
+  </div>
   <!--
   <div style="padding-left: 9rem;padding-right: 9rem;margin-top: 3%;margin-bottom: 3%;">
     <div style="margin-left: 1.5rem;margin-right: 1.5rem;padding-bottom: 1rem;padding-top: 1rem"
