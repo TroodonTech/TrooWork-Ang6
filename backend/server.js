@@ -15902,7 +15902,7 @@ app.get(securedpath + '/employeesForScheduler', function (req, res) {
                     }
 
                     for (var j = 0; j <= arr; j++) {// inserting array value to scheduler tree list
-                        resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": true, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
+                        resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": false, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
 
                     }
                     res.send(resources);
@@ -19315,7 +19315,7 @@ app.get(securedpath + '/employeesForScheduler_SuType', function (req, res) {
                     }
 
                     for (var j = 0; j <= arr; j++) {// inserting array value to scheduler tree list
-                        resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": true, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
+                        resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": false, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
 
                     }
                     res.send(resources);
@@ -20695,6 +20695,35 @@ app.post(securedpath + '/deletebatchWorkOrders', function (req, res) {
                 else {
                     console.log("deleteWorkOrders...from server.." + JSON.stringify(rows[3]));
                     res.end(JSON.stringify(rows[3]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/getInspectionAuditDetailsForReportSummary', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var from = url.parse(req.url, true).query['from'];
+    var to = url.parse(req.url, true).query['to'];
+    var template = url.parse(req.url, true).query['template'];
+    var employeeKey = url.parse(req.url, true).query['employeeKey'];
+    var orgID = url.parse(req.url, true).query['orgID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @from=?;set @to=?;set @template=?;set @employeeKey=?;set @orgID=?; call usp_getInspectionAuditDetailsForReport_summary(@from,@to,@template,@employeeKey,@orgID)', [from, to, template, employeeKey, orgID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("getallWorkorderStatus " + JSON.stringify(rows[5]));
+                    res.end(JSON.stringify(rows[5]));
                 }
             });
         }

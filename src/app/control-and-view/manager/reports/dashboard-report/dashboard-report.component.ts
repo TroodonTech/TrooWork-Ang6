@@ -312,31 +312,34 @@ export class DashboardReportComponent implements OnInit {
       .subscribe((data: Reports[]) => {
         this.reporttable = data;
         this.loading = false;
+
+
+        this.ReportServiceService//service for fetching pie chart values
+          // .getpievalues(dateTemp_1, this.employeekey, this.OrganizationID, this.ShiftType, this.ShiftValue)
+          .getvaluesfilterbypie(dateTemp_1, dateTemp_2, this.em_Key, this.Workorder_TypeKey, this.OrganizationID, this.employeekey, this.ShiftType, this.ShiftValue)
+          .subscribe((data: Reports[]) => {
+            this.pievalues = data;
+            this.sampledata1 = [['WorkorderStatus', 'count']];
+
+            for (var i = 0; i < this.pievalues.length; i++) {
+
+              var status = this.pievalues[i].reportpietext;
+              var num = this.pievalues[i].totalItems;
+              this.data4 = ([status, num]);
+              this.sampledata1.push(this.data4);
+            }
+            this.data1 = this.sampledata1;
+            this.config1 = new PieChartConfig(' ', 0.4);
+            this.elementId1 = 'piechart';
+            setTimeout(() => {
+              if (this.reporttable.length > 0) {
+                this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);//drawing piechart on pageload by calling piechart service
+              }
+            }, 1000)
+          });
       });
 
-    this.ReportServiceService//service for fetching pie chart values
-      // .getpievalues(dateTemp_1, this.employeekey, this.OrganizationID, this.ShiftType, this.ShiftValue)
-      .getvaluesfilterbypie(dateTemp_1, dateTemp_2, this.em_Key, this.Workorder_TypeKey, this.OrganizationID, this.employeekey, this.ShiftType, this.ShiftValue)
-      .subscribe((data: Reports[]) => {
-        this.pievalues = data;
-        this.sampledata1 = [['WorkorderStatus', 'count']];
 
-        for (var i = 0; i < this.pievalues.length; i++) {
-
-          var status = this.pievalues[i].reportpietext;
-          var num = this.pievalues[i].totalItems;
-          this.data4 = ([status, num]);
-          this.sampledata1.push(this.data4);
-        }
-        this.data1 = this.sampledata1;
-        this.config1 = new PieChartConfig(' ', 0.4);
-        this.elementId1 = 'piechart';
-        setTimeout(() => {
-          if (this.reporttable.length > 0) {
-            this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);//drawing piechart on pageload by calling piechart service
-          }
-        }, 1000)
-      });
 
     const source = interval(900000);  //sudina-code for calling filter function after regular interval
     this.subscription = source.subscribe(val => this.dashboardreportbyfilter());
@@ -400,32 +403,34 @@ export class DashboardReportComponent implements OnInit {
       .subscribe((data: Reports[]) => {
         this.reporttable = data;
         this.loading = false;
-      });
-    this.ReportServiceService//service for fetching values for piechart
-      .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.OrganizationID, this.employeekey, this.ShiftType, this.ShiftValue)
-      .subscribe((data: Reports[]) => {
-        this.pievalues = data;
-        this.sampledata2 = [['WorkorderStatus', 'count']];//converting array to json format for piechart
 
-        for (var i = 0; i < this.pievalues.length; i++) {
-          var status = this.pievalues[i].reportpietext;
-          var num = this.pievalues[i].totalItems;
-          this.data3 = ([status, num]);
-          this.sampledata2.push(this.data3);
+        this.ReportServiceService//service for fetching values for piechart
+          .getvaluesfilterbypie(date1, date2, this.em_Key, workordertypeString, this.OrganizationID, this.employeekey, this.ShiftType, this.ShiftValue)
+          .subscribe((data: Reports[]) => {
+            this.pievalues = data;
+            this.sampledata2 = [['WorkorderStatus', 'count']];//converting array to json format for piechart
 
-          if ((i == this.pievalues.length - 1) && (this.sampledata2.length == this.pievalues.length + 1)) {
+            for (var i = 0; i < this.pievalues.length; i++) {
+              var status = this.pievalues[i].reportpietext;
+              var num = this.pievalues[i].totalItems;
+              this.data3 = ([status, num]);
+              this.sampledata2.push(this.data3);
 
-            setTimeout(() => {
-              if ((this.pievalues.length > 0)) {
-                this.data1 = this.sampledata2;
-                this.config1 = new PieChartConfig(' ', 0.4);
-                this.elementId1 = 'piechart';
-                this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);//call for building piechart
+              if ((i == this.pievalues.length - 1) && (this.sampledata2.length == this.pievalues.length + 1)) {
+
+                setTimeout(() => {
+                  if ((this.pievalues.length > 0)) {
+                    this.data1 = this.sampledata2;
+                    this.config1 = new PieChartConfig(' ', 0.4);
+                    this.elementId1 = 'piechart';
+                    this._pieChartService.BuildPieChart(this.elementId1, this.data1, this.config1);//call for building piechart
+                  }
+                }, 1000)
               }
-            }, 1000)
-          }
-        }
+            }
+          });
       });
+
   }
   ngOnDestroy() {//unsubscribing from calling filter function after regular interval
     this.subscription.unsubscribe();

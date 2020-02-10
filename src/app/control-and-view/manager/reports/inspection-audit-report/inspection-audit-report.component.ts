@@ -27,8 +27,12 @@ export class InspectionAuditReportComponent implements OnInit {
   TemplateName;
   Employee;
   empNameForview;
+  templateNameForview;
+  ReportType;
   fromdate;
   todate;
+  showHide1: boolean;
+  showHide2: boolean;
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
     switch (output.length % 4) {
@@ -71,6 +75,7 @@ export class InspectionAuditReportComponent implements OnInit {
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
   viewinspectionReport;
+  viewinspectionReportSummary;
   public reportarray: Array<any> = [{}];
   constructor(private fb: FormBuilder, private ReportServiceService: ReportServiceService, private excelService: ExcelserviceService, private inspectionService: InspectionService) { }
 
@@ -85,6 +90,10 @@ export class InspectionAuditReportComponent implements OnInit {
     this.name = profile.username;
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
+    this.ReportType = 'Detail';
+
+    this.showHide2 = false;
+    this.showHide1 = false;
 
     this.inspectionService
       .getTemplateName(this.employeekey, this.OrganizationID)
@@ -104,7 +113,7 @@ export class InspectionAuditReportComponent implements OnInit {
   }
 
   //function for genaerating report
-  generateInspectionAuditReport(from_date, to_date, TemplateName, Employee) {
+  generateInspectionAuditReport(from_date, to_date, TemplateName, Employee, ReportType) {
     var Template_Name;
     if (!TemplateName) {
       alert("Please select a Template Name");
@@ -136,6 +145,11 @@ export class InspectionAuditReportComponent implements OnInit {
 
     if (TemplateName) {
       Template_Name = TemplateName;
+      for (var i = 0; i < this.templateNameList.length; i++) {
+        if (this.templateNameList[i].TemplateID == parseInt(TemplateName)) {
+          this.templateNameForview = this.templateNameList[i].TemplateName;
+        }
+      }
     }
 
     if (Employee == 0) {
@@ -148,22 +162,45 @@ export class InspectionAuditReportComponent implements OnInit {
       }
     }
     this.loading = true;
-    this.ReportServiceService
-      .getInspectionAuditReportDetails(this.convert_DT(fromdate1), this.convert_DT(todate1), Template_Name, Employee, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.viewinspectionReport = data;
-        if (data.length > 0) {
-          this.fromdate = this.convert_DT(fromdate1);
-          this.todate = this.convert_DT(todate1);
-          // this.empNameForview = data[0].EmployeeName;
-        }
-        this.loading = false;
-      });
+    if (ReportType == 'Detail') {
+      this.ReportServiceService
+        .getInspectionAuditReportDetails(this.convert_DT(fromdate1), this.convert_DT(todate1), Template_Name, Employee, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.viewinspectionReportSummary = {};
+          this.viewinspectionReport = data;
+          this.showHide1 = true;
+          this.showHide2 = false;
+          if (data.length > 0) {
+            this.fromdate = this.convert_DT(fromdate1);
+            this.todate = this.convert_DT(todate1);
+            // this.empNameForview = data[0].EmployeeName;
+          }
+          this.loading = false;
+        });
+    }
+    else {
+      this.ReportServiceService
+        .getInspectionAuditReportDetailSummary(this.convert_DT(fromdate1), this.convert_DT(todate1), Template_Name, Employee, this.OrganizationID)
+        .subscribe((data: any[]) => {
+          this.viewinspectionReport = {};
+          this.viewinspectionReportSummary = data;
+          this.showHide1 = false;
+          this.showHide2 = true;
+          if (data.length > 0) {
+            this.fromdate = this.convert_DT(fromdate1);
+            this.todate = this.convert_DT(todate1);
+            // this.empNameForview = data[0].EmployeeName;
+          }
+          this.loading = false;
+        });
+    }
+
   }
   check(emp) {
     alert(emp);
   }
   exportToExcel(): void {
+
     for (var i = 0; i < this.viewinspectionReport.length; i++) {
       var question = (this.viewinspectionReport[i].Question);
       var ins_year = (this.viewinspectionReport[i].InspectionYear);
@@ -185,5 +222,31 @@ export class InspectionAuditReportComponent implements OnInit {
     });
     FileSaver.saveAs(blob, "Inspection Audit Report.xls");
     // this.excelService.exportAsExcelFile(this.reportarray, 'Inspection_Report');
+
+  }
+  exportToExcelSummary(): void {
+    for (var i = 0; i < this.viewinspectionReportSummary.length; i++) {
+      var templatename = (this.viewinspectionReportSummary[i].TemplateName);
+      var ins_year = (this.viewinspectionReportSummary[i].InspectionYear);
+      var ins_month = (this.viewinspectionReportSummary[i].InspectionMonth);
+      var ttemplatecount = (this.viewinspectionReportSummary[i].TotalTemplateCount);
+      var tcount = (this.viewinspectionReportSummary[i].TotalCount);
+      var pcount = (this.viewinspectionReportSummary[i].PassCount);
+      var fcount = (this.viewinspectionReportSummary[i].FailCount);
+      var totalper = (this.viewinspectionReportSummary[i].TotalPercentage);
+      var pasper = (this.viewinspectionReportSummary[i].PassPercentage);
+      var failper = (this.viewinspectionReportSummary[i].FailPercentage);
+
+      this.reportarray.push({
+        TemplateName: templatename, InspectionYear: ins_year, InspectionMonth: ins_month, TotalCount: tcount, PassCount: pcount, FailCount: fcount, TotalPercentage: totalper, PassPercentage: pasper, FailPercentage: failper, TotalTemplateCount: ttemplatecount
+      })
+
+    }
+    var blob = new Blob([document.getElementById('exportable2').innerHTML], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(blob, "Inspection Audit Report.xls");
+    // this.excelService.exportAsExcelFile(this.reportarray, 'Inspection_Report');
+
   }
 }

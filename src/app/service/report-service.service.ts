@@ -378,4 +378,9 @@ export class ReportServiceService {
       .http
       .get(ConectionSettings.Url + '/getInspectionAuditDetailsForReport?from=' + from + '&to=' + to + '&template=' + template + '&employeeKey=' + Employee + '&orgID=' + orgID);
   }
+  getInspectionAuditReportDetailSummary(from, to, template, Employee, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getInspectionAuditDetailsForReportSummary?from=' + from + '&to=' + to + '&template=' + template + '&employeeKey=' + Employee + '&orgID=' + orgID);
+  }
 }
