@@ -223,13 +223,13 @@ export class DashboardReportComponent implements OnInit {
     if (from) {
       dateTemp_1 = from;
     } else {
-      dateTemp_1 = this.convert_DT(new Date());
+      dateTemp_1 = new Date();
     }
 
     if (to) {
       dateTemp_2 = to;
     } else {
-      dateTemp_2 = this.convert_DT(new Date());
+      dateTemp_2 = new Date();
     }
 
     if (employees) {
@@ -308,7 +308,7 @@ export class DashboardReportComponent implements OnInit {
 
 
     this.ReportServiceService//service for fetching table values
-      .getdashboardreport(dateTemp_1, dateTemp_2, this.em_Key, this.Workorder_TypeKey, this.employeekey, this.OrganizationID, this.ShiftType, this.ShiftValue)
+      .getdashboardreport(this.convert_DT(dateTemp_1),this.convert_DT( dateTemp_2), this.em_Key, this.Workorder_TypeKey, this.employeekey, this.OrganizationID, this.ShiftType, this.ShiftValue)
       .subscribe((data: Reports[]) => {
         this.reporttable = data;
         this.loading = false;
@@ -316,7 +316,7 @@ export class DashboardReportComponent implements OnInit {
 
         this.ReportServiceService//service for fetching pie chart values
           // .getpievalues(dateTemp_1, this.employeekey, this.OrganizationID, this.ShiftType, this.ShiftValue)
-          .getvaluesfilterbypie(dateTemp_1, dateTemp_2, this.em_Key, this.Workorder_TypeKey, this.OrganizationID, this.employeekey, this.ShiftType, this.ShiftValue)
+          .getvaluesfilterbypie(this.convert_DT(dateTemp_1),this.convert_DT( dateTemp_2), this.em_Key, this.Workorder_TypeKey, this.OrganizationID, this.employeekey, this.ShiftType, this.ShiftValue)
           .subscribe((data: Reports[]) => {
             this.pievalues = data;
             this.sampledata1 = [['WorkorderStatus', 'count']];
@@ -445,8 +445,8 @@ export class DashboardReportComponent implements OnInit {
     if (!this.todate) {
       this.todate = this.fromdate;
     }
-    this.ds.setFromDate(this.convert_DT(this.fromdate));
-    this.ds.setToDate(this.convert_DT(this.todate));
+    this.ds.setFromDate(this.fromdate);
+    this.ds.setToDate(this.todate);
     this.ds.setEmployees(this.EmployeeKey);
     this.ds.setWorkorderTypes(this.WorkorderTypeKey);
     this.ds.setEmp(empkey);
