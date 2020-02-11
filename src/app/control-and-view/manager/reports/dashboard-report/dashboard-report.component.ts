@@ -251,9 +251,9 @@ export class DashboardReportComponent implements OnInit {
     }
 
     this.fromdate = dateTemp_1;
-    if (this.fromdate != dateTemp_2) {
-      this.todate = dateTemp_2;
-    }
+    // if (this.fromdate != dateTemp_2) {
+    this.todate = dateTemp_2;
+    // }
     if (this.em_Key != null) {
       this.EmployeeKey = this.em_Key;
     }
@@ -308,7 +308,7 @@ export class DashboardReportComponent implements OnInit {
 
 
     this.ReportServiceService//service for fetching table values
-      .getdashboardreport(this.convert_DT(dateTemp_1),this.convert_DT( dateTemp_2), this.em_Key, this.Workorder_TypeKey, this.employeekey, this.OrganizationID, this.ShiftType, this.ShiftValue)
+      .getdashboardreport(this.convert_DT(dateTemp_1), this.convert_DT(dateTemp_2), this.em_Key, this.Workorder_TypeKey, this.employeekey, this.OrganizationID, this.ShiftType, this.ShiftValue)
       .subscribe((data: Reports[]) => {
         this.reporttable = data;
         this.loading = false;
@@ -316,7 +316,7 @@ export class DashboardReportComponent implements OnInit {
 
         this.ReportServiceService//service for fetching pie chart values
           // .getpievalues(dateTemp_1, this.employeekey, this.OrganizationID, this.ShiftType, this.ShiftValue)
-          .getvaluesfilterbypie(this.convert_DT(dateTemp_1),this.convert_DT( dateTemp_2), this.em_Key, this.Workorder_TypeKey, this.OrganizationID, this.employeekey, this.ShiftType, this.ShiftValue)
+          .getvaluesfilterbypie(this.convert_DT(dateTemp_1), this.convert_DT(dateTemp_2), this.em_Key, this.Workorder_TypeKey, this.OrganizationID, this.employeekey, this.ShiftType, this.ShiftValue)
           .subscribe((data: Reports[]) => {
             this.pievalues = data;
             this.sampledata1 = [['WorkorderStatus', 'count']];
@@ -354,7 +354,9 @@ export class DashboardReportComponent implements OnInit {
   dashboardreportbyfilter() {
     this.pievalues = [];
     this.reporttable = [];
-
+    if (this.ShiftType=='Shift') {
+      this.todate = this.fromdate;
+    }
     if (!this.EmployeeKey) {
       this.em_Key = null;
     }
