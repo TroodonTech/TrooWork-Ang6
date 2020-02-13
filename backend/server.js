@@ -20732,6 +20732,209 @@ app.get(securedpath + '/getInspectionAuditDetailsForReportSummary', function (re
 });
 // @Author:Prakash code ends here
 
+
+//firebase notification codes starts -----by varun
+
+
+var admin = require('firebase-admin');
+
+var serviceAccount = require("./troowork-7eef7-firebase-adminsdk-447j2-0a4fd5ae89.json"); // firebase apn file(unique in each account-- created in trooworkdev)
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)  //json file need to initialize ,then only we can send FCM
+});
+
+
+app.get(securedpath + '/mob_sendNotification', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+
+    var Date = url.parse(req.url, true).query['Date'];
+    var toEmp = url.parse(req.url, true).query['toEmp'];
+     var empkey = url.parse(req.url, true).query['empkey'];
+    var token ;
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @toEmp=?;set @empKey=?; set @OrganizationID=?; call usp_mob_fireBaseLocationRequest(@toEmp,@empKey,@OrganizationID)', [toEmp,empkey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    // res.end(JSON.stringify(rows[3]));
+                    console.log(" FirebaseGeoLocationID " + rows[3][0].FirebaseGeoLocationID);
+                    var FirebaseGeoLocationID = rows[3][0].FirebaseGeoLocationID;
+                     FirebaseGeoLocationID = FirebaseGeoLocationID.toString();
+                     token= rows[3][0].Token;
+                     if(!token){
+                        rows[3][0].FirebaseGeoLocationID='error';
+                            res.end(JSON.stringify(rows[3]));
+                       
+                     }
+                     else{
+                          var payload = {
+                        notification: {           // app notification title & body
+                            title: "TrooWork",
+                            body: "Please tap !"
+                        },
+                        data: {        // data that need to pass to device
+                            Date: Date,
+                            toEmp: toEmp,
+                            OrganizationID: OrganizationID,
+                            FirebaseGeoLocationID: FirebaseGeoLocationID
+                        }
+                    };
+                    var options = {
+                        priority: "high",
+                        timeToLive: 60 * 60,
+                        contentAvailable: true
+                    };
+
+                    admin.messaging().sendToDevice(token, payload, options)
+                        .then(function (response) {
+                            console.log("Successfully sent message:", response);
+                            res.end(JSON.stringify(rows[3]));
+                        })
+                        .catch(function (error) {
+                            console.log("Error sending message:", error);
+                            rows[3][0].FirebaseGeoLocationID='error';
+                            res.end(JSON.stringify(rows[3]));
+                        });
+
+
+
+                     }
+                   
+
+                }
+            });
+        }
+        connection.release();
+    });
+
+});
+
+app.get(securedpath + '/mob_fireBaseTokenInsert', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var empKey = url.parse(req.url, true).query['empKey'];
+    var token = url.parse(req.url, true).query['token'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @empKey=?; set @token=?; set @OrganizationID=?; call usp_mob_fireBaseTokenInsert(@empKey,@token,@OrganizationID)', [empKey, token, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[3]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/mob_sendGeoLocation', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var latitude = url.parse(req.url, true).query['latitude'];
+    var longitude = url.parse(req.url, true).query['longitude'];
+    var Date = url.parse(req.url, true).query['Date'];
+    var FirebaseGeoLocationID = url.parse(req.url, true).query['FireBaseGeoLocationID'];
+    var empKey = url.parse(req.url, true).query['empKey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @latitude=?; set @longitude=?; set @Date=?; set @FirebaseGeoLocationID=?; set @empKey=?;  set @OrganizationID=?; call usp_mob_sendGeoLocation(@latitude,@longitude,@Date,@FirebaseGeoLocationID,@empKey,@OrganizationID)', [latitude, longitude, Date,FirebaseGeoLocationID, empKey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[6]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/mob_getFireBaseEmployees', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var empKey = url.parse(req.url, true).query['empkey'];
+
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @empKey=?;   set @OrganizationID=?; call usp_mob_getFireBaseEmployees(@empKey,@OrganizationID)', [empKey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/mob_getFireBaseLocation', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var empKey = url.parse(req.url, true).query['empKey'];
+    var FirebaseGeoLocationID = url.parse(req.url, true).query['FireBaseGeoLocationID'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @empKey=?; set@FirebaseGeoLocationID=?; set @OrganizationID=?; call usp_mob_getFireBaseLocation(@empKey,@FirebaseGeoLocationID,@OrganizationID)', [empKey,FirebaseGeoLocationID, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[3]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+//firebase notification codes ends -----by varun
 //handle generic exceptions
 //catch all other resource routes that are not defined above
 app.get(securedpath + '/*', function (req, res) {
