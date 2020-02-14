@@ -15685,7 +15685,7 @@ scheduler.scheduleJob(rule, function () {
 
 var rule1 = new scheduler.RecurrenceRule();
 rule1.hour = 7;
-rule1.minute = 30;
+rule1.minute = 45;
 rule1.second = 00;
 rule1.dayOfWeek = new scheduler.Range(0, 6);
 
