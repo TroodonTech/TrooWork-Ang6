@@ -20780,7 +20780,7 @@ app.get(securedpath + '/mob_sendNotification', function (req, res) {
                           var payload = {
                         notification: {           // app notification title & body
                             title: "TrooWork",
-                            body: "Please tap !"
+                            body: "Please  tap to share location info !"
                         },
                         data: {        // data that need to pass to device
                             Date: Date,
