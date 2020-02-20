@@ -20780,7 +20780,7 @@ app.get(securedpath + '/mob_sendNotification', function (req, res) {
                           var payload = {
                         notification: {           // app notification title & body
                             title: "TrooWork",
-                            body: "Please  tap to share location info !"
+                            body: "Please tap to share location info."
                         },
                         data: {        // data that need to pass to device
                             Date: Date,
@@ -20935,6 +20935,39 @@ app.get(securedpath + '/mob_getFireBaseLocation', function (req, res) {
     });
 });
 //firebase notification codes ends -----by varun
+
+app.get(securedpath + '/mob_workorderCreateByEmployeeBarcodeWorkorderType', function (req, res) { //
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var barcode = url.parse(req.url, true).query['barcode'];
+    var Date = url.parse(req.url, true).query['Date'];
+    var isBar = url.parse(req.url, true).query['isBar'];
+    var checkIn = url.parse(req.url, true).query['checkIn'];
+    var empKey = url.parse(req.url, true).query['emp'];
+    var wot = url.parse(req.url, true).query['wot'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set@barcode=?;set@Date=?; set@isBar=?; set@checkIn=?; set@empKey=?; set @wot=?; set @OrganizationID=?;call usp_mob_workorderCreateByEmpBarWOType(@barcode,@Date,@isBar,@checkIn,@empKey,@wot,@OrganizationID)", [barcode, Date,isBar, checkIn, empKey, wot, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[7]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 //handle generic exceptions
 //catch all other resource routes that are not defined above
 app.get(securedpath + '/*', function (req, res) {
