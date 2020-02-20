@@ -20546,6 +20546,9 @@ app.post(securedpath + '/workorderByallFilters_pagination', supportCrossOriginSc
     var SearchWO = newWOObj.SearchWO;
     var itemsPerPage = newWOObj.itemsPerPage;
     var pageNo = newWOObj.pageNo;
+    var keepactive = newWOObj.keepactivef;
+
+    // console.log("Keep Active Flag : "+keepactive);
 
     pool.getConnection(function (err, connection) {
         if (err) {
@@ -20554,13 +20557,13 @@ app.post(securedpath + '/workorderByallFilters_pagination', supportCrossOriginSc
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set @manager =?;set @workorderStatusKey =?;set @workorderDate =?;set @workorderDate2 =?;set @facilitykey=?;set @roomTypeKey=?;set @floorKey=?;set @roomKey=?;set @zoneKey=?;set @employeekey=?;set @workorderTypeKey=?;set @BatchScheduleNameKey=?; set @OrganizationID=?;set @pageNo=?; set @itemsPerPage=?;set @SearchWO=?; call usp_workorderByallFilters_Pagination(@manager,@workorderStatusKey,@workorderDate,@workorderDate2,@facilitykey,@roomTypeKey,@floorKey,@roomKey,@zoneKey,@employeekey,@workorderTypeKey,@BatchScheduleNameKey,@OrganizationID,@pageNo,@itemsPerPage,@SearchWO)", [manager, workorderStatusKey, workorderDate, workorderDate2, facilitykey, roomTypeKey, floorKey, roomKey, zoneKey, employeekey, workorderTypeKey, BatchScheduleNameKey, OrganizationID, pageNo, itemsPerPage, SearchWO], function (err, rows) {
+            connection.query("set @manager =?;set @workorderStatusKey =?;set @workorderDate =?;set @workorderDate2 =?;set @facilitykey=?;set @roomTypeKey=?;set @floorKey=?;set @roomKey=?;set @zoneKey=?;set @employeekey=?;set @workorderTypeKey=?;set @BatchScheduleNameKey=?; set @OrganizationID=?;set @pageNo=?; set @itemsPerPage=?;set @SearchWO=?; set @keepactive=?;call usp_workorderByallFilters_Pagination(@manager,@workorderStatusKey,@workorderDate,@workorderDate2,@facilitykey,@roomTypeKey,@floorKey,@roomKey,@zoneKey,@employeekey,@workorderTypeKey,@BatchScheduleNameKey,@OrganizationID,@pageNo,@itemsPerPage,@SearchWO,@keepactive)", [manager, workorderStatusKey, workorderDate, workorderDate2, facilitykey, roomTypeKey, floorKey, roomKey, zoneKey, employeekey, workorderTypeKey, BatchScheduleNameKey, OrganizationID, pageNo, itemsPerPage, SearchWO,keepactive], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
 
-                    res.end(JSON.stringify(rows[16]));
+                    res.end(JSON.stringify(rows[17]));
                 }
             });
         }
@@ -20751,8 +20754,8 @@ app.get(securedpath + '/mob_sendNotification', function (req, res) {
 
     var Date = url.parse(req.url, true).query['Date'];
     var toEmp = url.parse(req.url, true).query['toEmp'];
-     var empkey = url.parse(req.url, true).query['empkey'];
-    var token ;
+    var empkey = url.parse(req.url, true).query['empkey'];
+    var token;
     var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
     pool.getConnection(function (err, connection) {
         if (err) {
@@ -20761,7 +20764,7 @@ app.get(securedpath + '/mob_sendNotification', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @toEmp=?;set @empKey=?; set @OrganizationID=?; call usp_mob_fireBaseLocationRequest(@toEmp,@empKey,@OrganizationID)', [toEmp,empkey, OrganizationID], function (err, rows) {
+            connection.query('set @toEmp=?;set @empKey=?; set @OrganizationID=?; call usp_mob_fireBaseLocationRequest(@toEmp,@empKey,@OrganizationID)', [toEmp, empkey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -20769,47 +20772,47 @@ app.get(securedpath + '/mob_sendNotification', function (req, res) {
                     // res.end(JSON.stringify(rows[3]));
                     console.log(" FirebaseGeoLocationID " + rows[3][0].FirebaseGeoLocationID);
                     var FirebaseGeoLocationID = rows[3][0].FirebaseGeoLocationID;
-                     FirebaseGeoLocationID = FirebaseGeoLocationID.toString();
-                     token= rows[3][0].Token;
-                     if(!token){
-                        rows[3][0].FirebaseGeoLocationID='error';
-                            res.end(JSON.stringify(rows[3]));
-                       
-                     }
-                     else{
-                          var payload = {
-                        notification: {           // app notification title & body
-                            title: "TrooWork",
-                            body: "Please  tap to share location info !"
-                        },
-                        data: {        // data that need to pass to device
-                            Date: Date,
-                            toEmp: toEmp,
-                            OrganizationID: OrganizationID,
-                            FirebaseGeoLocationID: FirebaseGeoLocationID
-                        }
-                    };
-                    var options = {
-                        priority: "high",
-                        timeToLive: 60 * 60,
-                        contentAvailable: true
-                    };
+                    FirebaseGeoLocationID = FirebaseGeoLocationID.toString();
+                    token = rows[3][0].Token;
+                    if (!token) {
+                        rows[3][0].FirebaseGeoLocationID = 'error';
+                        res.end(JSON.stringify(rows[3]));
 
-                    admin.messaging().sendToDevice(token, payload, options)
-                        .then(function (response) {
-                            console.log("Successfully sent message:", response);
-                            res.end(JSON.stringify(rows[3]));
-                        })
-                        .catch(function (error) {
-                            console.log("Error sending message:", error);
-                            rows[3][0].FirebaseGeoLocationID='error';
-                            res.end(JSON.stringify(rows[3]));
-                        });
+                    }
+                    else {
+                        var payload = {
+                            notification: {           // app notification title & body
+                                title: "TrooWork",
+                                body: "Please  tap to share location info !"
+                            },
+                            data: {        // data that need to pass to device
+                                Date: Date,
+                                toEmp: toEmp,
+                                OrganizationID: OrganizationID,
+                                FirebaseGeoLocationID: FirebaseGeoLocationID
+                            }
+                        };
+                        var options = {
+                            priority: "high",
+                            timeToLive: 60 * 60,
+                            contentAvailable: true
+                        };
+
+                        admin.messaging().sendToDevice(token, payload, options)
+                            .then(function (response) {
+                                console.log("Successfully sent message:", response);
+                                res.end(JSON.stringify(rows[3]));
+                            })
+                            .catch(function (error) {
+                                console.log("Error sending message:", error);
+                                rows[3][0].FirebaseGeoLocationID = 'error';
+                                res.end(JSON.stringify(rows[3]));
+                            });
 
 
 
-                     }
-                   
+                    }
+
 
                 }
             });
@@ -20866,7 +20869,7 @@ app.get(securedpath + '/mob_sendGeoLocation', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @latitude=?; set @longitude=?; set @Date=?; set @FirebaseGeoLocationID=?; set @empKey=?;  set @OrganizationID=?; call usp_mob_sendGeoLocation(@latitude,@longitude,@Date,@FirebaseGeoLocationID,@empKey,@OrganizationID)', [latitude, longitude, Date,FirebaseGeoLocationID, empKey, OrganizationID], function (err, rows) {
+            connection.query('set @latitude=?; set @longitude=?; set @Date=?; set @FirebaseGeoLocationID=?; set @empKey=?;  set @OrganizationID=?; call usp_mob_sendGeoLocation(@latitude,@longitude,@Date,@FirebaseGeoLocationID,@empKey,@OrganizationID)', [latitude, longitude, Date, FirebaseGeoLocationID, empKey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -20922,7 +20925,7 @@ app.get(securedpath + '/mob_getFireBaseLocation', function (req, res) {
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @empKey=?; set@FirebaseGeoLocationID=?; set @OrganizationID=?; call usp_mob_getFireBaseLocation(@empKey,@FirebaseGeoLocationID,@OrganizationID)', [empKey,FirebaseGeoLocationID, OrganizationID], function (err, rows) {
+            connection.query('set @empKey=?; set@FirebaseGeoLocationID=?; set @OrganizationID=?; call usp_mob_getFireBaseLocation(@empKey,@FirebaseGeoLocationID,@OrganizationID)', [empKey, FirebaseGeoLocationID, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
