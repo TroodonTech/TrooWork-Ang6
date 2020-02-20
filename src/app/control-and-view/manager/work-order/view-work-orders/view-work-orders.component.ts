@@ -89,6 +89,7 @@ export class ViewWorkOrdersComponent implements OnInit {
   checkflag: boolean;
   genFlag;
   SearchWo;
+  KeepActiveFlag = 0;
   //code for special character restriction
   regexStr = '^[a-zA-Z0-9_ ]*$';
   @Input() isAlphaNumeric: boolean;
@@ -265,7 +266,8 @@ export class ViewWorkOrdersComponent implements OnInit {
       OrganizationID: this.org_id,
       SearchWO: SearchWO,
       itemsPerPage: this.items_perpage,
-      pageNo: this.pageno
+      pageNo: this.pageno,
+      keepactivef:this.KeepActiveFlag
     };
     this.WorkOrderServiceService//service for viewing wo when filter is applied
       .getWoFilter_pagination(this.viewWorkOrder)
@@ -416,7 +418,8 @@ export class ViewWorkOrdersComponent implements OnInit {
       floorKey: floor_key,
       SearchWO: SearchWO,
       itemsPerPage: this.items_perpage,
-      pageNo: this.pageno
+      pageNo: this.pageno,
+      keepactivef:this.KeepActiveFlag
     };
     this.WorkOrderServiceService//service for viewing wo when filter is applied
       .getWoFilter_pagination(this.viewWorkOrder)
@@ -462,6 +465,7 @@ export class ViewWorkOrdersComponent implements OnInit {
     this.BatchScheduleNameKey = "";
     this.ondate = new Date(Date.now());
     this.genFlag = 0;
+    this.KeepActiveFlag = 0;
     this.WorkOrderServiceService//service for getting facility names
       .getallFacility(this.emp_key, this.org_id)
       .subscribe((data: any[]) => {
@@ -713,7 +717,7 @@ export class ViewWorkOrdersComponent implements OnInit {
         SearchWO = null;
       }
 
-      this.pageno=1;
+      this.pageno = 1;
 
       this.viewWorkOrder = {
         manager: this.emp_key,
@@ -731,7 +735,8 @@ export class ViewWorkOrdersComponent implements OnInit {
         floorKey: floor_key,
         SearchWO: SearchWO,
         itemsPerPage: this.items_perpage,
-        pageNo: this.pageno
+        pageNo: this.pageno,
+        keepactivef:this.KeepActiveFlag
       };
       this.WorkOrderServiceService//service for viewing wo when filter is applied
         .getWoFilter_pagination(this.viewWorkOrder)
