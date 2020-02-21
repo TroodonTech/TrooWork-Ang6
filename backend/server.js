@@ -20798,7 +20798,16 @@ app.get(securedpath + '/mob_sendNotification', function (req, res) {
                         contentAvailable: true
                     };
 
-
+                    admin.messaging().sendToDevice(token, payload, options)
+                        .then(function (response) {
+                            console.log("Successfully sent message:", response);
+                            res.end(JSON.stringify(rows[3]));
+                        })
+                        .catch(function (error) {
+                            console.log("Error sending message:", error);
+                            rows[3][0].FirebaseGeoLocationID='error';
+                            res.end(JSON.stringify(rows[3]));
+                        });
 
                     }
 
