@@ -174,7 +174,7 @@ export class MeetingTrainingCreateComponent implements OnInit {
   //   this.selectEmpsDropDown();
   // }
   addMeetingTrainingEvent() {
-    ;
+    
     if (!this.time1) {
       alert("Start Time is not provided");
       return;
@@ -205,10 +205,10 @@ export class MeetingTrainingCreateComponent implements OnInit {
       alert("Eventhost is not provided");
       return;
     }
-    if (!this.Venue || !this.Venue.trim()) {
-      alert("Venue is not provided");
-      return;
-    }
+    // if (!this.Venue || !this.Venue.trim()) {
+    //   alert("Venue is not provided");
+    //   return;
+    // }
 
     if (this.eventHost) {
       this.eventHost=this.eventHost.trim();
