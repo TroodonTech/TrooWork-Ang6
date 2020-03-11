@@ -370,6 +370,18 @@ export class InspectionService {
       .get(ConectionSettings.Url + '/allemployeesForAuditReport_SuType?empkey=' + empKey + '&OrganizationID=' + orgID);
   }
 
+  getPickListValues(orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getPickValuesListForInspection?OrganizationID=' + orgID);
+  }
+
+  getTemplateNameForAuditReport(empkey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getTemplatesForAuditReport?employeekey=' + empkey + '&OrganizationID=' + orgID);
+  }
+
   // @Rodney ends
 }
 

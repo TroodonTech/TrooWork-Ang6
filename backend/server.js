@@ -20599,6 +20599,56 @@ app.get(securedpath + '/getRemainingWODetails', function (req, res) {
         connection.release();
     });
 });
+
+app.get(securedpath + '/getPickValuesListForInspection', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var orgID = url.parse(req.url, true).query['OrganizationID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @orgID=?; call usp_getPickValuesListForInspection(@orgID)', [orgID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[1]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/getTemplatesForAuditReport', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var employeekey = url.parse(req.url, true).query['employeekey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @employeekey=?; set @OrganizationID=?; call usp_getTemplatesForAuditReport(@employeekey,@OrganizationID)', [employeekey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 // Coding ... @Rodney ends......
 
 // @Author:Prakash code starts here
@@ -20738,15 +20788,17 @@ app.get(securedpath + '/getInspectionAuditDetailsForReportSummary', function (re
 
 //firebase notification codes starts -----by varun
 
+// commenting starts to avoid module error while installing. @Rodney
 
-var admin = require('firebase-admin');
+// var admin = require('firebase-admin');
 
-var serviceAccount = require("./troowork-7eef7-firebase-adminsdk-447j2-0a4fd5ae89.json"); // firebase apn file(unique in each account-- created in trooworkdev)
+// var serviceAccount = require("./troowork-7eef7-firebase-adminsdk-447j2-0a4fd5ae89.json"); // firebase apn file(unique in each account-- created in trooworkdev)
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)  //json file need to initialize ,then only we can send FCM
-});
+// admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount)  //json file need to initialize ,then only we can send FCM
+// });
 
+// commenting ends to avoid module error while installing. @Rodney
 
 app.get(securedpath + '/mob_sendNotification', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");

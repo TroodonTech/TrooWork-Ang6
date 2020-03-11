@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { InspectionService } from '../../../../service/inspection.service';
 import { Inspection } from '../../../../model-class/Inspection';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConectionSettings } from '../../../../service/ConnectionSetting';
 import { HttpClient } from '@angular/common/http';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 const url = ConectionSettings.Url + '/inspection_Upload';
 @Component({
@@ -61,14 +61,16 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   inspectionAssignEmp;
   addUrl;
 
+  pickValues;
+
   // starList: boolean[];
-  starList=[];
+  starList = [];
   // rating: number;
-  rating= [];
+  rating = [];
   value;
 
-  setStar3(k,data: any) {
-    this.rating[k]= data + 1;
+  setStar3(k, data: any) {
+    this.rating[k] = data + 1;
     this.value = this.rating[k];
     for (var i = 0; i <= 2; i++) {
       if (i <= data) {
@@ -79,7 +81,7 @@ export class ManagerinspectiontemplateComponent implements OnInit {
       }
     }
   }
-  setStar(k,data: any) {
+  setStar(k, data: any) {
     this.rating[k] = data + 1;
     this.value = this.rating[k];
     for (var i = 0; i <= 4; i++) {
@@ -130,7 +132,7 @@ export class ManagerinspectiontemplateComponent implements OnInit {
   count = 0;
   saveInspection = {};
 
-  constructor(private inspectionService: InspectionService, private route: ActivatedRoute,private router: Router,private _location: Location,private http: HttpClient) {
+  constructor(private inspectionService: InspectionService, private route: ActivatedRoute, private router: Router, private _location: Location, private http: HttpClient) {
     this.route.params.subscribe(params => this.inspKey$ = params.InspectionOrderKey);
   }
 
@@ -151,13 +153,19 @@ export class ManagerinspectiontemplateComponent implements OnInit {
       this.viewEmpInspectionDetails = data;
       this.questionsCount = this.viewEmpInspectionDetails.length;
       this.val = data;
-      this.inspectionAssignEmp=this.viewEmpInspectionDetails[0].employeeID;
+      this.inspectionAssignEmp = this.viewEmpInspectionDetails[0].employeeID;
       if (this.viewEmpInspectionDetails[0].ScoreName === 'Yes/No') {
         this.names = ['Yes', 'No'];
         this.ScoreName = this.viewEmpInspectionDetails[0].ScoreName;
       }
       else if (this.viewEmpInspectionDetails[0].ScoreName === 'Pass/Fail') {
         this.names = ['Fail', 'N/A'];
+        this.ScoreName = this.viewEmpInspectionDetails[0].ScoreName;
+      }
+      else if (this.viewEmpInspectionDetails[0].ScoreName === '0-25') {
+        this.inspectionService.getPickListValues(this.OrganizationID).subscribe((data: any[]) => {
+          this.pickValues = data;
+        });
         this.ScoreName = this.viewEmpInspectionDetails[0].ScoreName;
       }
       // else if (this.viewEmpInspectionDetails[0].ScoreName === '5 Star') {
@@ -170,8 +178,8 @@ export class ManagerinspectiontemplateComponent implements OnInit {
       this.inspectionService
         .templateQuestionService(this.viewEmpInspectionDetails[0].TemplateID, this.OrganizationID).subscribe((data: any[]) => {
           this.TemplateDetails = data;
-          for(var i=0;i< this.TemplateDetails.length;i++){
-             if (this.viewEmpInspectionDetails[0].ScoreName === '5 Star') {
+          for (var i = 0; i < this.TemplateDetails.length; i++) {
+            if (this.viewEmpInspectionDetails[0].ScoreName === '5 Star') {
               this.starList[i] = [true, true, true, true, true];
             }
             else if (this.viewEmpInspectionDetails[0].ScoreName === '3 Star') {
@@ -200,6 +208,20 @@ export class ManagerinspectiontemplateComponent implements OnInit {
     }
     else if (ScoreName === '3 Star') {
       this.Scoringtype.ratingValue.push({ rating: this.value, questionID: TemplateQuestionID });
+    } else if (ScoreName === '0-25') {
+      // var val=this.Scoringtype.rating_yn[TemplateQuestionID];
+      // this.Scoringtype.ratingValue.push({ rating: this.value, questionID: TemplateQuestionID });
+
+      var length = Object.keys(this.Scoringtype.rating_yn).length;
+      var arrayLength = this.Scoringtype.rating_yn.length;
+      var value = this.Scoringtype.rating_yn[arrayLength - 1];
+
+      // console.log(length);
+      // console.log(arrayLength);
+      // console.log(value);
+
+      this.Scoringtype.ratingValue.push({ rating: value, questionID: TemplateQuestionID });
+
     }
     console.log(this.Scoringtype);
   }
@@ -217,7 +239,7 @@ export class ManagerinspectiontemplateComponent implements OnInit {
     // {
     //  alert("Score is not provided");
     // }
-    if (this.ScoreName === 'Yes/No' || this.ScoreName === 'Pass/Fail') {
+    if (this.ScoreName === 'Yes/No' || this.ScoreName === 'Pass/Fail' || this.ScoreName === '0-25') {
       for (var j = 0; j < this.val.length; j++) {
         temp.push("" + this.val[j].TemplateQuestionID);
       }
@@ -252,8 +274,8 @@ export class ManagerinspectiontemplateComponent implements OnInit {
         for (j = 0; j < noteIndexList.length; j++) {
           if (noteIndexList[j] === questionid) {
             notes = this.Scoringtype.inspectionNotes[questionid];
-            if(notes){
-              notes=notes.trim();
+            if (notes) {
+              notes = notes.trim();
             }
             break;
           }
@@ -275,68 +297,68 @@ export class ManagerinspectiontemplateComponent implements OnInit {
         }
 
         this.inspectionDetail =
-          {
-            OrganizationID: this.OrganizationID,
-            inspectionkey: this.inspKey$,
-            employeekey: this.employeekey,
-            inspectionnotes: notes,
-            templateQstnValues: questionValues,
-            templateid: this.Temp_templateId,
-            questionid: questionid,
+        {
+          OrganizationID: this.OrganizationID,
+          inspectionkey: this.inspKey$,
+          employeekey: this.employeekey,
+          inspectionnotes: notes,
+          templateQstnValues: questionValues,
+          templateid: this.Temp_templateId,
+          questionid: questionid,
 
-          };
+        };
         this.inspectionService
           .InspectionSaveService(this.inspectionDetail)
       }
       this.inspectionDetail1 =
-        {
-          OrganizationID: this.OrganizationID,
-          InspectionorderKey: this.inspKey$,
-          EmployeeKey: this.employeekey,
+      {
+        OrganizationID: this.OrganizationID,
+        InspectionorderKey: this.inspKey$,
+        EmployeeKey: this.employeekey,
 
-        };
+      };
       this.inspectionService
-        .inspectionCompletedService(this.inspectionDetail1).subscribe(res =>{
+        .inspectionCompletedService(this.inspectionDetail1).subscribe(res => {
           //  this.router.navigate(['/ViewInspectionManager',this.inspKey$]);
-            if(this.isMailed==true){//varun-> sending Email for inspection
-               this.inspectionService.emailForInspectionComp( this.inspectionAssignEmp,this.employeekey,this.OrganizationID).subscribe((data : any[])=>{
-                
-                this.emp_EmailId= data[0].AssignEmpEmailId;
-                this.audit_EmailId=data[0].EmailID;
-                if(!(this.emp_EmailId)){
-                  alert('Employee Has No Email ID');
-                  return;
+          if (this.isMailed == true) {//varun-> sending Email for inspection
+            this.inspectionService.emailForInspectionComp(this.inspectionAssignEmp, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+
+              this.emp_EmailId = data[0].AssignEmpEmailId;
+              this.audit_EmailId = data[0].EmailID;
+              if (!(this.emp_EmailId)) {
+                alert('Employee Has No Email ID');
+                return;
+              }
+              if (!(this.audit_EmailId)) {
+                alert('Auditor Has No Email ID');
+                return;
+              }
+              this.inspectionService.getInspectionDetailsForEmail(this.inspKey$, this.OrganizationID).subscribe((inspectionEmail: any[]) => {
+
+                var emailBody;
+                emailBody = '<b>' + inspectionEmail[0].TemplateName + '</b>' + '(' + inspectionEmail[0].ScoreName + ')' + '<br>'
+
+                for (var i = 0; i < inspectionEmail.length; i++) {
+                  emailBody = emailBody + inspectionEmail[i].Question + ' : ' + inspectionEmail[i].Value + '<br>';
+
                 }
-                if(!(this.audit_EmailId)){
-                  alert('Auditor Has No Email ID');
-                  return;
-                }
-                  this.inspectionService.getInspectionDetailsForEmail(this.inspKey$,this.OrganizationID).subscribe((inspectionEmail :any[])=>{
-                   
-                    var emailBody;
-                    emailBody='<b>'+inspectionEmail[0].TemplateName+'</b>'+'('+inspectionEmail[0].ScoreName+')'+'<br>'
 
-                    for(var i=0;i<inspectionEmail.length;i++){
-                     emailBody=emailBody+inspectionEmail[i].Question+' : '+inspectionEmail[i].Value+'<br>';
+                const obj = {
+                  from: this.audit_EmailId,
+                  to: this.emp_EmailId,
+                  subject: 'Inspection By -' + inspectionEmail[0].InspectorName,
+                  html: emailBody
+                };
+                const url = ConectionSettings.Url + "/sendmail";
+                return this.http.post(url, obj)
+                  .subscribe(res => alert('Mail Sent Successfully...'));
 
-                    }
+              });
+            });
+          }
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager', this.inspKey$] } }]);
 
-                    const obj = {
-                      from:  this.audit_EmailId,
-                      to:  this.emp_EmailId,
-                      subject: 'Inspection By -'+inspectionEmail[0].InspectorName,
-                      html: emailBody
-                    };
-                    const url = ConectionSettings.Url+"/sendmail";
-                    return this.http.post(url, obj)
-                      .subscribe(res => alert('Mail Sent Successfully...'));
-                  
-                  });
-               });
-            }
-          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager',this.inspKey$] } }]);
-          
-      });
+        });
 
     }
     else if (questionidList.length === totalQuestions && this.ScoreName !== 'Pass/Fail') {
@@ -355,8 +377,8 @@ export class ManagerinspectiontemplateComponent implements OnInit {
         for (j = 0; j < noteIndexList.length; j++) {
           if (noteIndexList[j] === questionid) {
             notes = this.Scoringtype.inspectionNotes[questionid];
-            if(notes){
-              notes=notes.trim();
+            if (notes) {
+              notes = notes.trim();
             }
             break;
           }
@@ -377,74 +399,175 @@ export class ManagerinspectiontemplateComponent implements OnInit {
         }
 
         this.inspectionDetail =
-          {
-            OrganizationID: this.OrganizationID,
-            inspectionkey: this.inspKey$,
-            employeekey: this.employeekey,
-            inspectionnotes: notes,
-            templateQstnValues: questionValues,
-            templateid: this.Temp_templateId,
-            questionid: questionid,
+        {
+          OrganizationID: this.OrganizationID,
+          inspectionkey: this.inspKey$,
+          employeekey: this.employeekey,
+          inspectionnotes: notes,
+          templateQstnValues: questionValues,
+          templateid: this.Temp_templateId,
+          questionid: questionid,
 
-          };
+        };
         this.inspectionService
           .InspectionSaveService(this.inspectionDetail)
       }
       this.inspectionDetail1 =
-        {
-          OrganizationID: this.OrganizationID,
-          InspectionorderKey: this.inspKey$,
-          EmployeeKey: this.employeekey,
+      {
+        OrganizationID: this.OrganizationID,
+        InspectionorderKey: this.inspKey$,
+        EmployeeKey: this.employeekey,
 
-        };
+      };
       this.inspectionService
-        .inspectionCompletedService(this.inspectionDetail1).subscribe(res =>{
-          if(this.isMailed==true){//varun-> sending Email for inspection
-            this.inspectionService.emailForInspectionComp( this.inspectionAssignEmp,this.employeekey,this.OrganizationID).subscribe((data : any[])=>{
-             
-             this.emp_EmailId= data[0].AssignEmpEmailId;
-             this.audit_EmailId=data[0].EmailID;
-             if(!(this.emp_EmailId)){
-               alert('Employee Has No Email ID');
-               return;
-             }
-             if(!(this.audit_EmailId)){
-               alert('Auditor Has No Email ID');
-               return;
-             }
-               this.inspectionService.getInspectionDetailsForEmail(this.inspKey$,this.OrganizationID).subscribe((inspectionEmail :any[])=>{
-                
-                 var emailBody;
-                 emailBody='<b>'+inspectionEmail[0].TemplateName+'</b>'+'('+inspectionEmail[0].ScoreName+')'+'<br>'
+        .inspectionCompletedService(this.inspectionDetail1).subscribe(res => {
+          if (this.isMailed == true) {//varun-> sending Email for inspection
+            this.inspectionService.emailForInspectionComp(this.inspectionAssignEmp, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
 
-                 for(var i=0;i<inspectionEmail.length;i++){
-                  emailBody=emailBody+inspectionEmail[i].Question+' : '+inspectionEmail[i].Value+'<br>';
+              this.emp_EmailId = data[0].AssignEmpEmailId;
+              this.audit_EmailId = data[0].EmailID;
+              if (!(this.emp_EmailId)) {
+                alert('Employee Has No Email ID');
+                return;
+              }
+              if (!(this.audit_EmailId)) {
+                alert('Auditor Has No Email ID');
+                return;
+              }
+              this.inspectionService.getInspectionDetailsForEmail(this.inspKey$, this.OrganizationID).subscribe((inspectionEmail: any[]) => {
 
-                 }
+                var emailBody;
+                emailBody = '<b>' + inspectionEmail[0].TemplateName + '</b>' + '(' + inspectionEmail[0].ScoreName + ')' + '<br>'
 
-                 const obj = {
-                   from:  this.audit_EmailId,
-                   to:  this.emp_EmailId,
-                   subject: 'Inspection By -'+inspectionEmail[0].InspectorName,
-                   html: emailBody
-                 };
-                 const url = ConectionSettings.Url+"/sendmail";
-                 return this.http.post(url, obj)
-                   .subscribe(res => alert('Mail Sent Successfully...'));
-               
-               });
+                for (var i = 0; i < inspectionEmail.length; i++) {
+                  emailBody = emailBody + inspectionEmail[i].Question + ' : ' + inspectionEmail[i].Value + '<br>';
+
+                }
+
+                const obj = {
+                  from: this.audit_EmailId,
+                  to: this.emp_EmailId,
+                  subject: 'Inspection By -' + inspectionEmail[0].InspectorName,
+                  html: emailBody
+                };
+                const url = ConectionSettings.Url + "/sendmail";
+                return this.http.post(url, obj)
+                  .subscribe(res => alert('Mail Sent Successfully...'));
+
+              });
             });
-         }
-          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager',this.inspKey$] } }]);
-     });
+          }
+          this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager', this.inspKey$] } }]);
+        });
 
     }
-    
+    // else if (questionidList.length === totalQuestions && this.ScoreName === '0-25') {
+    //   var questionValues1;
+    //   var starRating = null;
+    //   var notes = null;
+    //   var questionid = null;
+    //   var i = 0;
+    //   var j = 0;
+    //   var k = 0;
+
+    //   for (var i = i; i < questionidList.length; i++) {// includes actual qn ids
+    //     questionValues1;
+    //     notes = null;
+    //     questionid = questionidList[i];
+    //     for (j = 0; j < noteIndexList.length; j++) {
+    //       if (noteIndexList[j] === questionid) {
+    //         notes = this.Scoringtype.inspectionNotes[questionid];
+    //         if (notes) {
+    //           notes = notes.trim();
+    //         }
+    //         break;
+    //       }
+
+    //     }
+
+    //     for (var k = 0; k < ratingIndexlist.length; k++) {
+    //       if (ratingIndexlist[k] === questionid) {
+    //         this.lastIndexValue = this.lastIndex(ratingIndexlist, questionidList[i]);
+    //         console.log("last indexfor " + ratingIndexlist[k] + " is " + this.lastIndexValue);
+
+    //         if (this.lastIndexValue !== null) {
+    //           questionValues1 = this.Scoringtype.ratingValue[this.lastIndexValue].rating;
+    //         } else {
+    //           questionValues1 = "";
+    //         }
+    //         break;
+    //       }
+    //     }
+
+    //     this.inspectionDetail =
+    //     {
+    //       OrganizationID: this.OrganizationID,
+    //       inspectionkey: this.inspKey$,
+    //       employeekey: this.employeekey,
+    //       inspectionnotes: notes,
+    //       templateQstnValues: questionValues,
+    //       templateid: this.Temp_templateId,
+    //       questionid: questionid,
+
+    //     };
+    //     this.inspectionService
+    //       .InspectionSaveService(this.inspectionDetail)
+    //   }
+    //   this.inspectionDetail1 =
+    //   {
+    //     OrganizationID: this.OrganizationID,
+    //     InspectionorderKey: this.inspKey$,
+    //     EmployeeKey: this.employeekey,
+
+    //   };
+    //   this.inspectionService
+    //     .inspectionCompletedService(this.inspectionDetail1).subscribe(res => {
+    //       if (this.isMailed == true) {
+    //         this.inspectionService.emailForInspectionComp(this.inspectionAssignEmp, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+
+    //           this.emp_EmailId = data[0].AssignEmpEmailId;
+    //           this.audit_EmailId = data[0].EmailID;
+    //           if (!(this.emp_EmailId)) {
+    //             alert('Employee Has No Email ID');
+    //             return;
+    //           }
+    //           if (!(this.audit_EmailId)) {
+    //             alert('Auditor Has No Email ID');
+    //             return;
+    //           }
+    //           this.inspectionService.getInspectionDetailsForEmail(this.inspKey$, this.OrganizationID).subscribe((inspectionEmail: any[]) => {
+
+    //             var emailBody;
+    //             emailBody = '<b>' + inspectionEmail[0].TemplateName + '</b>' + '(' + inspectionEmail[0].ScoreName + ')' + '<br>'
+
+    //             for (var i = 0; i < inspectionEmail.length; i++) {
+    //               emailBody = emailBody + inspectionEmail[i].Question + ' : ' + inspectionEmail[i].Value + '<br>';
+
+    //             }
+
+    //             const obj = {
+    //               from: this.audit_EmailId,
+    //               to: this.emp_EmailId,
+    //               subject: 'Inspection By -' + inspectionEmail[0].InspectorName,
+    //               html: emailBody
+    //             };
+    //             const url = ConectionSettings.Url + "/sendmail";
+    //             return this.http.post(url, obj)
+    //               .subscribe(res => alert('Mail Sent Successfully...'));
+
+    //           });
+    //         });
+    //       }
+    //       this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager', this.inspKey$] } }]);
+
+    //     });
+
+    // }
   }
-  goBack(){
+  goBack() {
     this._location.back();
   }
-  FileSelected(){
+  FileSelected() {
     this.addUrl = '?IoKey=' + this.inspKey$ + '&empkey=' + this.employeekey + '&OrganizationID=' + this.OrganizationID;
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
