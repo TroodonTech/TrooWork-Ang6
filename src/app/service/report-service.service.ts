@@ -383,4 +383,11 @@ export class ReportServiceService {
       .http
       .get(ConectionSettings.Url + '/getInspectionAuditDetailsForReportSummary?from=' + from + '&to=' + to + '&template=' + template + '&employeeKey=' + Employee + '&orgID=' + orgID);
   }
+
+  getInspectionPickListReportDetails(from, to, template, Employee, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getInspectionPickListReportDetails?from=' + from + '&to=' + to + '&template=' + template + '&employeeKey=' + Employee + '&orgID=' + orgID);
+  }
+
 }

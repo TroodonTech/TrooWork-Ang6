@@ -66,7 +66,8 @@ export class EditBatchWorkorderComponent implements OnInit {
   occursonday;
   GpsSnapShot;
   Gps_SnapShot;
-
+  KeepActive;
+  Keep_Active;
   workorderCreation;
   timetable = { times: [] };
   monthlyDays = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];//for selecting day of a month in recurring option(on gap of dropdown)
@@ -313,11 +314,17 @@ export class EditBatchWorkorderComponent implements OnInit {
         else {
           this.isBarcodeRequired = false;
         }
-        if(this.WOEditList.IsSnapshot==1){
-          this.GpsSnapShot=true;
+        if (this.WOEditList.IsSnapshot == 1) {
+          this.GpsSnapShot = true;
         }
-        else{
-          this.GpsSnapShot=false;
+        else {
+          this.GpsSnapShot = false;
+        }
+        if (this.WOEditList.KeepActive == 1) {
+          this.KeepActive = true;
+        }
+        else {
+          this.KeepActive = false;
         }
         if (this.WOEditList.IntervalType == 'd') {
 
@@ -994,6 +1001,13 @@ export class EditBatchWorkorderComponent implements OnInit {
       this.Gps_SnapShot = 0;
     }
 
+    if (this.KeepActive == true) {
+      this.Keep_Active = 1;
+    }
+    else {
+      this.Keep_Active = 0;
+    }
+
     this.workorderCreation = {
       scheduleKey: this.BatchScheduleNameKey,
       occursontime: this.workTime,
@@ -1018,7 +1032,8 @@ export class EditBatchWorkorderComponent implements OnInit {
       repeatinterval: this.rep_interval,
       occursonday: this.occurs_on,
       occurstype: this.occurs_type,
-      IsSnapshot: this.Gps_SnapShot
+      IsSnapshot: this.Gps_SnapShot,
+      KeepActive: this.Keep_Active
     };
     this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {//service for updating wo
       this.deleteWO = {
@@ -1360,6 +1375,12 @@ export class EditBatchWorkorderComponent implements OnInit {
     else {
       this.Gps_SnapShot = 0;
     }
+    if (this.KeepActive == true) {
+      this.Keep_Active = 1;
+    }
+    else {
+      this.Keep_Active = 0;
+    }
     this.workorderCreation = {
       scheduleKey: this.BatchScheduleNameKey,
       occursontime: this.workTime,
@@ -1384,7 +1405,8 @@ export class EditBatchWorkorderComponent implements OnInit {
       repeatinterval: this.rep_interval,
       occursonday: this.occurs_on,
       occurstype: this.occurs_type,
-      IsSnapshot: this.Gps_SnapShot
+      IsSnapshot: this.Gps_SnapShot,
+      KeepActive: this.Keep_Active
     };
     this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
       this.deleteWO = {

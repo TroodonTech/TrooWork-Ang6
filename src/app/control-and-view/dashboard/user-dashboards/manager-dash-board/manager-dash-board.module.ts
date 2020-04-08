@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 
-import { ViewRemainingWorkordersDetailsModule } from "../../../manager/reports/view-remaining-workorders-details/view-remaining-workorders-details.module";
+import { PicklistReportModule } from "../../../manager/reports/picklist-report/picklist-report.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -716,6 +716,12 @@ const routes: Routes = [
         path: 'viewWORemainingDetails/:fromdt/:todt/:empKey/:wotypeKey/:empName/:wotypeName',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/reports/view-remaining-workorders-details/view-remaining-workorders-details.module#ViewRemainingWorkordersDetailsModule'
+
+      },
+      {
+        path: 'picklistReport',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/reports/picklist-report/picklist-report.module#PicklistReportModule'
 
       }
 

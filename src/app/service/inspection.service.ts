@@ -381,7 +381,11 @@ export class InspectionService {
       .http
       .get(ConectionSettings.Url + '/getTemplatesForAuditReport?employeekey=' + empkey + '&OrganizationID=' + orgID);
   }
-
+  getTemplateNameForPicklistReport(empkey, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getTemplateNameForPicklistReport?employeekey=' + empkey + '&OrganizationID=' + orgID);
+  }
   // @Rodney ends
 }
 
