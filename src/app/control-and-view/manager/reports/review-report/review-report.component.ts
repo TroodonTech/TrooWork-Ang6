@@ -60,7 +60,7 @@ export class ReviewReportComponent implements OnInit {
     firstCalendarDay: 0, // 0 - Sunday, 1 - Monday
     //locale: frLocale,
     //minDate: new Date(Date.now()), // Minimal selectable date
-    //maxDate: new Date(Date.now()),  // Maximal selectable date
+    maxDate: new Date(Date.now()),  // Maximal selectable date
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field

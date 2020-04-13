@@ -81,6 +81,7 @@ export class EmployeesDowntimeReportComponent implements OnInit {
     barTitleFormat: 'MMMM YYYY',
     dayNamesFormat: 'dd',
     firstCalendarDay: 0,
+    maxDate: new Date(Date.now()),
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field

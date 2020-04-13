@@ -20847,13 +20847,13 @@ app.get(securedpath + '/getInspectionAuditDetailsForReportSummary', function (re
 
 // commenting starts to avoid module error while installing. @Rodney
 
-var admin = require('firebase-admin');
+// var admin = require('firebase-admin');
 
-var serviceAccount = require("./troowork-7eef7-firebase-adminsdk-447j2-0a4fd5ae89.json"); // firebase apn file(unique in each account-- created in trooworkdev)
+// var serviceAccount = require("./troowork-7eef7-firebase-adminsdk-447j2-0a4fd5ae89.json"); // firebase apn file(unique in each account-- created in trooworkdev)
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)  //json file need to initialize ,then only we can send FCM
-});
+// admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount)  //json file need to initialize ,then only we can send FCM
+// });
 
 // commenting ends to avoid module error while installing. @Rodney
 
