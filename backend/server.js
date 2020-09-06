@@ -21573,6 +21573,35 @@ app.get(securedpath + '/employeesrowFiltering', function (req, res) {
         connection.release();
     });
 });
+
+app.get(securedpath + '/getSupervisorInspectionView_WEB', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var to_date = url.parse(req.url, true).query['to_date'];
+    var employeekey = url.parse(req.url, true).query['employeekey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @date=?; set @username=?; set@OrganizationID=?; call usp_getSupervisorInspectionView_web(@date,@username,@OrganizationID)', [to_date, employeekey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[3]));
+
+                }
+            });
+        }
+        connection.release();
+    });
+
+});
 //Rodney Code change Ends here
 //handle generic exceptions
 //catch all other resource routes that are not defined above
