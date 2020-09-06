@@ -1,7 +1,7 @@
 import {DataService} from "./data.service";
 import {ReactiveFormsModule,} from "@angular/forms";
 import {CommonModule,} from "@angular/common";
-// import {BrowserModule} from "@angular/platform-browser";
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import {NgModule,} from "@angular/core";
 import {SchedulerComponent} from "./scheduler.component";
 import {DayPilotModule} from "daypilot-pro-angular";
@@ -21,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports:      [ CommonModule,FormsModule, ReactiveFormsModule, HttpClientModule,NgDatepickerModule,MDBBootstrapModule, DayPilotModule, RouterModule.forChild(routes) ],
+  imports:      [ CommonModule,FormsModule, ReactiveFormsModule, HttpClientModule,NgDatepickerModule,MDBBootstrapModule, DayPilotModule, NgMultiSelectDropDownModule.forRoot(),RouterModule.forChild(routes) ],
   declarations: [
     SchedulerComponent,
     CreateComponent,

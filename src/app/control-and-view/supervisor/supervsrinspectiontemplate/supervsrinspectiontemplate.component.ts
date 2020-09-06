@@ -5,8 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConectionSettings } from '../../../service/ConnectionSetting';
 import { HttpClient } from '@angular/common/http';
 // import { ViewinspectionmanagerComponent } from "../../manager/inspection/viewinspectionmanager/viewinspectionmanager.component";
-
-import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import { DatepickerOptions } from 'ng2-datepicker';
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 const url = ConectionSettings.Url + '/inspection_Upload';
 
 @Component({
@@ -39,6 +39,24 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
     return window.atob(output);
   }
 
+  options: DatepickerOptions = {
+    minYear: 1970,
+    maxYear: 2030,
+    displayFormat: 'MM/DD/YYYY',
+    barTitleFormat: 'MMMM YYYY',
+    dayNamesFormat: 'dd',
+    firstCalendarDay: 0, // 0 - Sunday, 1 - Monday
+    //locale: frLocale,
+    //minDate: new Date(Date.now()), // Minimal selectable date
+    //maxDate: new Date(Date.now()),  // Maximal selectable date
+    barTitleIfEmpty: 'Click to select a date',
+    placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
+    addClass: '', // Optional, value to pass on to [ngClass] on the input field
+    addStyle: { 'font-size': '18px', 'width': '100%', 'border': '1px solid #ced4da', 'border-radius': '0.25rem' }, // Optional, value to pass to [ngStyle] on the input field
+    fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
+    useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
+  };
+
 
   viewEmpInspectionDetails;
   inspKey$;
@@ -60,13 +78,14 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
   audit_EmailId;
   inspectionAssignEmp;
 
-  pickValues;
-
   // for star rating 
   starList = [];
   rating = [];
   value;
   addUrl;
+
+
+  pickValues;
 
   setStar3(k, data: any) {
     this.rating[k] = data + 1;
@@ -124,7 +143,7 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
     }
     return z;
   }
-  Scoringtype = { ratingValue: [], inspectionNotes: [], rating_yn: [] };
+  Scoringtype = { ratingValue: [], inspectionNotes: [], rating_yn: [], ObservationDeficiency: [], CorrectiveAction: [], CompletedDate: [] };
 
   templateQuestionvalues = {};
   today_DT = this.convert_DT(new Date());
@@ -153,7 +172,7 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
       this.val = data;
       this.inspectionAssignEmp = this.viewEmpInspectionDetails[0].employeeID;
       if (this.viewEmpInspectionDetails[0].ScoreName === 'Yes/No') {
-        this.names = ['Yes', 'No'];
+        this.names = ['Yes', 'No', 'N/A'];
         this.ScoreName = this.viewEmpInspectionDetails[0].ScoreName;
       }
       else if (this.viewEmpInspectionDetails[0].ScoreName === 'Pass/Fail') {
@@ -163,6 +182,8 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
         this.inspectionService.getPickListValues(this.OrganizationID).subscribe((data: any[]) => {
           this.pickValues = data;
         });
+        this.ScoreName = this.viewEmpInspectionDetails[0].ScoreName;
+      } else {
         this.ScoreName = this.viewEmpInspectionDetails[0].ScoreName;
       }
       // else if(this.viewEmpInspectionDetails[0].ScoreName === '5 Star'){
@@ -233,6 +254,10 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
     var ratingIndexlist = [];
     var noteIndexList = [];
     var questionidList = [];
+    var observeIndexList = [];
+    var actionIndexList = [];
+    var completeDateIndexList = [];
+
     if (this.ScoreName === 'Yes/No' || this.ScoreName === 'Pass/Fail' || this.ScoreName === '0-25') {
       for (var j = 0; j < this.val.length; j++) {
         temp.push("" + this.val[j].TemplateQuestionID);
@@ -240,9 +265,18 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
       ratingIndexlist = Object.keys(this.Scoringtype.rating_yn);
       noteIndexList = Object.keys(this.Scoringtype.inspectionNotes);
       questionidList = this.arrayUnique(ratingIndexlist.concat(temp));
+
+      observeIndexList = Object.keys(this.Scoringtype.ObservationDeficiency);
+      actionIndexList = Object.keys(this.Scoringtype.CorrectiveAction);
+      completeDateIndexList = Object.keys(this.Scoringtype.CompletedDate);
     }
     else {
       noteIndexList = Object.keys(this.Scoringtype.inspectionNotes);
+
+      observeIndexList = Object.keys(this.Scoringtype.ObservationDeficiency);
+      actionIndexList = Object.keys(this.Scoringtype.CorrectiveAction);
+      completeDateIndexList = Object.keys(this.Scoringtype.CompletedDate);
+
       indexObj = this.Scoringtype.ratingValue;
       if (indexObj) {
         for (var j = 0; j < indexObj.length; j++) {
@@ -257,6 +291,11 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
       var starRating = null;
       var notes = null;
       var questionid = null;
+
+      var observe = null;
+      var action = null;
+      var completedate = null;
+
       var i = 0;
       var j = 0;
       var k = 0;
@@ -264,27 +303,62 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
       for (var i = i; i < questionidList.length; i++) {// includes actual qn ids
         questionValues = "Pass";
         notes = null;
+
+        observe = null;
+        action = null;
+        completedate = null;
+
         questionid = questionidList[i];
         for (j = 0; j < noteIndexList.length; j++) {
           if (noteIndexList[j] === questionid) {
             notes = this.Scoringtype.inspectionNotes[questionid].trim();
-            break;
+            // break;
+          }
+
+          if (observeIndexList[j] === questionid) {
+            observe = this.Scoringtype.ObservationDeficiency[questionid];
+            if (observe) {
+              observe = observe.trim();
+            }
+            //  break;
+          }
+
+          if (actionIndexList[j] === questionid) {
+            action = this.Scoringtype.CorrectiveAction[questionid];
+            if (action) {
+              action = action.trim();
+            }
+            //  break;
+          }
+
+          if (completeDateIndexList[j] === questionid) {
+            completedate = this.Scoringtype.CompletedDate[questionid];
+            completedate = this.convert_DT(completedate);
           }
 
         }
 
-        for (var k = 0; k < ratingIndexlist.length; k++) {
-          if (ratingIndexlist[k] === questionid) {
-            this.lastIndexValue = this.lastIndex(ratingIndexlist, questionidList[i]);
-            console.log("last indexfor " + ratingIndexlist[k] + " is " + this.lastIndexValue);
+        // for (var k = 0; k < ratingIndexlist.length; k++) {
+        //   if (ratingIndexlist[k] === questionid) {
+        //     this.lastIndexValue = this.lastIndex(ratingIndexlist, questionidList[i]);
+        //     console.log("last indexfor " + ratingIndexlist[k] + " is " + this.lastIndexValue);
 
-            if (this.lastIndexValue !== null) {
-              questionValues = this.Scoringtype.ratingValue[this.lastIndexValue].rating;
-            } else {
-              questionValues = "Pass";
-            }
-            break;
+        //     if (this.lastIndexValue !== null) {
+        //       questionValues = this.Scoringtype.ratingValue[this.lastIndexValue].rating;
+        //     } else {
+        //       questionValues = "Pass";
+        //     }
+        //     break;
+        //   }
+        // }
+
+        if (this.Scoringtype.rating_yn[questionid]) {
+          questionValues = this.Scoringtype.rating_yn[questionid];
+          if (questionValues === 'undefined') {
+            questionValues = "Pass";
           }
+        } else {
+          questionValues = "Pass";
         }
 
         this.inspectionDetail =
@@ -296,6 +370,10 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
           templateQstnValues: questionValues,
           templateid: this.Temp_templateId,
           questionid: questionid,
+
+          ObservationDeficiency: observe,
+          CorrectiveAction: action,
+          CompletedDate: completedate,
 
         };
         this.inspectionService
@@ -351,13 +429,13 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
 
           // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager',this.inspKey$] } }]);
 
-          // if (this.role == 'Manager') {
-          //   this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager', this.inspKey$] } }]);
-          // }
-          // // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
-          // else if (this.role == 'Supervisor') {
-          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewInspectionManager', this.inspKey$] } }]);
-          // }
+          if (this.role == 'Manager') {
+            this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager', this.inspKey$] } }]);
+          }
+          // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
+          else if (this.role == 'Supervisor') {
+            this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewInspectionManager', this.inspKey$] } }]);
+          }
         });
 
     }
@@ -366,6 +444,11 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
       var starRating = null;
       var notes = null;
       var questionid = null;
+
+      var observe = null;
+      var action = null;
+      var completedate = null;
+
       var i = 0;
       var j = 0;
       var k = 0;
@@ -373,25 +456,91 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
       for (i = i; i < questionidList.length; i++) {// includes actual qn ids
         questionValues = null;
         notes = null;
+
+        observe = null;
+        action = null;
+        completedate = null;
+
         questionid = questionidList[i];
         for (j = 0; j < noteIndexList.length; j++) {
           if (noteIndexList[j] === questionid) {
             notes = this.Scoringtype.inspectionNotes[questionid].trim();
-            break;
+            // break;
+          }
+
+          if (observeIndexList[j] === questionid) {
+            observe = this.Scoringtype.ObservationDeficiency[questionid];
+            if (observe) {
+              observe = observe.trim();
+            }
+            //     break;
+          }
+
+          if (actionIndexList[j] === questionid) {
+            action = this.Scoringtype.CorrectiveAction[questionid];
+            if (action) {
+              action = action.trim();
+            }
+            //      break;
+          }
+
+          if (completeDateIndexList[j] === questionid) {
+            completedate = this.Scoringtype.CompletedDate[questionid];
+            completedate = this.convert_DT(completedate);
           }
         }
-        for (k = 0; k < ratingIndexlist.length; k++) {
-          this.lastIndexValue = 0;
-          if (ratingIndexlist[k] === questionid) {
-            this.lastIndexValue = this.lastIndex(ratingIndexlist, questionidList[i]);
-            var x = this.lastIndexValue.length - ratingIndexlist.length;
-            if (this.lastIndexValue != null) {
-              questionValues = this.Scoringtype.ratingValue[this.lastIndexValue].rating;
+        // for (k = 0; k < ratingIndexlist.length; k++) {
+        //   this.lastIndexValue = 0;
+        //   if (ratingIndexlist[k] === questionid) {
+        //     this.lastIndexValue = this.lastIndex(ratingIndexlist, questionidList[i]);
+        //     var x = this.lastIndexValue.length - ratingIndexlist.length;
+        //     if (this.lastIndexValue != null) {
+        //       questionValues = this.Scoringtype.ratingValue[this.lastIndexValue].rating;
+        //     }
+        //     else {
+        //       questionValues = null;
+        //     }
+        //     break;
+        //   }
+        // }
+        if (this.ScoreName === '3 Star') {
+          for (k = 0; k < ratingIndexlist.length; k++) {
+            this.lastIndexValue = 0;
+            if (ratingIndexlist[k] === questionid) {
+              this.lastIndexValue = this.lastIndex(ratingIndexlist, questionidList[i]);
+              var x = this.lastIndexValue.length - ratingIndexlist.length;
+              if (this.lastIndexValue != null) {
+                questionValues = this.Scoringtype.ratingValue[this.lastIndexValue].rating;
+              }
+              else {
+                questionValues = null;
+              }
+              break;
             }
-            else {
-              questionValues = null;
+          }
+        }
+        else if (this.ScoreName === '5 Star') {
+          for (k = 0; k < ratingIndexlist.length; k++) {
+            this.lastIndexValue = 0;
+            if (ratingIndexlist[k] === questionid) {
+              this.lastIndexValue = this.lastIndex(ratingIndexlist, questionidList[i]);
+              var x = this.lastIndexValue.length - ratingIndexlist.length;
+              if (this.lastIndexValue != null) {
+                questionValues = this.Scoringtype.ratingValue[this.lastIndexValue].rating;
+              }
+              else {
+                questionValues = null;
+              }
+              break;
             }
-            break;
+          }
+        }
+        else {
+
+          if (this.Scoringtype.rating_yn[questionid]) {
+            questionValues = this.Scoringtype.rating_yn[questionid];
+          } else {
+            questionValues = null;
           }
         }
 
@@ -404,6 +553,11 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
           templateQstnValues: questionValues,
           templateid: this.Temp_templateId,
           questionid: questionid,
+
+          ObservationDeficiency: observe,
+          CorrectiveAction: action,
+          CompletedDate: completedate,
+
 
         };
         this.inspectionService
@@ -456,118 +610,16 @@ export class SupervsrinspectiontemplateComponent implements OnInit {
           }
           // this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['Viewinspctnbysprvsr'] } }]);
           // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager',this.inspKey$] } }]);
-          // if (this.role == 'Manager') {
-          //   this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager', this.inspKey$] } }]);
-          // }
+          if (this.role == 'Manager') {
+            this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['ViewInspectionManager', this.inspKey$] } }]);
+          }
           // else if (this.role == 'Employee' && this.IsSupervisor == 1) {
-          // else if (this.role == 'Supervisor') {
-          this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewInspectionManager', this.inspKey$] } }]);
-          // }
+          else if (this.role == 'Supervisor') {
+            this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewInspectionManager', this.inspKey$] } }]);
+          }
         });
 
     }
-    // else if (questionidList.length === totalQuestions && this.ScoreName === '0-25') {
-    //   var questionValues1;
-    //   var starRating = null;
-    //   var notes = null;
-    //   var questionid = null;
-    //   var i = 0;
-    //   var j = 0;
-    //   var k = 0;
-
-    //   for (var i = i; i < questionidList.length; i++) {// includes actual qn ids
-    //     questionValues1;
-    //     notes = null;
-    //     questionid = questionidList[i];
-    //     for (j = 0; j < noteIndexList.length; j++) {
-    //       if (noteIndexList[j] === questionid) {
-    //         notes = this.Scoringtype.inspectionNotes[questionid];
-    //         if (notes) {
-    //           notes = notes.trim();
-    //         }
-    //         break;
-    //       }
-
-    //     }
-
-    //     for (var k = 0; k < ratingIndexlist.length; k++) {
-    //       if (ratingIndexlist[k] === questionid) {
-    //         this.lastIndexValue = this.lastIndex(ratingIndexlist, questionidList[i]);
-    //         console.log("last indexfor " + ratingIndexlist[k] + " is " + this.lastIndexValue);
-
-    //         if (this.lastIndexValue !== null) {
-    //           questionValues1 = this.Scoringtype.ratingValue[this.lastIndexValue].rating;
-    //         } else {
-    //           questionValues1 = "";
-    //         }
-    //         break;
-    //       }
-    //     }
-
-    //     this.inspectionDetail =
-    //     {
-    //       OrganizationID: this.OrganizationID,
-    //       inspectionkey: this.inspKey$,
-    //       employeekey: this.employeekey,
-    //       inspectionnotes: notes,
-    //       templateQstnValues: questionValues,
-    //       templateid: this.Temp_templateId,
-    //       questionid: questionid,
-
-    //     };
-    //     this.inspectionService
-    //       .InspectionSaveService(this.inspectionDetail)
-    //   }
-    //   this.inspectionDetail1 =
-    //   {
-    //     OrganizationID: this.OrganizationID,
-    //     InspectionorderKey: this.inspKey$,
-    //     EmployeeKey: this.employeekey,
-
-    //   };
-    //   this.inspectionService
-    //     .inspectionCompletedService(this.inspectionDetail1).subscribe(res => {
-    //       if (this.isMailed == true) {
-    //         this.inspectionService.emailForInspectionComp(this.inspectionAssignEmp, this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-
-    //           this.emp_EmailId = data[0].AssignEmpEmailId;
-    //           this.audit_EmailId = data[0].EmailID;
-    //           if (!(this.emp_EmailId)) {
-    //             alert('Employee Has No Email ID');
-    //             return;
-    //           }
-    //           if (!(this.audit_EmailId)) {
-    //             alert('Auditor Has No Email ID');
-    //             return;
-    //           }
-    //           this.inspectionService.getInspectionDetailsForEmail(this.inspKey$, this.OrganizationID).subscribe((inspectionEmail: any[]) => {
-
-    //             var emailBody;
-    //             emailBody = '<b>' + inspectionEmail[0].TemplateName + '</b>' + '(' + inspectionEmail[0].ScoreName + ')' + '<br>'
-
-    //             for (var i = 0; i < inspectionEmail.length; i++) {
-    //               emailBody = emailBody + inspectionEmail[i].Question + ' : ' + inspectionEmail[i].Value + '<br>';
-
-    //             }
-
-    //             const obj = {
-    //               from: this.audit_EmailId,
-    //               to: this.emp_EmailId,
-    //               subject: 'Inspection By -' + inspectionEmail[0].InspectorName,
-    //               html: emailBody
-    //             };
-    //             const url = ConectionSettings.Url + "/sendmail";
-    //             return this.http.post(url, obj)
-    //               .subscribe(res => alert('Mail Sent Successfully...'));
-
-    //           });
-    //         });
-    //       }
-    //       this.router.navigate(['/SupervisorDashboard', { outlets: { Superout: ['ViewInspectionManager', this.inspKey$] } }]);
-
-    //     });
-
-    // }
   }
 
   FileSelected() {

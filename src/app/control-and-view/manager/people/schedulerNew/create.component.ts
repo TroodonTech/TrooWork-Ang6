@@ -177,7 +177,7 @@ export class CreateComponent implements OnInit {
       alert("Event has been Created !");
 
       // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
-
+this.ds.setExpandFlagNewComp(2);
       if (this.role == 'Manager') {
         this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
         // } else if (this.role == 'Employee' && this.IsSupervisor == 1) {

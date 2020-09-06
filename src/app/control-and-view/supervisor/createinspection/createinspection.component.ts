@@ -93,16 +93,16 @@ export class CreateinspectionComponent implements OnInit {
 
   selectFloorfromBuildings(facKey) {
     this.facikey = facKey;
-    if(facKey){
-    this.inspectionService
-      .getallFloorNames(facKey, this.OrganizationID)
-      .subscribe((data: Inspection[]) => {
+    if (facKey) {
+      this.inspectionService
+        .getallFloorNames(facKey, this.OrganizationID)
+        .subscribe((data: Inspection[]) => {
 
-        this.floors = data;
-      });
+          this.floors = data;
+        });
     }
-    else{
-      this.Floor='';
+    else {
+      this.Floor = '';
     }
   }
   selectZoneRoomRoomtypefromFloor(flkey) {
@@ -151,10 +151,10 @@ export class CreateinspectionComponent implements OnInit {
       }
 
     }
-    else{
+    else {
       this.selectZoneRoomRoomtypefromFloor(this.Floor);
-      this.RoomType='';
-      this.RoomKey='';
+      this.RoomType = '';
+      this.RoomKey = '';
     }
   }
 
@@ -208,6 +208,31 @@ export class CreateinspectionComponent implements OnInit {
     var p = "";
     p = today_DT + " " + h + ":" + mi + ":" + s;
 
+    if (!this.Employee) {
+      this.Employee = - 1;
+    }
+    if (!this.fromdate) {
+      var dateFrom = this.convert_DT(new Date());
+    }
+    else {
+      if (this.convert_DT(this.fromdate) < this.convert_DT(new Date())) {
+        alert("Date can't be less than current date");
+        return;
+      } else {
+        dateFrom = this.convert_DT(this.fromdate);
+      }
+    }
+    if (!this.todate) {
+      var date2 = dateFrom;
+    }
+    else {
+      if (this.convert_DT(this.todate) < dateFrom) {
+        alert("To date can't be less than start date");
+        return;
+      } else {
+        date2 = this.convert_DT(this.todate);
+      }
+    }
     if (!this.TemplateID) {
       alert("Template Name is not provided");
     }
@@ -219,6 +244,7 @@ export class CreateinspectionComponent implements OnInit {
     }
     else if (!this.RoomKey && !this.RoomType) {
       alert("Room or Room Type should be provided");
+      return;
     }
     else if (!this.time1) {
       alert("Time should be provided");
@@ -226,28 +252,42 @@ export class CreateinspectionComponent implements OnInit {
     else if (!(this.SupervisorKey)) {
       alert("Auditor should be provided");
     }
+    else if (this.convert_DT(date2) < this.convert_DT(dateFrom)) {
+      alert("Please check your start date!");
+    }
     else {
-      if (!this.Employee) {
-        this.Employee = - 1;
-      }
-      console.log(this.fromdate);
-      console.log(this.todate);
-      if (!this.fromdate) {
-        var dateFrom = this.convert_DT(new Date());
-      }
-      else {
-        dateFrom = this.convert_DT(this.fromdate);
-      }
-      if (!this.todate) {
-        var date2 = dateFrom;
-      }
-      else {
-        date2 = this.convert_DT(this.todate);
-      }
+
 
       var q = this.time1.getHours();
       var q1 = this.time1.getMinutes();
       var newTime = q + ":" + q1;
+
+      var roomlistObj = [];
+      var roomlist = [];
+      //  ;
+      roomlistObj = this.room;
+      var roomString;
+      if (this.RoomKey) {
+        roomString = this.RoomKey;
+      }
+      else {
+        if (roomlistObj) {
+          for (var j = 0; j < roomlistObj.length; j++) {
+            roomlist.push(roomlistObj[j].RoomKey);
+          }
+          roomString = roomlist.join(',');
+        }
+        else {
+          alert('Room has no value');
+          return;
+        }
+      }
+      this.RoomKey = roomString;
+      if (roomlistObj.length === 0) {
+        alert('Room is not provided');
+        return;
+      }
+
 
       this.inspectionService.createInspections(this.TemplateID, this.SupervisorKey, dateFrom, date2, this.theCheckbox, newTime, this.RoomKey, this.Employee, this.employeekey, this.OrganizationID, p).subscribe(res => {
         alert("Successfully Added");

@@ -107,8 +107,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
   name: String;
   IsSupervisor: Number;
   employeekey;
-  keepActive;
-  keep_active;
+
   //converting date from GMT to yyyy/mm/dd
   public convert_DT(str) {
     var date = new Date(str),
@@ -563,11 +562,27 @@ export class CreateBatchWorkorderComponent implements OnInit {
     if (this.RoomKey) {
       roomsString = this.RoomKey;
     } else {
+      // if (roomlistObj) {
+      //   for (var j = 0; j < roomlistObj.length; j++) {
+      //     roomList.push(roomlistObj[j].RoomKey);
+      //   }
+      //   roomsString = roomList.join(',');
+      // } else {
+      //   return;
+      // }
       if (roomlistObj) {
-        for (var j = 0; j < roomlistObj.length; j++) {
-          roomList.push(roomlistObj[j].RoomKey);
+        if (roomlistObj.length <= 100) {
+          for (var j = 0; j < roomlistObj.length; j++) {
+            roomList.push(roomlistObj[j].RoomKey);
+          }
+          roomsString = roomList.join(',');
+
         }
-        roomsString = roomList.join(',');
+        else {
+          alert("Limit for the maximum Batch workorders have reached. Maximum 100");
+          return;
+        }
+
       } else {
         return;
       }
@@ -766,13 +781,6 @@ export class CreateBatchWorkorderComponent implements OnInit {
     else {
       this.Gps_SnapShot = 0;
     }
-    if (this.keepActive == true) {
-      this.keep_active = 1;
-    }
-    else {
-      this.keep_active = 0;
-    }
-
     if (this.newType == true) {//checking for new workorder type
       if (this.newworkordertypetext) {
         this.WorkOrderServiceService
@@ -812,8 +820,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
                     repeatinterval: this.rep_interval,
                     occursonday: this.occurs_on,
                     occurstype: this.occurs_type,
-                    IsSnapshot: this.Gps_SnapShot,
-                    KeepActive: this.keep_active
+                    IsSnapshot: this.Gps_SnapShot
                   };
                   this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
                     alert("Batch work-order created successfully");
@@ -856,8 +863,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
         repeatinterval: this.rep_interval,
         occursonday: this.occurs_on,
         occurstype: this.occurs_type,
-        IsSnapshot: this.Gps_SnapShot,
-        KeepActive: this.keep_active
+        IsSnapshot: this.Gps_SnapShot
       };
       this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {
         alert("Batch work-order created successfully");
@@ -1067,11 +1073,27 @@ export class CreateBatchWorkorderComponent implements OnInit {
     if (this.EquipmentKey) {
       this.eqp_key = this.EquipmentKey;
     } else {
+      // if (EquListObj) {
+      //   for (var j = 0; j < EquListObj.length; j++) {
+      //     equList.push(EquListObj[j].EquipmentKey);
+      //   }
+      //   this.eqp_key = equList.join(',');
+      // }
       if (EquListObj) {
-        for (var j = 0; j < EquListObj.length; j++) {
-          equList.push(EquListObj[j].EquipmentKey);
+        if (EquListObj.length <= 100) {
+          for (var j = 0; j < EquListObj.length; j++) {
+            equList.push(EquListObj[j].EquipmentKey);
+          }
+          this.eqp_key = equList.join(',');
+
         }
-        this.eqp_key = equList.join(',');
+        else{
+          alert("Limit for the maximum batch workorders have reached. Maximum 100");
+          return;
+        }
+
+      } else {
+        return;
       }
     }
     if (this.EmployeeKey) {
@@ -1207,12 +1229,6 @@ export class CreateBatchWorkorderComponent implements OnInit {
     else {
       this.Gps_SnapShot = 0;
     }
-    if (this.keepActive == true) {
-      this.keep_active = 1;
-    }
-    else {
-      this.keep_active = 0;
-    }
     if (this.newType == true) {
       if (this.newworkordertypetext) {
         this.WorkOrderServiceService
@@ -1252,8 +1268,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
                     repeatinterval: this.rep_interval,
                     occursonday: this.occurs_on,
                     occurstype: this.occurs_type,
-                    IsSnapshot: this.Gps_SnapShot,
-                    KeepActive: this.keep_active
+                    IsSnapshot: this.Gps_SnapShot
                   };
                   this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
                     alert("Batch work-order created successfully");
@@ -1296,8 +1311,7 @@ export class CreateBatchWorkorderComponent implements OnInit {
         repeatinterval: this.rep_interval,
         occursonday: this.occurs_on,
         occurstype: this.occurs_type,
-        IsSnapshot: this.Gps_SnapShot,
-        KeepActive: this.keep_active
+        IsSnapshot: this.Gps_SnapShot
       };
       this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
         alert("Batch work-order created successfully");

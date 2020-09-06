@@ -135,8 +135,7 @@
 
     <div class="row col-md-12">
       <div style="margin-left: 45%;margin-bottom: 2%;">
-        <button type="button" class="btn btn-success"
-          (click)=genFlagActivate();viewWO_Filter();><b>GENERATE</b></button>
+        <button type="button" class="btn btn-success" (click)=genFlagActivate();viewWO_Filter();><b>GENERATE</b></button>
       </div>
     </div>
   </div><br>
@@ -158,38 +157,37 @@
         <th>Duration (Minutes)</th>
         <th>Delay Time (Minutes)</th>
         <th>Action</th>
-        <th>
-          <span *ngIf="checkflag==false">Delete</span>
-          <span *ngIf="checkflag==true">
-            <button class="btn btn-danger button_style" type="button" (click)="basicModal.show();">
-              Delete
-            </button>
-          </span>
-        </th>
+        <th *ngIf="checkflag==false">Delete</th>
+        <th *ngIf="checkflag==true"> <button class="btn btn-danger button_style" type="button"
+            (click)="basicModal.show();">
+            Delete</button></th>
         <th>Notes</th>
         <th>View</th>
       </thead>
       <tbody>
         <tr *ngFor="let x of workorderList; let i=index">
-          <td> {{x.WorkorderTypeName}} </td>
-          <td> {{x.WorkorderTime}} </td>
-          <td> {{x.WorkorderStatus}} </td>
-          <td> {{x.LastName}},{{x.FirstName}} </td>
-          <td>
-            <span *ngIf="x.RoomId==='Dummy'"> Refer notes </span>
-            <span *ngIf="x.RoomId!=='Dummy'"> {{x.RoomId}} </span>
+          <td>{{x.WorkorderTypeName}}</td>
+          <td>{{x.WorkorderTime}}</td>
+          <td> {{x.WorkorderStatus}}</td>
+          <td>{{x.LastName}},{{x.FirstName}}</td>
+          <td *ngIf="x.RoomId==='Dummy'">Refer notes</td>
+          <td *ngIf="x.RoomId!=='Dummy'">{{x.RoomId}}</td>
+          <td>{{x.EquipmentName}}
           </td>
-          <td> {{x.EquipmentName}} </td>
+          <!-- <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 0">YES</td>
+          <td *ngIf="x.IsReccurring === 1 && x.IsSchedule === 1">YES , {{x.ScheduleName}}</td>
+          <td *ngIf="x.IsReccurring === 0 && x.IsSchedule === 1">NO , {{x.ScheduleName}}</td>
+          <td *ngIf="x.IsReccurring === 0 && x.IsSchedule === 0">NO</td> -->
           <td>
             <span *ngIf="x.IsReccurring === 1 && x.IsSchedule === 0">YES</span>
             <span *ngIf="x.IsReccurring === 1 && x.IsSchedule === 1">YES , {{x.ScheduleName}}</span>
             <span *ngIf="x.IsReccurring === 0 && x.IsSchedule === 1">NO , {{x.ScheduleName}}</span>
             <span *ngIf="x.IsReccurring === 0 && x.IsSchedule === 0">NO</span>
           </td>
-          <td> {{x.checkin}} </td>
-          <td> {{x.checkout}} </td>
-          <td> {{x.duration}} </td>
-          <td> {{x.DelayTime}} </td>
+          <td>{{x.checkin}}</td>
+          <td>{{x.checkout}}</td>
+          <td>{{x.duration}}</td>
+          <td>{{x.DelayTime}}</td>
           <td [style.background]="x.Color">
             <span *ngIf="((x.IsReccurring === 0) && ( x.WorkorderTypeKey !== -1))">
               <a [routerLink]="['EditWorkOrder',x.WorkorderKey]" class="btn btn-success"
@@ -227,16 +225,12 @@
                 (click)="canceltheWorkorder(x.WorkorderKey)"><b>CANCEL</b></button>
             </span>
           </td>
-          <td>
-            <span *ngIf="x.WorkorderStatus !== 'Scheduled'"></span>
-            <span *ngIf="x.WorkorderStatus === 'Scheduled'">
-              <input type="checkbox" [(ngModel)]="x.workorderCheckValue"
-                (change)="toggleVisibility($event);checkBoxValueForDelete(i,x.workorderCheckValue, x.WorkorderKey);">
-            </span>
-          </td>
+          <td *ngIf="x.WorkorderStatus !== 'Scheduled'"></td>
+          <td *ngIf="x.WorkorderStatus === 'Scheduled'"> <input type="checkbox" [(ngModel)]="x.workorderCheckValue"
+              (change)="toggleVisibility($event);checkBoxValueForDelete(i,x.workorderCheckValue, x.WorkorderKey);"></td>
+
           <td style="width:15%;word-wrap: break-word;">{{x.WorkorderNotes}}</td>
-          <td>
-            <a href="pho1/{{x.ImageName}}" target="_self" onclick="window.open(this.href, 'popup', 'width=600,height=600,scrollbars=no,resizable=no');
+          <td> <a href="pho1/{{x.ImageName}}" target="_self" onclick="window.open(this.href, 'popup', 'width=600,height=600,scrollbars=no,resizable=no');
                               return false;">
               <button type="button" class="btn btn-default btn-xs"
                 *ngIf="x.IsPhotoRequired === 1 && x.WorkorderStatus === 'Completed'">View

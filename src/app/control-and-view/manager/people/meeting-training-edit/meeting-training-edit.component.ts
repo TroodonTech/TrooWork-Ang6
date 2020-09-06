@@ -40,7 +40,7 @@ export class MeetingTrainingEditComponent implements OnInit {
   Supervisor = [];
   JobTitle;
   managerList;
-  Manager = [];
+  Manager=[];
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -58,6 +58,7 @@ export class MeetingTrainingEditComponent implements OnInit {
     }
     return window.atob(output);
   }
+
 
   convert_DT(str) {
     var date = new Date(str),
@@ -95,6 +96,7 @@ export class MeetingTrainingEditComponent implements OnInit {
     fieldId: 'my-date-picker', // ID to assign to the input field. Defaults to datepicker-<counter>
     useEmptyBarTitle: false, // Defaults to true. If set to false then barTitleIfEmpty will be disregarded and a date will always be shown 
   };
+
 
   constructor(private peopleServ: PeopleServiceService, private router: Router, private route: ActivatedRoute) {
     this.route.params.subscribe(params => this.eventKey$ = params.EventKey);
@@ -171,6 +173,10 @@ export class MeetingTrainingEditComponent implements OnInit {
       alert("Event host is not provided");
       return;
     }
+    // if (!Venue || !Venue.trim()) {
+    //   alert("Venue is not provided");
+    //   return;
+    // }
 
     if (this.Employee.length == 0) {
       alert("Employee is not selected");
@@ -190,8 +196,11 @@ export class MeetingTrainingEditComponent implements OnInit {
       var newDate = this.convert_DT(new Date());
     }
     else {
+
       newDate = this.convert_DT(this.mtngDate);
+
     }
+
 
     var EmployeeKeyString;
     if (this.Employee.length == 0) {
@@ -230,6 +239,8 @@ export class MeetingTrainingEditComponent implements OnInit {
         }
       }
       );
+
+
   }
   //Pooja's code starts
   //for selecting employees with jobtitle,Supervisor and department filter starts
@@ -239,7 +250,7 @@ export class MeetingTrainingEditComponent implements OnInit {
       this.JobTitle = null;
     }
     if (this.Manager.length == 0) {
-      Mang = null;
+       Mang = null;
     }
     else {
       var ManagerList = [];
@@ -257,6 +268,7 @@ export class MeetingTrainingEditComponent implements OnInit {
     if (!(this.DepartmentKey)) {
       this.DepartmentKey = null;
     }
+
 
     this.peopleServ.selectEmpWithJobTSprvsrAndDept(this.employeekey, this.OrganizationID, this.JobTitle, Mang, this.DepartmentKey)
       .subscribe((data: any[]) => {
@@ -294,15 +306,17 @@ export class MeetingTrainingEditComponent implements OnInit {
     //     this.supervisor = data;
     //   });
     this.peopleServ
-      .getmanagersForEmp(this.employeekey, this.OrganizationID)
-      .subscribe((data: any[]) => {
-        this.managerList = data;
-      });
+    .getmanagersForEmp(this.employeekey, this.OrganizationID)
+    .subscribe((data: any[]) => {
+      this.managerList = data;
+    });
     this.peopleServ
       .getallEventList(this.employeekey, this.OrganizationID)
       .subscribe((data: People[]) => {
         this.event = data;
       });
+
+
 
     this.peopleServ
       .getMeetingTrainingDetails(this.eventKey$, this.actionKey$, this.employeekey, this.OrganizationID)

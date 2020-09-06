@@ -67,7 +67,6 @@ export class InspectionAuditReportComponent implements OnInit {
     barTitleFormat: 'MMMM YYYY',
     dayNamesFormat: 'dd',
     firstCalendarDay: 0, // 0 - Sunday, 1 - Monday
-    maxDate: new Date(Date.now()),
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field
@@ -97,7 +96,7 @@ export class InspectionAuditReportComponent implements OnInit {
     this.showHide1 = false;
 
     this.inspectionService
-      .getTemplateNameForAuditReport(this.employeekey, this.OrganizationID)
+      .getTemplateName(this.employeekey, this.OrganizationID)
       .subscribe((data: any[]) => {
         this.templateNameList = data;
       });

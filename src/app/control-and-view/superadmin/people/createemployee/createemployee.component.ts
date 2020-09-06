@@ -100,7 +100,6 @@ export class CreateemployeeComponent implements OnInit {
     return window.atob(output);
   }
   constructor(private PeopleServiceService: PeopleServiceService, private router: Router) { }
-  
   OrganizationChanged() {
     this.PeopleServiceService.getJobTitleforadmindd(this.employeekey, this.OrganizationID).subscribe((data: People[]) => {
       this.jobtitle = data;
@@ -109,7 +108,6 @@ export class CreateemployeeComponent implements OnInit {
       this.department = data;
     });
   }
-  
   createEmployee() {
 
     var manKey;
@@ -195,10 +193,10 @@ export class CreateemployeeComponent implements OnInit {
       alert("Wrong Birth Date !");
       return;
     }
-    if (HD > currentDate) {
-      alert("Wrong Hire Date !");
-      return;
-    }
+    // if (HD > currentDate) {
+    //   alert("Wrong Hire Date !");
+    //   return;
+    // }
     if (HD < BD) {
       alert("Hire Date must be greater than birth date !");
       return;

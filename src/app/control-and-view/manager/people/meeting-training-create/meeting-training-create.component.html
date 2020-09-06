@@ -1,5 +1,4 @@
-<div
-    style="overflow-x: hidden;padding-left: 9rem;padding-right: 9rem; padding-top:3% !important; padding-bottom:0rem !important;">
+<div style="overflow-x: hidden;padding-left: 9rem;padding-right: 9rem; padding-top:3% !important; padding-bottom:0rem !important;">
     <!-- <div class="row col-md-12 ">
         <h4 style="margin-left: 40%;">ASSIGN MEETING/TRAINING/EVENT</h4>
     </div> -->
@@ -31,15 +30,13 @@
             <div class="col-md-6 ">
                 <div class="form-group">
                     <label>Event Host* </label>
-                    <input type="text" style="background-color: #D4F4FF !important;width: 99.4%" maxlength="40"
-                        class="form-control " [(ngModel)]="eventHost">
+                    <input type="text" style="background-color: #D4F4FF !important;width: 99.4%" maxlength="40" class="form-control " [(ngModel)]="eventHost">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group " style="margin-left: 1rem;">
                     <label>Venue</label>
-                    <input type="text" style="background-color: #D4F4FF !important;" maxlength="40"
-                        class="form-control " [(ngModel)]="Venue">
+                    <input type="text" style="background-color: #D4F4FF !important;" maxlength="40" class="form-control " [(ngModel)]="Venue">
                 </div>
             </div>
         </div>
@@ -55,16 +52,14 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="col-sm-3 col-md-3 col-lg-3 ">Start Time*</label><br>
-                <p-calendar [inputStyle]="{'width':'277%'}" [(ngModel)]="time1" [timeOnly]="true" hourFormat="12">
-                </p-calendar>
+                <p-calendar [inputStyle]="{'width':'277%'}" [(ngModel)]="time1" [timeOnly]="true" hourFormat="12"></p-calendar>
             </div>
 
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class="col-sm-3 col-md-3 col-lg-3 ">End Time*</label><br>
-                <p-calendar [inputStyle]="{'width':'277%'}" [(ngModel)]="time2" [timeOnly]="true" hourFormat="12">
-                </p-calendar>
+                <p-calendar [inputStyle]="{'width':'277%'}" [(ngModel)]="time2" [timeOnly]="true" hourFormat="12"></p-calendar>
             </div>
         </div>
         <h5 class="col-md-12"><label>SELECT EMPLOYEES</label></h5>
@@ -83,9 +78,8 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="floorname">Manager </label>
-                <ng-multiselect-dropdown [placeholder]="'Select Manager'" [data]="managerList" [(ngModel)]="Manager"
-                    (onDeSelect)="selectEmp()" [settings]="dropdownSettings2" (onSelect)="selectEmp()"
-                    (onDeSelectAll)="selectEmp()" (onSelectAll)="selectEmp()">
+                <ng-multiselect-dropdown [placeholder]="'Select Manager'" [data]="managerList" [(ngModel)]="Manager" (onDeSelect)="selectEmp()"
+                    [settings]="dropdownSettings2" (onSelect)="selectEmp()" (onDeSelectAll)="selectEmp()" (onSelectAll)="selectEmp()">
                 </ng-multiselect-dropdown>
                 <!-- <select style="background-color: #D4F4FF !important;" class="form-control "
                     [(ngModel)]="Supervisor" (change)="selectEmpOfSupervisor($event.target.value)">
@@ -120,8 +114,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>Notes</label>
-                <textarea class="form-control rounded-1 " [(ngModel)]="Notes" rows="8"
-                    style="resize: none;width: 49%"></textarea>
+                <textarea class="form-control rounded-1 " [(ngModel)]="Notes" rows="8" style="resize: none;width: 49%"></textarea>
             </div>
         </div>
         <div class="row col-md-12" style="margin-left: 45%;">
@@ -133,22 +126,21 @@
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="eventHost">Event Type* </label></h5>
             <div class=" col-md-8" style="text-align:left">
-                <input type="text" placeholder="Event Type" style="background-color: #D4F4FF !important;"
-                    class="form-control" [(ngModel)]="Event_Type">
+                <input type="text" placeholder="Event Type" style="background-color: #D4F4FF !important;" class="form-control"
+                    [(ngModel)]="Event_Type">
             </div>
         </div>
         <div class="row col-md-12">
             <h5 style="text-align:right" class="col-md-4"><label for="Venue">Event Name* </label></h5>
             <div class=" col-md-8" style="text-align:left">
-                <input type="text" placeholder="Event Name" style="background-color: #D4F4FF !important;"
-                    class="form-control" [(ngModel)]="Event_Name">
+                <input type="text" placeholder="Event Name" style="background-color: #D4F4FF !important;" class="form-control"
+                    [(ngModel)]="Event_Name">
             </div>
         </div>
         <div class="row col-md-12">
             <h5 style="text-align:right;margin-top: 2rem;" class="col-md-4"><label for="Venue">Description </label></h5>
             <div class="col-md-8" style="text-align:left">
-                <textarea class="form-control rounded-1" [(ngModel)]="Description" rows="5" maxlength="240"
-                    style="resize: none;width: 100% !important;"></textarea>
+                <textarea class="form-control rounded-1" [(ngModel)]="Description" rows="5" maxlength="240" style="resize: none;width: 100% !important;"></textarea>
             </div>
         </div>
         <div class="row col-md-12" style="margin-left: 45%;margin-top: 1.5rem">

@@ -194,10 +194,10 @@ export class EditEmployeeDetailsAdminComponent implements OnInit {
       alert("Wrong Birth Date !");
       return;
     }
-    if (hiredt > currentDate) {
-      alert("Wrong Hire Date !");
-      return;
-    }
+    // if (hiredt > currentDate) {
+    //   alert("Wrong Hire Date !");
+    //   return;
+    // }
     if (HD < BD) {
       alert("Hire Date must be greater than birth date !");
       return;

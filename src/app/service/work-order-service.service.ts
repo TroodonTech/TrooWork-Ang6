@@ -492,4 +492,8 @@ export class WorkOrderServiceService {
       .post(url, obj);
   }
   // Prakash Code Ends here
+  getLastCleanedDetails(roomKey, orgID) {
+    return this.http.
+      get(ConectionSettings.Url + '/getLastCleaningDetails?roomKey=' + roomKey + "&orgID=" + orgID);
+  }
 }

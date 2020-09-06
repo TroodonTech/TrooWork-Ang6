@@ -81,7 +81,6 @@ export class EmployeesDowntimeReportComponent implements OnInit {
     barTitleFormat: 'MMMM YYYY',
     dayNamesFormat: 'dd',
     firstCalendarDay: 0,
-    maxDate: new Date(Date.now()),
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field
@@ -194,8 +193,8 @@ export class EmployeesDowntimeReportComponent implements OnInit {
         gridLines: {
           display: true
         },
-        categoryPercentage: 1.0,
-        barPercentage: 0.5,
+        // categoryPercentage: 1.0,
+        // barPercentage: 0.5,
         ticks: {
           beginAtZero: true,
           fontFamily: "'Open Sans Bold', sans-serif",
@@ -209,7 +208,7 @@ export class EmployeesDowntimeReportComponent implements OnInit {
         },
       }],
       yAxes: [{
-        barThickness: 100,
+        // barThickness: 100,
         display: true,
         gridLines: {
           display: true

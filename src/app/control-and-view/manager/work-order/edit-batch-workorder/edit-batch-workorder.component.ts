@@ -66,8 +66,7 @@ export class EditBatchWorkorderComponent implements OnInit {
   occursonday;
   GpsSnapShot;
   Gps_SnapShot;
-  KeepActive;
-  Keep_Active;
+
   workorderCreation;
   timetable = { times: [] };
   monthlyDays = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];//for selecting day of a month in recurring option(on gap of dropdown)
@@ -105,6 +104,7 @@ export class EditBatchWorkorderComponent implements OnInit {
   EquipmentNameList;
   Times;
   RoomNameList;
+  RoomKeysList;
   role: String;
   name: String;
   employeekey: Number;
@@ -217,9 +217,18 @@ export class EditBatchWorkorderComponent implements OnInit {
         this.BatchScheduleNameKey = this.WOEditList.BatchScheduleNameKey;
         if (this.WOEditList.EquipmentKey == -1) {
           this.WorkOrderServiceService
-            .getRoomList(this.WOEditList.RoomKeyList, this.OrganizationID)
+            .getRoomList(this.WOEditList.WorkorderScheduleKey, this.OrganizationID)
             .subscribe((data: any[]) => {
-              this.RoomNameList = data[0].RoomText;
+
+              var rList = [];
+              var rkList = [];
+              for (var j = 0; j < data.length; j++) {
+                rList.push(data[j].RoomText);
+                rkList.push(data[j].RoomKeyText);
+              }
+              this.RoomKeysList = rList.join(',');
+              this.RoomNameList = rkList.join(',');
+
             });
         }
         //services for populating dropdown with floornames,zone names,roomtype names,room names,equipment names,schedule names
@@ -319,12 +328,6 @@ export class EditBatchWorkorderComponent implements OnInit {
         }
         else {
           this.GpsSnapShot = false;
-        }
-        if (this.WOEditList.KeepActive == 1) {
-          this.KeepActive = true;
-        }
-        else {
-          this.KeepActive = false;
         }
         if (this.WOEditList.IntervalType == 'd') {
 
@@ -797,11 +800,27 @@ export class EditBatchWorkorderComponent implements OnInit {
       roomsString = this.RoomNameList;
     }
     else {
+      // if (roomlistObj) {
+      //   for (var j = 0; j < roomlistObj.length; j++) {
+      //     roomList.push(roomlistObj[j].RoomKey);
+      //   }
+      //   roomsString = roomList.join(',');
+      // } else {
+      //   return;
+      // }
       if (roomlistObj) {
-        for (var j = 0; j < roomlistObj.length; j++) {
-          roomList.push(roomlistObj[j].RoomKey);
+        if (roomlistObj.length <= 100) {
+          for (var j = 0; j < roomlistObj.length; j++) {
+            roomList.push(roomlistObj[j].RoomKey);
+          }
+          roomsString = roomList.join(',');
+
         }
-        roomsString = roomList.join(',');
+        else {
+          alert("Limit for the maximum Batch workorders have reached. Maximum 100");
+          return;
+        }
+
       } else {
         return;
       }
@@ -1001,13 +1020,6 @@ export class EditBatchWorkorderComponent implements OnInit {
       this.Gps_SnapShot = 0;
     }
 
-    if (this.KeepActive == true) {
-      this.Keep_Active = 1;
-    }
-    else {
-      this.Keep_Active = 0;
-    }
-
     this.workorderCreation = {
       scheduleKey: this.BatchScheduleNameKey,
       occursontime: this.workTime,
@@ -1032,8 +1044,7 @@ export class EditBatchWorkorderComponent implements OnInit {
       repeatinterval: this.rep_interval,
       occursonday: this.occurs_on,
       occurstype: this.occurs_type,
-      IsSnapshot: this.Gps_SnapShot,
-      KeepActive: this.Keep_Active
+      IsSnapshot: this.Gps_SnapShot
     };
     this.WorkOrderServiceService.addworkorderSchedule(this.workorderCreation).subscribe(res => {//service for updating wo
       this.deleteWO = {
@@ -1235,11 +1246,27 @@ export class EditBatchWorkorderComponent implements OnInit {
     } else if (this.EquipmentNameList) {
       this.eqp_key = this.EquipmentNameList;
     } else {
+      // if (EquListObj) {
+      //   for (var j = 0; j < EquListObj.length; j++) {
+      //     equList.push(EquListObj[j].EquipmentKey);
+      //   }
+      //   this.eqp_key = equList.join(',');
+      // }
       if (EquListObj) {
-        for (var j = 0; j < EquListObj.length; j++) {
-          equList.push(EquListObj[j].EquipmentKey);
+        if (EquListObj.length <= 100) {
+          for (var j = 0; j < EquListObj.length; j++) {
+            equList.push(EquListObj[j].EquipmentKey);
+          }
+          this.eqp_key = equList.join(',');
+
         }
-        this.eqp_key = equList.join(',');
+        else {
+          alert("Limit for the maximum batch workorders have reached. Maximum 100");
+          return;
+        }
+
+      } else {
+        return;
       }
     }
     if (this.EmployeeKey) {
@@ -1375,12 +1402,6 @@ export class EditBatchWorkorderComponent implements OnInit {
     else {
       this.Gps_SnapShot = 0;
     }
-    if (this.KeepActive == true) {
-      this.Keep_Active = 1;
-    }
-    else {
-      this.Keep_Active = 0;
-    }
     this.workorderCreation = {
       scheduleKey: this.BatchScheduleNameKey,
       occursontime: this.workTime,
@@ -1405,8 +1426,7 @@ export class EditBatchWorkorderComponent implements OnInit {
       repeatinterval: this.rep_interval,
       occursonday: this.occurs_on,
       occurstype: this.occurs_type,
-      IsSnapshot: this.Gps_SnapShot,
-      KeepActive: this.Keep_Active
+      IsSnapshot: this.Gps_SnapShot
     };
     this.WorkOrderServiceService.addworkorderSchedulewithEquipment(this.workorderCreation).subscribe(res => {
       this.deleteWO = {

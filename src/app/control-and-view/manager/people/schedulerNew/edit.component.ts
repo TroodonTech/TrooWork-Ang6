@@ -186,7 +186,7 @@ export class EditComponent implements OnInit {
     //   if (data[0].count > 0) {
     this.SchedulingService.SchedulerEventUpdate(obj).subscribe(data => {
       alert("Event has been Updated !");
-
+      this.ds.setExpandFlagNewComp(3);
       // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
       if (this.role == 'Manager') {
         this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
@@ -250,6 +250,7 @@ export class EditComponent implements OnInit {
     if (confirmBox == true) {
       this.SchedulingService.SchedulerEventDelete(this.AssignIDForDelete, this.employeekey, this.OrganizationID).subscribe(data => {
         alert("Sucessfully Deleted !");
+        this.ds.setExpandFlagNewComp(3);
         // this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);
         if (this.role == 'Manager') {
           this.router.navigate(['/ManagerDashBoard', { outlets: { ManagerOut: ['Scheduler'] } }]);

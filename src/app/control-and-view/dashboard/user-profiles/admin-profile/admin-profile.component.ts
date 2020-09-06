@@ -20,7 +20,7 @@ export class AdminProfileComponent implements OnInit {
   addUrl;
   idimageupload;
   image;
-
+  
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -36,11 +36,11 @@ export class AdminProfileComponent implements OnInit {
       default:
         throw 'Illegal base64url string!';
     }
-    return window.atob(output);
+    return window.atob(output); 
   }
   constructor(private loginService: LoginService) { }
   public uploader: FileUploader = new FileUploader({ url: '', itemAlias: 'photo' });
-
+ 
 
 
   ngOnInit() {
@@ -58,22 +58,22 @@ export class AdminProfileComponent implements OnInit {
       .subscribe((data: Login[]) => {
         this.profile = data;
       });
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      console.log('ImageUpload:uploaded:', item, status, response);
-      alert('File uploaded successfully');
-      this.loginService.getimage(this.employeekey, this.OrganizationID, this.idimageupload)
-        .subscribe((data: any[]) => {
-          if (data.length > 0) {
-            this.image = data[0].FileName;
-          }
-          else {
-            this.image = null;
-          }
-
-        });
-    };
-    this.loginService.getimage(this.employeekey, this.OrganizationID, this.idimageupload)
+      this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+      this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+        console.log('ImageUpload:uploaded:', item, status, response);
+        alert('File uploaded successfully');
+        this.loginService.getimage(this.employeekey, this.OrganizationID,this.idimageupload)
+    .subscribe((data: any[]) => {
+      if(data.length>0){
+        this.image = data[0].FileName;
+      }
+      else{
+        this.image =null;
+      }
+      
+    });
+      };
+      this.loginService.getimage(this.employeekey, this.OrganizationID,this.idimageupload)
       .subscribe((data: any[]) => {
         this.image = data[0].FileName;
       });
@@ -87,13 +87,13 @@ export class AdminProfileComponent implements OnInit {
     this.addUrl = '?empkey=' + this.employeekey + '&OrganizationID=' + this.OrganizationID;
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
-      item.url = url + this.addUrl;
+      item.url =url + this.addUrl;
     }
     this.uploader.uploadAll();
-    this.loginService.getimage(this.employeekey, this.OrganizationID, this.idimageupload)
-      .subscribe((data: any[]) => {
-        this.image = data[0].FileName;
-      });
-
+    this.loginService.getimage(this.employeekey, this.OrganizationID,this.idimageupload)
+    .subscribe((data: any[]) => {
+      this.image = data[0].FileName;
+    });
+  
   }
 }

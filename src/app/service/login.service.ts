@@ -90,4 +90,21 @@ export class LoginService {
       .http
       .get(ConectionSettings.Url + '/schedulingIcons?empKey=' + empkey + '&OrganizationID=' + orgID);
   }
+  getExpiredAssignmentList(limit, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getExpiredAssignmentList?orgID=' + orgID + '&limit=' + limit);
+  }
+
+  getExpiringAssignmentList(limit, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getExpiringAssignmentList?orgID=' + orgID + '&limit=' + limit);
+  }
+  
+getVersionDetails() {
+  return this
+    .http
+    .get(ConectionSettings.Url + '/getVersionDetails');
+}
 }

@@ -384,6 +384,32 @@ export class ReportServiceService {
       .get(ConectionSettings.Url + '/getInspectionAuditDetailsForReportSummary?from=' + from + '&to=' + to + '&template=' + template + '&employeeKey=' + Employee + '&orgID=' + orgID);
   }
 
+  getInspectionDetailedReportByAllFilter(obj) {
+    const url = ConectionSettings.Url + '/getInspectionDetailedReportByAllFilter';
+    return this
+      .http
+      .post(url, obj);
+
+  }
+
+  generateWorkOrderCancelledReportService(FacilityKey, FloorKey, RoomTypeKey, ZoneKey, fromdate, todate, RoomKey, EmployeeKey, employeekey, OrganizationID) {
+    const url = ConectionSettings.Url + '/getCancelledWorkorderReport';
+    const obj = {
+      facilityKey: FacilityKey,
+      floorKey: FloorKey,
+      roomTypeKey: RoomTypeKey,
+      zoneKey: ZoneKey,
+      Fromdate: fromdate,
+      Todate: todate,
+      roomKey: RoomKey,
+      employeeKey: EmployeeKey,
+      metauser: employeekey,
+      OrgID: OrganizationID
+    }
+    return this
+      .http
+      .post(url, obj);
+  }
   getInspectionPickListReportDetails(from, to, template, Employee, orgID) {
     return this
       .http

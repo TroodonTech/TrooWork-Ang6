@@ -5652,6 +5652,40 @@ app.post(securedpath + '/saveinspectedQuestions', supportCrossOriginScript, func
     });
 });
 
+app.options('/websaveinspectedQuestions', supportCrossOriginScript);
+app.post(securedpath + '/websaveinspectedQuestions', supportCrossOriginScript, function (req, res) {
+    var inspectionnotes = req.body.inspectionnotes;
+    var templateQstnValues = req.body.templateQstnValues;
+    var templateid = req.body.templateid;
+    var inspectionkey = req.body.inspectionkey;
+    var questionid = req.body.questionid;
+    var metaupdatedby = req.body.employeekey;
+    var OrganizationID = req.body.OrganizationID;
+
+    var ObservationDeficiency = req.body.ObservationDeficiency;
+    var CorrectiveAction = req.body.CorrectiveAction;
+    var CompletedDate = req.body.CompletedDate;
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @inspectionnotes=?; set @templateQstnValues=?; set @templateid=?; set @inspectionkey=?; set @questionid=?; set @metaupdatedby=?; set @OrganizationID=?; set @ObservationDeficiency=?; set @CorrectiveAction=?; set @CompletedDate=?;call usp_web_saveInspectedValues(@inspectionnotes,@templateQstnValues,@templateid,@inspectionkey,@questionid,@metaupdatedby,@OrganizationID,@ObservationDeficiency,@CorrectiveAction,@CompletedDate)', [inspectionnotes, templateQstnValues, templateid, inspectionkey, questionid, metaupdatedby, OrganizationID, ObservationDeficiency, CorrectiveAction, CompletedDate], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[10]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
 app.options('/updateEditedTemplateQuestion', supportCrossOriginScript);
 app.post(securedpath + '/updateEditedTemplateQuestion', supportCrossOriginScript, function (req, res) {
 
@@ -6754,7 +6788,6 @@ app.post(securedpath + '/addworkorderSchedule', supportCrossOriginScript, functi
     var metaupdatedby = newWOObj.metaupdatedby;
     var OrganizationID = newWOObj.OrganizationID;
     var snapshot = newWOObj.IsSnapshot;
-    var KeepActive = newWOObj.KeepActive;
 
     console.log("****************metaupdatedby************" + metaupdatedby + "  ZZZZZZ  " + isphoto + "  ZZZZZZ  " + roomkeys + "  ZZZZZZ  " + facilitykeys + "  ZZZZZZ  " + floorkeys + "  ZZZZZZ  " + zonekeys + "  ZZZZZZ  " + roomtypekeys + " occursontime " + occursontime);
     console.log("3 VAlues are tot=16 " + isbar + " " + isphoto);
@@ -6765,12 +6798,12 @@ app.post(securedpath + '/addworkorderSchedule', supportCrossOriginScript, functi
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @scheduleKey=?; set @workorderkey=?;set @workordertypekey=?;set @equipmentkey=?;set @roomkeys=?; set @employeekey=?; set @priority=?; set @fromdate=?; set @todate=?;set @intervaltype=?; set @repeatinterval=?;set @occursonday =?;set @occursontime =?;set @occurstype =?; set @workordernotes =?;set @isbar=?;set @isphoto=?;set @metaupdatedby=?; set @facilitykeys=?; set @floorkeys=?; set @zonekeys=?; set @roomtypekeys=?;set @OrganizationID=?;set @snapshot=?;set @KeepActive=?; call usp_BatchScheduleAdd(@scheduleKey,@workorderkey,@workordertypekey,@equipmentkey,@roomkeys,@employeekey,@priority,@fromdate,@todate,@intervaltype,@repeatinterval,@occursonday,@occursontime,@occurstype,@workordernotes,@isbar,@isphoto,@metaupdatedby,@facilitykeys,@floorkeys,@zonekeys,@roomtypekeys,@OrganizationID,@snapshot,@KeepActive) ', [scheduleKey, workorderkey, workordertypekey, equipmentkey, roomkeys, employeekey, priority, fromdate, todate, intervaltype, repeatinterval, occursonday, occursontime, occurstype, workordernote, isbar, isphoto, metaupdatedby, facilitykeys, floorkeys, zonekeys, roomtypekeys, OrganizationID, snapshot, KeepActive], function (err, rows) {
+            connection.query('set @scheduleKey=?; set @workorderkey=?;set @workordertypekey=?;set @equipmentkey=?;set @roomkeys=?; set @employeekey=?; set @priority=?; set @fromdate=?; set @todate=?;set @intervaltype=?; set @repeatinterval=?;set @occursonday =?;set @occursontime =?;set @occurstype =?; set @workordernotes =?;set @isbar=?;set @isphoto=?;set @metaupdatedby=?; set @facilitykeys=?; set @floorkeys=?; set @zonekeys=?; set @roomtypekeys=?;set @OrganizationID=?;set @snapshot=?; call usp_BatchScheduleAdd(@scheduleKey,@workorderkey,@workordertypekey,@equipmentkey,@roomkeys,@employeekey,@priority,@fromdate,@todate,@intervaltype,@repeatinterval,@occursonday,@occursontime,@occurstype,@workordernotes,@isbar,@isphoto,@metaupdatedby,@facilitykeys,@floorkeys,@zonekeys,@roomtypekeys,@OrganizationID,@snapshot) ', [scheduleKey, workorderkey, workordertypekey, equipmentkey, roomkeys, employeekey, priority, fromdate, todate, intervaltype, repeatinterval, occursonday, occursontime, occurstype, workordernote, isbar, isphoto, metaupdatedby, facilitykeys, floorkeys, zonekeys, roomtypekeys, OrganizationID, snapshot], function (err, rows) {
                 if (err) {
                     console.log(err);
                 }
                 else {
-                    res.end(JSON.stringify(rows[25]));
+                    res.end(JSON.stringify(rows[24]));
                 }
 
             });
@@ -6965,7 +6998,6 @@ app.post(securedpath + '/addworkorderSchedulewithEquipment', supportCrossOriginS
     var metaupdatedby = newWOObj.metaupdatedby;
     var OrganizationID = newWOObj.OrganizationID;
     var IsSnapshot = newWOObj.IsSnapshot;
-    var KeepActive = newWOObj.KeepActive;
 
     console.log("****************metaupdatedby************" + metaupdatedby + "  ZZZZZZ  " + isphoto + "  ZZZZZZ  " + roomkeys + "  ZZZZZZ  " + facilitykeys + "  ZZZZZZ  " + floorkeys + "  ZZZZZZ  " + zonekeys + "  ZZZZZZ  " + roomtypekeys);
     console.log("3 VAlues are tot=16 " + isbar + " " + isphoto);
@@ -6976,12 +7008,12 @@ app.post(securedpath + '/addworkorderSchedulewithEquipment', supportCrossOriginS
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @scheduleKey=?; set @workorderkey=?;set @workordertypekey=?;set @equipmentkey=?;set @roomkeys=?; set @employeekey=?; set @priority=?; set @fromdate=?; set @todate=?;set @intervaltype=?; set @repeatinterval=?;set @occursonday =?;set @occursontime =?;set @occurstype =?; set @workordernotes =?;set @isbar=?;set @isphoto=?;set @metaupdatedby=?; set @facilitykeys=?; set @floorkeys=?; set @zonekeys=?; set @roomtypekeys=?;set @OrganizationID=?;set @IsSnapshot=?;set @KeepActive=?; call usp_addworkorderSchedulewithEquipment(@scheduleKey,@workorderkey,@workordertypekey,@equipmentkey,@roomkeys,@employeekey,@priority,@fromdate,@todate,@intervaltype,@repeatinterval,@occursonday,@occursontime,@occurstype,@workordernotes,@isbar,@isphoto,@metaupdatedby,@facilitykeys,@floorkeys,@zonekeys,@roomtypekeys,@OrganizationID,@IsSnapshot,@KeepActive) ', [scheduleKey, workorderkey, workordertypekey, equipmentkey, roomkeys, employeekey, priority, fromdate, todate, intervaltype, repeatinterval, occursonday, occursontime, occurstype, workordernote, isbar, isphoto, metaupdatedby, facilitykeys, floorkeys, zonekeys, roomtypekeys, OrganizationID, IsSnapshot, KeepActive], function (err, rows) {
+            connection.query('set @scheduleKey=?; set @workorderkey=?;set @workordertypekey=?;set @equipmentkey=?;set @roomkeys=?; set @employeekey=?; set @priority=?; set @fromdate=?; set @todate=?;set @intervaltype=?; set @repeatinterval=?;set @occursonday =?;set @occursontime =?;set @occurstype =?; set @workordernotes =?;set @isbar=?;set @isphoto=?;set @metaupdatedby=?; set @facilitykeys=?; set @floorkeys=?; set @zonekeys=?; set @roomtypekeys=?;set @OrganizationID=?;set @IsSnapshot=?; call usp_addworkorderSchedulewithEquipment(@scheduleKey,@workorderkey,@workordertypekey,@equipmentkey,@roomkeys,@employeekey,@priority,@fromdate,@todate,@intervaltype,@repeatinterval,@occursonday,@occursontime,@occurstype,@workordernotes,@isbar,@isphoto,@metaupdatedby,@facilitykeys,@floorkeys,@zonekeys,@roomtypekeys,@OrganizationID,@IsSnapshot) ', [scheduleKey, workorderkey, workordertypekey, equipmentkey, roomkeys, employeekey, priority, fromdate, todate, intervaltype, repeatinterval, occursonday, occursontime, occurstype, workordernote, isbar, isphoto, metaupdatedby, facilitykeys, floorkeys, zonekeys, roomtypekeys, OrganizationID, IsSnapshot], function (err, rows) {
                 if (err) {
                     console.log(err);
                 }
                 else {
-                    res.end(JSON.stringify(rows[25]));
+                    res.end(JSON.stringify(rows[24]));
                 }
 
             });
@@ -15686,8 +15718,8 @@ scheduler.scheduleJob(rule, function () {
 });
 
 var rule1 = new scheduler.RecurrenceRule();
-rule1.hour = 7;
-rule1.minute = 45;
+rule1.hour = 10;
+rule1.minute = 30;
 rule1.second = 00;
 rule1.dayOfWeek = new scheduler.Range(0, 6);
 
@@ -19316,9 +19348,16 @@ app.get(securedpath + '/employeesForScheduler_SuType', function (req, res) {
                         }
                     }
 
-                    for (var j = 0; j <= arr; j++) {// inserting array value to scheduler tree list
-                        resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": false, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
+                    if (OrganizationID == 103) {
+                        for (var j = 0; j <= arr; j++) {// inserting array value to scheduler tree list
+                            resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": true, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
 
+                        }
+                    } else {
+                        for (var j = 0; j <= arr; j++) {// inserting array value to scheduler tree list
+                            resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": false, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
+
+                        }
                     }
                     res.send(resources);
                 }
@@ -20602,110 +20641,38 @@ app.get(securedpath + '/getRemainingWODetails', function (req, res) {
     });
 });
 
-app.get(securedpath + '/getPickValuesListForInspection', function (req, res) {
+app.options('/getInspectionDetailedReportByAllFilter', supportCrossOriginScript);
+app.post(securedpath + '/getInspectionDetailedReportByAllFilter', supportCrossOriginScript, function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
 
-    var orgID = url.parse(req.url, true).query['OrganizationID'];
+    var fromdate = req.body.fromdate;
+    var todate = req.body.todate;
+    var TemplateName = req.body.TemplateName;
+    var SupervisorKey = req.body.SupervisorKey;
+    var employeekey = req.body.employeekey;
+    var OrganizationID = req.body.OrganizationID;
 
     pool.getConnection(function (err, connection) {
+
         if (err) {
 
             console.log("Failed! Connection with Database spicnspan via connection pool failed");
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @orgID=?; call usp_getPickValuesListForInspection(@orgID)', [orgID], function (err, rows) {
+            connection.query('set @fromdate=?; set @todate=?; set @TemplateName=?; set @SupervisorKey=?; set@employeekey=?; set@OrganizationID=?; call usp_getInspectionDetailedReportByAllFilter(@fromdate,@todate,@TemplateName,@SupervisorKey,@employeekey,@OrganizationID)', [fromdate, todate, TemplateName, SupervisorKey, employeekey, OrganizationID], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
                 else {
-                    res.end(JSON.stringify(rows[1]));
+                    console.log("getInspectionDetailedReportByAllFilter " + JSON.stringify(rows[6]));
+                    res.end(JSON.stringify(rows[6]));
                 }
             });
         }
         connection.release();
     });
 });
-
-app.get(securedpath + '/getTemplatesForAuditReport', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    var employeekey = url.parse(req.url, true).query['employeekey'];
-    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @employeekey=?; set @OrganizationID=?; call usp_getTemplatesForAuditReport(@employeekey,@OrganizationID)', [employeekey, OrganizationID], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-
-                    res.end(JSON.stringify(rows[2]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
-
-app.get(securedpath + '/getTemplateNameForPicklistReport', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    var employeekey = url.parse(req.url, true).query['employeekey'];
-    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @employeekey=?; set @OrganizationID=?; call usp_getTemplatesForPicklistReport(@employeekey,@OrganizationID)', [employeekey, OrganizationID], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-
-                    res.end(JSON.stringify(rows[2]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
-
-app.get(securedpath + '/getInspectionPickListReportDetails', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    var from = url.parse(req.url, true).query['from'];
-    var to = url.parse(req.url, true).query['to'];
-    var template = url.parse(req.url, true).query['template'];
-    var employeeKey = url.parse(req.url, true).query['employeeKey'];
-    var orgID = url.parse(req.url, true).query['orgID'];
-
-    pool.getConnection(function (err, connection) {
-        if (err) {
-
-            console.log("Failed! Connection with Database spicnspan via connection pool failed");
-        }
-        else {
-            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query('set @from=?;set @to=?;set @template=?;set @employeeKey=?;set @orgID=?; call usp_getInspectionPicklisttDetailsForReport(@from,@to,@template,@employeeKey,@orgID)', [from, to, template, employeeKey, orgID], function (err, rows) {
-                if (err) {
-                    console.log("Problem with MySQL" + err);
-                }
-                else {
-                    console.log("getallWorkorderStatus " + JSON.stringify(rows[5]));
-                    res.end(JSON.stringify(rows[5]));
-                }
-            });
-        }
-        connection.release();
-    });
-});
-
 // Coding ... @Rodney ends......
 
 // @Author:Prakash code starts here
@@ -20841,20 +20808,52 @@ app.get(securedpath + '/getInspectionAuditDetailsForReportSummary', function (re
     });
 });
 // @Author:Prakash code ends here
+app.post(securedpath + '/getCancelledWorkorderReport', supportCrossOriginScript, function (req, res) {
 
+    var newWOObj = req.body;
+
+    var facilityKey = newWOObj.facilityKey;
+    var floorKey = newWOObj.floorKey;
+    var roomTypeKey = newWOObj.roomTypeKey;
+    var zoneKey = newWOObj.zoneKey;
+    var Fromdate = newWOObj.Fromdate;
+    var Todate = newWOObj.Todate;
+    var roomKey = newWOObj.roomKey;
+    var employeeKey = newWOObj.employeeKey;
+    var metauser = newWOObj.metauser;
+    var OrgID = newWOObj.OrgID;
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set @facilityKey =?;set @floorKey =?;set @roomTypeKey =?;set @zoneKey =?;set @Fromdate=?; set @Todate=?;set @roomKey=?;set @employeeKey=?;set @metauser=?;set @OrgID=?; call usp_workorderCancelledReportByallFilters(@facilityKey,@floorKey,@roomTypeKey,@zoneKey,@Fromdate,@Todate,@roomKey,@employeeKey,@metauser,@OrgID)", [facilityKey, floorKey, roomTypeKey,zoneKey, Fromdate, Todate, roomKey, employeeKey, metauser, OrgID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[10]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 
 //firebase notification codes starts -----by varun
 
 
+var admin = require('firebase-admin');
 
-// var admin = require('firebase-admin');
+var serviceAccount = require("./troowork-7eef7-firebase-adminsdk-447j2-0a4fd5ae89.json"); // firebase apn file(unique in each account-- created in trooworkdev)
 
-// var serviceAccount = require("./troowork-7eef7-firebase-adminsdk-447j2-0a4fd5ae89.json"); // firebase apn file(unique in each account-- created in trooworkdev)
-
-// admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount)  //json file need to initialize ,then only we can send FCM
-// });
-
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)  //json file need to initialize ,then only we can send FCM
+});
 
 
 app.get(securedpath + '/mob_sendNotification', function (req, res) {
@@ -21046,6 +21045,38 @@ app.get(securedpath + '/mob_getFireBaseLocation', function (req, res) {
 });
 //firebase notification codes ends -----by varun
 
+app.get(securedpath + '/mob_workorderCreateByEmployeeBarcodeWorkorderType', function (req, res) { //
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var barcode = url.parse(req.url, true).query['barcode'];
+    var Date = url.parse(req.url, true).query['Date'];
+    var isBar = url.parse(req.url, true).query['isBar'];
+    var checkIn = url.parse(req.url, true).query['checkIn'];
+    var empKey = url.parse(req.url, true).query['emp'];
+    var wot = url.parse(req.url, true).query['wot'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set@barcode=?;set@Date=?; set@isBar=?; set@checkIn=?; set@empKey=?; set @wot=?; set @OrganizationID=?;call usp_mob_workorderCreateByEmpBarWOType(@barcode,@Date,@isBar,@checkIn,@empKey,@wot,@OrganizationID)", [barcode, Date, isBar, checkIn, empKey, wot, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[7]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
 // inspection changes starts by varun
 app.get(securedpath + '/mob_getPickValuesListForInspection', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -21103,18 +21134,13 @@ app.get(securedpath + '/mob_createInspectionByScan', function (req, res) {
     });
 });
 // inspection changes ends by varun
-app.get(securedpath + '/mob_workorderCreateByEmployeeBarcodeWorkorderType', function (req, res) { //
+//Pagination COde for App By Prakash
+app.get(securedpath + '/mob_page_viewDashboardWorkorder', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
-
-    var barcode = url.parse(req.url, true).query['barcode'];
-    var Date = url.parse(req.url, true).query['Date'];
-    var isBar = url.parse(req.url, true).query['isBar'];
-    var checkIn = url.parse(req.url, true).query['checkIn'];
-    var empKey = url.parse(req.url, true).query['emp'];
-    var wot = url.parse(req.url, true).query['wot'];
+    var viewdate = url.parse(req.url, true).query['viewdate'];
+    var employeekey = url.parse(req.url, true).query['employeekey'];
     var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
-
-
+    var pageindex = url.parse(req.url, true).query['pageindex'];
     pool.getConnection(function (err, connection) {
         if (err) {
 
@@ -21122,7 +21148,95 @@ app.get(securedpath + '/mob_workorderCreateByEmployeeBarcodeWorkorderType', func
         }
         else {
             console.log("Success! Connection with Database spicnspan via connection pool succeeded");
-            connection.query("set@barcode=?;set@Date=?; set@isBar=?; set@checkIn=?; set@empKey=?; set @wot=?; set @OrganizationID=?;call usp_mob_workorderCreateByEmpBarWOType(@barcode,@Date,@isBar,@checkIn,@empKey,@wot,@OrganizationID)", [barcode, Date, isBar, checkIn, empKey, wot, OrganizationID], function (err, rows) {
+            connection.query('set @employeekey=?; set @viewdate=?; set @OrganizationID=?; set @pageindex=?; call usp_mob_page_workordersGetByEmpKey(@employeekey,@viewdate,@OrganizationID,@pageindex)', [employeekey, viewdate, OrganizationID, pageindex], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[4]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/mob_page_getWorkorderByStatusEmployeeKey', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var employeekey = url.parse(req.url, true).query['employeekey'];
+    var workstatuskey = url.parse(req.url, true).query['workstatuskey'];
+    var t_date = url.parse(req.url, true).query['today'];
+    var userKey = url.parse(req.url, true).query['userKey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var pageindex = url.parse(req.url, true).query['pageindex'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @employeekey=?; set @workstatuskey=?; set @today=?; set @userKey=?; set@OrganizationID=?; set @pageindex=?; call usp_mob_page_workorderGetByStatusEmployeeKey(@employeekey,@workstatuskey,@today,@userKey,@OrganizationID,@pageindex)', [employeekey, workstatuskey, t_date, userKey, OrganizationID, pageindex], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[6]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.get(securedpath + '/mob_page_scanforWorkorder', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var barcode = url.parse(req.url, true).query['barcode'];
+    var empkey = url.parse(req.url, true).query['empkey'];
+    var ondate = url.parse(req.url, true).query['ondate'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var pageindex = url.parse(req.url, true).query['pageindex'];
+    console.log("room barcode and  empkey is " + barcode + " " + empkey);//set @employeekey =?;call tm_workorderdetail(@employeekey)         
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("set @barcode =?;set @empkey =?;set @date =?; set@OrganizationID=?; set @pageindex=?; call usp_mob_page_workorderGetByScannedBarcode(@barcode,@empkey,@date,@OrganizationID,@pageindex)", [barcode, empkey, ondate, OrganizationID, pageindex], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[5]));
+                }
+            });
+        }
+        connection.release();
+    });
+
+});
+
+app.get(securedpath + '/mob_page_viewworkorderFilterByFacility', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var facilitykey = url.parse(req.url, true).query['facilitykey'];
+    var zonekey = url.parse(req.url, true).query['zone'];
+    var floorkey = url.parse(req.url, true).query['floor'];
+    var t_date = url.parse(req.url, true).query['today'];
+    var employeekey = url.parse(req.url, true).query['employeekey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var pageindex = url.parse(req.url, true).query['pageindex'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @facilitykey=?; set @zone=?; set @floor=?; set @today=?; set @employeekey=?; set@OrganizationID=?; set @pageindex=?; call usp_mob_page_workorderViewByFacilityFloorZone(@facilitykey,@zone,@floor,@today,@employeekey,@OrganizationID,@pageindex)', [facilitykey, zonekey, floorkey, t_date, employeekey, OrganizationID, pageindex], function (err, rows) {
                 if (err) {
                     console.log("Problem with MySQL" + err);
                 }
@@ -21135,6 +21249,331 @@ app.get(securedpath + '/mob_workorderCreateByEmployeeBarcodeWorkorderType', func
         connection.release();
     });
 });
+
+app.get(securedpath + '/mob_page_workorderFilterByStatusEmpView', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var statuskey = url.parse(req.url, true).query['statuskey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    var t_date = url.parse(req.url, true).query['today'];
+    var emp = url.parse(req.url, true).query['employeekey'];
+    var pageindex = url.parse(req.url, true).query['pageindex'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @statuskey=?; set @today=?;  set @emp=?; set@OrganizationID=?; set @pageindex=?; call usp_mob_page_workorderFilterByStatusEmpView(@statuskey,@today,@emp,@OrganizationID,@pageindex)', [statuskey, t_date, emp, OrganizationID, pageindex], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[5]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+//Pagination COde for App By Prakash
+//for inspection By Prakash
+app.get(securedpath + '/getTemplatesNameFor_pick_Mob', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var employeekey = url.parse(req.url, true).query['employeekey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @employeekey=?; set@OrganizationID=?; call usp_mob_getTemplatesNameFor_pick(@employeekey,@OrganizationID)', [employeekey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.get(securedpath + '/getSupervisorInspectionView_pick', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var to_date = url.parse(req.url, true).query['to_date'];
+    var employeekey = url.parse(req.url, true).query['employeekey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @date=?; set @username=?; set@OrganizationID=?; call usp_mob_getSupervisorInspectionView(@date,@username,@OrganizationID)', [to_date, employeekey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[3]));
+
+                }
+            });
+        }
+        connection.release();
+    });
+
+});
+//for inspection By Prakash
+//Rodney Code change starts here
+app.get(securedpath + '/getExpiredAssignmentList', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var OrganizationID = url.parse(req.url, true).query['orgID'];
+    var limit = url.parse(req.url, true).query['limit'];
+    pool.getConnection(function (err, connection) {
+
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @limit=?;set @OrganizationID=?; call usp_getExpiredAssignments(@limit,@OrganizationID)', [limit, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+app.get(securedpath + '/getExpiringAssignmentList', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var OrganizationID = url.parse(req.url, true).query['orgID'];
+    var limit = url.parse(req.url, true).query['limit'];
+    pool.getConnection(function (err, connection) {
+
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @limit=?;set @OrganizationID=?; call usp_getExpiringAssignments(@limit,@OrganizationID)', [limit, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.get(securedpath + '/getPickValuesListForInspection', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var orgID = url.parse(req.url, true).query['OrganizationID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @orgID=?; call usp_getPickValuesListForInspection(@orgID)', [orgID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[1]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.get(securedpath + '/getTemplateNameForPicklistReport', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var employeekey = url.parse(req.url, true).query['employeekey'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @employeekey=?; set @OrganizationID=?; call usp_getTemplatesForPicklistReport(@employeekey,@OrganizationID)', [employeekey, OrganizationID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+
+
+app.get(securedpath + '/getInspectionPickListReportDetails', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var from = url.parse(req.url, true).query['from'];
+    var to = url.parse(req.url, true).query['to'];
+    var template = url.parse(req.url, true).query['template'];
+    var employeeKey = url.parse(req.url, true).query['employeeKey'];
+    var orgID = url.parse(req.url, true).query['orgID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @from=?;set @to=?;set @template=?;set @employeeKey=?;set @orgID=?; call usp_getInspectionPicklisttDetailsForReport(@from,@to,@template,@employeeKey,@orgID)', [from, to, template, employeeKey, orgID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("getallWorkorderStatus " + JSON.stringify(rows[5]));
+                    res.end(JSON.stringify(rows[5]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.get(securedpath + '/getVersionDetails', function (req, res) { //
+    res.header("Access-Control-Allow-Origin", "*");
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query("call usp_getWebVersionDetails()", [], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+
+                    res.end(JSON.stringify(rows[0]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.get(securedpath + '/getLastCleaningDetails', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    var roomKey = url.parse(req.url, true).query['roomKey'];
+    var orgID = url.parse(req.url, true).query['orgID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @roomKey=?;set @orgID=?; call usp_getLastCleaningDetails(@roomKey,@orgID)', [roomKey, orgID], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[2]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+app.get(securedpath + '/employeesrowFiltering', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    var groupID = url.parse(req.url, true).query['groupID'];
+    var searchtext = url.parse(req.url, true).query['searchtext'];
+    var eventsOnly = url.parse(req.url, true).query['eventsOnly'];
+    var range = url.parse(req.url, true).query['range'];
+    var todaydate = url.parse(req.url, true).query['todaydate'];
+    var OrganizationID = url.parse(req.url, true).query['OrganizationID'];
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            111
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set@groupID=?;set @searchtext=?;set @eventsOnly=?;set@range=?;set @todaydate=?;set @OrganizationID=?; call usp_getEmployeesForSchedulerWithrowFiltering(@groupID,@searchtext,@eventsOnly,@range,@todaydate,@OrganizationID)', [groupID, searchtext, eventsOnly, range, todaydate, OrganizationID], function (err, rows) {//IMPORTANT : (err,rows) this order matters.
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    console.log("json " + JSON.stringify(rows[6]));
+                    // res.end(JSON.stringify(rows[3]));
+                    var data = rows[6];
+                    var resources = [];
+                    var arr = 0;
+                    var tempArr = [];
+                    if (data.length > 0) {
+                        var selectedGroup = data[0].Idemployeegrouping;// 1st group Id                   
+                        tempArr[arr] = [];// creating 2D array
+                        for (var i = 0; i < data.length; i++) {
+                            if (selectedGroup == data[i].Idemployeegrouping) {// check for group id  
+                                data[i].IsShift = 0;
+                                tempArr[arr].push(data[i]);
+                            }
+                            else {
+                                arr = arr + 1;
+                                tempArr[arr] = [];// creating 2D array
+                                var selectedGroup = data[i].Idemployeegrouping
+                                data[i].IsShift = 0;
+                                tempArr[arr].push(data[i]);
+                            }
+                        }
+                    }
+                    if (tempArr.length > 0) {
+                        if (OrganizationID == 103) {
+                            for (var j = 0; j <= arr; j++) {// inserting array value to scheduler tree list
+                                resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": true, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
+
+                            }
+                        } else {
+                            for (var j = 0; j <= arr; j++) {// inserting array value to scheduler tree list
+                                resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": false, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
+
+                            }
+                        }
+                    }
+                    res.send(resources);
+                }
+            });
+        }
+        connection.release();
+    });
+});
+//Rodney Code change Ends here
 //handle generic exceptions
 //catch all other resource routes that are not defined above
 app.get(securedpath + '/*', function (req, res) {

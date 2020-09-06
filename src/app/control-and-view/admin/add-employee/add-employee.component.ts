@@ -277,10 +277,10 @@ export class AddEmployeeComponent implements OnInit {
       alert("Wrong BirthDate !");
       return;
     }
-    if (HD > currentDate) {
-      alert("Wrong Hire Date !");
-      return;
-    }
+    // if (HD > currentDate) {
+    //   alert("Wrong Hire Date !");
+    //   return;
+    // }
     if (HD < BD) {
       alert("Hire Date must be greater than birth date !");
       return;

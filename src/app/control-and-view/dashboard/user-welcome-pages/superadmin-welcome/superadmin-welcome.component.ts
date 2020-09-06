@@ -16,6 +16,7 @@ export class SuperadminWelcomeComponent implements OnInit {
   IsSupervisor: Number;
   OrganizationID: Number;
   Message;
+  version;
 
   url_base64_decode(str) {
     var output = str.replace('-', '+').replace('_', '/');
@@ -58,10 +59,13 @@ export class SuperadminWelcomeComponent implements OnInit {
       .subscribe((data: any[]) => {
         this.updateList = data;
       });
-      this.loginService.getMaintenanceUpdateMsg(this.employeekey, this.OrganizationID).subscribe((data: any[])=> {
-        
-          this.Message = data[0].Message;
-      });
+    this.loginService.getMaintenanceUpdateMsg(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+      this.Message = data[0].Message;
+    });
+
+    this.loginService.getVersionDetails().subscribe((data: any[]) => {
+      this.version = data[0].Version;
+    });
   }
 
 }

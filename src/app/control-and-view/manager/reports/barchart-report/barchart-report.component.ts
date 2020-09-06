@@ -90,7 +90,7 @@ export class BarchartReportComponent implements OnInit {
     firstCalendarDay: 0, // 0 - Sunday, 1 - Monday
     //locale: frLocale,
     //minDate: new Date(Date.now()), // Minimal selectable date
-    maxDate: new Date(Date.now()),  // Maximal selectable date
+    //maxDate: new Date(Date.now()),  // Maximal selectable date
     barTitleIfEmpty: 'Click to select a date',
     placeholder: 'Click to select a date', // HTML input placeholder attribute (default: '')
     addClass: '', // Optional, value to pass on to [ngClass] on the input field
@@ -193,8 +193,8 @@ export class BarchartReportComponent implements OnInit {
       xAxes: [{
         // barPercentage: 0.5,
         // barThickness: 10,
-        categoryPercentage: 1.0,
-        barPercentage: 0.5,
+        // categoryPercentage: 1.0,
+        // barPercentage: 0.5,
         ticks: {
           beginAtZero: true,
           fontFamily: "'Open Sans Bold', sans-serif",
@@ -213,7 +213,7 @@ export class BarchartReportComponent implements OnInit {
         // stacked: true
       }],
       yAxes: [{
-        barThickness: 100,
+        // barThickness: 100,
         // gridLines: {
         //     display: true,
         //     color: "#fff",

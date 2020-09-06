@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 
-import { PicklistReportModule } from "../../../manager/reports/picklist-report/picklist-report.module";
+import { WorkorderCancelReportModule } from "../../../manager/reports/workorder-cancel-report/workorder-cancel-report.module";
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -719,12 +719,35 @@ const routes: Routes = [
 
       },
       {
+        path: 'inspectionDetailReport',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/reports/inspection-detailed-report/inspection-detailed-report.module#InspectionDetailedReportModule'
+      },
+      {
+        path: 'workordercancelReport',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/reports/workorder-cancel-report/workorder-cancel-report.module#WorkorderCancelReportModule'
+      },
+      {
+        path: 'welcomePage/expiryNearDetails',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../dashboard/manager-dashboard-pages/expiring-assignments-details/expiring-assignments-details.module#ExpiringAssignmentsDetailsModule'
+      },
+      {
+        path: 'welcomePage/expiredDetails',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../dashboard/manager-dashboard-pages/expired-assignments-details/expired-assignments-details.module#ExpiredAssignmentsDetailsModule'
+      },
+      {
         path: 'picklistReport',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/reports/picklist-report/picklist-report.module#PicklistReportModule'
-
-      }
-
+      },
+      {
+        path: 'GenerateQRCode/CleaningQRCodeView/:RoomKey',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/inventory/cleaning-qr-code-view/cleaning-qr-code-view.module#CleaningQrCodeViewModule'
+      },
     ]
   }
 ];
