@@ -16,6 +16,7 @@ export class CleaningDetailsComponent implements OnInit {
   Floor_Key;
   Zone_Key;
   loading;
+  show;
 
   constructor(private woServ: WorkOrderServiceService, private router: Router, private route: ActivatedRoute) {
     this.route.params.subscribe(params => this.Facility_Key = params.Facility_Key);
@@ -33,10 +34,15 @@ export class CleaningDetailsComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.loading=true;
+    this.loading = true;
     this.woServ.getLastCleanedDetails(this.rKey$, this.OrgId$).subscribe((data: any[]) => {
+      if (data.length > 0) {
+        this.show = true;
+      } else {
+        this.show = false;
+      }
       this.cleaningDetails = data[0];
-      this.loading=false;
+      this.loading = false;
     });
   }
 

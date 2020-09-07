@@ -99,7 +99,7 @@
           <td>
             <a class="btn btn-primary" [routerLink]="['WOQRCodeView', x.RoomKey]"><b>WO Request QR Code</b></a>&nbsp;
             <a class="btn btn-primary" [routerLink]="['FeedbackQRCodeView', x.RoomKey]"><b>Feedback QR Code</b></a>
-            <!-- <a class="btn btn-primary" [routerLink]="['CleaningQRCodeView', x.RoomKey]"><b>Cleaning QR Code</b></a> -->
+            <a class="btn btn-primary" [routerLink]="['CleaningQRCodeView', x.RoomKey]"><b>Cleaning QR Code</b></a>
           </td>
         </tr>
         <tr *ngIf="rooms?.length == 0">

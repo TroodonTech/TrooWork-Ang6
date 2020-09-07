@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DocumentserviceService } from '../../../../service/documentservice.service';
 import { Documents } from '../../../../model-class/Documents';
-import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { ConectionSettings } from '../../../../service/ConnectionSetting';
 const url = ConectionSettings.Url + '/upload_test';
 

@@ -90,6 +90,14 @@ export class LoginService {
       .http
       .get(ConectionSettings.Url + '/schedulingIcons?empKey=' + empkey + '&OrganizationID=' + orgID);
   }
+
+  // @Rodney starts
+  getVersionDetails() {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/getVersionDetails');
+  }
+
   getExpiredAssignmentList(limit, orgID) {
     return this
       .http
@@ -101,10 +109,5 @@ export class LoginService {
       .http
       .get(ConectionSettings.Url + '/getExpiringAssignmentList?orgID=' + orgID + '&limit=' + limit);
   }
-  
-getVersionDetails() {
-  return this
-    .http
-    .get(ConectionSettings.Url + '/getVersionDetails');
-}
+  // @Rodney ends
 }

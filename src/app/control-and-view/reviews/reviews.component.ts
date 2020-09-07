@@ -145,7 +145,12 @@ export class ReviewsComponent implements OnInit {
       var i = 0;
       var j = 0;
       var k = 0;
-      this.comments = this.comments.trim();
+      if (this.comments) {
+        this.comments = this.comments.trim();
+      }
+      else {
+        this.comments = null;
+      }
       console.log(questionidList);
       console.log(ratingIndexlist);
       console.log(this.comments);

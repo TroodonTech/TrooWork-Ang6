@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SupervisorDashboardModule } from '../../dashboard/user-dashboards/supervisor-dashboard/supervisor-dashboard.module';
 import{ ViewWorkOrderComponent }   from './view-work-order.component';
 import { NgDatepickerModule} from 'ng2-datepicker';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 const routes: Routes = [
   {
     path: '',
@@ -26,7 +26,8 @@ const routes: Routes = [
     FormsModule, ReactiveFormsModule,
     RouterModule.forChild(routes),
     NgDatepickerModule,
+    FileUploadModule
   ],
-  declarations: [ViewWorkOrderComponent,   FileSelectDirective]
+  declarations: [ViewWorkOrderComponent]
 })
 export class ViewWorkOrderModule { }

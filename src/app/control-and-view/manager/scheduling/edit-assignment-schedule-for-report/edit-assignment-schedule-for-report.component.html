@@ -260,4 +260,44 @@
     <button (click)="createBatchReport()" [disabled]='CreateDis' class="btn btn-success"
       style="margin-left: 45%;">Save</button>
   </div>
+
+  <div *ngIf="roomList?.length == 0 && roomTempList?.length == 0" style="padding-right: 0.5rem">
+    <table class="table table-hover table-responsive table-bordered table"
+      style="margin-top: 2rem;display: inline-table;margin-bottom: -1.5rem;">
+      <thead class="tableHead">
+        <th>Building </th>
+        <th>Room</th>
+        <th>Minutes</th>
+        <th style="width: 6.5%;">Frequency</th>
+        <td (click)="selectAllMon()">Mon</td>
+        <td (click)="selectAllTue()">Tue</td>
+        <td (click)="selectAllWed()">Wed</td>
+        <td (click)="selectAllThu()">Thu</td>
+        <td (click)="selectAllFri()">Fri</td>
+        <td (click)="selectAllSat()">Sat</td>
+        <td (click)="selectAllSun()">Sun</td>
+        <td (click)="selectAllPhoto()" style="width: 6%;">Photo Required</td>
+        <td (click)="selectAllBarcode()" style="width: 6%;">Barcode Required</td>
+        <td (click)="selectAllSnapshot()" style="width: 6%;">Snapshot Required</td>
+        <td (click)="selectAllKeepActive()">Keep Active</td>
+        <td (click)="selectAllcreateworkorder()">Create Work Order</td>
+        <td>Room Type</td>
+        <td>Work Order Type *</td>
+      </thead>
+      <tr>
+        <td colspan="18">No Records Found</td>
+      </tr>
+      <tr>
+        <td colspan="4" style="width: 22.51%;">Total Assigned daily minutes</td>
+        <td style="width: 5.5%;">{{totalMonTime| number:'1.2-2'}}</td>
+        <td style="width: 5.45%;">{{totalTuesTime| number:'1.2-2'}}</td>
+        <td style="width: 5.3%;">{{totalWedTime| number:'1.2-2'}}</td>
+        <td style="width: 5.45%;">{{totalThuTime| number:'1.2-2'}}</td>
+        <td style="width: 5.5%;">{{totalFriTime| number:'1.2-2'}}</td>
+        <td style="width: 5.5%;">{{totalSatTime| number:'1.2-2'}}</td>
+        <td style="width: 5.55%;">{{totalSunTime| number:'1.2-2'}}</td>
+        <td colspan="7"></td>
+      </tr>
+    </table>
+  </div>
 </div>

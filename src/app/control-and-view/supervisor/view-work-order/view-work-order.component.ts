@@ -2,7 +2,7 @@ import { Component, OnInit, OnChanges, Directive, HostListener, ElementRef, Inpu
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { workorder } from '../../../model-class/work-order';
 import { WorkOrderServiceService } from '../../../service/work-order-service.service';
-import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { DatepickerOptions } from 'ng2-datepicker';
 import { ConectionSettings } from '../../../service/ConnectionSetting';
 const url = ConectionSettings.Url + '/upload_test';

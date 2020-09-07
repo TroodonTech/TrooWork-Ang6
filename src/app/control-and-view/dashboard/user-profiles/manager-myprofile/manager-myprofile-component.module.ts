@@ -10,7 +10,7 @@ import { CalendarModule } from 'primeng/calendar';
 
 import { ManagerMyprofileComponent } from './manager-myprofile.component';
 import { ManagerDashBoardModule } from '../../../dashboard/user-dashboards/manager-dash-board/manager-dash-board.module';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 const routes: Routes = [
   {
     path: '',
@@ -28,8 +28,9 @@ const routes: Routes = [
     CalendarModule,
     ReactiveFormsModule,
     IgxDatePickerModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FileUploadModule
   ],
-  declarations: [ManagerMyprofileComponent,FileSelectDirective]
+  declarations: [ManagerMyprofileComponent]
 })
 export class ManagerMyprofileComponentModule { }

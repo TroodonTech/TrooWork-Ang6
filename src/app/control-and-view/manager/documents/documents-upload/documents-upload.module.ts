@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -27,9 +27,9 @@ const routes: Routes = [
     MDBBootstrapModule,
     ManagerDashBoardModule,
     FormsModule, ReactiveFormsModule,
-   
+    FileUploadModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DocumentsUploadComponent,FileSelectDirective]
+  declarations: [DocumentsUploadComponent]
 })
 export class DocumentsUploadModule { }

@@ -13,33 +13,43 @@
   </div>
   <br>
   <div style="margin-left: 1.5rem;margin-right: 1.5rem;">
-    <table class="table table-responsive table-hover table-bordered table"
-      *ngIf="cleaningDetails.cleanDate && cleaningDetails.checkout" style="display: inline-table">
-      <tbody>
-        <tr>
-          <td>DATE</td>
-          <td>{{cleaningDetails.cleanDate}}</td>
-        </tr>
-        <tr>
-          <td>TIME</td>
-          <td>{{cleaningDetails.checkout}}</td>
-        </tr>
-        <tr>
+    <div *ngIf="show">
+      <table class="table table-responsive table-hover table-bordered table"
+        *ngIf="cleaningDetails.cleanDate && cleaningDetails.checkout" style="display: inline-table">
+        <tbody>
+          <tr>
+            <td>DATE</td>
+            <td>{{cleaningDetails.cleanDate}}</td>
+          </tr>
+          <tr>
+            <td>TIME</td>
+            <td>{{cleaningDetails.checkout}}</td>
+          </tr>
+          <!-- <tr>
           <td>Done By</td>
           <td>{{cleaningDetails.LastName}},{{cleaningDetails.FirstName}}</td>
-        </tr>
-      </tbody>
-    </table>
+        </tr> -->
+        </tbody>
+      </table>
 
-    <table class="table table-responsive table-hover table-bordered table"
-      *ngIf="!(cleaningDetails.cleanDate) && !(cleaningDetails.checkout)" style="display: inline-table">
-      <tbody>
-        <tr>
-          <td style="text-align: center;"><b>Not Cleaned Yet !!! :( </b></td>
-        </tr>
-      </tbody>
-    </table>
-
+      <table class="table table-responsive table-hover table-bordered table"
+        *ngIf="!(cleaningDetails.cleanDate) && !(cleaningDetails.checkout)" style="display: inline-table">
+        <tbody>
+          <tr>
+            <td style="text-align: center;"><b>Not Cleaned Yet. </b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="!show">
+      <table class="table table-responsive table-hover table-bordered table" style="display: inline-table">
+        <tbody>
+          <tr>
+            <td style="text-align: center;"><b>Not Cleaned Yet. </b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   <br>
 </div>

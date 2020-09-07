@@ -34,12 +34,12 @@
             <td>{{i.FacilityName}}-{{i.RoomId}} </td>
             <td *ngIf="i.InspectionCompletedBy === null && ('' + i.EmployeeKey === toServeremployeekey)"
               style="text-align: center">
-              <a [routerLink]="['Supervsrinspectiontemplate',i.InspectionOrderKey]" class="btn btn-primary" style="width:60%;">Inspect</a>
+              <a [routerLink]="['Supervsrinspectiontemplate',i.InspectionOrderKey]" class="btn btn-primary" style="width:75%;">Inspect</a>
             </td>
             <td *ngIf="i.InspectionCompletedBy !== null" style="text-align: center">
               <!-- <a [routerLink]="['Supervsrinspectiontemplate',i.InspectionOrderKey]" class="btn btn-primary">Inspection
                 Completed </a> -->
-              <a (click)="inspectionDetail(i.InspectionOrderKey)"  style="width:60%;"  class="btn btn-primary">Inspection
+              <a (click)="inspectionDetail(i.InspectionOrderKey)"  style="width:75%;"  class="btn btn-primary">Inspection
                 Completed </a>
             </td>
             <td style="text-align: center"> <a href="Inspection-Upload/{{i.ImageName}}" target="_self" onclick="window.open(this.href, 'popup', 'width=600,height=600,scrollbars=no,resizable=no');

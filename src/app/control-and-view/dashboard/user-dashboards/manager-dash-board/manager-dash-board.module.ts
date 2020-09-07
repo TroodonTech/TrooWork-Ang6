@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ManagerDashBoardComponent } from './manager-dash-board.component';
 
-import { WorkorderCancelReportModule } from "../../../manager/reports/workorder-cancel-report/workorder-cancel-report.module";
+import { ExpiredAssignmentsDetailsModule } from "../../../dashboard/manager-dashboard-pages/expired-assignments-details/expired-assignments-details.module";
+
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 const routes: Routes = [
@@ -719,15 +720,22 @@ const routes: Routes = [
 
       },
       {
+        path: 'picklistReport',
+        outlet: 'ManagerOut',
+        loadChildren: '../../../manager/reports/picklist-report/picklist-report.module#PicklistReportModule'
+
+      },
+      {
         path: 'inspectionDetailReport',
         outlet: 'ManagerOut',
         loadChildren: '../../../manager/reports/inspection-detailed-report/inspection-detailed-report.module#InspectionDetailedReportModule'
       },
       {
-        path: 'workordercancelReport',
+        path: 'GenerateQRCode/CleaningQRCodeView/:RoomKey',
         outlet: 'ManagerOut',
-        loadChildren: '../../../manager/reports/workorder-cancel-report/workorder-cancel-report.module#WorkorderCancelReportModule'
+        loadChildren: '../../../manager/inventory/cleaning-qr-code-view/cleaning-qr-code-view.module#CleaningQrCodeViewModule'
       },
+
       {
         path: 'welcomePage/expiryNearDetails',
         outlet: 'ManagerOut',
@@ -737,16 +745,6 @@ const routes: Routes = [
         path: 'welcomePage/expiredDetails',
         outlet: 'ManagerOut',
         loadChildren: '../../../dashboard/manager-dashboard-pages/expired-assignments-details/expired-assignments-details.module#ExpiredAssignmentsDetailsModule'
-      },
-      {
-        path: 'picklistReport',
-        outlet: 'ManagerOut',
-        loadChildren: '../../../manager/reports/picklist-report/picklist-report.module#PicklistReportModule'
-      },
-      {
-        path: 'GenerateQRCode/CleaningQRCodeView/:RoomKey',
-        outlet: 'ManagerOut',
-        loadChildren: '../../../manager/inventory/cleaning-qr-code-view/cleaning-qr-code-view.module#CleaningQrCodeViewModule'
       },
     ]
   }

@@ -410,10 +410,10 @@ export class ReportServiceService {
       .http
       .post(url, obj);
   }
+
   getInspectionPickListReportDetails(from, to, template, Employee, orgID) {
     return this
       .http
       .get(ConectionSettings.Url + '/getInspectionPickListReportDetails?from=' + from + '&to=' + to + '&template=' + template + '&employeeKey=' + Employee + '&orgID=' + orgID);
   }
-
 }

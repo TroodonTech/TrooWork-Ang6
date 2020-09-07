@@ -515,6 +515,13 @@ export class SchedulingService {
       .http
       .get(ConectionSettings.Url + '/getItemCountsForDeleting?orgID=' + orgID + '&curDate=' + curDate);
   }
+
+  rowFiltering(searchtext, eventsOnly, range, todaydate, orgID) {
+    return this
+      .http
+      .get(ConectionSettings.Url + '/employeesrowFiltering?groupID=Manager' + '&searchtext=' + searchtext + '&eventsOnly=' + eventsOnly
+        + '&range=' + range + '&todaydate=' + todaydate + '&OrganizationID=' + orgID);
+  }
   // @Author:Rodney ends
 
   // @Author:Prakash code starts here
@@ -534,10 +541,5 @@ export class SchedulingService {
       .get(ConectionSettings.Url + '/getCountForAssignmentManualcreatecheck?orgID=' + orgID + '&curDate=' + curDate);
   }
   // @Author:Prakash code ends here
-  rowFiltering(searchtext, eventsOnly, range, todaydate, orgID) {
-    return this
-      .http
-      .get(ConectionSettings.Url + '/employeesrowFiltering?groupID=Manager' + '&searchtext=' + searchtext + '&eventsOnly=' + eventsOnly
-        + '&range=' + range + '&todaydate=' + todaydate + '&OrganizationID=' + orgID);
-  }
+
 }

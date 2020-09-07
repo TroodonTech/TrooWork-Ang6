@@ -60,7 +60,8 @@ export class SuperadminWelcomeComponent implements OnInit {
         this.updateList = data;
       });
     this.loginService.getMaintenanceUpdateMsg(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
-      this.Message = data[0].Message;
+      if (data.length > 0)
+        this.Message = data[0].Message;
     });
 
     this.loginService.getVersionDetails().subscribe((data: any[]) => {

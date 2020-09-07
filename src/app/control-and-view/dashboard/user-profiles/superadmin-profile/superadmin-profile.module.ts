@@ -10,7 +10,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { BrowserModule } from '@angular/platform-browser'
 import { SuperadminProfileComponent } from './superadmin-profile.component';
 import { ManagerDashBoardModule } from '../../../dashboard/user-dashboards/manager-dash-board/manager-dash-board.module';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 const routes: Routes = [
   {
     path: '',
@@ -27,9 +27,9 @@ const routes: Routes = [
     ManagerDashBoardModule,
     FormsModule, ReactiveFormsModule,
     IgxDatePickerModule,
-    
+    FileUploadModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SuperadminProfileComponent,FileSelectDirective]
+  declarations: [SuperadminProfileComponent]
 })
 export class SuperadminProfileModule { }

@@ -46,10 +46,10 @@
         <tr *ngFor="let v of viewFolderDescriptionTable">
           <td>{{v.FileName}}</td>
           <td>{{v.FormDesc}}</td>
-          <td><a target="_self" href="./uploads/{{v.FileName}}" download="{{v.FileName}}"><button type="button" mdbBtn
-                color="primary" class="relative waves-light" (click)="downloadFile()" mdbWavesEffect><i class="fa fa-file-pdf-o"></i>
+          <td><a target="_self" href="uploads/{{v.FileName}}" download="{{v.FileName}}"><button type="button" mdbBtn
+                color="primary" class="relative waves-light" mdbWavesEffect><i class="fa fa-file-pdf-o"></i>
                 <b> DOWNLOAD</b></button></a></td>
-          <td> <a href="./uploads/{{v.FileName}}" target="_self" onclick="window.open(this.href, 'popup', 'width=600,height=600,scrollbars=no,resizable=no');
+          <td> <a href="uploads/{{v.FileName}}" target="_self" onclick="window.open(this.href, 'popup', 'width=600,height=600,scrollbars=no,resizable=no');
             return false;"><button
                 type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect><b>VIEW</b></button></a></td>
         </tr>

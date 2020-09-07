@@ -35,12 +35,13 @@ import { QrCodeViewComponent } from './qr-code-view/qr-code-view.component';
 import { QrCodeViewFeedbackComponent } from './qr-code-view-feedback/qr-code-view-feedback.component';
 import { GenerateQrCodeListComponent } from './generate-qr-code-list/generate-qr-code-list.component';
 import { QrCodeViewListComponent } from './qr-code-view-list/qr-code-view-list.component';
+import { CleaningQrCodeViewComponent } from './cleaning-qr-code-view/cleaning-qr-code-view.component';
 
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [DepartmentCreateComponent, DepartmentViewComponent, DepartmentEditComponent, EquipmentCreateComponent, EquipmentEditComponent, EquipmentViewComponent, EquipmentTypeCreateComponent, EquipmentTypeEditComponent, EquipmentTypeViewComponent, RoomViewComponent, RoomTypeViewComponent, RoomTypeCreateComponent, RoomTypeUpdateComponent, FloorTypeViewComponent, FloorTypeCreateComponent, FloorTypeEDitComponent, RoomCreateComponent, RoomEditComponent, GenerateQrCodeComponent, QrCodeViewComponent, QrCodeViewFeedbackComponent, GenerateQrCodeListComponent, QrCodeViewListComponent]
+  declarations: [DepartmentCreateComponent, DepartmentViewComponent, DepartmentEditComponent, EquipmentCreateComponent, EquipmentEditComponent, EquipmentViewComponent, EquipmentTypeCreateComponent, EquipmentTypeEditComponent, EquipmentTypeViewComponent, RoomViewComponent, RoomTypeViewComponent, RoomTypeCreateComponent, RoomTypeUpdateComponent, FloorTypeViewComponent, FloorTypeCreateComponent, FloorTypeEDitComponent, RoomCreateComponent, RoomEditComponent, GenerateQrCodeComponent, QrCodeViewComponent, QrCodeViewFeedbackComponent, GenerateQrCodeListComponent, QrCodeViewListComponent, CleaningQrCodeViewComponent]
 })
 export class InventoryModule { }

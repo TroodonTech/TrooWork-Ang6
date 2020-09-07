@@ -59,10 +59,11 @@ export class AdminWelcomeComponent implements OnInit {
         this.updateList = data;
       });
 
-      this.loginService.getMaintenanceUpdateMsg(this.employeekey, this.OrganizationID).subscribe((data: any[])=> {
-        
-          this.Message = data[0].Message;
-      });
+    this.loginService.getMaintenanceUpdateMsg(this.employeekey, this.OrganizationID).subscribe((data: any[]) => {
+
+      if (data.length > 0)
+        this.Message = data[0].Message;
+    });
 
   }
 }

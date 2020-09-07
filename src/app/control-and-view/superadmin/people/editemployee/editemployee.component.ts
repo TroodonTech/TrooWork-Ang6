@@ -312,25 +312,50 @@ export class EditemployeeComponent implements OnInit {
     this.employeekey = profile.employeekey;
     this.OrganizationID = profile.OrganizationID;
     this.PeopleServiceService.EditEmployeeDetailsbySuperadmin(this.empk$, this.OrganizationID).subscribe((data: Array<any>) => {
-      this.editempdtailsbysa = data[0];
-      this.BirthDate = new Date(this.editempdtailsbysa.BirthDate);
-      this.HireDate = new Date(this.editempdtailsbysa.HireDate);
-      this.useroletype = this.editempdtailsbysa.UserRoleName;
-      if (this.useroletype == "Employee") {
-        this.showManager = true;
-        this.supermark = true;
+      if (data.length > 0) {
+        this.editempdtailsbysa = data[0];
+        this.BirthDate = new Date(this.editempdtailsbysa.BirthDate);
+        this.HireDate = new Date(this.editempdtailsbysa.HireDate);
+        this.useroletype = this.editempdtailsbysa.UserRoleName;
+        if (this.useroletype == "Employee") {
+          this.showManager = true;
+          this.supermark = true;
+          this.PeopleServiceService
+            .getManagerForEmployeeForSuperAdmin(this.editempdtailsbysa.OrganizationID)
+            .subscribe((data: People[]) => {
+              this.manager = data;
+            });
+          this.PeopleServiceService
+            .getSuperVisor(this.employeekey, this.editempdtailsbysa.OrganizationID)
+            .subscribe((data: People[]) => {
+              this.supervisor = data;
+            });
+        } else if (this.useroletype == "Supervisor") {
+          this.showManager = true;
+          this.PeopleServiceService
+            .getManagerForEmployeeForSuperAdmin(this.editempdtailsbysa.OrganizationID)
+            .subscribe((data: People[]) => {
+
+              this.manager = data;
+            });
+        }
+        if (this.editempdtailsbysa.EmployeeStatusKey != 1 && this.editempdtailsbysa.EmployeeStatusKey != "") {
+          this.statusFlag = true;
+          this.remark = this.editempdtailsbysa.Remark;
+        }
+
         this.PeopleServiceService
-          .getManagerForEmployeeForSuperAdmin(this.editempdtailsbysa.OrganizationID)
+          .getDepartmentforddinSuperadmin(this.employeekey, this.editempdtailsbysa.OrganizationID)
           .subscribe((data: People[]) => {
-            this.manager = data;
+
+            this.department = data;
           });
         this.PeopleServiceService
-          .getSuperVisor(this.employeekey, this.editempdtailsbysa.OrganizationID)
+          .getjobTitleforDropdowninSuperadmin(this.editempdtailsbysa.OrganizationID)
           .subscribe((data: People[]) => {
-            this.supervisor = data;
+
+            this.jobtitle = data;
           });
-      } else if (this.useroletype == "Supervisor") {
-        this.showManager = true;
         this.PeopleServiceService
           .getManagerForEmployeeForSuperAdmin(this.editempdtailsbysa.OrganizationID)
           .subscribe((data: People[]) => {
@@ -338,29 +363,6 @@ export class EditemployeeComponent implements OnInit {
             this.manager = data;
           });
       }
-      if (this.editempdtailsbysa.EmployeeStatusKey != 1 && this.editempdtailsbysa.EmployeeStatusKey != "") {
-        this.statusFlag = true;
-        this.remark = this.editempdtailsbysa.Remark;
-      }
-
-      this.PeopleServiceService
-        .getDepartmentforddinSuperadmin(this.employeekey, this.editempdtailsbysa.OrganizationID)
-        .subscribe((data: People[]) => {
-
-          this.department = data;
-        });
-      this.PeopleServiceService
-        .getjobTitleforDropdowninSuperadmin(this.editempdtailsbysa.OrganizationID)
-        .subscribe((data: People[]) => {
-
-          this.jobtitle = data;
-        });
-      this.PeopleServiceService
-        .getManagerForEmployeeForSuperAdmin(this.editempdtailsbysa.OrganizationID)
-        .subscribe((data: People[]) => {
-
-          this.manager = data;
-        });
     });
 
     this.PeopleServiceService
