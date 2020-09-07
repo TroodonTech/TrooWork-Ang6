@@ -9,7 +9,6 @@ import { NgDatepickerModule } from 'ng2-datepicker';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { InventoryReportComponent } from './inventory-report.component';
 import { ManagerDashBoardModule } from '../../../dashboard/user-dashboards/manager-dash-board/manager-dash-board.module';
-import { ChartsModule } from 'ng2-charts';
 const routes: Routes = [
   {
     path: '',
@@ -28,8 +27,7 @@ const routes: Routes = [
     IgxDatePickerModule,
     NgDatepickerModule,
     NgMultiSelectDropDownModule.forRoot(),
-    RouterModule.forChild(routes),
-    ChartsModule
+    RouterModule.forChild(routes)
   ],
   declarations: [InventoryReportComponent]
 })

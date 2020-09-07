@@ -8,7 +8,7 @@ import { IgxDatePickerModule } from 'igniteui-angular';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { PicklistReportComponent } from './picklist-report.component';
-import { ChartsModule } from 'ng2-charts';
+
 const routes: Routes = [
   {
     path: '',
@@ -26,8 +26,7 @@ const routes: Routes = [
     IgxDatePickerModule,
     NgDatepickerModule,
     NgMultiSelectDropDownModule.forRoot(),
-    RouterModule.forChild(routes),
-    ChartsModule
+    RouterModule.forChild(routes)
   ],
   declarations: [PicklistReportComponent]
 })
