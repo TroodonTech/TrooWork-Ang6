@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { UserWorkRequestComponent } from './user-work-request/user-work-request.component';
 import { ThankyouPageComponent } from './thankyou-page/thankyou-page.component';
+import { CleaningDetailsComponent } from './cleaning-details/cleaning-details.component';
 
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [ReviewsComponent, UserWorkRequestComponent, ThankyouPageComponent]
+  declarations: [ReviewsComponent, UserWorkRequestComponent, ThankyouPageComponent, CleaningDetailsComponent]
 })
 export class ControlAndViewModule { }

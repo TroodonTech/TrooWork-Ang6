@@ -15,6 +15,7 @@ import { InspectionAuditReportComponent } from './inspection-audit-report/inspec
 import { ViewRemainingWorkordersDetailsComponent } from './view-remaining-workorders-details/view-remaining-workorders-details.component'
 import { InspectionDetailedReportComponent } from './inspection-detailed-report/inspection-detailed-report.component';
 import { WorkorderCancelReportComponent } from './workorder-cancel-report/workorder-cancel-report.component'
+import { PicklistReportComponent } from './picklist-report/picklist-report.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { WorkorderCancelReportComponent } from './workorder-cancel-report/workor
     DashboardReportComponent, WorkorderReportComponent, BatchWorkOrderReportComponent,
     BatchScheduleAssignmentReportComponent, EmployeesDowntimeReportComponent, InventoryReportComponent, 
     SchedulerReportComponent, ReviewReportComponent, WorkorderInProgressReportComponent, 
-    InspectionAuditReportComponent, ViewRemainingWorkordersDetailsComponent,InspectionDetailedReportComponent, WorkorderCancelReportComponent]
+    InspectionAuditReportComponent, ViewRemainingWorkordersDetailsComponent,InspectionDetailedReportComponent, WorkorderCancelReportComponent,
+    PicklistReportComponent]
 })
 export class ReportsModule { }

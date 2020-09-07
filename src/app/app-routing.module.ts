@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ThankyouPageModule } from './control-and-view/thankyou-page/thankyou-page.module';
+import { CleaningDetailsModule } from './control-and-view/cleaning-details/cleaning-details.module';
 
 const routes: Routes = [
 
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'UserWorkRequest/:Facility_Key/:Floor_Key/:Zone_Key/:RoomType_Key/:rev_orgid/:room_key',// user request page
     loadChildren: './control-and-view/user-work-request/user-work-request.module#UserWorkRequestModule' 
+  },
+  {
+    path: 'CleaningDetails/:Facility_Key/:Floor_Key/:Zone_Key/:RoomType_Key/:rev_orgid/:room_key',// cleaning details page
+    loadChildren: './control-and-view/cleaning-details/cleaning-details.module#CleaningDetailsModule'
   },
 ];
 
