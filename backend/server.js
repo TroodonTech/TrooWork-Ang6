@@ -15635,7 +15635,7 @@ app.post(securedpath + '/getprofileimgapi', function (req, res) {
 
     var employeeKey = req.body.empid;
     var OrganisationId = req.body.orgid;
-    var imgid = req.body.imgid;
+    var imgid = 1;
     //var mDate = req.body.maintdate;
 
     pool.getConnection(function (err, connection) {
@@ -19350,7 +19350,7 @@ app.get(securedpath + '/employeesForScheduler_SuType', function (req, res) {
 
                     if (OrganizationID == 103) {
                         for (var j = 0; j <= arr; j++) {// inserting array value to scheduler tree list
-                            resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": true, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
+                            resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": false, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
 
                         }
                     } else {
@@ -21556,7 +21556,7 @@ app.get(securedpath + '/employeesrowFiltering', function (req, res) {
                     if (tempArr.length > 0) {
                         if (OrganizationID == 103) {
                             for (var j = 0; j <= arr; j++) {// inserting array value to scheduler tree list
-                                resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": true, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
+                                resources.push({ name: tempArr[j][0].Description, id: tempArr[j][0].Idemployeegrouping, "expanded": false, children: tempArr[j], IsShift: 1, backColor: tempArr[j][0].backColor });
 
                             }
                         } else {

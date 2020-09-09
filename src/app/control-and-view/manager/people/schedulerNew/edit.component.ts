@@ -27,7 +27,7 @@ import { ActivatedRoute, Router } from "@angular/router";
               </div>
          
               <label style="margin-top: 21%;">Date*</label>
-              <ng-datepicker [options]="options" position="top-right" [(ngModel)]="DateEdit" (ngModelChange)="selecteddate()"></ng-datepicker><br><br>
+              <ng-datepicker [options]="options" position="top-right" [(ngModel)]="DateEdit"></ng-datepicker><br><br>
           </div>
       </div>
       <button (click)='submitEdit()'>Submit</button>
@@ -132,20 +132,21 @@ export class EditComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
   };
   show(ev: DayPilot.Event) {
+    console.log(ev.data);
     return new Promise((resolve) => {
       this.event = ev;
       this.form.setValue({
-        start: ev.start().toString(this.dateFormat),
-        end: ev.end().toString(this.dateFormat),
+        start: ev.start(),
+        end: ev.end(),
         name: ev.text(),
         resource: ev.resource(),
 
       });
       // var currDate=new Date();
-      this.AssignIDForDelete = ev.data.Assignment_CalenderID
+      this.AssignIDForDelete = ev.data.Assignment_CalenderID;
       this.BatchScheduleNameKeyEdit = ev.data.ScheduleNameKey;
       this.ScheduleNameEdit = ev.data.ScheduleName;
-      this.DateEdit = this.convert_DT(ev.data.start);
+      this.DateEdit = ev.data.start;
       this.scheduleOldKey = ev.data.ScheduleNameKey;
       // if(this.DateEdit < this.convert_DT(currDate)){
       //   alert("Please check date !");
@@ -161,7 +162,7 @@ export class EditComponent implements OnInit {
   submitEdit() {
     // var currDate=new Date();
     // let data = this.form.getRawValue();
-    var date = this.convert_DT(this.DateEdit)
+    var date = this.convert_DT(this.DateEdit);
     if (!(this.BatchScheduleNameKeyEdit)) {
       alert("Please provide Assignment Name !");
       return;
@@ -172,10 +173,9 @@ export class EditComponent implements OnInit {
     // }
     // modify the original object from [events] which is stored in event.data
 
-
     let obj = {
       resourceEmployee: this.event.data.resource,
-      start: this.convert_DT(this.event.data.start),
+      start: date,
       ScheduleNameKey: this.BatchScheduleNameKeyEdit,
       MetaEmp: this.employeekey,
       OrganizationID: this.OrganizationID,
@@ -222,10 +222,10 @@ export class EditComponent implements OnInit {
     // this.ds.updateEvent(this.event).subscribe(result => {
     //   this.modal.hide(result);
     // });
-    this.event.data.start = date
-    this.event.data.end = date
-    this.event.data.resource
-    this.event.data.text = this.ScheduleNameEdit
+    this.event.data.start = date;
+    this.event.data.end = date;
+    this.event.data.resource;
+    this.event.data.text = this.ScheduleNameEdit;
     this.event.data.ScheduleName = this.ScheduleNameEdit;
     this.event.data.ScheduleNameKey = this.BatchScheduleNameKeyEdit;
   }
