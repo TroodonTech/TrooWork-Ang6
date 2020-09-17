@@ -27,7 +27,7 @@ import { ActivatedRoute, Router } from "@angular/router";
               </div>
          
               <label style="margin-top: 21%;">Date*</label>
-              <ng-datepicker [options]="options" position="top-right" [(ngModel)]="DateEdit" (ngModelChange)="alertme()"></ng-datepicker><br><br>
+              <ng-datepicker [options]="options" position="top-right" [(ngModel)]="DateEdit" (ngModelChange)="dateChangeNeeded()"></ng-datepicker><br><br>
           </div>
       </div>
       <button (click)='submitEdit()'>Submit</button>
@@ -160,9 +160,9 @@ export class EditComponent implements OnInit {
     });
   }
 
-  alertme() {
+  dateChangeNeeded() {
     this.DateEdit = this.convert_DT(this.DateEdit);
-    console.log("alertme... " + this.DateEdit);
+    console.log("dateChangeNeeded... " + this.DateEdit);
   }
   
   submitEdit() {

@@ -169,7 +169,7 @@ export class ManagerinspectiontemplateComponent implements OnInit {
       this.val = data;
       this.inspectionAssignEmp = this.viewEmpInspectionDetails[0].employeeID;
       if (this.viewEmpInspectionDetails[0].ScoreName === 'Yes/No') {
-        this.names = ['Yes', 'No'];
+        this.names = ['Yes', 'No', 'N/A'];
         this.ScoreName = this.viewEmpInspectionDetails[0].ScoreName;
       }
       else if (this.viewEmpInspectionDetails[0].ScoreName === 'Pass/Fail') {
