@@ -21603,6 +21603,41 @@ app.get(securedpath + '/getSupervisorInspectionView_WEB', function (req, res) {
 
 });
 //Rodney Code change Ends here
+//
+app.options('/mobsaveinspectedQuestions', supportCrossOriginScript);
+app.post(securedpath + '/mobsaveinspectedQuestions', supportCrossOriginScript, function (req, res) {
+    var inspectionnotes = req.body.inspectionnotes;
+    var templateQstnValues = req.body.templateQstnValues;
+    var templateid = req.body.templateid;
+    var inspectionkey = req.body.inspectionkey;
+    var questionid = req.body.questionid;
+    var metaupdatedby = req.body.employeekey;
+    var OrganizationID = req.body.OrganizationID;
+
+    var ObservationDeficiency = req.body.ObservationDeficiency;
+    var CorrectiveAction = req.body.CorrectiveAction;
+    var CompletedDate = req.body.CompletedDate;
+
+    pool.getConnection(function (err, connection) {
+        if (err) {
+
+            console.log("Failed! Connection with Database spicnspan via connection pool failed");
+        }
+        else {
+            console.log("Success! Connection with Database spicnspan via connection pool succeeded");
+            connection.query('set @inspectionnotes=?; set @templateQstnValues=?; set @templateid=?; set @inspectionkey=?; set @questionid=?; set @metaupdatedby=?; set @OrganizationID=?; set @ObservationDeficiency=?; set @CorrectiveAction=?; set @CompletedDate=?;call usp_mob_saveInspectedValues(@inspectionnotes,@templateQstnValues,@templateid,@inspectionkey,@questionid,@metaupdatedby,@OrganizationID,@ObservationDeficiency,@CorrectiveAction,@CompletedDate)', [inspectionnotes, templateQstnValues, templateid, inspectionkey, questionid, metaupdatedby, OrganizationID, ObservationDeficiency, CorrectiveAction, CompletedDate], function (err, rows) {
+                if (err) {
+                    console.log("Problem with MySQL" + err);
+                }
+                else {
+                    res.end(JSON.stringify(rows[10]));
+                }
+            });
+        }
+        connection.release();
+    });
+});
+//
 //handle generic exceptions
 //catch all other resource routes that are not defined above
 app.get(securedpath + '/*', function (req, res) {
