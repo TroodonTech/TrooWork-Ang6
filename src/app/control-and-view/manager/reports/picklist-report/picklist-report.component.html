@@ -78,7 +78,7 @@
           <td>{{x.AssignedEmployee}}</td>
         </tr>
         <tr *ngIf="viewinspectionReport?.length == 0">
-          <td colspan="6" class="no-data-available">No records found</td>
+          <td colspan="8" class="no-data-available">No records found</td>
         </tr>
       </tbody>
     </table>
@@ -93,7 +93,9 @@
         <th> Template Name </th>
         <th> Question </th>
         <th> Value</th>
-        <th> Location </th>
+        <th> Facility </th>
+        <th> Floor </th>
+        <th> Zone </th>
         <th> Room </th>
         <th> Inspection Date</th>
         <th> Auditor </th>
@@ -104,17 +106,16 @@
           <td>{{x.TemplateName}}</td>
           <td>{{x.Question}}</td>
           <td>{{x.Value}}</td>
-          <td>
-            <span style="color: red">{{x.FacilityName}}</span> - <span style="color: blue">{{x.FloorName}}</span> -
-            <span style="color: black">{{x.ZoneName}}</span>
-          </td>
-          <td>{{x. RoomId}} </td>
+          <td>{{x.FacilityName}}</td>
+          <td>{{x.FloorName}}</td>
+          <td>{{x.ZoneName}}</td>
+          <td>{{x.RoomId}} </td>
           <td>{{x.InspectionDate}}</td>
           <td>{{x.Auditor}}</td>
           <td>{{x.AssignedEmployee}}</td>
         </tr>
         <tr *ngIf="viewinspectionReport?.length == 0">
-          <td colspan="6" class="no-data-available">No records found</td>
+          <td colspan="10" class="no-data-available">No records found</td>
         </tr>
       </tbody>
     </table>
